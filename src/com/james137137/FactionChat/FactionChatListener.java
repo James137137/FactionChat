@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.james137137.FactionChat;
 
 import java.util.logging.Level;

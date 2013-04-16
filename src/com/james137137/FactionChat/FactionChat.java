@@ -1,6 +1,6 @@
 /*
  * Created by James137137: James Anderson andersonjames5@hotmail.com
- * version 1.26
+ * version 1.293
  */
 package com.james137137.FactionChat;
 
@@ -27,7 +27,7 @@ public class FactionChat extends JavaPlugin {
     public static boolean spyModeOnByDefault = true;
     
     
-    //messages
+    //messages for Chat colour. Theses are customiziable in conf file.
     public static String messageNotInFaction;
     public static String messageIncorectChatModeSwitch;
     public static String messageSpyModeOn;
@@ -48,8 +48,13 @@ public class FactionChat extends JavaPlugin {
             metrics.start();
         } catch (IOException e) {
             // Failed to submit the stats :-(
+            log.info("[FactionChat] Metrics: Failed to submit the stats");
         }
-        ChatChannel = new ChatChannel();
+        
+        ChatChannel = new ChatChannel(); // insures that ChatChannel Class has been defined
+        
+        
+        // Start of Configuration
 
         FileConfiguration config = getConfig();
 
@@ -75,10 +80,13 @@ public class FactionChat extends JavaPlugin {
         /*
          *  Italian, Latin,Spanish,Russian, Chinese, Korean, Portuguese, Japanese 
          */
+        
+        //begining of Translations
         config.addDefault("message.english.NotInFaction","You are not member of any faction");
         config.addDefault("message.english.IncorectChatModeSwitch","Error: please use /fc to switch chat mode or");
         config.addDefault("message.english.SpyModeOn","Spy mode is now on");
         config.addDefault("message.english.SpyModeOff","Spy mode is now off");
+        //this was added due to a spelling error.
         if (config.getString("message.english.NewChatMode")!=null && config.getString("message.english.NewChatMode").equals("You chat mode has been changed to: "))
         {
             config.set("message.english.NewChatMode","Your chat mode has been changed to: ");
@@ -120,17 +128,19 @@ public class FactionChat extends JavaPlugin {
         config.options().copyDefaults(true);
         saveConfig();
         
-        if (config.getBoolean("AutoUpdate"))
+        //end of Configuration
+        
+        if (config.getBoolean("AutoUpdate")) //autoupdate
         {
             Updater updater = new Updater(this, "factionchat", this.getFile(), Updater.UpdateType.DEFAULT, false);
         }
 
 
 
-        getServer().getPluginManager().registerEvents(new FactionChatListener(this), this);
+        getServer().getPluginManager().registerEvents(new FactionChatListener(this), this); //FactionChat's Listener
         ChatMode.initialize();
-        String version = Bukkit.getServer().getPluginManager().getPlugin("FactionChat").getDescription().getVersion();
-        log.log(Level.INFO, "FactionChat:Version {0} enabled", version);
+        String version = Bukkit.getServer().getPluginManager().getPlugin(this.getName()).getDescription().getVersion();
+        log.log(Level.INFO, "{0}: Version: {1} Enabled.", new Object[]{this.getName(), version});
         reload(config);
         // Updater updater = new Updater(this, "factionchat", this.getFile(), Updater.UpdateType.DEFAULT, false); //do not uncomment until added a config file
         // see PM message
@@ -139,8 +149,9 @@ public class FactionChat extends JavaPlugin {
 
     }
 
+    @Override
     public void onDisable() {
-        log.info("FactionChat: disabled");
+        log.log(Level.INFO, "{0}: disabled", this.getName());
     }
 
     public void reload(FileConfiguration config) {
@@ -173,7 +184,6 @@ public class FactionChat extends JavaPlugin {
     @Override
     public boolean onCommand(CommandSender sender, Command command, String commandLabel, String[] args) {
         String commandName = command.getName().toLowerCase();
-        String[] trimmedArgs = args;
         if (commandName.equalsIgnoreCase("fc") || commandName.equalsIgnoreCase("fchat")) {
             CommandFC(sender, args);
             return true;
