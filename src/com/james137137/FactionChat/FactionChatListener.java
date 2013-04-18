@@ -31,7 +31,7 @@ public class FactionChatListener implements Listener{
         ChatMode.SetNewChatMode(player);
     }
     
-    @EventHandler(priority = EventPriority.LOW)
+    @EventHandler
     public void onPlayerChat(AsyncPlayerChatEvent event) {
         
       if (event.isCancelled()) {
