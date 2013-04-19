@@ -1,7 +1,7 @@
 name: FactionChat
 softdepend: [Factions]
 main: com.james137137.FactionChat.FactionChat
-version: 1.294
+version: 1.3
 authors: [James Anderson]
 commands:
   fchat:
@@ -19,7 +19,6 @@ permissions:
     children:
       FactionChat.spy: true
       FactionChat.AdminChat: true
-      FactionChat.ModChat: true
       FactionChat.Update: true
       FactionChat.OtherChat: true
       FactionChat.EnemyChat: true

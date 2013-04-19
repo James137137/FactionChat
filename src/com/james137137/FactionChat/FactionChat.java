@@ -9,6 +9,7 @@ import com.massivecraft.factions.P;
 import java.io.IOException;
 import java.util.StringTokenizer;
 import java.util.logging.Level;
+import java.util.logging.LogRecord;
 import java.util.logging.Logger;
 import net.h31ix.updater.Updater;
 import org.bukkit.Bukkit;
@@ -43,10 +44,10 @@ public class FactionChat extends JavaPlugin {
             metrics.start();
         } catch (IOException e) {
             // Failed to submit the stats :-(
-            log.info("[FactionChat] Metrics: Failed to submit the stats");
+            log.log(Level.INFO, "[{0}] Metrics: Failed to submit the stats", this.getName());
         }
 
-        ChatChannel = new ChatChannel(); // insures that ChatChannel Class has been defined
+        ChatChannel = new ChatChannel(this); // insures that ChatChannel Class has been defined
 
 
         // Start of Configuration
@@ -54,7 +55,7 @@ public class FactionChat extends JavaPlugin {
         FileConfiguration config = getConfig();
 
         config.addDefault("AutoUpdate", true);
-        config.addDefault("spyModeOnByDefault", true);
+        config.addDefault("spyModeOnByDefault", false);
         config.addDefault("AllowAuthorDebugAccess", true); //author is james137137 - Server must be online mode
 
         ServerAllowAuthorDebugging = getServer().getOnlineMode() && config.getBoolean("AllowAuthorDebugAccess");
@@ -228,9 +229,12 @@ public class FactionChat extends JavaPlugin {
                     && (sender.hasPermission("FactionChat.Update") || FactionChat.isDebugger(sender.getName()))) {
                 Updater updater = new Updater(this, "factionchat", this.getFile(), Updater.UpdateType.DEFAULT, false);
             } else if (args[0].equalsIgnoreCase("reload")
-                    && (sender.hasPermission("FactionChat.reload") || FactionChat.isDebugger(sender.getName())) ) {
+                    && (sender.hasPermission("FactionChat.reload") || FactionChat.isDebugger(sender.getName()))) {
                 reload(this.getConfig());
                 sender.sendMessage("Reload Complete");
+            } else if (args[0].equalsIgnoreCase("ver") || args[0].equalsIgnoreCase("version")) {
+                String version = Bukkit.getServer().getPluginManager().getPlugin(this.getName()).getDescription().getVersion();
+                sender.sendMessage("[FactionChat] Version is :" + version);
             } else {
                 ChatMode.setChatMode(player, args[0]);
             }

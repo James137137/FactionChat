@@ -13,81 +13,66 @@ import org.bukkit.event.player.PlayerJoinEvent;
  *
  * @author James
  */
-public class FactionChatListener implements Listener{
-    
+public class FactionChatListener implements Listener {
+
     private FactionChat FactionChat;
     static final Logger log = Logger.getLogger("Minecraft");
-    
-    public FactionChatListener(FactionChat FactionChat)
-    {
+
+    public FactionChatListener(FactionChat FactionChat) {
         this.FactionChat = FactionChat;
     }
-
-    
 
     @EventHandler
     public void onPlayerJoin(PlayerJoinEvent event) {
         Player player = event.getPlayer();
         ChatMode.SetNewChatMode(player);
     }
-    
-    @EventHandler
+
+    @EventHandler(priority = EventPriority.HIGH)
     public void onPlayerChat(AsyncPlayerChatEvent event) {
-        
-      if (event.isCancelled()) {
+
+        if (event.isCancelled()) {
             return;
         }
-      
-       
-      
-      ChatChannel channel = new ChatChannel();
-      Player talkingPlayer = event.getPlayer();
-      String msg = event.getMessage();
-      //FPlayer me = (FPlayer)FPlayers.i.get(talkingPlayer);
-      String chatmode = ChatMode.getChatMode(talkingPlayer);
-      if (!chatmode.equalsIgnoreCase("PUBLIC"))
-      {
-                  if (chatmode.equalsIgnoreCase("ALLY"))
-                  {
-                      channel.fchata(talkingPlayer, msg);
-                      event.setCancelled(true);
-                      
-                  } else if (chatmode.equalsIgnoreCase("ENEMY"))
-                  {
-                      channel.fchatE(talkingPlayer, msg);
-                      event.setCancelled(true);
-                  } else if (chatmode.equalsIgnoreCase("FACTION"))
-                  {
-                      channel.fchat(talkingPlayer, msg);
-                      event.setCancelled(true);
-                  } else if (chatmode.equalsIgnoreCase("JrMOD"))
-                  {
-                      channel.jrModChat(talkingPlayer, msg);
-                      event.setCancelled(true);
-                  } else if (chatmode.equalsIgnoreCase("MOD"))
-                  {
-                      channel.modChat(talkingPlayer, msg);
-                      event.setCancelled(true);
-                  } else if (chatmode.equalsIgnoreCase("SrMOD"))
-                  {
-                      channel.SrModChat(talkingPlayer, msg);
-                      event.setCancelled(true);
-                  } else if (chatmode.equalsIgnoreCase("JrAdmin"))
-                  {
-                      channel.JrAdminChat(talkingPlayer, msg);
-                      event.setCancelled(true);
-                  } else if (chatmode.equalsIgnoreCase("ADMIN"))
-                  {
-                      channel.adminChat(talkingPlayer, msg);
-                      event.setCancelled(true);
-                  }
-                  
-                  log.log(Level.INFO, "[FactionChat] {0}|{1}: {2}", new Object[]{chatmode, talkingPlayer.getName(), msg});
-              }
-              
 
-  }
-    
-    
-    
+
+
+        ChatChannel channel = new ChatChannel(FactionChat);
+        Player talkingPlayer = event.getPlayer();
+        String msg = event.getMessage();
+        //FPlayer me = (FPlayer)FPlayers.i.get(talkingPlayer);
+        String chatmode = ChatMode.getChatMode(talkingPlayer);
+        if (!chatmode.equalsIgnoreCase("PUBLIC")) {
+            if (chatmode.equalsIgnoreCase("ALLY")) {
+                channel.fchata(talkingPlayer, msg);
+                event.setCancelled(true);
+
+            } else if (chatmode.equalsIgnoreCase("ENEMY")) {
+                channel.fchatE(talkingPlayer, msg);
+                event.setCancelled(true);
+            } else if (chatmode.equalsIgnoreCase("FACTION")) {
+                channel.fchat(talkingPlayer, msg);
+                event.setCancelled(true);
+            } else if (chatmode.equalsIgnoreCase("JrMOD")) {
+                channel.jrModChat(talkingPlayer, msg);
+                event.setCancelled(true);
+            } else if (chatmode.equalsIgnoreCase("MOD")) {
+                channel.modChat(talkingPlayer, msg);
+                event.setCancelled(true);
+            } else if (chatmode.equalsIgnoreCase("SrMOD")) {
+                channel.SrModChat(talkingPlayer, msg);
+                event.setCancelled(true);
+            } else if (chatmode.equalsIgnoreCase("JrAdmin")) {
+                channel.JrAdminChat(talkingPlayer, msg);
+                event.setCancelled(true);
+            } else if (chatmode.equalsIgnoreCase("ADMIN")) {
+                channel.adminChat(talkingPlayer, msg);
+                event.setCancelled(true);
+            }
+
+            log.log(Level.INFO, "[FactionChat] {0}|{1}: {2}", new Object[]{chatmode, talkingPlayer.getName(), msg});
+        }
+
+
+    }
 }
