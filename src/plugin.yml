@@ -1,7 +1,7 @@
 name: FactionChat
 softdepend: [Factions]
 main: com.james137137.FactionChat.FactionChat
-version: 1.3
+version: 1.31
 authors: [James Anderson]
 commands:
   fchat:
@@ -12,6 +12,26 @@ commands:
     description: Send a message to any Factions
     usage: /<command> <FactionName> <Message> 
     aliases: [fco]
+  fchatf:
+    description: Send a Faction message
+    usage: /<command> <Message> 
+    aliases: [ff]
+  fchata:
+    description: Send a Ally message
+    usage: /<command> <Message> 
+    aliases: [fa]
+  fchate:
+    description: Send a Enemy message
+    usage: /<command> <Message> 
+    aliases: [fe]
+  fchatad:
+    description: Send a admin message
+    usage: /<command> <Message> 
+    aliases: [fad]
+  fchatm:
+    description: Send a moderator message
+    usage: /<command> <Message> 
+    aliases: [fm]
        
 permissions:
   FactionChat.*:

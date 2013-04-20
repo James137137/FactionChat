@@ -9,7 +9,6 @@ import com.massivecraft.factions.P;
 import java.io.IOException;
 import java.util.StringTokenizer;
 import java.util.logging.Level;
-import java.util.logging.LogRecord;
 import java.util.logging.Logger;
 import net.h31ix.updater.Updater;
 import org.bukkit.Bukkit;
@@ -197,6 +196,91 @@ public class FactionChat extends JavaPlugin {
 
             return true;
         }
+        if (commandName.equalsIgnoreCase("ff") || commandName.equalsIgnoreCase("fchatf")) {
+            if (args.length == 0)
+            {
+                return false;
+            }
+            ChatChannel channel = new ChatChannel(this);
+            Player talkingPlayer = (Player) sender;
+            String message = "";
+                for (int i = 0; i < args.length; i++) {
+                    message += args[i] + " ";
+                }
+                channel.fchat(talkingPlayer, message);
+            return true;
+        }
+        if (commandName.equalsIgnoreCase("fa") || commandName.equalsIgnoreCase("fchata")) {
+            if (args.length == 0)
+            {
+                return false;
+            }
+            ChatChannel channel = new ChatChannel(this);
+            Player talkingPlayer = (Player) sender;
+            String message = "";
+                for (int i = 0; i < args.length; i++) {
+                    message += args[i] + " ";
+                }
+                channel.fchata(talkingPlayer, message);
+            return true;
+        }
+        if ((commandName.equalsIgnoreCase("fe") || commandName.equalsIgnoreCase("fchate")) && sender.hasPermission(FactionChat.EnemyChat)) {
+            
+            if (args.length == 0)
+            {
+                return false;
+            }
+            ChatChannel channel = new ChatChannel(this);
+            Player talkingPlayer = (Player) sender;
+            String message = "";
+                for (int i = 0; i < args.length; i++) {
+                    message += args[i] + " ";
+                }
+                channel.fchatE(talkingPlayer, message);
+            return true;
+        }
+        if (commandName.equalsIgnoreCase("fad") || commandName.equalsIgnoreCase("fchatad")) {
+            if (args.length == 0)
+            {
+                return false;
+            }
+            ChatChannel channel = new ChatChannel(this);
+            Player talkingPlayer = (Player) sender;
+            String message = "";
+                for (int i = 0; i < args.length; i++) {
+                    message += args[i] + " ";
+                }
+                channel.adminChat(talkingPlayer, message);
+            return true;
+        }
+        if ((commandName.equalsIgnoreCase("fad") || commandName.equalsIgnoreCase("fchatad")) && sender.hasPermission("FactionChat.AdminChat")) {
+            if (args.length == 0)
+            {
+                return false;
+            }
+            ChatChannel channel = new ChatChannel(this);
+            Player talkingPlayer = (Player) sender;
+            String message = "";
+                for (int i = 0; i < args.length; i++) {
+                    message += args[i] + " ";
+                }
+                channel.adminChat(talkingPlayer, message);
+            return true;
+        }
+        if ((commandName.equalsIgnoreCase("fm") || commandName.equalsIgnoreCase("fchatm")) && sender.hasPermission("FactionChat.ModChat")) {
+            if (args.length == 0)
+            {
+                return false;
+            }
+            ChatChannel channel = new ChatChannel(this);
+            Player talkingPlayer = (Player) sender;
+            String message = "";
+                for (int i = 0; i < args.length; i++) {
+                    message += args[i] + " ";
+                }
+                channel.modChat(talkingPlayer, message);
+            return true;
+        }
 
 
         return false;
@@ -267,5 +351,13 @@ public class FactionChat extends JavaPlugin {
             return true;
         }
         return false;
+    }
+    
+    
+    
+    //for testing purposes
+    public static void main (String[] args)
+    {
+        
     }
 }
