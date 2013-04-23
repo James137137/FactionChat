@@ -15,11 +15,13 @@ import org.bukkit.event.player.PlayerJoinEvent;
  */
 public class FactionChatListener implements Listener {
 
+    private static ChatChannel channel;
     private FactionChat FactionChat;
     static final Logger log = Logger.getLogger("Minecraft");
 
     public FactionChatListener(FactionChat FactionChat) {
         this.FactionChat = FactionChat;
+        channel = new ChatChannel(FactionChat);
     }
 
     @EventHandler
@@ -37,7 +39,7 @@ public class FactionChatListener implements Listener {
 
 
 
-        ChatChannel channel = new ChatChannel(FactionChat);
+        
         Player talkingPlayer = event.getPlayer();
         String msg = event.getMessage();
         //FPlayer me = (FPlayer)FPlayers.i.get(talkingPlayer);

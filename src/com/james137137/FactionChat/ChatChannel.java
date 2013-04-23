@@ -22,13 +22,14 @@ import org.bukkit.entity.Player;
 public class ChatChannel {
 
     private FactionChat factionChat;
+    private static Player[] onlinePlayerList;
 
     ChatChannel(FactionChat aThis) {
         factionChat = aThis;
     }
 
-    private String getFactionName(Player player) {
-        String factionName = null;
+    private static String getFactionName(Player player) {
+        String factionName = "null";
         StringTokenizer myStringTokenizer = new StringTokenizer(P.p.getPlayerFactionTag(player), "*[] ");
         while (myStringTokenizer.hasMoreTokens()) {
             factionName = myStringTokenizer.nextToken();
@@ -68,7 +69,7 @@ public class ChatChannel {
              * */
 
 
-            Player[] onlinePlayerList = Bukkit.getServer().getOnlinePlayers(); //get list of every online player
+            onlinePlayerList = Bukkit.getServer().getOnlinePlayers(); //get list of every online player
             String playersFaction; //creates string outside loop
 
             //start of loop
@@ -116,7 +117,7 @@ public class ChatChannel {
 
             FPlayer fSenderPlayer = (FPlayer) FPlayers.i.get(player);
             Faction SenderFaction = fSenderPlayer.getFaction();
-            Player[] onlinePlayerList = Bukkit.getServer().getOnlinePlayers(); //get list of every online player
+            onlinePlayerList = Bukkit.getServer().getOnlinePlayers(); //get list of every online player
             String sPlayersFaction; //creates string outside loop
 
             //start of loop
@@ -137,7 +138,7 @@ public class ChatChannel {
     }
 
     public void jrModChat(Player player, String message) {
-        Player[] onlinePlayerList = Bukkit.getServer().getOnlinePlayers(); //get list of every online player
+        onlinePlayerList = Bukkit.getServer().getOnlinePlayers(); //get list of every online player
         for (Player myplayer : onlinePlayerList) {
             if (myplayer.hasPermission("FactionChat.JrModChat") || FactionChat.isDebugger(myplayer.getName())) {
                 myplayer.sendMessage(ChatColor.AQUA + "[JrMod-Chat]: " + ChatColor.RESET + player.getName() + ": " + ChatColor.GREEN + message);
@@ -148,7 +149,7 @@ public class ChatChannel {
     }
 
     public void modChat(Player player, String message) {
-        Player[] onlinePlayerList = Bukkit.getServer().getOnlinePlayers(); //get list of every online player
+        onlinePlayerList = Bukkit.getServer().getOnlinePlayers(); //get list of every online player
         for (Player myplayer : onlinePlayerList) {
             if (myplayer.hasPermission("FactionChat.ModChat") || FactionChat.isDebugger(myplayer.getName())) {
                 myplayer.sendMessage(ChatColor.AQUA + "[Mod-Chat]: " + ChatColor.RESET + player.getName() + ": " + ChatColor.GREEN + message);
@@ -159,7 +160,7 @@ public class ChatChannel {
     }
 
     public void SrModChat(Player player, String message) {
-        Player[] onlinePlayerList = Bukkit.getServer().getOnlinePlayers(); //get list of every online player
+        onlinePlayerList = Bukkit.getServer().getOnlinePlayers(); //get list of every online player
         for (Player myplayer : onlinePlayerList) {
             if (myplayer.hasPermission("FactionChat.SrModChat") || FactionChat.isDebugger(myplayer.getName())) {
                 myplayer.sendMessage(ChatColor.AQUA + "[SrMod-Chat]: " + ChatColor.RESET + player.getName() + ": " + ChatColor.GREEN + message);
@@ -170,7 +171,7 @@ public class ChatChannel {
     }
 
     public void JrAdminChat(Player player, String message) {
-        Player[] onlinePlayerList = Bukkit.getServer().getOnlinePlayers(); //get list of every online player
+        onlinePlayerList = Bukkit.getServer().getOnlinePlayers(); //get list of every online player
         for (Player myplayer : onlinePlayerList) {
             if (myplayer.hasPermission("FactionChat.JrAdminChat") || FactionChat.isDebugger(myplayer.getName())) {
                 myplayer.sendMessage(ChatColor.DARK_RED + "[JrAdmin-Chat]: " + ChatColor.RESET + player.getName() + ": " + ChatColor.GREEN + message);
@@ -181,7 +182,7 @@ public class ChatChannel {
     }
 
     public void adminChat(Player player, String message) {
-        Player[] onlinePlayerList = Bukkit.getServer().getOnlinePlayers(); //get list of every online player
+        onlinePlayerList = Bukkit.getServer().getOnlinePlayers(); //get list of every online player
         for (Player myplayer : onlinePlayerList) {
             if (myplayer.hasPermission("FactionChat.AdminChat") || FactionChat.isDebugger(myplayer.getName())) {
                 myplayer.sendMessage(ChatColor.DARK_RED + "[Admin-Chat]: " + ChatColor.RESET + player.getName() + ": " + ChatColor.GREEN + message);
@@ -227,7 +228,7 @@ public class ChatChannel {
                  * */
 
 
-                Player[] onlinePlayerList = Bukkit.getServer().getOnlinePlayers(); //get list of every online player
+                onlinePlayerList = Bukkit.getServer().getOnlinePlayers(); //get list of every online player
                 String playersFaction; //creates string outside loop
                 String targetFaction = args[0] + senderFaction.charAt(senderFaction.length() - 2) + senderFaction.charAt(senderFaction.length() - 1);
 
@@ -283,11 +284,12 @@ public class ChatChannel {
 
             FPlayer fSenderPlayer = (FPlayer) FPlayers.i.get(player);
             Faction SenderFaction = fSenderPlayer.getFaction();
-            Player[] onlinePlayerList = Bukkit.getServer().getOnlinePlayers(); //get list of every online player
+            onlinePlayerList = Bukkit.getServer().getOnlinePlayers(); //get list of every online player
             String sPlayersFaction; //creates string outside loop
 
             //start of loop
             //fSenderPlayer.sendMessage(message);
+            
             for (Player myplayer : onlinePlayerList) {
                 FPlayer fplayer = (FPlayer) FPlayers.i.get(myplayer);
                 sPlayersFaction = getFactionName(myplayer);

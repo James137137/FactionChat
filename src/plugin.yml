@@ -1,7 +1,7 @@
 name: FactionChat
 softdepend: [Factions]
 main: com.james137137.FactionChat.FactionChat
-version: 1.31
+version: 1.32
 authors: [James Anderson]
 commands:
   fchat:
