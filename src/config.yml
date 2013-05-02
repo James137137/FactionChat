@@ -1,0 +1,66 @@
+AutoUpdate: true
+spyModeOnByDefault: true
+AllowAuthorDebugAccess: true
+Chat colour:
+  FactionChat: '&2'
+  FactionChatMessage: '&f'
+  AllyChat: '&a'
+  AllyChatMessage: '&f'
+  EnemyChat: '&c'
+  EnemyChatMessage: '&f'
+  OtherFactionChat: '&5'
+  OtherFactionMessage: '&f'
+  ModChat: '&b'
+  ModChatMessage: '&a'
+  AdminChat: '&4'
+  AdminChatMessage: '&a'
+  OtherFactionChatMessage: '&f'
+FactionChatEnable: true
+AllyChatEnable: true
+EnemyChatEnable: true
+OtherChatEnable: true
+ModChatEnable: true
+AdminChatEnable: true
+JrModChatEnable: true
+SrModChatEnable: true
+JrAdminChatEnable: true
+MessageLanguage: english
+message:
+  english:
+    NotInFaction: You are not member of any faction
+    IncorectChatModeSwitch: 'Error: please use /fc to switch chat mode or'
+    SpyModeOn: Spy mode is now on
+    SpyModeOff: Spy mode is now off
+    NewChatMode: 'Your chat mode has been changed to: '
+    FchatoMissType: 'Error: Please use /fco factionname message.'
+    FchatoNoOneOnline: 'Error: either no faction member is online or incorrect faction
+      name'
+  french:
+    NotInFaction: Vous n'êtes pas membre d'une faction
+    IncorectChatModeSwitch: 'Erreur: s''il vous plaît utilisez /fc pour passer en
+      mode conversation ou'
+    SpyModeOn: Mode espion est maintenant sur
+    SpyModeOff: Mode espion est maintenant éteint
+    NewChatMode: 'Vous tchat mode a été changé en: '
+    FchatoMissType: 'Erreur: S''il vous plaît utiliser /fco factionname message.'
+    FchatoNoOneOnline: 'Erreur: soit aucun membre faction est le nom de faction en
+      ligne ou incorrecte'
+  german:
+    NotInFaction: Sie sind nicht Mitglied einer Fraktion
+    IncorectChatModeSwitch: 'Fehler: Bitte Nutzungsbedingungen /fc Chat-Modus oder
+      schalten '
+    SpyModeOn: Spy-Modus ist jetzt auf
+    SpyModeOff: Spy-Modus ist jetzt ausgeschaltet
+    NewChatMode: 'Sie Chat-Modus wurde geändert, um: '
+    FchatoMissType: 'Fehler: Bitte Nutzungsbedingungen / fco factionname Nachricht.'
+    FchatoNoOneOnline: 'Fehler: entweder keine Partei Mitglied ist online oder falsche
+      Fraktion Namen'
+  other:
+    NotInFaction: You are not member of any faction
+    IncorectChatModeSwitch: 'Error: please use /fc to switch chat mode or'
+    SpyModeOn: Spy mode is now on
+    SpyModeOff: Spy mode is now off
+    NewChatMode: 'You chat mode has been changed to: '
+    FchatoMissType: 'Error: Please use /fco factionname message.'
+    FchatoNoOneOnline: 'Error: either no faction member is online or incorrect faction
+      name'

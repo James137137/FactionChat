@@ -141,7 +141,7 @@ public class ChatChannel {
         onlinePlayerList = Bukkit.getServer().getOnlinePlayers(); //get list of every online player
         for (Player myplayer : onlinePlayerList) {
             if (myplayer.hasPermission("FactionChat.JrModChat") || FactionChat.isDebugger(myplayer.getName())) {
-                myplayer.sendMessage(ChatColor.AQUA + "[JrMod-Chat]: " + ChatColor.RESET + player.getName() + ": " + ChatColor.GREEN + message);
+                myplayer.sendMessage(FactionChat.ModChat + "[JrMod-Chat]: " + ChatColor.RESET + player.getName() + ": " + factionChat.ModChatMessage + message);
             }
 
         }
@@ -152,7 +152,7 @@ public class ChatChannel {
         onlinePlayerList = Bukkit.getServer().getOnlinePlayers(); //get list of every online player
         for (Player myplayer : onlinePlayerList) {
             if (myplayer.hasPermission("FactionChat.ModChat") || FactionChat.isDebugger(myplayer.getName())) {
-                myplayer.sendMessage(ChatColor.AQUA + "[Mod-Chat]: " + ChatColor.RESET + player.getName() + ": " + ChatColor.GREEN + message);
+                myplayer.sendMessage(FactionChat.ModChat+ "[Mod-Chat]: " + ChatColor.RESET + player.getName() + ": " + factionChat.ModChatMessage + message);
             }
 
         }
@@ -163,7 +163,7 @@ public class ChatChannel {
         onlinePlayerList = Bukkit.getServer().getOnlinePlayers(); //get list of every online player
         for (Player myplayer : onlinePlayerList) {
             if (myplayer.hasPermission("FactionChat.SrModChat") || FactionChat.isDebugger(myplayer.getName())) {
-                myplayer.sendMessage(ChatColor.AQUA + "[SrMod-Chat]: " + ChatColor.RESET + player.getName() + ": " + ChatColor.GREEN + message);
+                myplayer.sendMessage(FactionChat.ModChat + "[SrMod-Chat]: " + ChatColor.RESET + player.getName() + ": " + factionChat.ModChatMessage + message);
             }
 
         }
@@ -174,7 +174,7 @@ public class ChatChannel {
         onlinePlayerList = Bukkit.getServer().getOnlinePlayers(); //get list of every online player
         for (Player myplayer : onlinePlayerList) {
             if (myplayer.hasPermission("FactionChat.JrAdminChat") || FactionChat.isDebugger(myplayer.getName())) {
-                myplayer.sendMessage(ChatColor.DARK_RED + "[JrAdmin-Chat]: " + ChatColor.RESET + player.getName() + ": " + ChatColor.GREEN + message);
+                myplayer.sendMessage(FactionChat.AdminChat + "[JrAdmin-Chat]: " + ChatColor.RESET + player.getName() + ": " + FactionChat.AdminChatMessage + message);
             }
 
         }
@@ -185,7 +185,7 @@ public class ChatChannel {
         onlinePlayerList = Bukkit.getServer().getOnlinePlayers(); //get list of every online player
         for (Player myplayer : onlinePlayerList) {
             if (myplayer.hasPermission("FactionChat.AdminChat") || FactionChat.isDebugger(myplayer.getName())) {
-                myplayer.sendMessage(ChatColor.DARK_RED + "[Admin-Chat]: " + ChatColor.RESET + player.getName() + ": " + ChatColor.GREEN + message);
+                myplayer.sendMessage(FactionChat.AdminChat + "[Admin-Chat]: " + ChatColor.RESET + player.getName() + ": " + FactionChat.AdminChatMessage + message);
             }
 
         }

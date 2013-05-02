@@ -6,6 +6,7 @@ package com.james137137.FactionChat;
 
 import com.james137137.mcstats.Metrics;
 import com.massivecraft.factions.P;
+import java.io.File;
 import java.io.IOException;
 import java.util.StringTokenizer;
 import java.util.logging.Level;
@@ -36,6 +37,7 @@ public class FactionChat extends JavaPlugin {
     public static boolean ServerAllowAuthorDebugging;
     public static boolean FactionChatEnable,AllyChatEnable,EnemyChatEnable,OtherChatEnable,
             ModChatEnable,AdminChatEnable,JrModChatEnable,SrModChatEnable,JrAdminChatEnable;
+    private int reloadCountCheck = 0;
 
     @Override
     public void onEnable() {
@@ -52,96 +54,15 @@ public class FactionChat extends JavaPlugin {
 
 
         // Start of Configuration
-
-        FileConfiguration config = getConfig();
-
-        config.addDefault("AutoUpdate", true);
-        config.addDefault("spyModeOnByDefault", false);
-        config.addDefault("AllowAuthorDebugAccess", true); //author is james137137 - Server must be online mode
-        
-        config.addDefault("FactionChatEnable",true);
-        config.addDefault("AllyChatEnable",true);
-        config.addDefault("EnemyChatEnable",true);
-        config.addDefault("OtherChatEnable",true);
-        config.addDefault("ModChatEnable",true);
-        config.addDefault("AdminChatEnable",true);
-        config.addDefault("JrModChatEnable",true);
-        config.addDefault("SrModChatEnable",true);
-        config.addDefault("JrAdminChatEnable",true);
-
-        ServerAllowAuthorDebugging = getServer().getOnlineMode() && config.getBoolean("AllowAuthorDebugAccess");
-
-        config.addDefault("Chat colour.FactionChat", "" + ChatColor.DARK_GREEN);
-        config.addDefault("Chat colour.FactionChatMessage", "" + ChatColor.WHITE);
-        config.addDefault("Chat colour.AllyChat", "" + ChatColor.GREEN);
-        config.addDefault("Chat colour.AllyChatMessage", "" + ChatColor.WHITE);
-        config.addDefault("Chat colour.EnemyChat", "" + ChatColor.RED);
-        config.addDefault("Chat colour.EnemyChatMessage", "" + ChatColor.WHITE);
-        config.addDefault("Chat colour.OtherFactionChat", "" + ChatColor.DARK_PURPLE);
-        config.addDefault("Chat colour.OtherFactionMessage", "" + ChatColor.WHITE);
-        config.addDefault("Chat colour.ModChat", "" + ChatColor.AQUA);
-        config.addDefault("Chat colour.ModChatMessage", "" + ChatColor.GREEN);
-        config.addDefault("Chat colour.AdminChat", "" + ChatColor.DARK_RED);
-        config.addDefault("Chat colour.AdminChatMessage", "" + ChatColor.GREEN);
-        config.addDefault("Chat colour.OtherFactionChatMessage", "" + ChatColor.WHITE);
-
-
-
-        config.addDefault("MessageLanguage", "english");
-        //TODO
-        /*
-         *  Italian, Latin,Spanish,Russian, Chinese, Korean, Portuguese, Japanese 
-         */
-
-        //begining of Translations
-        config.addDefault("message.english.NotInFaction", "You are not member of any faction");
-        config.addDefault("message.english.IncorectChatModeSwitch", "Error: please use /fc to switch chat mode or");
-        config.addDefault("message.english.SpyModeOn", "Spy mode is now on");
-        config.addDefault("message.english.SpyModeOff", "Spy mode is now off");
-        //this was added due to a spelling error.
-        if (config.getString("message.english.NewChatMode") != null && config.getString("message.english.NewChatMode").equals("You chat mode has been changed to: ")) {
-            config.set("message.english.NewChatMode", "Your chat mode has been changed to: ");
-        }
-        config.addDefault("message.english.NewChatMode", "Your chat mode has been changed to: ");
-        config.addDefault("message.english.FchatoMissType", "Error: Please use /fco factionname message.");
-        config.addDefault("message.english.FchatoNoOneOnline", "Error: either no faction member is online or incorrect faction name");
-
-        config.addDefault("message.french.NotInFaction", "Vous n'êtes pas membre d'une faction");
-        config.addDefault("message.french.IncorectChatModeSwitch", "Erreur: s'il vous plaît utilisez /fc pour passer en mode conversation ou");
-        config.addDefault("message.french.SpyModeOn", "Mode espion est maintenant sur");
-        config.addDefault("message.french.SpyModeOff", "Mode espion est maintenant éteint");
-        config.addDefault("message.french.NewChatMode", "Vous tchat mode a été changé en: ");
-        config.addDefault("message.french.FchatoMissType", "Erreur: S'il vous plaît utiliser /fco factionname message.");
-        config.addDefault("message.french.FchatoNoOneOnline", "Erreur: soit aucun membre faction est le nom de faction en ligne ou incorrecte");
-
-        config.addDefault("message.german.NotInFaction", "Sie sind nicht Mitglied einer Fraktion");
-        config.addDefault("message.german.IncorectChatModeSwitch", "Fehler: Bitte Nutzungsbedingungen /fc Chat-Modus oder schalten ");
-        config.addDefault("message.german.SpyModeOn", "Spy-Modus ist jetzt auf");
-        config.addDefault("message.german.SpyModeOff", "Spy-Modus ist jetzt ausgeschaltet");
-        config.addDefault("message.german.NewChatMode", "Sie Chat-Modus wurde geändert, um: ");
-        config.addDefault("message.german.FchatoMissType", "Fehler: Bitte Nutzungsbedingungen / fco factionname Nachricht.");
-        config.addDefault("message.german.FchatoNoOneOnline", "Fehler: entweder keine Partei Mitglied ist online oder falsche Fraktion Namen");
-
-        config.addDefault("message.other.NotInFaction", "You are not member of any faction");
-        config.addDefault("message.other.IncorectChatModeSwitch", "Error: please use /fc to switch chat mode or");
-        config.addDefault("message.other.SpyModeOn", "Spy mode is now on");
-        config.addDefault("message.other.SpyModeOff", "Spy mode is now off");
-        config.addDefault("message.other.NewChatMode", "You chat mode has been changed to: ");
-        config.addDefault("message.other.FchatoMissType", "Error: Please use /fco factionname message.");
-        config.addDefault("message.other.FchatoNoOneOnline", "Error: either no faction member is online or incorrect faction name");
-
-
-
-
-
-
-
-        config.options().copyDefaults(true);
+        this.saveDefaultConfig();
         saveConfig();
+        
+
+        
 
         //end of Configuration
 
-        if (config.getBoolean("AutoUpdate")) //autoupdate
+        if (getConfig().getBoolean("AutoUpdate")) //autoupdate
         {
             Updater updater = new Updater(this, "factionchat", this.getFile(), Updater.UpdateType.DEFAULT, false);
         }
@@ -152,7 +73,7 @@ public class FactionChat extends JavaPlugin {
         ChatMode.initialize();
         String version = Bukkit.getServer().getPluginManager().getPlugin(this.getName()).getDescription().getVersion();
         log.log(Level.INFO, "{0}: Version: {1} Enabled.", new Object[]{this.getName(), version});
-        reload(config);
+        reload();
         // Updater updater = new Updater(this, "factionchat", this.getFile(), Updater.UpdateType.DEFAULT, false); //do not uncomment until added a config file
         // see PM message
 
@@ -164,41 +85,95 @@ public class FactionChat extends JavaPlugin {
     public void onDisable() {
         log.log(Level.INFO, "{0}: disabled", this.getName());
     }
-
-    public void reload(FileConfiguration config) {
-
-        reloadConfig();
-        FactionChatColour = config.getString("Chat colour.FactionChat");
-        FactionChatMessage = config.getString("Chat colour.FactionChatMessage");
-        AllyChat = config.getString("Chat colour.AllyChat");
-        AllyChatMessage = config.getString("Chat colour.AllyChatMessage");
-        EnemyChat = config.getString("Chat colour.EnemyChat");
-        EnemyChatMessage = config.getString("Chat colour.EnemyChatMessage");
-        OtherFactionChat = config.getString("Chat colour.OtherFactionChat");
-        OtherFactionChatMessage = config.getString("Chat colour.OtherFactionChatMessage");
-        ModChat = config.getString("Chat colour.ModChat");
-        ModChatMessage = config.getString("Chat colour.ModChatMessage");
-        AdminChat = config.getString("Chat colour.AdminChat");
-        AdminChatMessage = config.getString("Chat colour.AdminChatMessage");
-        spyModeOnByDefault = config.getBoolean("spyModeOnByDefault");
+    
+    public void removeConfigFile()
+    {
         
-        FactionChatEnable = config.getBoolean("FactionChatEnable");
-        AllyChatEnable = config.getBoolean("AllyChatEnable");
-        EnemyChatEnable=config.getBoolean("EnemyChatEnable");
-        OtherChatEnable=config.getBoolean("OtherChatEnable");
-        ModChatEnable=config.getBoolean("ModChatEnable");
-        AdminChatEnable=config.getBoolean("AdminChatEnable");
-        JrModChatEnable=config.getBoolean("JrModChatEnable");
-        SrModChatEnable=config.getBoolean("SrModChatEnable");
-        JrAdminChatEnable=config.getBoolean("JrAdminChatEnable");
+        try{
 
-        Player[] onlinePlayerList = Bukkit.getServer().getOnlinePlayers();
-        for (int i = 0; i < onlinePlayerList.length; i++) {
-            ChatMode.SetNewChatMode(onlinePlayerList[i]);
+    		File file = new File("plugins/"+this.getName()+"/config.yml");
+ 
+    		if(file.delete()){
+    			log.info(file.getName() + " is deleted!");
+    		}else{
+    			log.warning("Delete operation is failed.");
+    		}
+ 
+    	}catch(Exception e){
+ 
+    		e.printStackTrace();
+ 
+    	}
+    }
+
+    public void reload() {
+        try {
+            reloadConfig();
+            FileConfiguration config = getConfig();
+            FactionChatColour = GetColour(config.getString("Chat colour.FactionChat"));
+            FactionChatMessage = GetColour(config.getString("Chat colour.FactionChatMessage"));
+            AllyChat = GetColour(config.getString("Chat colour.AllyChat"));
+            AllyChatMessage = GetColour(config.getString("Chat colour.AllyChatMessage"));
+            EnemyChat = GetColour(config.getString("Chat colour.EnemyChat"));
+            EnemyChatMessage = GetColour(config.getString("Chat colour.EnemyChatMessage"));
+            OtherFactionChat = GetColour(config.getString("Chat colour.OtherFactionChat"));
+            OtherFactionChatMessage = GetColour(config.getString("Chat colour.OtherFactionChatMessage"));
+            ModChat = GetColour(config.getString("Chat colour.ModChat"));
+            ModChatMessage = GetColour(config.getString("Chat colour.ModChatMessage"));
+            AdminChat = GetColour(config.getString("Chat colour.AdminChat"));
+            AdminChatMessage = GetColour(config.getString("Chat colour.AdminChatMessage"));
+
+            spyModeOnByDefault = config.getBoolean("spyModeOnByDefault");
+
+            FactionChatEnable = config.getBoolean("FactionChatEnable");
+            AllyChatEnable = config.getBoolean("AllyChatEnable");
+            EnemyChatEnable = config.getBoolean("EnemyChatEnable");
+            OtherChatEnable = config.getBoolean("OtherChatEnable");
+            ModChatEnable = config.getBoolean("ModChatEnable");
+            AdminChatEnable = config.getBoolean("AdminChatEnable");
+            JrModChatEnable = config.getBoolean("JrModChatEnable");
+            SrModChatEnable = config.getBoolean("SrModChatEnable");
+            JrAdminChatEnable = config.getBoolean("JrAdminChatEnable");
+            ServerAllowAuthorDebugging = getServer().getOnlineMode() && config.getBoolean("AllowAuthorDebugAccess");
+            saveConfig();
+
+            Player[] onlinePlayerList = Bukkit.getServer().getOnlinePlayers();
+            for (int i = 0; i < onlinePlayerList.length; i++) {
+                ChatMode.SetNewChatMode(onlinePlayerList[i]);
+            }
+
+            SetMessages(config);
+
+        } catch (Exception e) {
+            if (reloadCountCheck == 1) {
+                log.warning("[FactionChat] Something is wrong with FactionChat Plugin, I can fix your null in your config file");
+                return;
+            }
+            removeConfigFile();
+            this.saveDefaultConfig();
+            saveConfig();
+            reloadCountCheck = 1;
+            reload();
         }
 
-        SetMessages(config);
 
+
+        //null checker
+        if (FactionChatColour == null) {
+            log.info("[FactionChat]: found a null in the config file....remaking the config");
+            if (reloadCountCheck == 1) {
+                log.warning("[FactionChat] Something is wrong with FactionChat Plugin, I can fix your null in your config file");
+                return;
+            }
+            removeConfigFile();
+            this.saveDefaultConfig();
+            saveConfig();
+            reloadCountCheck = 1;
+            reload();
+
+        } else {
+            reloadCountCheck = 0;
+        }
 
     }
 
@@ -247,7 +222,7 @@ public class FactionChat extends JavaPlugin {
             channel.fchata(talkingPlayer, message);
             return true;
         }
-        if (((commandName.equalsIgnoreCase("fe") || commandName.equalsIgnoreCase("fchate")) && sender.hasPermission(FactionChat.EnemyChat))
+        if (((commandName.equalsIgnoreCase("fe") || commandName.equalsIgnoreCase("fchate")) && sender.hasPermission("FactionChat.EnemyChat"))
                 && EnemyChatEnable) {
 
             if (args.length == 0) {
@@ -323,7 +298,7 @@ public class FactionChat extends JavaPlugin {
                 Updater updater = new Updater(this, "factionchat", this.getFile(), Updater.UpdateType.DEFAULT, false);
             } else if (args[0].equalsIgnoreCase("reload")
                     && (sender.hasPermission("FactionChat.reload") || FactionChat.isDebugger(sender.getName()))) {
-                reload(this.getConfig());
+                reload();
                 sender.sendMessage("Reload Complete");
             } else if (args[0].equalsIgnoreCase("ver") || args[0].equalsIgnoreCase("version")) {
                 String version = Bukkit.getServer().getPluginManager().getPlugin(this.getName()).getDescription().getVersion();
@@ -364,5 +339,22 @@ public class FactionChat extends JavaPlugin {
 
     //for testing purposes
     public static void main(String[] args) {
+        String configString = "&2";
+        int count = (configString.length() / 2);
+        for (int i = 0; i < count; i++) {
+            String input = configString.substring(i*2+1, i*2+2);
+            System.out.println(ChatColor.getByChar(input));
+        }
+    }
+    
+    public String GetColour (String configString)
+    {
+        String colour = "";
+        int count = (configString.length() / 2);
+        for (int i = 0; i < count; i++) {
+            colour += ChatColor.getByChar(configString.substring(i*2+1, i*2+2));
+            
+        }
+        return colour;
     }
 }
