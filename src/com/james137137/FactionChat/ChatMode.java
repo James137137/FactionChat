@@ -1,7 +1,6 @@
 package com.james137137.FactionChat;
 
 import java.util.ArrayList;
-import java.util.List;
 import org.bukkit.entity.Player;
 
 /**
@@ -10,9 +9,10 @@ import org.bukkit.entity.Player;
  */
 public class ChatMode {
 
-    public static List<Boolean> spyon = new ArrayList<>();
-    public static List<String> chatModes = new ArrayList<>();
-    public static List<String> playerNames = new ArrayList<>();
+    
+    public static ArrayList<Boolean> spyon = new ArrayList<Boolean>();
+    public static ArrayList<String> chatModes = new ArrayList<String>();
+    public static ArrayList<String> playerNames = new ArrayList<String>();
 
     public static void initialize() {
     }

@@ -29,12 +29,8 @@ public class ChatChannel {
     }
 
     private static String getFactionName(Player player) {
-        String factionName = "null";
-        StringTokenizer myStringTokenizer = new StringTokenizer(P.p.getPlayerFactionTag(player), "*[] ");
-        while (myStringTokenizer.hasMoreTokens()) {
-            factionName = myStringTokenizer.nextToken();
-        }
-        return factionName;
+        FPlayer fPlayer = (FPlayer)FPlayers.i.get(player);
+        return fPlayer.getFaction().getTag();
     }
 
     public void fchat(Player player, String message) {
@@ -47,8 +43,7 @@ public class ChatChannel {
 
         String senderFaction = getFactionName(player); //obtains player's faction name
 
-
-        if (senderFaction.equalsIgnoreCase("~")) { //checks if player is in a faction
+        if (senderFaction.contains("Wilderness")) { //checks if player is in a faction
             player.sendMessage(ChatColor.RED + FactionChat.messageNotInFaction);
             ChatMode.fixPlayerNotInFaction(player);
             //start of sending the message
@@ -68,7 +63,7 @@ public class ChatChannel {
              SenderFaction.getRelationTo(fSenderPlayer);
              * */
 
-
+            
             onlinePlayerList = Bukkit.getServer().getOnlinePlayers(); //get list of every online player
             String playersFaction; //creates string outside loop
 
@@ -102,7 +97,7 @@ public class ChatChannel {
         String sSenderFaction = getFactionName(player); //obtains player's faction name
 
 
-        if (sSenderFaction.equalsIgnoreCase("~")) { //checks if player is in a faction
+        if (sSenderFaction.contains("Wilderness")) { //checks if player is in a faction
             player.sendMessage(ChatColor.RED + FactionChat.messageNotInFaction);
             ChatMode.fixPlayerNotInFaction(player);
             //start of sending the message
@@ -205,7 +200,7 @@ public class ChatChannel {
             String senderFaction = getFactionName(player);
 
 
-            if (senderFaction.equalsIgnoreCase("~")) { //checks if player is in a faction
+            if (senderFaction.contains("Wilderness")) { //checks if player is in a faction
                 player.sendMessage(ChatColor.RED + FactionChat.messageNotInFaction);
                 //start of sending the message
                 /*
@@ -269,7 +264,7 @@ public class ChatChannel {
         String sSenderFaction = getFactionName(player); //obtains player's faction name
 
 
-        if (sSenderFaction.equalsIgnoreCase("~")) { //checks if player is in a faction
+        if (sSenderFaction.contains("Wilderness")) { //checks if player is in a faction
             player.sendMessage(ChatColor.RED + FactionChat.messageNotInFaction);
             ChatMode.fixPlayerNotInFaction(player);
             //start of sending the message
