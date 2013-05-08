@@ -7,9 +7,7 @@ package com.james137137.FactionChat;
 import com.massivecraft.factions.FPlayer;
 import com.massivecraft.factions.FPlayers;
 import com.massivecraft.factions.Faction;
-import com.massivecraft.factions.P;
 import com.massivecraft.factions.struct.Rel;
-import java.util.StringTokenizer;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
@@ -28,7 +26,7 @@ public class ChatChannel {
         factionChat = aThis;
     }
 
-    private static String getFactionName(Player player) {
+    public static String getFactionName(Player player) {
         FPlayer fPlayer = (FPlayer)FPlayers.i.get(player);
         return fPlayer.getFaction().getTag();
     }

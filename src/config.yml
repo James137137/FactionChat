@@ -1,6 +1,12 @@
+# Should the plugin autoupdate when there's a new version? Accepts boolean [true/false].
 AutoUpdate: true
+# Should spy mode be on by default for those who have the correct permission node?
+#Accepts boolean [true/false].
 spyModeOnByDefault: true
+#If this is set true and your server is set online-mode:true, 
+#then it allows me (james137137) to the following addiction commands,
 AllowAuthorDebugAccess: true
+# Change the color prefix of each chat mode.
 Chat colour:
   FactionChat: '&2'
   FactionChatMessage: '&f'
@@ -15,6 +21,7 @@ Chat colour:
   AdminChat: '&4'
   AdminChatMessage: '&a'
   OtherFactionChatMessage: '&f'
+#Enable/disable any chat (except public)
 FactionChatEnable: true
 AllyChatEnable: true
 EnemyChatEnable: true
@@ -24,7 +31,9 @@ AdminChatEnable: true
 JrModChatEnable: true
 SrModChatEnable: true
 JrAdminChatEnable: true
+# What language should the messages be in? Accepts 'english', 'french', 'german', or 'other'.
 MessageLanguage: english
+# These can be modified to your liking.
 message:
   english:
     NotInFaction: You are not member of any faction

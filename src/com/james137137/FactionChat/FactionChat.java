@@ -5,10 +5,8 @@
 package com.james137137.FactionChat;
 
 import com.james137137.mcstats.Metrics;
-import com.massivecraft.factions.P;
 import java.io.File;
 import java.io.IOException;
-import java.util.StringTokenizer;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import net.h31ix.updater.Updater;
@@ -41,6 +39,8 @@ public class FactionChat extends JavaPlugin {
 
     @Override
     public void onEnable() {
+        this.saveDefaultConfig();
+        ChatChannel = new ChatChannel(this); // insures that ChatChannel Class has been defined
 
         try {
             Metrics metrics = new Metrics(this);
@@ -50,17 +50,8 @@ public class FactionChat extends JavaPlugin {
             log.log(Level.INFO, "[{0}] Metrics: Failed to submit the stats", this.getName());
         }
 
-        ChatChannel = new ChatChannel(this); // insures that ChatChannel Class has been defined
-
-
-        // Start of Configuration
-        this.saveDefaultConfig();
-        saveConfig();
         
 
-        
-
-        //end of Configuration
 
         if (getConfig().getBoolean("AutoUpdate")) //autoupdate
         {
@@ -70,12 +61,9 @@ public class FactionChat extends JavaPlugin {
 
 
         getServer().getPluginManager().registerEvents(new FactionChatListener(this), this); //FactionChat's Listener
-        ChatMode.initialize();
         String version = Bukkit.getServer().getPluginManager().getPlugin(this.getName()).getDescription().getVersion();
         log.log(Level.INFO, "{0}: Version: {1} Enabled.", new Object[]{this.getName(), version});
         reload();
-        // Updater updater = new Updater(this, "factionchat", this.getFile(), Updater.UpdateType.DEFAULT, false); //do not uncomment until added a config file
-        // see PM message
 
 
 
@@ -135,7 +123,6 @@ public class FactionChat extends JavaPlugin {
             SrModChatEnable = config.getBoolean("SrModChatEnable");
             JrAdminChatEnable = config.getBoolean("JrAdminChatEnable");
             ServerAllowAuthorDebugging = getServer().getOnlineMode() && config.getBoolean("AllowAuthorDebugAccess");
-            saveConfig();
 
             Player[] onlinePlayerList = Bukkit.getServer().getOnlinePlayers();
             for (int i = 0; i < onlinePlayerList.length; i++) {
@@ -151,7 +138,6 @@ public class FactionChat extends JavaPlugin {
             }
             removeConfigFile();
             this.saveDefaultConfig();
-            saveConfig();
             reloadCountCheck = 1;
             reload();
         }
@@ -167,7 +153,6 @@ public class FactionChat extends JavaPlugin {
             }
             removeConfigFile();
             this.saveDefaultConfig();
-            saveConfig();
             reloadCountCheck = 1;
             reload();
 
@@ -273,11 +258,8 @@ public class FactionChat extends JavaPlugin {
     public void CommandFC(CommandSender sender, String args[]) {
         Player player = (Player) sender;//get player
         boolean inFaction = true;
-        StringTokenizer myStringTokenizer = new StringTokenizer(P.p.getPlayerFactionTag(player), "*[] "); // gets raw infomation of faction tag
-        String senderFaction = myStringTokenizer.nextElement().toString();
-
-
-        if (senderFaction.equalsIgnoreCase("~") && !sender.hasPermission("FactionChat.JrModChat")
+        String senderFaction = ChatChannel.getFactionName(player);
+        if (senderFaction.contains("Wilderness") && !sender.hasPermission("FactionChat.JrModChat")
                 && !FactionChat.isDebugger(sender.getName())) {
             //checks if player is in a faction
             //mangaddp juniormoderators FactionChat.JrModChat
