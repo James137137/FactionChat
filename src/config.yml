@@ -31,6 +31,7 @@ AdminChatEnable: true
 JrModChatEnable: true
 SrModChatEnable: true
 JrAdminChatEnable: true
+UAChatEnable: true
 # What language should the messages be in? Accepts 'english', 'french', 'german', or 'other'.
 MessageLanguage: english
 # These can be modified to your liking.

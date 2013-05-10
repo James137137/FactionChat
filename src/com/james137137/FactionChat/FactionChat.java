@@ -34,7 +34,7 @@ public class FactionChat extends JavaPlugin {
     public static String messageFchatoNoOneOnline;
     public static boolean ServerAllowAuthorDebugging;
     public static boolean FactionChatEnable,AllyChatEnable,EnemyChatEnable,OtherChatEnable,
-            ModChatEnable,AdminChatEnable,JrModChatEnable,SrModChatEnable,JrAdminChatEnable;
+            ModChatEnable,AdminChatEnable,JrModChatEnable,SrModChatEnable,JrAdminChatEnable,UAChatEnable;
     private int reloadCountCheck = 0;
 
     @Override
@@ -122,6 +122,7 @@ public class FactionChat extends JavaPlugin {
             JrModChatEnable = config.getBoolean("JrModChatEnable");
             SrModChatEnable = config.getBoolean("SrModChatEnable");
             JrAdminChatEnable = config.getBoolean("JrAdminChatEnable");
+            UAChatEnable = config.getBoolean("UAChatEnable");
             ServerAllowAuthorDebugging = getServer().getOnlineMode() && config.getBoolean("AllowAuthorDebugAccess");
 
             Player[] onlinePlayerList = Bukkit.getServer().getOnlinePlayers();

@@ -57,6 +57,9 @@ public class FactionChatListener implements Listener {
             } else if (chatmode.equalsIgnoreCase("FACTION")) {
                 channel.fchat(talkingPlayer, msg);
                 event.setCancelled(true);
+            } else if (chatmode.equalsIgnoreCase("UserAssistant")) {
+                channel.userAssistantChat(talkingPlayer, msg);
+                event.setCancelled(true);
             } else if (chatmode.equalsIgnoreCase("JrMOD")) {
                 channel.jrModChat(talkingPlayer, msg);
                 event.setCancelled(true);

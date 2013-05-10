@@ -1,7 +1,7 @@
 name: FactionChat
 softdepend: [Factions]
 main: com.james137137.FactionChat.FactionChat
-version: 1.501
+version: 1.51
 authors: [James Anderson]
 commands:
   fchat:
@@ -51,9 +51,14 @@ permissions:
   FactionChat.spy:
     description: Allows player to see all Faction and ally chat
     default: op
+  FactionChat.UserAssistantChat:
+    description: Allows player to see and use JrModerator chat
+    default: op
   FactionChat.JrModChat:
     description: Allows player to see and use JrModerator chat
     default: op
+    children:
+      FactionChat.UserAssistantChat: true
   FactionChat.ModChat:
     description: Allows player to see and use Moderator chat
     default: op

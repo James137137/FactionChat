@@ -1,6 +1,7 @@
 package com.james137137.FactionChat;
 
 import java.util.ArrayList;
+import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 
 /**
@@ -141,6 +142,10 @@ public class ChatMode {
             chatModes.set(playerid, "ENEMY");
             player.sendMessage(FactionChat.messageNewChatMode + FactionChat.EnemyChat + chatModes.get(playerid));
 
+        } else if ((player.hasPermission("FactionChat.UserAssistantChat") || FactionChat.isDebugger(player.getName()))
+                && (input.equalsIgnoreCase("UA")|| input.equalsIgnoreCase("UserAssistant")) && FactionChat.UAChatEnable) {
+            chatModes.set(playerid, "UserAssistant");
+            player.sendMessage(FactionChat.messageNewChatMode + ChatColor.DARK_PURPLE + chatModes.get(playerid));
         } else if ((player.hasPermission("FactionChat.JrModChat") || FactionChat.isDebugger(player.getName()))
                 && input.equalsIgnoreCase("JrMOD") && FactionChat.JrModChatEnable) {
             chatModes.set(playerid, "JrMOD");
