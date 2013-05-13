@@ -1,7 +1,7 @@
 name: FactionChat
 softdepend: [Factions]
 main: com.james137137.FactionChat.FactionChat
-version: 1.51
+version: 1.523
 authors: [James Anderson]
 commands:
   fchat:
@@ -32,6 +32,9 @@ commands:
     description: Send a moderator message
     usage: /<command> <Message> 
     aliases: [fm]
+  fcadmin:
+    description: admin commands to print info and change player chatmode
+    usage: /<command> <info/change> <playername> <option>
        
 permissions:
   FactionChat.*:
@@ -42,14 +45,21 @@ permissions:
       FactionChat.Update: true
       FactionChat.OtherChat: true
       FactionChat.EnemyChat: true
+      FactionChat.admins: true
   FactionChat.OtherChat:
     description: Allows player to send messages to other Factions
     default: op
   FactionChat.EnemyChat:
     description: Allows player to use Enemy chat.
+    default: op    
+  FactionChat.admin.info:
+    description: Allows player to display infomation of a player
+    default: op
+  FactionChat.admin.change:
+    description: Allows player to change chat mode of the target player
     default: op
   FactionChat.spy:
-    description: Allows player to see all Faction and ally chat
+    description: Allows player to see all Faction,ally,Enemy,and other chat
     default: op
   FactionChat.UserAssistantChat:
     description: Allows player to see and use JrModerator chat
