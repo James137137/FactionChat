@@ -97,7 +97,7 @@ public class FactionChat extends JavaPlugin {
     protected void reload() {
         try {
             try {
-                reloadConfig();
+                this.reloadConfig();
             } catch (Exception e) {
                 log.warning("[FactionChat]: reloadConfig() failed on reload()");
             }
