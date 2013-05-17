@@ -2,6 +2,7 @@ package com.james137137.FactionChat;
 
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -19,21 +20,21 @@ public class FactionChatListener implements Listener {
 
     private static ChatChannel channel;
     private FactionChat FactionChat;
-    static final Logger log = Logger.getLogger("Minecraft");
+    static final Logger log = Bukkit.getLogger();
 
-    public FactionChatListener(FactionChat FactionChat) {
+    protected FactionChatListener(FactionChat FactionChat) {
         this.FactionChat = FactionChat;
         channel = new ChatChannel(FactionChat);
     }
 
     @EventHandler
-    public void onPlayerJoin(PlayerJoinEvent event) {
+    protected void onPlayerJoin(PlayerJoinEvent event) {
         Player player = event.getPlayer();
         ChatMode.SetNewChatMode(player);
     }
 
     @EventHandler(priority = EventPriority.HIGH)
-    public void onPlayerChat(AsyncPlayerChatEvent event) {
+    protected void onPlayerChat(AsyncPlayerChatEvent event) {
 
         if (event.isCancelled()) {
             return;
@@ -46,7 +47,7 @@ public class FactionChatListener implements Listener {
         String msg = event.getMessage();
         //FPlayer me = (FPlayer)FPlayers.i.get(talkingPlayer);
         String chatmode = ChatMode.getChatMode(talkingPlayer);
-        if (!chatmode.equalsIgnoreCase("PUBLIC")) {
+        if (!chatmode.equalsIgnoreCase("protected")) {
             if (chatmode.equalsIgnoreCase("ALLY")) {
                 channel.fchata(talkingPlayer, msg);
                 event.setCancelled(true);
@@ -84,7 +85,11 @@ public class FactionChatListener implements Listener {
     }
 
     @EventHandler(priority = EventPriority.LOWEST)
-    public void onPlayerCommand(PlayerCommandPreprocessEvent event) {
+    protected void onPlayerCommand(PlayerCommandPreprocessEvent event) {
+        if (event.isCancelled())
+        {
+            return;
+        }
         Player player = event.getPlayer();
         String message = event.getMessage();
         String Command = "";

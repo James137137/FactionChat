@@ -31,7 +31,7 @@ public class ChatChannel {
      * Returns player's Factions Name.
      *
      */
-    public static String getFactionName(Player player) {
+    protected static String getFactionName(Player player) {
         return ((FPlayer) FPlayers.i.get(player)).getFaction().getTag();
     }
 
@@ -40,7 +40,7 @@ public class ChatChannel {
      * Returns player's Factions Name.
      *
      */
-    public static String getFactionName(FPlayer fPlayer) {
+    protected static String getFactionName(FPlayer fPlayer) {
         return fPlayer.getFaction().getTag();
     }
 
@@ -49,20 +49,18 @@ public class ChatChannel {
      * Returns player's Factions Title.
      *
      */
-    public static String getPlayerTitle(Player player) {
-        String title =((FPlayer) FPlayers.i.get(player)).getTitle();
-        if (title.length() > 0)
-        {
+    protected static String getPlayerTitle(Player player) {
+        String title = ((FPlayer) FPlayers.i.get(player)).getTitle();
+        if (title.length() > 0) {
             title += "-";
         }
         return title;
     }
-    
+
     /*
      * Sends a message to the player's Faction only.
      */
-
-    public void fchat(Player player, String message) {
+    protected void fchat(Player player, String message) {
 
 
         String senderFaction = getFactionName(player); //obtains player's faction name
@@ -95,7 +93,7 @@ public class ChatChannel {
      * Sends a message to the player's Faction 
      * and everyone that is in a Faction that is ally or truce with the player's Faction.
      */
-    public void fchata(Player player, String message) {
+    protected void fchata(Player player, String message) {
 
         String sSenderFaction = getFactionName(player); //obtains player's faction name
 
@@ -127,7 +125,7 @@ public class ChatChannel {
      * Sends a message to the player's Faction 
      * and everyone that is in a Faction that enermies with the player's Faction.
      */
-    public void fchatE(Player player, String message) {
+    protected void fchatE(Player player, String message) {
 
         String sSenderFaction = getFactionName(player); //obtains player's faction name
 
@@ -156,7 +154,7 @@ public class ChatChannel {
 
     }
 
-    public void userAssistantChat(Player player, String message) {
+    protected void userAssistantChat(Player player, String message) {
         onlinePlayerList = Bukkit.getServer().getOnlinePlayers(); //get list of every online player
         for (Player myplayer : onlinePlayerList) {
             if (myplayer.hasPermission("FactionChat.UserAssistantChat") || FactionChat.isDebugger(myplayer.getName())) {
@@ -167,7 +165,7 @@ public class ChatChannel {
 
     }
 
-    public void jrModChat(Player player, String message) {
+    protected void jrModChat(Player player, String message) {
         onlinePlayerList = Bukkit.getServer().getOnlinePlayers(); //get list of every online player
         for (Player myplayer : onlinePlayerList) {
             if (myplayer.hasPermission("FactionChat.JrModChat") || FactionChat.isDebugger(myplayer.getName())) {
@@ -178,7 +176,7 @@ public class ChatChannel {
 
     }
 
-    public void modChat(Player player, String message) {
+    protected void modChat(Player player, String message) {
         onlinePlayerList = Bukkit.getServer().getOnlinePlayers(); //get list of every online player
         for (Player myplayer : onlinePlayerList) {
             if (myplayer.hasPermission("FactionChat.ModChat") || FactionChat.isDebugger(myplayer.getName())) {
@@ -189,7 +187,7 @@ public class ChatChannel {
 
     }
 
-    public void SrModChat(Player player, String message) {
+    protected void SrModChat(Player player, String message) {
         onlinePlayerList = Bukkit.getServer().getOnlinePlayers(); //get list of every online player
         for (Player myplayer : onlinePlayerList) {
             if (myplayer.hasPermission("FactionChat.SrModChat") || FactionChat.isDebugger(myplayer.getName())) {
@@ -200,7 +198,7 @@ public class ChatChannel {
 
     }
 
-    public void JrAdminChat(Player player, String message) {
+    protected void JrAdminChat(Player player, String message) {
         onlinePlayerList = Bukkit.getServer().getOnlinePlayers(); //get list of every online player
         for (Player myplayer : onlinePlayerList) {
             if (myplayer.hasPermission("FactionChat.JrAdminChat") || FactionChat.isDebugger(myplayer.getName())) {
@@ -211,7 +209,7 @@ public class ChatChannel {
 
     }
 
-    public void adminChat(Player player, String message) {
+    protected void adminChat(Player player, String message) {
         onlinePlayerList = Bukkit.getServer().getOnlinePlayers(); //get list of every online player
         for (Player myplayer : onlinePlayerList) {
             if (myplayer.hasPermission("FactionChat.AdminChat") || FactionChat.isDebugger(myplayer.getName())) {
@@ -222,7 +220,7 @@ public class ChatChannel {
 
     }
 
-    public void fchato(CommandSender sender, String[] args) {
+    protected void fchato(CommandSender sender, String[] args) {
 
         Player player = (Player) sender;//get player
 

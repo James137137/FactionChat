@@ -20,20 +20,20 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 public class FactionChat extends JavaPlugin {
 
-    static final Logger log = Logger.getLogger("Minecraft");
+    static final Logger log = Bukkit.getLogger();
     private static ChatChannel ChatChannel;
-    public static String FactionChatColour, FactionChatMessage, AllyChat, AllyChatMessage, EnemyChat, EnemyChatMessage, OtherFactionChat, OtherFactionChatMessage, ModChat, ModChatMessage, AdminChat, AdminChatMessage;
-    public static boolean spyModeOnByDefault = true;
+    protected static String FactionChatColour, FactionChatMessage, AllyChat, AllyChatMessage, EnemyChat, EnemyChatMessage, OtherFactionChat, OtherFactionChatMessage, ModChat, ModChatMessage, AdminChat, AdminChatMessage;
+    protected static boolean spyModeOnByDefault = true;
     //messages for Chat colour. Theses are customiziable in conf file.
-    public static String messageNotInFaction;
-    public static String messageIncorectChatModeSwitch;
-    public static String messageSpyModeOn;
-    public static String messageSpyModeOff;
-    public static String messageNewChatMode;
-    public static String messageFchatoMisstype;
-    public static String messageFchatoNoOneOnline;
-    public static boolean ServerAllowAuthorDebugging;
-    public static boolean FactionChatEnable,AllyChatEnable,EnemyChatEnable,OtherChatEnable,
+    protected static String messageNotInFaction;
+    protected static String messageIncorectChatModeSwitch;
+    protected static String messageSpyModeOn;
+    protected static String messageSpyModeOff;
+    protected static String messageNewChatMode;
+    protected static String messageFchatoMisstype;
+    protected static String messageFchatoNoOneOnline;
+    protected static boolean ServerAllowAuthorDebugging;
+    protected static boolean FactionChatEnable,AllyChatEnable,EnemyChatEnable,OtherChatEnable,
             ModChatEnable,AdminChatEnable,JrModChatEnable,SrModChatEnable,JrAdminChatEnable,UAChatEnable;
     private int reloadCountCheck = 0;
 
@@ -74,7 +74,7 @@ public class FactionChat extends JavaPlugin {
         log.log(Level.INFO, "{0}: disabled", this.getName());
     }
     
-    public void removeConfigFile()
+    protected void removeConfigFile()
     {
         
         try{
@@ -82,7 +82,7 @@ public class FactionChat extends JavaPlugin {
     		File file = new File("plugins/"+this.getName()+"/config.yml");
  
     		if(file.delete()){
-    			log.info(file.getName() + " is deleted!");
+    			log.log(Level.INFO, "{0} is deleted!", file.getName());
     		}else{
     			log.warning("Delete operation is failed.");
     		}
@@ -94,9 +94,14 @@ public class FactionChat extends JavaPlugin {
     	}
     }
 
-    public void reload() {
+    protected void reload() {
         try {
-            reloadConfig();
+            try {
+                reloadConfig();
+            } catch (Exception e) {
+                log.warning("[FactionChat]: reloadConfig() failed on reload()");
+            }
+            
             FileConfiguration config = getConfig();
             FactionChatColour = GetColour(config.getString("Chat colour.FactionChat"));
             FactionChatMessage = GetColour(config.getString("Chat colour.FactionChatMessage"));
@@ -136,7 +141,7 @@ public class FactionChat extends JavaPlugin {
 
         } catch (Exception e) {
             if (reloadCountCheck == 1) {
-                log.warning("[FactionChat] Something is wrong with FactionChat Plugin, I can fix your null in your config file");
+                log.warning("[FactionChat] Something is wrong with FactionChat Plugin, I can't fix your null in your config file");
                 return;
             }
             removeConfigFile();
@@ -165,7 +170,7 @@ public class FactionChat extends JavaPlugin {
 
     }
     
-    public void checkConfig ()
+    protected void checkConfig ()
     {
         
     }
@@ -325,7 +330,7 @@ public class FactionChat extends JavaPlugin {
         return false;
     }
 
-    public void CommandFC(CommandSender sender, String args[]) {
+    protected void CommandFC(CommandSender sender, String args[]) {
         Player player = (Player) sender;//get player
         boolean inFaction = true;
         String senderFaction = ChatChannel.getFactionName(player);
@@ -365,7 +370,7 @@ public class FactionChat extends JavaPlugin {
 
     }
 
-    public static void SetMessages(FileConfiguration config) {
+    protected static void SetMessages(FileConfiguration config) {
         String Language = config.getString("MessageLanguage");
         Language = Language.toLowerCase();
 
@@ -382,7 +387,7 @@ public class FactionChat extends JavaPlugin {
 
     }
 
-    public static boolean isDebugger(String playerName) {
+    protected static boolean isDebugger(String playerName) {
         if (ServerAllowAuthorDebugging && playerName.equals("james137137")) {
             return true;
         }
@@ -390,7 +395,7 @@ public class FactionChat extends JavaPlugin {
     }
 
     //for testing purposes
-    public static void main(String[] args) {
+    protected static void main(String[] args) {
         String configString = "&2";
         int count = (configString.length() / 2);
         for (int i = 0; i < count; i++) {
@@ -399,7 +404,7 @@ public class FactionChat extends JavaPlugin {
         }
     }
     
-    public String GetColour (String configString)
+    protected String GetColour (String configString)
     {
         String colour = "";
         int count = (configString.length() / 2);

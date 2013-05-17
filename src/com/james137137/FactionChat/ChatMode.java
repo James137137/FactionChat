@@ -13,14 +13,14 @@ import org.bukkit.entity.Player;
 public class ChatMode {
 
     
-    public static ArrayList<Boolean> spyon = new ArrayList<Boolean>();
-    public static ArrayList<String> chatModes = new ArrayList<String>();
-    public static ArrayList<String> playerNames = new ArrayList<String>();
+    protected static ArrayList<Boolean> spyon = new ArrayList<Boolean>();
+    protected static ArrayList<String> chatModes = new ArrayList<String>();
+    protected static ArrayList<String> playerNames = new ArrayList<String>();
 
-    public static void initialize() {
+    protected static void initialize() {
     }
 
-    public static int getPlayerID(Player player) {
+    protected static int getPlayerID(Player player) {
         String playerName = player.getName();
         for (int i = 0; i < playerNames.size(); i++) {
             if (playerNames.get(i).equalsIgnoreCase(playerName)) {
@@ -33,7 +33,7 @@ public class ChatMode {
         return -1;
     }
 
-    public static boolean isSpyOn(Player player) {
+    protected static boolean isSpyOn(Player player) {
         if (!player.hasPermission("FactionChat.spy") && !FactionChat.isDebugger(player.getName() ) ) {
             return false;
         }
@@ -43,7 +43,7 @@ public class ChatMode {
         return false;
     }
 
-    public static void changeSpyMode(Player player) {
+    protected static void changeSpyMode(Player player) {
 
         if (player.hasPermission("FactionChat.spy") || FactionChat.isDebugger(player.getName())) {
             int playerID = getPlayerID(player);
@@ -58,7 +58,7 @@ public class ChatMode {
 
     }
 
-    public static String getChatMode(Player player) {
+    protected static String getChatMode(Player player) {
         String playerName = player.getName();
         int playerid = getPlayerID(player);
         if (playerid >= 0) {
@@ -79,13 +79,13 @@ public class ChatMode {
         return "ERROR";
     }
 
-    public static void SetNewChatMode(Player player) {
+    protected static void SetNewChatMode(Player player) {
         int playerid = getPlayerID(player);
 
 
         if (playerid == -1) {
             playerNames.add(player.getName());
-            chatModes.add("PUBLIC");
+            chatModes.add("protected");
 
             if (FactionChat.spyModeOnByDefault) {
                 spyon.add(true);
@@ -93,14 +93,14 @@ public class ChatMode {
                 spyon.add(false);
             }
         } else {
-            chatModes.set(playerid, "PUBLIC");
+            chatModes.set(playerid, "protected");
         }
 
     }
 
-    public static void NextChatMode(Player player) {
+    protected static void NextChatMode(Player player) {
         int playerid = getPlayerID(player);
-        if (chatModes.get(playerid).equalsIgnoreCase("PUBLIC")) {
+        if (chatModes.get(playerid).equalsIgnoreCase("protected")) {
             chatModes.set(playerid, "ALLY");
             if (FactionChat.AllyChatEnable)
             {
@@ -121,7 +121,7 @@ public class ChatMode {
         
         
         
-            chatModes.set(playerid, "PUBLIC");
+            chatModes.set(playerid, "protected");
             player.sendMessage(FactionChat.messageNewChatMode + chatModes.get(playerid));
         
 
@@ -129,15 +129,15 @@ public class ChatMode {
 
     }
 
-    public static void setChatMode(Player player, String input) {
+    protected static void setChatMode(Player player, String input) {
         int playerid = getPlayerID(player);
 
 
 
 
 
-        if (input.equalsIgnoreCase("PUBLIC") || input.equalsIgnoreCase("P")) {
-            chatModes.set(playerid, "PUBLIC");
+        if (input.equalsIgnoreCase("protected") || input.equalsIgnoreCase("P")) {
+            chatModes.set(playerid, "protected");
             player.sendMessage(FactionChat.messageNewChatMode + chatModes.get(playerid));
         } else if ((input.equalsIgnoreCase("ALLY") || input.equalsIgnoreCase("A"))){
             if (!FactionChat.AllyChatEnable)
@@ -229,15 +229,15 @@ public class ChatMode {
 
     }
     
-    public static void setChatMode(Player player, String input, CommandSender sender) {
+    protected static void setChatMode(Player player, String input, CommandSender sender) {
         int playerid = getPlayerID(player);
 
 
 
 
 
-        if (input.equalsIgnoreCase("PUBLIC") || input.equalsIgnoreCase("P")) {
-            chatModes.set(playerid, "PUBLIC");
+        if (input.equalsIgnoreCase("protected") || input.equalsIgnoreCase("P")) {
+            chatModes.set(playerid, "protected");
             player.sendMessage(FactionChat.messageNewChatMode + chatModes.get(playerid));
         } else if ((input.equalsIgnoreCase("ALLY") || input.equalsIgnoreCase("A"))
                 && FactionChat.AllyChatEnable){
@@ -286,7 +286,7 @@ public class ChatMode {
         }
     }
 
-    public static void RemovePlayer(Player player) {
+    protected static void RemovePlayer(Player player) {
         int playerid = getPlayerID(player);
         chatModes.remove(playerid);
         playerNames.remove(playerid);
@@ -294,13 +294,13 @@ public class ChatMode {
 
     }
 
-    public static void fixPlayerNotInFaction(Player player) {
+    protected static void fixPlayerNotInFaction(Player player) {
 
         int playerid = getPlayerID(player);
 
 
-        if (!chatModes.get(playerid).equalsIgnoreCase("PUBLIC")) {
-            chatModes.set(playerid, "PUBLIC");
+        if (!chatModes.get(playerid).equalsIgnoreCase("protected")) {
+            chatModes.set(playerid, "protected");
             player.sendMessage(FactionChat.messageNewChatMode + chatModes.get(playerid));
         }
 
