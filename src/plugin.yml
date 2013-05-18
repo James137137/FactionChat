@@ -1,7 +1,7 @@
 name: FactionChat
 softdepend: [Factions]
 main: com.james137137.FactionChat.FactionChat
-version: 1.524
+version: 1.525
 authors: [James Anderson]
 commands:
   fchat:
@@ -46,6 +46,12 @@ permissions:
       FactionChat.OtherChat: true
       FactionChat.EnemyChat: true
       FactionChat.admins: true
+  FactionChat.FactionChat:
+    description: Allows player to send and receive messages from their Factions.
+    default: true
+  FactionChat.AllyChat:
+    description: Allows player to send and receive messages from their ally Factions
+    default: true
   FactionChat.OtherChat:
     description: Allows player to send messages to other Factions
     default: op

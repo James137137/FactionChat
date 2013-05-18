@@ -47,7 +47,7 @@ public class FactionChatListener implements Listener {
         String msg = event.getMessage();
         //FPlayer me = (FPlayer)FPlayers.i.get(talkingPlayer);
         String chatmode = ChatMode.getChatMode(talkingPlayer);
-        if (!chatmode.equalsIgnoreCase("protected")) {
+        if (!chatmode.equalsIgnoreCase("PUBLIC")) {
             if (chatmode.equalsIgnoreCase("ALLY")) {
                 channel.fchata(talkingPlayer, msg);
                 event.setCancelled(true);

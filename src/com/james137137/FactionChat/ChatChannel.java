@@ -75,7 +75,7 @@ public class ChatChannel {
         for (Player myPlayer : Bukkit.getServer().getOnlinePlayers()) {
 
 
-            if (getFactionName(myPlayer).equalsIgnoreCase(senderFaction)) {
+            if (getFactionName(myPlayer).equalsIgnoreCase(senderFaction) && myPlayer.hasPermission("FactionChat.FactionChat")) {
                 myPlayer.sendMessage(FactionChat.FactionChatColour + "[" + senderFaction + FactionChat.FactionChatColour + "] " + ChatColor.RESET + getPlayerTitle(player) + player.getName() + ": " + FactionChat.FactionChatMessage + message);
             } else if (ChatMode.isSpyOn(myPlayer)) {
                 myPlayer.sendMessage(FactionChat.FactionChatColour + "Spy: [" + senderFaction + ChatColor.DARK_GREEN + "] " + ChatColor.RESET + player.getName() + ": " + FactionChat.FactionChatMessage + message);
@@ -113,7 +113,9 @@ public class ChatChannel {
             FPlayer fplayer = (FPlayer) FPlayers.i.get(myPlayer);
 
 
-            if (SenderFaction.getRelationTo(fplayer) == Rel.ALLY || SenderFaction.getRelationTo(fplayer) == Rel.TRUCE || sSenderFaction.equalsIgnoreCase(getFactionName(fplayer))) {
+            if ((SenderFaction.getRelationTo(fplayer) == Rel.ALLY || SenderFaction.getRelationTo(fplayer) == Rel.TRUCE ||
+                    sSenderFaction.equalsIgnoreCase(getFactionName(fplayer)))
+                    && myPlayer.hasPermission("FactionChat.FactionChat")) {
                 fplayer.sendMessage(FactionChat.AllyChat + "Ally: [" + sSenderFaction + FactionChat.AllyChat + "] " + ChatColor.RESET + getPlayerTitle(player) + player.getName() + ": " + FactionChat.AllyChatMessage + message);
             } else if (ChatMode.isSpyOn(myPlayer)) {
                 fplayer.sendMessage(FactionChat.AllyChat + "Spy: Ally: [" + sSenderFaction + FactionChat.AllyChat + "] " + ChatColor.RESET + player.getName() + ": " + FactionChat.AllyChatMessage + message);
