@@ -12,6 +12,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
+import org.bukkit.scoreboard.ScoreboardManager;
 
 /**
  *
@@ -113,8 +114,8 @@ public class ChatChannel {
             FPlayer fplayer = (FPlayer) FPlayers.i.get(myPlayer);
 
 
-            if ((SenderFaction.getRelationTo(fplayer) == Rel.ALLY || SenderFaction.getRelationTo(fplayer) == Rel.TRUCE ||
-                    sSenderFaction.equalsIgnoreCase(getFactionName(fplayer)))
+            if ((SenderFaction.getRelationTo(fplayer) == Rel.ALLY || SenderFaction.getRelationTo(fplayer) == Rel.TRUCE
+                    || sSenderFaction.equalsIgnoreCase(getFactionName(fplayer)))
                     && myPlayer.hasPermission("FactionChat.FactionChat")) {
                 fplayer.sendMessage(FactionChat.AllyChat + "Ally: [" + sSenderFaction + FactionChat.AllyChat + "] " + ChatColor.RESET + getPlayerTitle(player) + player.getName() + ": " + FactionChat.AllyChatMessage + message);
             } else if (ChatMode.isSpyOn(myPlayer)) {
@@ -152,72 +153,6 @@ public class ChatChannel {
             } else if (ChatMode.isSpyOn(myPlayer)) {
                 fplayer.sendMessage(FactionChat.EnemyChat + "Spy: Enemy: [" + sSenderFaction + FactionChat.EnemyChat + "] " + ChatColor.RESET + player.getName() + ": " + FactionChat.EnemyChatMessage + message);
             }
-        }
-
-    }
-
-    protected void userAssistantChat(Player player, String message) {
-        onlinePlayerList = Bukkit.getServer().getOnlinePlayers(); //get list of every online player
-        for (Player myplayer : onlinePlayerList) {
-            if (myplayer.hasPermission("FactionChat.UserAssistantChat") || FactionChat.isDebugger(myplayer.getName())) {
-                myplayer.sendMessage(ChatColor.DARK_PURPLE + "[UA-Chat]: " + ChatColor.RESET + player.getName() + ": " + factionChat.ModChatMessage + message);
-            }
-
-        }
-
-    }
-
-    protected void jrModChat(Player player, String message) {
-        onlinePlayerList = Bukkit.getServer().getOnlinePlayers(); //get list of every online player
-        for (Player myplayer : onlinePlayerList) {
-            if (myplayer.hasPermission("FactionChat.JrModChat") || FactionChat.isDebugger(myplayer.getName())) {
-                myplayer.sendMessage(FactionChat.ModChat + "[JrMod-Chat]: " + ChatColor.RESET + player.getName() + ": " + factionChat.ModChatMessage + message);
-            }
-
-        }
-
-    }
-
-    protected void modChat(Player player, String message) {
-        onlinePlayerList = Bukkit.getServer().getOnlinePlayers(); //get list of every online player
-        for (Player myplayer : onlinePlayerList) {
-            if (myplayer.hasPermission("FactionChat.ModChat") || FactionChat.isDebugger(myplayer.getName())) {
-                myplayer.sendMessage(FactionChat.ModChat + "[Mod-Chat]: " + ChatColor.RESET + player.getName() + ": " + factionChat.ModChatMessage + message);
-            }
-
-        }
-
-    }
-
-    protected void SrModChat(Player player, String message) {
-        onlinePlayerList = Bukkit.getServer().getOnlinePlayers(); //get list of every online player
-        for (Player myplayer : onlinePlayerList) {
-            if (myplayer.hasPermission("FactionChat.SrModChat") || FactionChat.isDebugger(myplayer.getName())) {
-                myplayer.sendMessage(FactionChat.ModChat + "[SrMod-Chat]: " + ChatColor.RESET + player.getName() + ": " + factionChat.ModChatMessage + message);
-            }
-
-        }
-
-    }
-
-    protected void JrAdminChat(Player player, String message) {
-        onlinePlayerList = Bukkit.getServer().getOnlinePlayers(); //get list of every online player
-        for (Player myplayer : onlinePlayerList) {
-            if (myplayer.hasPermission("FactionChat.JrAdminChat") || FactionChat.isDebugger(myplayer.getName())) {
-                myplayer.sendMessage(FactionChat.AdminChat + "[JrAdmin-Chat]: " + ChatColor.RESET + player.getName() + ": " + FactionChat.AdminChatMessage + message);
-            }
-
-        }
-
-    }
-
-    protected void adminChat(Player player, String message) {
-        onlinePlayerList = Bukkit.getServer().getOnlinePlayers(); //get list of every online player
-        for (Player myplayer : onlinePlayerList) {
-            if (myplayer.hasPermission("FactionChat.AdminChat") || FactionChat.isDebugger(myplayer.getName())) {
-                myplayer.sendMessage(FactionChat.AdminChat + "[Admin-Chat]: " + ChatColor.RESET + player.getName() + ": " + FactionChat.AdminChatMessage + message);
-            }
-
         }
 
     }
