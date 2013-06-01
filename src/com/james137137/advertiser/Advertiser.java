@@ -41,7 +41,7 @@ public class Advertiser {
             return;
         }
         try {
-            url = new URL("http://lolnet.co.nz/factionchatadds.txt");
+            url = new URL("http://lolnet.co.nz/factionchatads.txt");
             reader = new BufferedReader(new InputStreamReader(url.openStream()));
             log.info("[FactionChat] Advertiser is enabled");
             
