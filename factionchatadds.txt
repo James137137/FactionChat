@@ -1,0 +1,6 @@
+&e[FactionChat]
+&b&nhttp://dev.bukkit.org/bukkit-mods/factionchat/
+&e&llolnet"
+&b&nhttp://www.lolnet.co.nz
+&aWant your own personal advertisement to go here?
+&nsend a PM to james137137 at &b&nhttp://dev.bukkit.org/bukkit-mods/factionchat/

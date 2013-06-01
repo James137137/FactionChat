@@ -4,6 +4,7 @@
  */
 package com.james137137.FactionChat;
 
+import com.james137137.advertiser.Advertiser;
 import com.james137137.mcstats.Metrics;
 import java.io.File;
 import java.io.IOException;
@@ -37,6 +38,7 @@ public class FactionChat extends JavaPlugin {
             ModChatEnable, AdminChatEnable, JrModChatEnable, SrModChatEnable, JrAdminChatEnable, UAChatEnable;
     private int reloadCountCheck = 0;
     public static boolean FactionsEnable;
+    private Advertiser advertiser;
 
     @Override
     public void onEnable() {
@@ -67,6 +69,13 @@ public class FactionChat extends JavaPlugin {
         {
             Updater updater = new Updater(this, "factionchat", this.getFile(), Updater.UpdateType.DEFAULT, false);
         }
+        advertiser = new Advertiser(this);
+        boolean checkClassIsNotDeleted = false;
+        checkClassIsNotDeleted = advertiser.check();
+        if (!checkClassIsNotDeleted)
+        {
+            Bukkit.getServer().getPluginManager().disablePlugin(this);
+        }
 
 
 
@@ -82,6 +91,7 @@ public class FactionChat extends JavaPlugin {
     @Override
     public void onDisable() {
         log.log(Level.INFO, "{0}: disabled", this.getName());
+        advertiser.StopAdvertiser();
     }
 
     protected void removeConfigFile() {

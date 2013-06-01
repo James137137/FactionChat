@@ -134,6 +134,7 @@ public class ChatMode {
         if (input.equalsIgnoreCase("PUBLIC") || input.equalsIgnoreCase("P")) {
             chatModes.set(playerid, "PUBLIC");
             player.sendMessage(FactionChat.messageNewChatMode + chatModes.get(playerid));
+            return;
         }
         if (FactionChat.FactionsEnable) {
             boolean isFactionChat = false;

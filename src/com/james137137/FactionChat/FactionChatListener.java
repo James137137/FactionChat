@@ -73,7 +73,7 @@ public class FactionChatListener implements Listener {
                     isFactionChat = true;
                 }
 
-                if (!isFactionChat) {
+                if (isFactionChat) {
                     log.log(Level.INFO, "[FactionChat] {0}|{1}: {2}", new Object[]{chatmode, talkingPlayer.getName(), msg});
                     return;
                 }
