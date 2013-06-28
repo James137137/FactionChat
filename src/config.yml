@@ -6,21 +6,29 @@ spyModeOnByDefault: true
 #If this is set true and your server is set online-mode:true, 
 #then it allows me (james137137) to the following addiction commands,
 AllowAuthorDebugAccess: true
-# Change the color prefix of each chat mode.
-Chat-colour:
-  FactionChat: '&2'
-  FactionChatMessage: '&f'
-  AllyChat: '&a'
-  AllyChatMessage: '&f'
-  EnemyChat: '&c'
-  EnemyChatMessage: '&f'
-  OtherFactionChat: '&5'
-  OtherFactionMessage: '&f'
-  ModChat: '&b'
-  ModChatMessage: '&a'
-  AdminChat: '&4'
-  AdminChatMessage: '&a'
-  OtherFactionChatMessage: '&f'
+# Change the colors and format of each message
+# {0} Faction name
+# {1} Player name
+# {2} message
+FactionChatMessage:
+  FactionChat: '&2[{0}] &f{1}: {2}'
+  AllyChat: '&aAlly: [{0}] &f{1}: {2}'
+  EnemyChat: '&cEnemy: [{0}] &f{1}: {2}'
+# {3} Other Faction's name
+  OtherFactionChatTo: '&5[@:{0}] &f{1}: {2}'
+  OtherFactionChatFrom: '&5[From:{0}] &f{1}: {2}'
+  OtherFactionChatSpy: '&5[@:{0}]-[From:{1}] &f{2}: {3}'
+# {0} everytning else 
+  SpyChat: '&2Spy:&r {0}'
+# {0} Player name
+# {1} Message
+OtherChatMessage:
+  ModChat: '&b[Mod-Chat] &f{0}: &a{1}'
+  AdminChat: '&4[Admin-Chat] &f{0}: &a{1}'
+  UAChat: '&5[UA-Chat] &f{0}: &a{1}'
+  JrModChat: '&b[JrMod-Chat] &f{0}: &a{1}'
+  SrModChat: '&b[SrMod-Chat] &f{0}: &a{1}'
+  JrAdminChat: '&4[JrAdmin-Chat] &f{0}: &a{1}'
 #Enable/disable any chat (except public)
 FactionChatEnable: true
 AllyChatEnable: true

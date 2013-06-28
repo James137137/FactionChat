@@ -1,8 +1,4 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-package com.james137137.FactionChat;
+package nz.co.lolnet.james137137.FactionChat;
 
 import com.massivecraft.factions.FPlayer;
 import com.massivecraft.factions.FPlayers;
@@ -12,7 +8,6 @@ import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
-import org.bukkit.scoreboard.ScoreboardManager;
 
 /**
  *
@@ -25,6 +20,20 @@ public class ChatChannel {
 
     ChatChannel(FactionChat aThis) {
         factionChat = aThis;
+    }
+    
+    private static String FormatString (String message, String[] args)
+    {
+        if (args!=null)
+        {
+          for (int i = 0; i < args.length; i++) {
+            message = message.replace(("{"+i+"}"), args[i]);
+            }  
+        }
+        
+            message = message.replaceAll("&",""+(char)167);
+        
+        return message;
     }
 
     /**
@@ -66,20 +75,25 @@ public class ChatChannel {
 
         String senderFaction = getFactionName(player); //obtains player's faction name
 
+        
         if (senderFaction.contains("Wilderness")) { //checks if player is in a faction
             player.sendMessage(ChatColor.RED + FactionChat.messageNotInFaction);
             ChatMode.fixPlayerNotInFaction(player);
             return;
 
         }
-
+        String[] intput1 = {senderFaction,player.getName(),message};
+        String[] input2 = {FormatString(FactionChat.FactionChatMessage, intput1)};
+        String normalMessage = FormatString(FactionChat.FactionChatMessage, intput1);
+        String spyMessage = FormatString(FactionChat.SpyChat,input2);
         for (Player myPlayer : Bukkit.getServer().getOnlinePlayers()) {
 
 
             if (getFactionName(myPlayer).equalsIgnoreCase(senderFaction) && myPlayer.hasPermission("FactionChat.FactionChat")) {
-                myPlayer.sendMessage(FactionChat.FactionChatColour + "[" + senderFaction + FactionChat.FactionChatColour + "] " + ChatColor.RESET + getPlayerTitle(player) + player.getName() + ": " + FactionChat.FactionChatMessage + message);
+                myPlayer.sendMessage(normalMessage);
             } else if (ChatMode.isSpyOn(myPlayer)) {
-                myPlayer.sendMessage(FactionChat.FactionChatColour + "Spy: [" + senderFaction + ChatColor.DARK_GREEN + "] " + ChatColor.RESET + player.getName() + ": " + FactionChat.FactionChatMessage + message);
+                
+                myPlayer.sendMessage(spyMessage);
             }
         }
 
@@ -104,6 +118,11 @@ public class ChatChannel {
             return;
 
         }
+        
+        String[] intput1 = {sSenderFaction,player.getName(),message};
+        String[] input2 = {FormatString(FactionChat.AllyChat, intput1)};
+        String normalMessage = FormatString(FactionChat.AllyChat, intput1);
+        String spyMessage = FormatString(FactionChat.SpyChat,input2);
 
         FPlayer fSenderPlayer = (FPlayer) FPlayers.i.get(player);
         Faction SenderFaction = fSenderPlayer.getFaction();
@@ -117,9 +136,9 @@ public class ChatChannel {
             if ((SenderFaction.getRelationTo(fplayer) == Rel.ALLY || SenderFaction.getRelationTo(fplayer) == Rel.TRUCE
                     || sSenderFaction.equalsIgnoreCase(getFactionName(fplayer)))
                     && myPlayer.hasPermission("FactionChat.FactionChat")) {
-                fplayer.sendMessage(FactionChat.AllyChat + "Ally: [" + sSenderFaction + FactionChat.AllyChat + "] " + ChatColor.RESET + getPlayerTitle(player) + player.getName() + ": " + FactionChat.AllyChatMessage + message);
+                fplayer.sendMessage(normalMessage);
             } else if (ChatMode.isSpyOn(myPlayer)) {
-                fplayer.sendMessage(FactionChat.AllyChat + "Spy: Ally: [" + sSenderFaction + FactionChat.AllyChat + "] " + ChatColor.RESET + player.getName() + ": " + FactionChat.AllyChatMessage + message);
+                fplayer.sendMessage(spyMessage);
             }
         }
     }
@@ -141,6 +160,10 @@ public class ChatChannel {
 
         FPlayer fSenderPlayer = (FPlayer) FPlayers.i.get(player);
         Faction SenderFaction = fSenderPlayer.getFaction();
+        String[] intput1 = {sSenderFaction,player.getName(),message};
+        String[] input2 = {FormatString(FactionChat.EnemyChat, intput1)};
+        String normalMessage = FormatString(FactionChat.EnemyChat, intput1);
+        String spyMessage = FormatString(FactionChat.SpyChat,input2);
 
         for (Player myPlayer : Bukkit.getServer().getOnlinePlayers()) {
 
@@ -149,14 +172,17 @@ public class ChatChannel {
 
 
             if (SenderFaction.getRelationTo(fplayer) == Rel.ENEMY || sSenderFaction.equalsIgnoreCase(getFactionName(fplayer))) {
-                fplayer.sendMessage(FactionChat.EnemyChat + "Enemy: [" + sSenderFaction + FactionChat.EnemyChat + "] " + ChatColor.RESET + getPlayerTitle(player) + player.getName() + ": " + FactionChat.EnemyChatMessage + message);
+                fplayer.sendMessage(normalMessage);
             } else if (ChatMode.isSpyOn(myPlayer)) {
-                fplayer.sendMessage(FactionChat.EnemyChat + "Spy: Enemy: [" + sSenderFaction + FactionChat.EnemyChat + "] " + ChatColor.RESET + player.getName() + ": " + FactionChat.EnemyChatMessage + message);
+                fplayer.sendMessage(spyMessage);
             }
         }
 
     }
 
+    
+    
+    
     protected void fchato(CommandSender sender, String[] args) {
 
         Player player = (Player) sender;//get player
@@ -196,9 +222,13 @@ public class ChatChannel {
                 onlinePlayerList = Bukkit.getServer().getOnlinePlayers(); //get list of every online player
                 String playersFaction; //creates string outside loop
                 String targetFaction = args[0] + senderFaction.charAt(senderFaction.length() - 2) + senderFaction.charAt(senderFaction.length() - 1);
-
+                
                 int count = 0;
-
+                String[] intput1 = {senderFaction,player.getName(),message};
+                String[] input2 = {FormatString(FactionChat.OtherFactionChatSpy, intput1)};
+                String toMessage = FormatString(FactionChat.OtherFactionChatTo, intput1);
+                String FromMessage = FormatString(FactionChat.OtherFactionChatFrom, intput1);
+                String spyMessage = FormatString(FactionChat.SpyChat,input2);
                 //start of loop
                 for (int i = 0; i < onlinePlayerList.length; i++) {
 
@@ -206,12 +236,12 @@ public class ChatChannel {
 
 
                     if (playersFaction.equalsIgnoreCase(senderFaction)) {
-                        onlinePlayerList[i].sendMessage(FactionChat.OtherFactionChat + "[@" + targetFaction + FactionChat.OtherFactionChat + "] " + ChatColor.RESET + player.getName() + ": " + FactionChat.OtherFactionChatMessage + message);
+                        onlinePlayerList[i].sendMessage(toMessage);
                     } else if (playersFaction.equalsIgnoreCase(targetFaction)) {
-                        onlinePlayerList[i].sendMessage(FactionChat.OtherFactionChat + "from: [" + FactionChat.OtherFactionChat + senderFaction + FactionChat.OtherFactionChat + "] " + ChatColor.RESET + player.getName() + ": " + FactionChat.OtherFactionChatMessage + message);
+                        onlinePlayerList[i].sendMessage(FromMessage);
                         count++;
                     } else if (ChatMode.isSpyOn(onlinePlayerList[i])) {
-                        onlinePlayerList[i].sendMessage(FactionChat.OtherFactionChat + "Spy: [" + FactionChat.OtherFactionChat + senderFaction + FactionChat.OtherFactionChat + " @" + FactionChat.OtherFactionChat + targetFaction + FactionChat.OtherFactionChat + "] " + ChatColor.RESET + player.getName() + ": " + FactionChat.OtherFactionChatMessage + message);
+                        onlinePlayerList[i].sendMessage(spyMessage);
                     }
 
                 }
