@@ -86,7 +86,7 @@ public class ChatMode {
             playerNames.add(player.getName());
             chatModes.add("PUBLIC");
 
-            if (FactionChat.spyModeOnByDefault) {
+            if (player.hasPermission("FactionChat.spy") && FactionChat.spyModeOnByDefault) {
                 spyon.add(true);
             } else {
                 spyon.add(false);
@@ -147,6 +147,26 @@ public class ChatMode {
                     chatModes.set(playerid, "ALLY");
                     player.sendMessage(FactionChat.messageNewChatMode + ChatColor.GREEN+ chatModes.get(playerid));
                 }
+
+            } else if ((input.equalsIgnoreCase("ALLYONLY") || input.equalsIgnoreCase("AO"))) {
+                isFactionChat = true;
+                if (!FactionChat.FactionChatEnable) {
+                    player.sendMessage(ChatColor.RED + "Sorry this chat mode is disabled");
+                } else if (player.hasPermission("FactionChat.AllyChat")) {
+                    chatModes.set(playerid, "ALLYONLY");
+                    player.sendMessage(FactionChat.messageNewChatMode + ChatColor.GREEN + chatModes.get(playerid));
+                }
+
+
+            } else if ((input.equalsIgnoreCase("TRUCE") || input.equalsIgnoreCase("T"))) {
+                isFactionChat = true;
+                if (!FactionChat.FactionChatEnable) {
+                    player.sendMessage(ChatColor.RED + "Sorry this chat mode is disabled");
+                } else if (player.hasPermission("FactionChat.AllyChat")) {
+                    chatModes.set(playerid, "TRUCE");
+                    player.sendMessage(FactionChat.messageNewChatMode + ChatColor.GREEN + chatModes.get(playerid));
+                }
+
 
             } else if ((input.equalsIgnoreCase("FACTION") || input.equalsIgnoreCase("F"))) {
                 isFactionChat = true;

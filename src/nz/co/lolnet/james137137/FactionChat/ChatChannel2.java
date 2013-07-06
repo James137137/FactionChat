@@ -111,7 +111,54 @@ public class ChatChannel2 {
         for (Player myPlayer : Bukkit.getServer().getOnlinePlayers()) {
 
 
-            if (getRelationshipId(player, myPlayer) > 20 && myPlayer.hasPermission("FactionChat.FactionChat")) {
+            if (getRelationshipId(player, myPlayer) > 20 && myPlayer.hasPermission("FactionChat.AllyChat")) {
+                myPlayer.sendMessage(normalMessage);
+            } else if (ChatMode.isSpyOn(myPlayer)) {
+
+                myPlayer.sendMessage(spyMessage);
+            }
+        }
+    }
+    
+    protected void fchatao(Player player, String message) {
+        if (isFactionless(player)) {
+            player.sendMessage(ChatColor.RED + FactionChat.messageNotInFaction);
+            ChatMode.fixPlayerNotInFaction(player);
+            return;
+        }
+        String[] intput1 = {getFactionName(player), getPlayerTitle(player)+player.getName(), message};
+        String[] input2 = {FormatString(FactionChat.AllyOnlyChat, intput1)};
+        String normalMessage = FormatString(FactionChat.AllyOnlyChat, intput1);
+        String spyMessage = FormatString(FactionChat.SpyChat, input2);
+
+        for (Player myPlayer : Bukkit.getServer().getOnlinePlayers()) {
+
+
+            if (getRelationshipId(player, myPlayer) > 30 && myPlayer.hasPermission("FactionChat.AllyChat")) {
+                myPlayer.sendMessage(normalMessage);
+            } else if (ChatMode.isSpyOn(myPlayer)) {
+
+                myPlayer.sendMessage(spyMessage);
+            }
+        }
+    }
+    
+    protected void fchatTruce(Player player, String message) {
+        if (isFactionless(player)) {
+            player.sendMessage(ChatColor.RED + FactionChat.messageNotInFaction);
+            ChatMode.fixPlayerNotInFaction(player);
+            return;
+        }
+        String[] intput1 = {getFactionName(player), getPlayerTitle(player)+player.getName(), message};
+        String[] input2 = {FormatString(FactionChat.TruceChat, intput1)};
+        String normalMessage = FormatString(FactionChat.TruceChat, intput1);
+        String spyMessage = FormatString(FactionChat.SpyChat, input2);
+
+        for (Player myPlayer : Bukkit.getServer().getOnlinePlayers()) {
+
+
+            if (((getRelationshipId(player, myPlayer) > 20 && getRelationshipId(player, myPlayer) < 40) || getRelationshipId(player, myPlayer) > 40)
+                    && myPlayer.hasPermission("FactionChat.AllyChat")) {
                 myPlayer.sendMessage(normalMessage);
             } else if (ChatMode.isSpyOn(myPlayer)) {
 

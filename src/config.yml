@@ -13,6 +13,8 @@ AllowAuthorDebugAccess: true
 FactionChatMessage:
   FactionChat: '&2[{0}] &f{1}: {2}'
   AllyChat: '&aAlly: [{0}] &f{1}: {2}'
+  AllyOnlyChat: '&aAlly-Only: [{0}] &f{1}: {2}'
+  TruceChat: '&aTruce: [{0}] &f{1}: {2}'
   EnemyChat: '&cEnemy: [{0}] &f{1}: {2}'
 # {3} Other Faction's name
   OtherFactionChatTo: '&5[@:{0}] &f{1}: {2}'

@@ -1,7 +1,7 @@
 name: FactionChat
 softdepend: [Factions]
-main: com.james137137.FactionChat.FactionChat
-version: 1.529
+main: nz.co.lolnet.james137137.FactionChat.FactionChat
+version: 1.610
 authors: [James Anderson]
 commands:
   fchat:
@@ -20,6 +20,14 @@ commands:
     description: Send a Ally message
     usage: /<command> <Message> 
     aliases: [fa]
+  fchatao:
+    description: Send a Ally Only message
+    usage: /<command> <Message> 
+    aliases: [fao]
+  fchatt:
+    description: Send a Truce message
+    usage: /<command> <Message> 
+    aliases: [ft]
   fchate:
     description: Send a Enemy message
     usage: /<command> <Message> 
@@ -32,6 +40,10 @@ commands:
     description: Send a moderator message
     usage: /<command> <Message> 
     aliases: [fm]
+  fchatua:
+    description: Send a moderator message
+    usage: /<command> <Message> 
+    aliases: [fcu]
   fcadmin:
     description: admin commands to print info and change player chatmode
     usage: /<command> <info/change> <playername> <option>

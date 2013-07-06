@@ -135,7 +135,75 @@ public class ChatChannel {
 
             if ((SenderFaction.getRelationTo(fplayer) == Rel.ALLY || SenderFaction.getRelationTo(fplayer) == Rel.TRUCE
                     || sSenderFaction.equalsIgnoreCase(getFactionName(fplayer)))
-                    && myPlayer.hasPermission("FactionChat.FactionChat")) {
+                    && myPlayer.hasPermission("FactionChat.AllyChat")) {
+                fplayer.sendMessage(normalMessage);
+            } else if (ChatMode.isSpyOn(myPlayer)) {
+                fplayer.sendMessage(spyMessage);
+            }
+        }
+    }
+    
+    public void fchatao(Player player, String message) {
+        String sSenderFaction = getFactionName(player); //obtains player's faction name
+
+        if (sSenderFaction.contains("Wilderness")) { //checks if player is in a faction
+            player.sendMessage(ChatColor.RED + FactionChat.messageNotInFaction);
+            ChatMode.fixPlayerNotInFaction(player);
+            return;
+
+        }
+        
+        String[] intput1 = {sSenderFaction,player.getName(),message};
+        String[] input2 = {FormatString(FactionChat.AllyOnlyChat, intput1)};
+        String normalMessage = FormatString(FactionChat.AllyOnlyChat, intput1);
+        String spyMessage = FormatString(FactionChat.SpyChat,input2);
+
+        FPlayer fSenderPlayer = (FPlayer) FPlayers.i.get(player);
+        Faction SenderFaction = fSenderPlayer.getFaction();
+
+        for (Player myPlayer : Bukkit.getServer().getOnlinePlayers()) {
+
+
+            FPlayer fplayer = (FPlayer) FPlayers.i.get(myPlayer);
+
+
+            if ((SenderFaction.getRelationTo(fplayer) == Rel.ALLY
+                    || sSenderFaction.equalsIgnoreCase(getFactionName(fplayer)))
+                    && myPlayer.hasPermission("FactionChat.AllyChat")) {
+                fplayer.sendMessage(normalMessage);
+            } else if (ChatMode.isSpyOn(myPlayer)) {
+                fplayer.sendMessage(spyMessage);
+            }
+        }
+    }
+    
+    public void fchatTruce(Player player, String message) {
+        String sSenderFaction = getFactionName(player); //obtains player's faction name
+
+        if (sSenderFaction.contains("Wilderness")) { //checks if player is in a faction
+            player.sendMessage(ChatColor.RED + FactionChat.messageNotInFaction);
+            ChatMode.fixPlayerNotInFaction(player);
+            return;
+
+        }
+        
+        String[] intput1 = {sSenderFaction,player.getName(),message};
+        String[] input2 = {FormatString(FactionChat.TruceChat, intput1)};
+        String normalMessage = FormatString(FactionChat.TruceChat, intput1);
+        String spyMessage = FormatString(FactionChat.SpyChat,input2);
+
+        FPlayer fSenderPlayer = (FPlayer) FPlayers.i.get(player);
+        Faction SenderFaction = fSenderPlayer.getFaction();
+
+        for (Player myPlayer : Bukkit.getServer().getOnlinePlayers()) {
+
+
+            FPlayer fplayer = (FPlayer) FPlayers.i.get(myPlayer);
+
+
+            if ((SenderFaction.getRelationTo(fplayer) == Rel.TRUCE
+                    || sSenderFaction.equalsIgnoreCase(getFactionName(fplayer)))
+                    && myPlayer.hasPermission("FactionChat.AllyChat")) {
                 fplayer.sendMessage(normalMessage);
             } else if (ChatMode.isSpyOn(myPlayer)) {
                 fplayer.sendMessage(spyMessage);

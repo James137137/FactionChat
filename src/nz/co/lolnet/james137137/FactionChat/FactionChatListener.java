@@ -71,6 +71,14 @@ public class FactionChatListener implements Listener {
                     channel.fchat(talkingPlayer, msg);
                     event.setCancelled(true);
                     isFactionChat = true;
+                } else if (chatmode.equalsIgnoreCase("ALLYONLY")) {
+                    channel.fchatao(talkingPlayer, msg);
+                    event.setCancelled(true);
+                    isFactionChat = true;
+                } else if (chatmode.equalsIgnoreCase("TRUCE")) {
+                    channel.fchatTruce(talkingPlayer, msg);
+                    event.setCancelled(true);
+                    isFactionChat = true;
                 }
 
                 if (isFactionChat) {

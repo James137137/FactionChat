@@ -24,7 +24,7 @@ public class FactionChat extends JavaPlugin {
     static final Logger log = Bukkit.getLogger();
     private ChatChannel ChatChannel;
     private ChatChannel2 ChatChannel2;
-    public static String FactionChatMessage, AllyChat, EnemyChat,
+    public static String FactionChatMessage, AllyChat,AllyOnlyChat,TruceChat, EnemyChat,
             OtherFactionChatTo, OtherFactionChatFrom, OtherFactionChatSpy, SpyChat,
             ModChat, AdminChat, UAChat, JrModChat, SrModChat, JrAdminChat;
     protected static boolean spyModeOnByDefault = true;
@@ -133,6 +133,8 @@ public class FactionChat extends JavaPlugin {
 
             FactionChatMessage = config.getString("FactionChatMessage.FactionChat");
             AllyChat = config.getString("FactionChatMessage.AllyChat");
+            AllyOnlyChat = config.getString("FactionChatMessage.AllyOnlyChat");
+            TruceChat = config.getString("FactionChatMessage.TruceChat");
             EnemyChat = config.getString("FactionChatMessage.EnemyChat");
             OtherFactionChatTo = config.getString("FactionChatMessage.OtherFactionChatTo");
             OtherFactionChatFrom = config.getString("FactionChatMessage.OtherFactionChatFrom");
@@ -264,6 +266,42 @@ public class FactionChat extends JavaPlugin {
             }
             return true;
         }
+        if ((commandName.equalsIgnoreCase("fao") || commandName.equalsIgnoreCase("fchatao"))
+                && AllyChatEnable) {
+            if (args.length == 0) {
+                return false;
+            }
+            Player talkingPlayer = (Player) sender;
+            String message = "";
+            for (int i = 0; i < args.length; i++) {
+                message += args[i] + " ";
+            }
+            if (useFaction2) {
+                ChatChannel2.fchatao(talkingPlayer, message);
+            } else {
+                ChatChannel.fchatao(talkingPlayer, message);
+            }
+            return true;
+        }
+        
+        if ((commandName.equalsIgnoreCase("ft") || commandName.equalsIgnoreCase("fchatt"))
+                && AllyChatEnable) {
+            if (args.length == 0) {
+                return false;
+            }
+            Player talkingPlayer = (Player) sender;
+            String message = "";
+            for (int i = 0; i < args.length; i++) {
+                message += args[i] + " ";
+            }
+            if (useFaction2) {
+                ChatChannel2.fchatTruce(talkingPlayer, message);
+            } else {
+                ChatChannel.fchatTruce(talkingPlayer, message);
+            }
+            return true;
+        }
+        
         if (((commandName.equalsIgnoreCase("fe") || commandName.equalsIgnoreCase("fchate")) && sender.hasPermission("FactionChat.EnemyChat"))
                 && EnemyChatEnable) {
 
@@ -308,6 +346,21 @@ public class FactionChat extends JavaPlugin {
                 message += args[i] + " ";
             }
             channel.modChat(talkingPlayer, message);
+            return true;
+        }
+        
+        if (((commandName.equalsIgnoreCase("fcu") || commandName.equalsIgnoreCase("fchatua")) && sender.hasPermission("FactionChat.UserAssistantChat"))
+                && ModChatEnable) {
+            if (args.length == 0) {
+                return false;
+            }
+            OtherChatChannel channel = new OtherChatChannel(this);
+            Player talkingPlayer = (Player) sender;
+            String message = "";
+            for (int i = 0; i < args.length; i++) {
+                message += args[i] + " ";
+            }
+            channel.userAssistantChat(talkingPlayer, message);
             return true;
         }
         if (commandName.equalsIgnoreCase("fcadmin")) {
