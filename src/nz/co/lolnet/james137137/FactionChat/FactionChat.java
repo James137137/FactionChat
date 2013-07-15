@@ -9,13 +9,14 @@ import java.io.File;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import net.h31ix.updater.Updater;
+import nz.co.lolnet.james137137.h31ix.updater.Updater;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
+import org.bukkit.event.EventPriority;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -24,7 +25,7 @@ public class FactionChat extends JavaPlugin {
     static final Logger log = Bukkit.getLogger();
     private ChatChannel ChatChannel;
     private ChatChannel2 ChatChannel2;
-    public static String FactionChatMessage, AllyChat,AllyOnlyChat,TruceChat, EnemyChat,
+    public static String FactionChatMessage, AllyTruceChat,AllyChat,TruceChat, EnemyChat,
             OtherFactionChatTo, OtherFactionChatFrom, OtherFactionChatSpy, SpyChat,
             ModChat, AdminChat, UAChat, JrModChat, SrModChat, JrAdminChat;
     protected static boolean spyModeOnByDefault = true;
@@ -45,6 +46,7 @@ public class FactionChat extends JavaPlugin {
 
     @Override
     public void onEnable() {
+        new FactionChatAPI().setupAPI(this);
         this.saveDefaultConfig();
 
         try {
@@ -69,14 +71,6 @@ public class FactionChat extends JavaPlugin {
                 useFaction2 = false;
                 ChatChannel = new ChatChannel(this);
             }
-        }
-
-
-
-
-        if (getConfig().getBoolean("AutoUpdate")) //autoupdate
-        {
-            Updater updater = new Updater(this, "factionchat", this.getFile(), Updater.UpdateType.DEFAULT, false);
         }
         
 
@@ -130,10 +124,10 @@ public class FactionChat extends JavaPlugin {
             }
 
             FileConfiguration config = getConfig();
-
+            
             FactionChatMessage = config.getString("FactionChatMessage.FactionChat");
+            AllyTruceChat = config.getString("FactionChatMessage.AllyTruceChat");
             AllyChat = config.getString("FactionChatMessage.AllyChat");
-            AllyOnlyChat = config.getString("FactionChatMessage.AllyOnlyChat");
             TruceChat = config.getString("FactionChatMessage.TruceChat");
             EnemyChat = config.getString("FactionChatMessage.EnemyChat");
             OtherFactionChatTo = config.getString("FactionChatMessage.OtherFactionChatTo");
@@ -243,9 +237,9 @@ public class FactionChat extends JavaPlugin {
                 message += args[i] + " ";
             }
             if (useFaction2) {
-                ChatChannel2.fchat(talkingPlayer, message);
+                ChatChannel2.fChatF(talkingPlayer, message);
             } else {
-                ChatChannel.fchat(talkingPlayer, message);
+                ChatChannel.fChatF(talkingPlayer, message);
             }
             return true;
         }
@@ -260,9 +254,9 @@ public class FactionChat extends JavaPlugin {
                 message += args[i] + " ";
             }
             if (useFaction2) {
-                ChatChannel2.fchata(talkingPlayer, message);
+                ChatChannel2.fChatAT(talkingPlayer, message);
             } else {
-                ChatChannel.fchata(talkingPlayer, message);
+                ChatChannel.fChatAT(talkingPlayer, message);
             }
             return true;
         }
@@ -277,9 +271,9 @@ public class FactionChat extends JavaPlugin {
                 message += args[i] + " ";
             }
             if (useFaction2) {
-                ChatChannel2.fchatao(talkingPlayer, message);
+                ChatChannel2.fChatA(talkingPlayer, message);
             } else {
-                ChatChannel.fchatao(talkingPlayer, message);
+                ChatChannel.fChatA(talkingPlayer, message);
             }
             return true;
         }
@@ -295,9 +289,9 @@ public class FactionChat extends JavaPlugin {
                 message += args[i] + " ";
             }
             if (useFaction2) {
-                ChatChannel2.fchatTruce(talkingPlayer, message);
+                ChatChannel2.fChatTruce(talkingPlayer, message);
             } else {
-                ChatChannel.fchatTruce(talkingPlayer, message);
+                ChatChannel.fChatTruce(talkingPlayer, message);
             }
             return true;
         }
@@ -314,9 +308,9 @@ public class FactionChat extends JavaPlugin {
                 message += args[i] + " ";
             }
             if (useFaction2) {
-                ChatChannel2.fchatE(talkingPlayer, message);
+                ChatChannel2.fChatE(talkingPlayer, message);
             } else {
-                ChatChannel.fchatE(talkingPlayer, message);
+                ChatChannel.fChatE(talkingPlayer, message);
             }
             return true;
         }

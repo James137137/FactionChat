@@ -1,5 +1,6 @@
 package nz.co.lolnet.james137137.FactionChat;
 
+import com.massivecraft.factions.Rel;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
@@ -66,17 +67,38 @@ public class ChatChannel2 {
         }
         return title;
     }
+    
+    protected static String getPlayerRank (Player player)
+    {
+        Rel role = UPlayer.get(player).getRole();
+        if (role.equals(Rel.LEADER))
+        {
+            return "Leader";
+        }
+        else if (role.equals(Rel.OFFICER))
+        {
+            return "Officer";
+        }else if (role.getValue() >= 45)
+        {
+            return "Member";
+        }
+        else
+        {
+           return ""; 
+        }
+        
+    }
 
     /*
      * Sends a message to the player's Faction only.
      */
-    protected void fchat(Player player, String message) {
+    protected void fChatF(Player player, String message) {
         if (isFactionless(player)) {
             player.sendMessage(ChatColor.RED + FactionChat.messageNotInFaction);
             ChatMode.fixPlayerNotInFaction(player);
             return;
         }
-        String[] intput1 = {getFactionName(player), getPlayerTitle(player)+player.getName(), message};
+        String[] intput1 = {getFactionName(player),getPlayerRank(player), getPlayerTitle(player)+player.getName(), message};
         String[] input2 = {FormatString(FactionChat.FactionChatMessage, intput1)};
         String normalMessage = FormatString(FactionChat.FactionChatMessage, intput1);
         String spyMessage = FormatString(FactionChat.SpyChat, input2);
@@ -97,15 +119,15 @@ public class ChatChannel2 {
      * Sends a message to the player's Faction 
      * and everyone that is in a Faction that is ally or truce with the player's Faction.
      */
-    protected void fchata(Player player, String message) {
+    protected void fChatAT(Player player, String message) {
         if (isFactionless(player)) {
             player.sendMessage(ChatColor.RED + FactionChat.messageNotInFaction);
             ChatMode.fixPlayerNotInFaction(player);
             return;
         }
-        String[] intput1 = {getFactionName(player), getPlayerTitle(player)+player.getName(), message};
-        String[] input2 = {FormatString(FactionChat.AllyChat, intput1)};
-        String normalMessage = FormatString(FactionChat.AllyChat, intput1);
+        String[] intput1 = {getFactionName(player),getPlayerRank(player), getPlayerTitle(player)+player.getName(), message};
+        String[] input2 = {FormatString(FactionChat.AllyTruceChat, intput1)};
+        String normalMessage = FormatString(FactionChat.AllyTruceChat, intput1);
         String spyMessage = FormatString(FactionChat.SpyChat, input2);
 
         for (Player myPlayer : Bukkit.getServer().getOnlinePlayers()) {
@@ -120,15 +142,15 @@ public class ChatChannel2 {
         }
     }
     
-    protected void fchatao(Player player, String message) {
+    protected void fChatA(Player player, String message) {
         if (isFactionless(player)) {
             player.sendMessage(ChatColor.RED + FactionChat.messageNotInFaction);
             ChatMode.fixPlayerNotInFaction(player);
             return;
         }
-        String[] intput1 = {getFactionName(player), getPlayerTitle(player)+player.getName(), message};
-        String[] input2 = {FormatString(FactionChat.AllyOnlyChat, intput1)};
-        String normalMessage = FormatString(FactionChat.AllyOnlyChat, intput1);
+        String[] intput1 = {getFactionName(player),getPlayerRank(player), getPlayerTitle(player)+player.getName(), message};
+        String[] input2 = {FormatString(FactionChat.AllyChat, intput1)};
+        String normalMessage = FormatString(FactionChat.AllyChat, intput1);
         String spyMessage = FormatString(FactionChat.SpyChat, input2);
 
         for (Player myPlayer : Bukkit.getServer().getOnlinePlayers()) {
@@ -143,13 +165,13 @@ public class ChatChannel2 {
         }
     }
     
-    protected void fchatTruce(Player player, String message) {
+    protected void fChatTruce(Player player, String message) {
         if (isFactionless(player)) {
             player.sendMessage(ChatColor.RED + FactionChat.messageNotInFaction);
             ChatMode.fixPlayerNotInFaction(player);
             return;
         }
-        String[] intput1 = {getFactionName(player), getPlayerTitle(player)+player.getName(), message};
+        String[] intput1 = {getFactionName(player),getPlayerRank(player), getPlayerTitle(player)+player.getName(), message};
         String[] input2 = {FormatString(FactionChat.TruceChat, intput1)};
         String normalMessage = FormatString(FactionChat.TruceChat, intput1);
         String spyMessage = FormatString(FactionChat.SpyChat, input2);
@@ -171,14 +193,14 @@ public class ChatChannel2 {
      * Sends a message to the player's Faction 
      * and everyone that is in a Faction that enermies with the player's Faction.
      */
-    protected void fchatE(Player player, String message) {
+    protected void fChatE(Player player, String message) {
 
         if (isFactionless(player)) {
             player.sendMessage(ChatColor.RED + FactionChat.messageNotInFaction);
             ChatMode.fixPlayerNotInFaction(player);
             return;
         }
-        String[] intput1 = {getFactionName(player), getPlayerTitle(player)+player.getName(), message};
+        String[] intput1 = {getFactionName(player),getPlayerRank(player), getPlayerTitle(player)+player.getName(), message};
         String[] input2 = {FormatString(FactionChat.EnemyChat, intput1)};
         String normalMessage = FormatString(FactionChat.EnemyChat, intput1);
         String spyMessage = FormatString(FactionChat.SpyChat, input2);
@@ -217,7 +239,7 @@ public class ChatChannel2 {
             message += args[i] + " ";
         }
 
-        String[] intput1 = {getFactionName(player), getPlayerTitle(player)+player.getName(), message};
+        String[] intput1 = {getFactionName(player),getPlayerRank(player), getPlayerTitle(player)+player.getName(), message};
         String[] input2 = {FormatString(FactionChat.OtherFactionChatSpy, intput1)};
         String toMessage = FormatString(FactionChat.OtherFactionChatTo, intput1);
         String FromMessage = FormatString(FactionChat.OtherFactionChatFrom, intput1);

@@ -11,7 +11,6 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.player.AsyncPlayerChatEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerCommandPreprocessEvent;
-import org.bukkit.scoreboard.ScoreboardManager;
 
 /**
  *
@@ -23,10 +22,8 @@ public class FactionChatListener implements Listener {
     private static OtherChatChannel otherChannel;
     private FactionChat FactionChat;
     static final Logger log = Bukkit.getLogger();
-    public ScoreboardManager scoreboardmanager;
 
     protected FactionChatListener(FactionChat FactionChat) {
-        scoreboardmanager = Bukkit.getScoreboardManager();
         this.FactionChat = FactionChat;
         if (FactionChat.FactionsEnable) {
             channel = new ChatChannel(FactionChat);
@@ -41,16 +38,12 @@ public class FactionChatListener implements Listener {
         ChatMode.SetNewChatMode(player);
     }
 
-    @EventHandler(priority = EventPriority.HIGH)
+    @EventHandler(priority = EventPriority.LOW)
     protected void onPlayerChat(AsyncPlayerChatEvent event) {
 
         if (event.isCancelled()) {
             return;
         }
-
-
-
-
         Player talkingPlayer = event.getPlayer();
         String msg = event.getMessage();
         //FPlayer me = (FPlayer)FPlayers.i.get(talkingPlayer);
@@ -58,25 +51,25 @@ public class FactionChatListener implements Listener {
         if (!chatmode.equalsIgnoreCase("PUBLIC")) {
             boolean isFactionChat = false;
             if (FactionChat.FactionsEnable) {
-                if (chatmode.equalsIgnoreCase("ALLY")) {
-                    channel.fchata(talkingPlayer, msg);
+                if (chatmode.equalsIgnoreCase("ALLY&TRUCE")) {
+                    channel.fChatAT(talkingPlayer, msg);
                     event.setCancelled(true);
                     isFactionChat = true;
 
                 } else if (chatmode.equalsIgnoreCase("ENEMY")) {
-                    channel.fchatE(talkingPlayer, msg);
+                    channel.fChatE(talkingPlayer, msg);
                     event.setCancelled(true);
                     isFactionChat = true;
                 } else if (chatmode.equalsIgnoreCase("FACTION")) {
-                    channel.fchat(talkingPlayer, msg);
+                    channel.fChatF(talkingPlayer, msg);
                     event.setCancelled(true);
                     isFactionChat = true;
-                } else if (chatmode.equalsIgnoreCase("ALLYONLY")) {
-                    channel.fchatao(talkingPlayer, msg);
+                } else if (chatmode.equalsIgnoreCase("ALLY")) {
+                    channel.fChatA(talkingPlayer, msg);
                     event.setCancelled(true);
                     isFactionChat = true;
                 } else if (chatmode.equalsIgnoreCase("TRUCE")) {
-                    channel.fchatTruce(talkingPlayer, msg);
+                    channel.fChatTruce(talkingPlayer, msg);
                     event.setCancelled(true);
                     isFactionChat = true;
                 }

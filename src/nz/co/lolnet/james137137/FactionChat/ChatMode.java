@@ -117,6 +117,24 @@ public class ChatMode {
                 }
 
             }
+            
+            if (chatModes.get(playerid).equalsIgnoreCase("FACTION") && player.hasPermission("FactionChat.AllyChat")) {
+                chatModes.set(playerid, "TRUCE");
+                if (FactionChat.FactionChatEnable) {
+                    player.sendMessage(FactionChat.messageNewChatMode + ChatColor.GREEN + chatModes.get(playerid));
+                    return;
+                }
+
+            }
+            
+            if (chatModes.get(playerid).equalsIgnoreCase("TRUCE") && player.hasPermission("FactionChat.AllyChat")) {
+                chatModes.set(playerid, "ALLY&TRUCE");
+                if (FactionChat.FactionChatEnable) {
+                    player.sendMessage(FactionChat.messageNewChatMode + ChatColor.GREEN + chatModes.get(playerid));
+                    return;
+                }
+
+            }
         }
 
 
@@ -139,28 +157,28 @@ public class ChatMode {
         }
         if (FactionChat.FactionsEnable) {
             boolean isFactionChat = false;
-            if ((input.equalsIgnoreCase("ALLY") || input.equalsIgnoreCase("A"))) {
+            if ((input.equalsIgnoreCase("ALLYTRUCE") || input.equalsIgnoreCase("AT"))) {
+                isFactionChat = true;
+                if (!FactionChat.AllyChatEnable) {
+                    player.sendMessage(ChatColor.RED + "Sorry this chat mode is disabled");
+                } else if (player.hasPermission("FactionChat.AllyChat")) {
+                    chatModes.set(playerid, "ALLY&TRUCE");
+                    player.sendMessage(FactionChat.messageNewChatMode + ChatColor.GREEN+ chatModes.get(playerid));
+                }
+
+            } else if ((input.equalsIgnoreCase("ALLY") || input.equalsIgnoreCase("A"))) {
                 isFactionChat = true;
                 if (!FactionChat.AllyChatEnable) {
                     player.sendMessage(ChatColor.RED + "Sorry this chat mode is disabled");
                 } else if (player.hasPermission("FactionChat.AllyChat")) {
                     chatModes.set(playerid, "ALLY");
-                    player.sendMessage(FactionChat.messageNewChatMode + ChatColor.GREEN+ chatModes.get(playerid));
-                }
-
-            } else if ((input.equalsIgnoreCase("ALLYONLY") || input.equalsIgnoreCase("AO"))) {
-                isFactionChat = true;
-                if (!FactionChat.FactionChatEnable) {
-                    player.sendMessage(ChatColor.RED + "Sorry this chat mode is disabled");
-                } else if (player.hasPermission("FactionChat.AllyChat")) {
-                    chatModes.set(playerid, "ALLYONLY");
                     player.sendMessage(FactionChat.messageNewChatMode + ChatColor.GREEN + chatModes.get(playerid));
                 }
 
 
             } else if ((input.equalsIgnoreCase("TRUCE") || input.equalsIgnoreCase("T"))) {
                 isFactionChat = true;
-                if (!FactionChat.FactionChatEnable) {
+                if (!FactionChat.AllyChatEnable) {
                     player.sendMessage(ChatColor.RED + "Sorry this chat mode is disabled");
                 } else if (player.hasPermission("FactionChat.AllyChat")) {
                     chatModes.set(playerid, "TRUCE");
@@ -263,14 +281,34 @@ public class ChatMode {
         }
         if (FactionChat.FactionsEnable) {
             boolean isFactionChat = false;
-            if ((input.equalsIgnoreCase("ALLY") || input.equalsIgnoreCase("A"))) {
+            if ((input.equalsIgnoreCase("ALLYTRUCE") || input.equalsIgnoreCase("AT"))) {
+                isFactionChat = true;
+                if (!FactionChat.AllyChatEnable) {
+                    player.sendMessage(ChatColor.RED + "Sorry this chat mode is disabled");
+                } else if (player.hasPermission("FactionChat.AllyChat")) {
+                    chatModes.set(playerid, "ALLY&TRUCE");
+                    player.sendMessage(FactionChat.messageNewChatMode + ChatColor.GREEN+ chatModes.get(playerid));
+                }
+
+            } else if ((input.equalsIgnoreCase("ALLY") || input.equalsIgnoreCase("A"))) {
                 isFactionChat = true;
                 if (!FactionChat.AllyChatEnable) {
                     player.sendMessage(ChatColor.RED + "Sorry this chat mode is disabled");
                 } else if (player.hasPermission("FactionChat.AllyChat")) {
                     chatModes.set(playerid, "ALLY");
-                    player.sendMessage(FactionChat.messageNewChatMode + ChatColor.GREEN+ chatModes.get(playerid));
+                    player.sendMessage(FactionChat.messageNewChatMode + ChatColor.GREEN + chatModes.get(playerid));
                 }
+
+
+            } else if ((input.equalsIgnoreCase("TRUCE") || input.equalsIgnoreCase("T"))) {
+                isFactionChat = true;
+                if (!FactionChat.AllyChatEnable) {
+                    player.sendMessage(ChatColor.RED + "Sorry this chat mode is disabled");
+                } else if (player.hasPermission("FactionChat.AllyChat")) {
+                    chatModes.set(playerid, "TRUCE");
+                    player.sendMessage(FactionChat.messageNewChatMode + ChatColor.GREEN + chatModes.get(playerid));
+                }
+
 
             } else if ((input.equalsIgnoreCase("FACTION") || input.equalsIgnoreCase("F"))) {
                 isFactionChat = true;
