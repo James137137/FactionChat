@@ -19,7 +19,8 @@ import org.bukkit.scoreboard.ScoreboardManager;
  */
 public class FactionChatListener2 implements Listener {
 
-    private  ChatChannel2 channel;
+    
+    private ChatChannel2 channel;
     private OtherChatChannel otherChannel;
     private FactionChat FactionChat;
     static final Logger log = Bukkit.getLogger();
@@ -115,66 +116,29 @@ public class FactionChatListener2 implements Listener {
         if (event.isCancelled()) {
             return;
         }
-        Player player = event.getPlayer();
         String message = event.getMessage();
-        String Command = "";
-        String remainer = "";
-        for (int i = 1; i < message.length(); i++) {
-            if (message.charAt(i) == ' ') {
-                remainer = message.substring(i + 1, message.length());
-                break;
-            }
-            Command += message.charAt(i);
-        }
-        if (remainer.length() == 0) {
+        String[] split = message.split(" ");
+        if (split.length < 2) {
             return;
         }
-        if (Command.equalsIgnoreCase("factions") || Command.equalsIgnoreCase("f")) {
-            String subCommand = "";
-            for (int i = 0; i < remainer.length(); i++) {
-                if (remainer.charAt(i) == ' ') {
-                    remainer = remainer.substring(i + 1, remainer.length());
-                    break;
-                }
-                subCommand += remainer.charAt(i);
-            }
-
-            if (subCommand.equalsIgnoreCase("chat") || subCommand.equalsIgnoreCase("c")) {
-                event.setCancelled(true);
-                String playerChannel = "";
-                for (int i = 0; i < remainer.length(); i++) {
-                    if (remainer.charAt(i) == ' ') {
-                        break;
-                    }
-                    playerChannel += remainer.charAt(i);
-                }
-
-                boolean inFaction = true;
-
+        if (split[0].equalsIgnoreCase("/factions") || split[0].equalsIgnoreCase("/f")) {
+            if (split[1].equalsIgnoreCase("chat") || split[1].equalsIgnoreCase("c")) {
+                Player player = event.getPlayer();
                 String senderFaction = channel.getFactionName(player);
-                if (senderFaction.contains("Wilderness") && !player.hasPermission("FactionChat.JrModChat")
+                if (senderFaction.contains("Wilderness") && !player.hasPermission("FactionChat.UserAssistantChat")
                         && !FactionChat.isDebugger(player.getName())) {
                     //checks if player is in a faction
                     //mangaddp juniormoderators FactionChat.JrModChat
                     player.sendMessage(ChatColor.RED + FactionChat.messageNotInFaction);
-                    inFaction = false;
-                }
-
-                if (!inFaction) {
-                    ChatMode.fixPlayerNotInFaction(player);
-
                     return;
                 }
-
-                if (playerChannel.equalsIgnoreCase("chat") || playerChannel.equalsIgnoreCase("c")) {
-                    ChatMode.NextChatMode(player);
+                if (split.length >= 3) {
+                    ChatMode.setChatMode(player, split[2]);
                 } else {
-                    ChatMode.setChatMode(player, playerChannel);
+                    ChatMode.NextChatMode(player);
                 }
+                event.setCancelled(true);
             }
-
         }
-
-
     }
 }

@@ -16,7 +16,6 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
-import org.bukkit.event.EventPriority;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -506,13 +505,9 @@ public class FactionChat extends JavaPlugin {
     }
 
     //for testing purposes
-    protected static void main(String[] args) {
-        String configString = "&2";
-        int count = (configString.length() / 2);
-        for (int i = 0; i < count; i++) {
-            String input = configString.substring(i * 2 + 1, i * 2 + 2);
-            System.out.println(ChatColor.getByChar(input));
-        }
+    public static void main(String[] args) {
+        
+        
     }
 
     protected String GetColour(String configString) {

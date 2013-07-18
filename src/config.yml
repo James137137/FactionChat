@@ -13,7 +13,7 @@ FactionChatMessage:
   FactionChat: '&2[{0}] &f[{1}] {2}: {3}'
   AllyChat: '&aAlly: [{0}] &f[{1}] {2}: {3}'
   TruceChat: '&aTruce: [{0}] &f[{1}] {2}: {3}'
-  AllyTruceChat: '&aALLY&TRUCE: [{0}] &f[{1}] {2}: {3}'
+  AllyTruceChat: '&aALLY-TRUCE: [{0}] &f[{1}] {2}: {3}'
   EnemyChat: '&cEnemy: [{0}] &f[{1}] {2}: {3}'
 # {0,1} Other Faction's name (have a guess by reading)
   OtherFactionChatTo: '&5[@:{0}] &f[{1}] {2}: {3}'

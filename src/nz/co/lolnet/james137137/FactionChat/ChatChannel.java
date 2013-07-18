@@ -47,7 +47,7 @@ public class ChatChannel {
         else if (role.equals(Rel.OFFICER))
         {
             return "Officer";
-        }else if (role.isAtLeast(Rel.RECRUIT))
+        }else if (role.isAtLeast(Rel.MEMBER))
         {
             return "Member";
         }
