@@ -46,7 +46,20 @@ public class FactionChat extends JavaPlugin {
     @Override
     public void onEnable() {
         new FactionChatAPI().setupAPI(this);
+        FileConfiguration config = getConfig();
+        if (!config.getString("FactionChatMessage.FactionChat").contains("{3}"))
+        {
+            log.info("[FactionChat]: reloading config due to update");
+            removeConfigFile();
+        }
+        
+        
+        
+        
         this.saveDefaultConfig();
+        
+        
+        
 
         try {
             Metrics metrics = new Metrics(this);

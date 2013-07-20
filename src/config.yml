@@ -1,3 +1,4 @@
+CurrentVersion: 1.6221
 # Should spy mode be on by default for those who have the correct permission node.
 #Accepts boolean [true/false].
 spyModeOnByDefault: true
