@@ -8,7 +8,6 @@ import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
-import sun.reflect.generics.visitor.Reifier;
 
 /**
  *
@@ -42,14 +41,14 @@ public class ChatChannel {
         Rel role = ((FPlayer) FPlayers.i.get(player)).getRole();
         if (role.equals(Rel.LEADER))
         {
-            return "Leader";
+            return FactionChat.LeaderRank;
         }
         else if (role.equals(Rel.OFFICER))
         {
-            return "Officer";
+            return FactionChat.OfficerRank;
         }else if (role.isAtLeast(Rel.MEMBER))
         {
-            return "Member";
+            return FactionChat.MemberRank;
         }
         else
         {
@@ -261,7 +260,7 @@ public class ChatChannel {
             FPlayer fplayer = (FPlayer) FPlayers.i.get(myPlayer);
 
 
-            if (SenderFaction.getRelationTo(fplayer) == Rel.ENEMY || sSenderFaction.equalsIgnoreCase(getFactionName(fplayer))) {
+            if ((SenderFaction.getRelationTo(fplayer) == Rel.ENEMY || sSenderFaction.equalsIgnoreCase(getFactionName(fplayer))) && !isFactionless(myPlayer)) {
                 fplayer.sendMessage(normalMessage);
             } else if (ChatMode.isSpyOn(myPlayer)) {
                 fplayer.sendMessage(spyMessage);
@@ -344,5 +343,10 @@ public class ChatChannel {
 
 
 
+    }
+
+    private boolean isFactionless(Player player) {
+        return getFactionName(player).contains("Wilderness");
+        
     }
 }

@@ -73,14 +73,14 @@ public class ChatChannel2 {
         Rel role = UPlayer.get(player).getRole();
         if (role.equals(Rel.LEADER))
         {
-            return "Leader";
+            return FactionChat.LeaderRank;
         }
         else if (role.equals(Rel.OFFICER))
         {
-            return "Officer";
+            return FactionChat.OfficerRank;
         }else if (role.getValue() >= 45)
         {
-            return "Member";
+            return FactionChat.MemberRank;
         }
         else
         {
@@ -208,7 +208,7 @@ public class ChatChannel2 {
         for (Player myPlayer : Bukkit.getServer().getOnlinePlayers()) {
 
 
-            if (getRelationshipId(player, myPlayer) < 20 && myPlayer.hasPermission("FactionChat.FactionChat")) {
+            if (getRelationshipId(player, myPlayer) < 20 && myPlayer.hasPermission("FactionChat.FactionChat") && !isFactionless(myPlayer)) {
                 myPlayer.sendMessage(normalMessage);
             } else if (ChatMode.isSpyOn(myPlayer)) {
 

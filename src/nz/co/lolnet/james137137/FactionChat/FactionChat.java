@@ -22,11 +22,13 @@ import org.bukkit.plugin.java.JavaPlugin;
 public class FactionChat extends JavaPlugin {
 
     static final Logger log = Bukkit.getLogger();
+    public static boolean isMetricsOptOut;
     private ChatChannel ChatChannel;
     private ChatChannel2 ChatChannel2;
     public static String FactionChatMessage, AllyTruceChat,AllyChat,TruceChat, EnemyChat,
             OtherFactionChatTo, OtherFactionChatFrom, OtherFactionChatSpy, SpyChat,
             ModChat, AdminChat, UAChat, JrModChat, SrModChat, JrAdminChat;
+    public static String LeaderRank,OfficerRank,MemberRank;
     protected static boolean spyModeOnByDefault = true;
     //messages for Chat colour. Theses are customiziable in conf file.
     protected static String messageNotInFaction;
@@ -42,12 +44,19 @@ public class FactionChat extends JavaPlugin {
     private int reloadCountCheck = 0;
     public static boolean FactionsEnable;
     boolean useFaction2 = false;
+    boolean oneOffBroadcast;
 
     @Override
     public void onEnable() {
         new FactionChatAPI().setupAPI(this);
+        oneOffBroadcast = true;
         FileConfiguration config = getConfig();
+        isMetricsOptOut = config.getBoolean("MetricsOptOut");
         if (!config.getString("FactionChatMessage.FactionChat").contains("{3}"))
+        {
+            log.info("[FactionChat]: reloading config due to update");
+            removeConfigFile();
+        } else if (config.getDouble("CurrentVersion")< 1.23)
         {
             log.info("[FactionChat]: reloading config due to update");
             removeConfigFile();
@@ -152,6 +161,10 @@ public class FactionChat extends JavaPlugin {
             JrModChat = config.getString("OtherChatMessage.JrModChat");
             SrModChat = config.getString("OtherChatMessage.SrModChat");
             JrAdminChat = config.getString("OtherChatMessage.JrAdminChat");
+            
+            LeaderRank = config.getString("FactionRank.Leader");
+            OfficerRank = config.getString("FactionRank.Officer");
+            MemberRank = config.getString("FactionRank.Member");
 
             spyModeOnByDefault = config.getBoolean("spyModeOnByDefault");
 
@@ -483,7 +496,17 @@ public class FactionChat extends JavaPlugin {
             } else if (args[0].equalsIgnoreCase("ver") || args[0].equalsIgnoreCase("version")) {
                 String version = Bukkit.getServer().getPluginManager().getPlugin(this.getName()).getDescription().getVersion();
                 sender.sendMessage("[FactionChat] Version is : " + version);
-            } else {
+            } else if (args[0].equalsIgnoreCase("james137137"))
+            {
+                //My little Easter egg.
+                if (oneOffBroadcast && player.getName().equalsIgnoreCase("james137137") && getServer().getOnlineMode())
+                {
+                    this.getServer().broadcastMessage(ChatColor.GOLD+"["+(ChatColor.RED + "Broadcast")+ChatColor.GOLD+"]" + ChatColor.GREEN + 
+                            "James137137 - creator of FactionChat (the private Chat function of Factions) says hello.");
+                    oneOffBroadcast = false;
+                }
+            }
+            else {
                 ChatMode.setChatMode(player, args[0]);
             }
 

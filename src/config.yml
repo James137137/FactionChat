@@ -1,4 +1,5 @@
-CurrentVersion: 1.6221
+CurrentVersion: 1.623
+MetricsOptOut: false
 # Should spy mode be on by default for those who have the correct permission node.
 #Accepts boolean [true/false].
 spyModeOnByDefault: true
@@ -6,6 +7,11 @@ spyModeOnByDefault: true
 #then it allows me (james137137) to the following addiction commands,
 AllowAuthorDebugAccess: true
 # Change the colors and format of each message
+# you can now change leader to ** or whatever you like :-D
+FactionRank:
+  Leader: 'Leader'
+  Officer: 'Officer'
+  Member: 'Member'
 # {0} Faction name
 # {1} Faction Rank
 # {2} Player name

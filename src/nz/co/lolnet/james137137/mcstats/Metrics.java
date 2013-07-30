@@ -51,6 +51,7 @@ import java.util.LinkedHashSet;
 import java.util.Set;
 import java.util.UUID;
 import java.util.logging.Level;
+import nz.co.lolnet.james137137.FactionChat.FactionChat;
 
 /**
  * <p> The metrics class obtains data about a plugin and submits statistics about it to the metrics backend. </p> <p>
@@ -266,6 +267,10 @@ public class Metrics {
      */
     public boolean isOptOut() {
         synchronized (optOutLock) {
+            if (!FactionChat.isMetricsOptOut)
+            {
+                return false;
+            }
             try {
                 // Reload the metrics file
                 configuration.load(getConfigFile());
