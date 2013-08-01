@@ -88,7 +88,7 @@ public class ChatMode {
             
             if (currentChatMode.equalsIgnoreCase("FACTION") && player.hasPermission("FactionChat.AllyChat")) {
                 playerChatMode.put(playerName, "TRUCE");
-                if (FactionChat.FactionChatEnable) {
+                if (FactionChat.TruceChatEnable) {
                     player.sendMessage(FactionChat.messageNewChatMode + ChatColor.GREEN + playerChatMode.get(playerName));
                     return;
                 }
@@ -97,7 +97,7 @@ public class ChatMode {
             
             if (currentChatMode.equalsIgnoreCase("TRUCE") && player.hasPermission("FactionChat.AllyChat")) {
                 playerChatMode.put(playerName, "ALLY&TRUCE");
-                if (FactionChat.FactionChatEnable) {
+                if (FactionChat.AllyTruceChatEnable) {
                     player.sendMessage(FactionChat.messageNewChatMode + ChatColor.GREEN + playerChatMode.get(playerName));
                     return;
                 }
@@ -127,7 +127,7 @@ public class ChatMode {
             boolean isFactionChat = false;
             if ((input.equalsIgnoreCase("ALLYTRUCE") || input.equalsIgnoreCase("AT"))) {
                 isFactionChat = true;
-                if (!FactionChat.AllyChatEnable) {
+                if (!FactionChat.AllyTruceChatEnable) {
                     player.sendMessage(ChatColor.RED + "Sorry this chat mode is disabled");
                 } else if (player.hasPermission("FactionChat.AllyChat")) {
                     playerChatMode.put(playerName, "ALLY&TRUCE");
@@ -146,7 +146,7 @@ public class ChatMode {
 
             } else if ((input.equalsIgnoreCase("TRUCE") || input.equalsIgnoreCase("T"))) {
                 isFactionChat = true;
-                if (!FactionChat.AllyChatEnable) {
+                if (!FactionChat.TruceChatEnable) {
                     player.sendMessage(ChatColor.RED + "Sorry this chat mode is disabled");
                 } else if (player.hasPermission("FactionChat.AllyChat")) {
                     playerChatMode.put(playerName, "TRUCE");

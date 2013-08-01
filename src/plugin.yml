@@ -1,7 +1,7 @@
 name: FactionChat
 softdepend: [Factions]
 main: nz.co.lolnet.james137137.FactionChat.FactionChat
-version: 1.623
+version: 1.624
 authors: [James Anderson]
 commands:
   fchat:
@@ -16,14 +16,14 @@ commands:
     description: Send a Faction message
     usage: /<command> <Message> 
     aliases: [ff]
+  fchatat:
+    description: Send a Ally and Truce message
+    usage: /<command> <Message> 
+    aliases: [fat]
   fchata:
     description: Send a Ally message
     usage: /<command> <Message> 
     aliases: [fa]
-  fchatao:
-    description: Send a Ally Only message
-    usage: /<command> <Message> 
-    aliases: [fao]
   fchatt:
     description: Send a Truce message
     usage: /<command> <Message> 

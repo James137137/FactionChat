@@ -1,4 +1,4 @@
-CurrentVersion: 1.623
+CurrentVersion: 1.624
 MetricsOptOut: false
 # Should spy mode be on by default for those who have the correct permission node.
 #Accepts boolean [true/false].
@@ -40,6 +40,8 @@ OtherChatMessage:
 #Enable/disable any chat (except public)
 FactionChatEnable: true
 AllyChatEnable: true
+TruceChatEnable: true
+AllyTruceChatEnable: true
 EnemyChatEnable: true
 OtherChatEnable: true
 ModChatEnable: true

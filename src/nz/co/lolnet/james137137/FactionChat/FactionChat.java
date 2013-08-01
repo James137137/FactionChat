@@ -39,7 +39,7 @@ public class FactionChat extends JavaPlugin {
     protected static String messageFchatoMisstype;
     protected static String messageFchatoNoOneOnline;
     protected static boolean ServerAllowAuthorDebugging;
-    protected static boolean FactionChatEnable, AllyChatEnable, EnemyChatEnable, OtherChatEnable,
+    protected static boolean FactionChatEnable, AllyChatEnable,TruceChatEnable,AllyTruceChatEnable, EnemyChatEnable, OtherChatEnable,
             ModChatEnable, AdminChatEnable, JrModChatEnable, SrModChatEnable, JrAdminChatEnable, UAChatEnable;
     private int reloadCountCheck = 0;
     public static boolean FactionsEnable;
@@ -56,7 +56,7 @@ public class FactionChat extends JavaPlugin {
         {
             log.info("[FactionChat]: reloading config due to update");
             removeConfigFile();
-        } else if (config.getDouble("CurrentVersion")< 1.23)
+        } else if (config.getDouble("CurrentVersion")< 1.24)
         {
             log.info("[FactionChat]: reloading config due to update");
             removeConfigFile();
@@ -170,6 +170,8 @@ public class FactionChat extends JavaPlugin {
 
             FactionChatEnable = config.getBoolean("FactionChatEnable");
             AllyChatEnable = config.getBoolean("AllyChatEnable");
+            TruceChatEnable= config.getBoolean("TruceChatEnable");
+            AllyTruceChatEnable = config.getBoolean("AllyTruceChatEnable");
             EnemyChatEnable = config.getBoolean("EnemyChatEnable");
             OtherChatEnable = config.getBoolean("OtherChatEnable");
             ModChatEnable = config.getBoolean("ModChatEnable");
@@ -268,8 +270,8 @@ public class FactionChat extends JavaPlugin {
             }
             return true;
         }
-        if ((commandName.equalsIgnoreCase("fa") || commandName.equalsIgnoreCase("fchata"))
-                && AllyChatEnable) {
+        if ((commandName.equalsIgnoreCase("fat") || commandName.equalsIgnoreCase("fchatat"))
+                && AllyTruceChatEnable) {
             if (args.length == 0) {
                 return false;
             }
@@ -285,7 +287,7 @@ public class FactionChat extends JavaPlugin {
             }
             return true;
         }
-        if ((commandName.equalsIgnoreCase("fao") || commandName.equalsIgnoreCase("fchatao"))
+        if ((commandName.equalsIgnoreCase("fa") || commandName.equalsIgnoreCase("fchata"))
                 && AllyChatEnable) {
             if (args.length == 0) {
                 return false;
@@ -304,7 +306,7 @@ public class FactionChat extends JavaPlugin {
         }
         
         if ((commandName.equalsIgnoreCase("ft") || commandName.equalsIgnoreCase("fchatt"))
-                && AllyChatEnable) {
+                && TruceChatEnable) {
             if (args.length == 0) {
                 return false;
             }
