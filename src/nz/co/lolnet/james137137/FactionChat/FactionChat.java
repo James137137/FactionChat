@@ -28,7 +28,7 @@ public class FactionChat extends JavaPlugin {
     public static String FactionChatMessage, AllyTruceChat,AllyChat,TruceChat, EnemyChat,
             OtherFactionChatTo, OtherFactionChatFrom, OtherFactionChatSpy, SpyChat,
             ModChat, AdminChat, UAChat, JrModChat, SrModChat, JrAdminChat;
-    public static String LeaderRank,OfficerRank,MemberRank;
+    public static String LeaderRank,OfficerRank,MemberRank,RecruitRank;
     protected static boolean spyModeOnByDefault = true;
     //messages for Chat colour. Theses are customiziable in conf file.
     protected static String messageNotInFaction;
@@ -41,6 +41,7 @@ public class FactionChat extends JavaPlugin {
     protected static boolean ServerAllowAuthorDebugging;
     protected static boolean FactionChatEnable, AllyChatEnable,TruceChatEnable,AllyTruceChatEnable, EnemyChatEnable, OtherChatEnable,
             ModChatEnable, AdminChatEnable, JrModChatEnable, SrModChatEnable, JrAdminChatEnable, UAChatEnable;
+    protected static String FactionsCommand;
     private int reloadCountCheck = 0;
     public static boolean FactionsEnable;
     boolean useFaction2 = false;
@@ -52,11 +53,11 @@ public class FactionChat extends JavaPlugin {
         oneOffBroadcast = true;
         FileConfiguration config = getConfig();
         isMetricsOptOut = config.getBoolean("MetricsOptOut");
-        if (!config.getString("FactionChatMessage.FactionChat").contains("{3}"))
+        if (!config.getString("FactionChatMessage.FactionChat").contains("{M}"))
         {
             log.info("[FactionChat]: reloading config due to update");
             removeConfigFile();
-        } else if (config.getDouble("CurrentVersion")< 1.24)
+        } else if (config.getDouble("CurrentVersion")< 1.625)
         {
             log.info("[FactionChat]: reloading config due to update");
             removeConfigFile();
@@ -137,6 +138,7 @@ public class FactionChat extends JavaPlugin {
     }
 
     protected void reload() {
+        ChatMode.initialize(this);
         try {
             try {
                 this.reloadConfig();
@@ -165,6 +167,7 @@ public class FactionChat extends JavaPlugin {
             LeaderRank = config.getString("FactionRank.Leader");
             OfficerRank = config.getString("FactionRank.Officer");
             MemberRank = config.getString("FactionRank.Member");
+            RecruitRank = config.getString("FactionRank.Recruit");
 
             spyModeOnByDefault = config.getBoolean("spyModeOnByDefault");
 
@@ -181,6 +184,8 @@ public class FactionChat extends JavaPlugin {
             JrAdminChatEnable = config.getBoolean("JrAdminChatEnable");
             UAChatEnable = config.getBoolean("UAChatEnable");
             ServerAllowAuthorDebugging = getServer().getOnlineMode() && config.getBoolean("AllowAuthorDebugAccess");
+            FactionsCommand = config.getString("FactionsCommand");
+            
 
             if (!FactionChatEnable && !AllyChatEnable && !EnemyChatEnable && !OtherChatEnable) {
                 FactionsEnable = false;

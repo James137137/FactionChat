@@ -22,20 +22,6 @@ public class ChatChannel {
         factionChat = aThis;
     }
     
-    private static String FormatString (String message, String[] args)
-    {
-        if (args!=null)
-        {
-          for (int i = 0; i < args.length; i++) {
-            message = message.replace(("{"+i+"}"), args[i]);
-            }  
-        }
-        
-            message = message.replaceAll("&",""+(char)167);
-        
-        return message;
-    }
-    
     protected String getPlayerRank (Player player)
     {
         Rel role = ((FPlayer) FPlayers.i.get(player)).getRole();
@@ -46,9 +32,12 @@ public class ChatChannel {
         else if (role.equals(Rel.OFFICER))
         {
             return FactionChat.OfficerRank;
-        }else if (role.isAtLeast(Rel.MEMBER))
+        }else if (role.equals(Rel.MEMBER))
         {
             return FactionChat.MemberRank;
+        }else if (role.equals(Rel.RECRUIT))
+        {
+            return FactionChat.RecruitRank;
         }
         else
         {
@@ -103,10 +92,11 @@ public class ChatChannel {
             return;
 
         }
+        boolean allowCustomColour = player.hasPermission("essentials.chat.color");
         String[] intput1 = {senderFaction,getPlayerRank(player),player.getName(),message};
-        String[] input2 = {FormatString(FactionChat.FactionChatMessage, intput1)};
-        String normalMessage = FormatString(FactionChat.FactionChatMessage, intput1);
-        String spyMessage = FormatString(FactionChat.SpyChat,input2);
+        String[] input2 = {ChatMode.FormatString(FactionChat.FactionChatMessage, intput1,allowCustomColour)};
+        String normalMessage = ChatMode.FormatString(FactionChat.FactionChatMessage, intput1,allowCustomColour);
+        String spyMessage = ChatMode.FormatString(FactionChat.SpyChat,input2,allowCustomColour);
         for (Player myPlayer : Bukkit.getServer().getOnlinePlayers()) {
 
 
@@ -139,11 +129,11 @@ public class ChatChannel {
             return;
 
         }
-        
+        boolean allowCustomColour = player.hasPermission("essentials.chat.color");
         String[] intput1 = {sSenderFaction,getPlayerRank(player),player.getName(),message};
-        String[] input2 = {FormatString(FactionChat.AllyTruceChat, intput1)};
-        String normalMessage = FormatString(FactionChat.AllyTruceChat, intput1);
-        String spyMessage = FormatString(FactionChat.SpyChat,input2);
+        String[] input2 = {ChatMode.FormatString(FactionChat.AllyTruceChat, intput1,allowCustomColour)};
+        String normalMessage = ChatMode.FormatString(FactionChat.AllyTruceChat, intput1,allowCustomColour);
+        String spyMessage = ChatMode.FormatString(FactionChat.SpyChat,input2,allowCustomColour);
 
         FPlayer fSenderPlayer = (FPlayer) FPlayers.i.get(player);
         Faction SenderFaction = fSenderPlayer.getFaction();
@@ -173,11 +163,11 @@ public class ChatChannel {
             return;
 
         }
-        
+        boolean allowCustomColour = player.hasPermission("essentials.chat.color");
         String[] intput1 = {sSenderFaction,getPlayerRank(player),player.getName(),message};
-        String[] input2 = {FormatString(FactionChat.AllyChat, intput1)};
-        String normalMessage = FormatString(FactionChat.AllyChat, intput1);
-        String spyMessage = FormatString(FactionChat.SpyChat,input2);
+        String[] input2 = {ChatMode.FormatString(FactionChat.AllyChat, intput1,allowCustomColour)};
+        String normalMessage = ChatMode.FormatString(FactionChat.AllyChat, intput1,allowCustomColour);
+        String spyMessage = ChatMode.FormatString(FactionChat.SpyChat,input2,allowCustomColour);
 
         FPlayer fSenderPlayer = (FPlayer) FPlayers.i.get(player);
         Faction SenderFaction = fSenderPlayer.getFaction();
@@ -207,11 +197,11 @@ public class ChatChannel {
             return;
 
         }
-        
+        boolean allowCustomColour = player.hasPermission("essentials.chat.color");
         String[] intput1 = {sSenderFaction,getPlayerRank(player),player.getName(),message};
-        String[] input2 = {FormatString(FactionChat.TruceChat, intput1)};
-        String normalMessage = FormatString(FactionChat.TruceChat, intput1);
-        String spyMessage = FormatString(FactionChat.SpyChat,input2);
+        String[] input2 = {ChatMode.FormatString(FactionChat.TruceChat, intput1,allowCustomColour)};
+        String normalMessage = ChatMode.FormatString(FactionChat.TruceChat, intput1,allowCustomColour);
+        String spyMessage = ChatMode.FormatString(FactionChat.SpyChat,input2,allowCustomColour);
 
         FPlayer fSenderPlayer = (FPlayer) FPlayers.i.get(player);
         Faction SenderFaction = fSenderPlayer.getFaction();
@@ -247,12 +237,13 @@ public class ChatChannel {
 
         }
 
+        boolean allowCustomColour = player.hasPermission("essentials.chat.color");
         FPlayer fSenderPlayer = (FPlayer) FPlayers.i.get(player);
         Faction SenderFaction = fSenderPlayer.getFaction();
         String[] intput1 = {sSenderFaction,getPlayerRank(player),player.getName(),message};
-        String[] input2 = {FormatString(FactionChat.EnemyChat, intput1)};
-        String normalMessage = FormatString(FactionChat.EnemyChat, intput1);
-        String spyMessage = FormatString(FactionChat.SpyChat,input2);
+        String[] input2 = {ChatMode.FormatString(FactionChat.EnemyChat, intput1,allowCustomColour)};
+        String normalMessage = ChatMode.FormatString(FactionChat.EnemyChat, intput1,allowCustomColour);
+        String spyMessage = ChatMode.FormatString(FactionChat.SpyChat,input2,allowCustomColour);
 
         for (Player myPlayer : Bukkit.getServer().getOnlinePlayers()) {
 
@@ -313,11 +304,12 @@ public class ChatChannel {
                 String targetFaction = args[0] + senderFaction.charAt(senderFaction.length() - 2) + senderFaction.charAt(senderFaction.length() - 1);
                 
                 int count = 0;
+                boolean allowCustomColour = player.hasPermission("essentials.chat.color");
                 String[] intput1 = {senderFaction,getPlayerRank(player),player.getName(),message};
-                String[] input2 = {FormatString(FactionChat.OtherFactionChatSpy, intput1)};
-                String toMessage = FormatString(FactionChat.OtherFactionChatTo, intput1);
-                String FromMessage = FormatString(FactionChat.OtherFactionChatFrom, intput1);
-                String spyMessage = FormatString(FactionChat.SpyChat,input2);
+                String[] input2 = {ChatMode.FormatString(FactionChat.OtherFactionChatSpy, intput1,allowCustomColour)};
+                String toMessage = ChatMode.FormatString(FactionChat.OtherFactionChatTo, intput1,allowCustomColour);
+                String FromMessage = ChatMode.FormatString(FactionChat.OtherFactionChatFrom, intput1,allowCustomColour);
+                String spyMessage = ChatMode.FormatString(FactionChat.SpyChat,input2,allowCustomColour);
                 //start of loop
                 for (int i = 0; i < onlinePlayerList.length; i++) {
 
