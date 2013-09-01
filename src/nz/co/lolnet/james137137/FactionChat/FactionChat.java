@@ -25,10 +25,10 @@ public class FactionChat extends JavaPlugin {
     public static boolean isMetricsOptOut;
     private ChatChannel ChatChannel;
     private ChatChannel2 ChatChannel2;
-    public static String FactionChatMessage, AllyTruceChat,AllyChat,TruceChat, EnemyChat,
+    public static String FactionChatMessage, AllyTruceChat, AllyChat, TruceChat, EnemyChat, LeaderChat,
             OtherFactionChatTo, OtherFactionChatFrom, OtherFactionChatSpy, SpyChat,
             ModChat, AdminChat, UAChat, JrModChat, SrModChat, JrAdminChat;
-    public static String LeaderRank,OfficerRank,MemberRank,RecruitRank;
+    public static String LeaderRank, OfficerRank, MemberRank, RecruitRank;
     protected static boolean spyModeOnByDefault = true;
     //messages for Chat colour. Theses are customiziable in conf file.
     protected static String messageNotInFaction;
@@ -39,7 +39,7 @@ public class FactionChat extends JavaPlugin {
     protected static String messageFchatoMisstype;
     protected static String messageFchatoNoOneOnline;
     protected static boolean ServerAllowAuthorDebugging;
-    protected static boolean FactionChatEnable, AllyChatEnable,TruceChatEnable,AllyTruceChatEnable, EnemyChatEnable, OtherChatEnable,
+    protected static boolean FactionChatEnable, AllyChatEnable, TruceChatEnable, AllyTruceChatEnable, EnemyChatEnable, LeaderChatEnable, OtherChatEnable,
             ModChatEnable, AdminChatEnable, JrModChatEnable, SrModChatEnable, JrAdminChatEnable, UAChatEnable;
     protected static String FactionsCommand;
     private int reloadCountCheck = 0;
@@ -53,23 +53,21 @@ public class FactionChat extends JavaPlugin {
         oneOffBroadcast = true;
         FileConfiguration config = getConfig();
         isMetricsOptOut = config.getBoolean("MetricsOptOut");
-        if (!config.getString("FactionChatMessage.FactionChat").contains("{M}"))
-        {
+        if (!config.getString("FactionChatMessage.FactionChat").contains("{M}")) {
             log.info("[FactionChat]: reloading config due to update");
             removeConfigFile();
-        } else if (config.getDouble("CurrentVersion")< 1.625)
-        {
+        } else if (config.getDouble("CurrentVersion") < 1.626) {
             log.info("[FactionChat]: reloading config due to update");
             removeConfigFile();
         }
-        
-        
-        
-        
+
+
+
+
         this.saveDefaultConfig();
-        
-        
-        
+
+
+
 
         try {
             Metrics metrics = new Metrics(this);
@@ -94,17 +92,14 @@ public class FactionChat extends JavaPlugin {
                 ChatChannel = new ChatChannel(this);
             }
         }
-        
 
-        if (useFaction2)
-        {
-         getServer().getPluginManager().registerEvents(new FactionChatListener2(this), this); //FactionChat's Listener   
+
+        if (useFaction2) {
+            getServer().getPluginManager().registerEvents(new FactionChatListener2(this), this); //FactionChat's Listener   
+        } else {
+            getServer().getPluginManager().registerEvents(new FactionChatListener(this), this); //FactionChat's Listener  
         }
-        else
-        {
-          getServer().getPluginManager().registerEvents(new FactionChatListener(this), this); //FactionChat's Listener  
-        }
-        
+
         String version = Bukkit.getServer().getPluginManager().getPlugin(this.getName()).getDescription().getVersion();
         log.log(Level.INFO, "{0}: Version: {1} Enabled.", new Object[]{this.getName(), version});
         reload();
@@ -147,12 +142,13 @@ public class FactionChat extends JavaPlugin {
             }
 
             FileConfiguration config = getConfig();
-            
+
             FactionChatMessage = config.getString("FactionChatMessage.FactionChat");
             AllyTruceChat = config.getString("FactionChatMessage.AllyTruceChat");
             AllyChat = config.getString("FactionChatMessage.AllyChat");
             TruceChat = config.getString("FactionChatMessage.TruceChat");
             EnemyChat = config.getString("FactionChatMessage.EnemyChat");
+            LeaderChat = config.getString("FactionChatMessage.LeaderChat");
             OtherFactionChatTo = config.getString("FactionChatMessage.OtherFactionChatTo");
             OtherFactionChatFrom = config.getString("FactionChatMessage.OtherFactionChatFrom");
             OtherFactionChatSpy = config.getString("FactionChatMessage.OtherFactionChatSpy");
@@ -163,7 +159,7 @@ public class FactionChat extends JavaPlugin {
             JrModChat = config.getString("OtherChatMessage.JrModChat");
             SrModChat = config.getString("OtherChatMessage.SrModChat");
             JrAdminChat = config.getString("OtherChatMessage.JrAdminChat");
-            
+
             LeaderRank = config.getString("FactionRank.Leader");
             OfficerRank = config.getString("FactionRank.Officer");
             MemberRank = config.getString("FactionRank.Member");
@@ -173,9 +169,10 @@ public class FactionChat extends JavaPlugin {
 
             FactionChatEnable = config.getBoolean("FactionChatEnable");
             AllyChatEnable = config.getBoolean("AllyChatEnable");
-            TruceChatEnable= config.getBoolean("TruceChatEnable");
+            TruceChatEnable = config.getBoolean("TruceChatEnable");
             AllyTruceChatEnable = config.getBoolean("AllyTruceChatEnable");
             EnemyChatEnable = config.getBoolean("EnemyChatEnable");
+            LeaderChatEnable = config.getBoolean("LeaderChatEnable");
             OtherChatEnable = config.getBoolean("OtherChatEnable");
             ModChatEnable = config.getBoolean("ModChatEnable");
             AdminChatEnable = config.getBoolean("AdminChatEnable");
@@ -185,7 +182,7 @@ public class FactionChat extends JavaPlugin {
             UAChatEnable = config.getBoolean("UAChatEnable");
             ServerAllowAuthorDebugging = getServer().getOnlineMode() && config.getBoolean("AllowAuthorDebugAccess");
             FactionsCommand = config.getString("FactionsCommand");
-            
+
 
             if (!FactionChatEnable && !AllyChatEnable && !EnemyChatEnable && !OtherChatEnable) {
                 FactionsEnable = false;
@@ -244,14 +241,12 @@ public class FactionChat extends JavaPlugin {
         if (commandName.equalsIgnoreCase("fco") || commandName.equalsIgnoreCase("fchato")) {
             if ((sender.hasPermission("FactionChat.OtherChat") || FactionChat.isDebugger(sender.getName()))
                     && OtherChatEnable) {
-                if (useFaction2)
-                {
-                  ChatChannel2.fchato(sender, args);  
-                }else
-                {
-                  ChatChannel.fchato(sender, args);   
+                if (useFaction2) {
+                    ChatChannel2.fchato(sender, args);
+                } else {
+                    ChatChannel.fchato(sender, args);
                 }
-                
+
             } else {
                 sender.sendMessage(ChatColor.DARK_RED + "you need the permission to use that");
             }
@@ -309,7 +304,7 @@ public class FactionChat extends JavaPlugin {
             }
             return true;
         }
-        
+
         if ((commandName.equalsIgnoreCase("ft") || commandName.equalsIgnoreCase("fchatt"))
                 && TruceChatEnable) {
             if (args.length == 0) {
@@ -327,7 +322,7 @@ public class FactionChat extends JavaPlugin {
             }
             return true;
         }
-        
+
         if (((commandName.equalsIgnoreCase("fe") || commandName.equalsIgnoreCase("fchate")) && sender.hasPermission("FactionChat.EnemyChat"))
                 && EnemyChatEnable) {
 
@@ -374,7 +369,7 @@ public class FactionChat extends JavaPlugin {
             channel.modChat(talkingPlayer, message);
             return true;
         }
-        
+
         if (((commandName.equalsIgnoreCase("fcu") || commandName.equalsIgnoreCase("fchatua")) && sender.hasPermission("FactionChat.UserAssistantChat"))
                 && ModChatEnable) {
             if (args.length == 0) {
@@ -472,11 +467,11 @@ public class FactionChat extends JavaPlugin {
         }
         String senderFaction;
         if (useFaction2) {
-                senderFaction = ChatChannel2.getFactionName(player);
-            } else {
-                senderFaction = ChatChannel.getFactionName(player);
-            }
-        
+            senderFaction = ChatChannel2.getFactionName(player);
+        } else {
+            senderFaction = ChatChannel.getFactionName(player);
+        }
+
         if (senderFaction.contains("Wilderness") && !sender.hasPermission("FactionChat.UserAssistantChat")
                 && !FactionChat.isDebugger(sender.getName())) {
             //checks if player is in a faction
@@ -503,17 +498,14 @@ public class FactionChat extends JavaPlugin {
             } else if (args[0].equalsIgnoreCase("ver") || args[0].equalsIgnoreCase("version")) {
                 String version = Bukkit.getServer().getPluginManager().getPlugin(this.getName()).getDescription().getVersion();
                 sender.sendMessage("[FactionChat] Version is : " + version);
-            } else if (args[0].equalsIgnoreCase("james137137"))
-            {
+            } else if (args[0].equalsIgnoreCase("james137137")) {
                 //My little Easter egg.
-                if (oneOffBroadcast && player.getName().equalsIgnoreCase("james137137") && getServer().getOnlineMode())
-                {
-                    this.getServer().broadcastMessage(ChatColor.GOLD+"["+(ChatColor.RED + "Broadcast")+ChatColor.GOLD+"]" + ChatColor.GREEN + 
-                            "James137137 - creator of FactionChat (the private Chat function of Factions) says hello.");
+                if (oneOffBroadcast && player.getName().equalsIgnoreCase("james137137") && getServer().getOnlineMode()) {
+                    this.getServer().broadcastMessage(ChatColor.GOLD + "[" + (ChatColor.RED + "Broadcast") + ChatColor.GOLD + "]" + ChatColor.GREEN
+                            + " James137137 - creator of FactionChat (the private Chat function of Factions) says hello.");
                     oneOffBroadcast = false;
                 }
-            }
-            else {
+            } else {
                 ChatMode.setChatMode(player, args[0]);
             }
 
@@ -527,13 +519,13 @@ public class FactionChat extends JavaPlugin {
         String Language = config.getString("MessageLanguage");
         Language = Language.toLowerCase();
 
-        messageNotInFaction = config.getString("message." + Language + ".NotInFaction");
-        messageIncorectChatModeSwitch = config.getString("message." + Language + ".IncorectChatModeSwitch");
-        messageSpyModeOn = config.getString("message." + Language + ".SpyModeOn");
-        messageSpyModeOff = config.getString("message." + Language + ".SpyModeOff");
-        messageNewChatMode = config.getString("message." + Language + ".NewChatMode");
-        messageFchatoMisstype = config.getString("message." + Language + ".FchatoMissType");
-        messageFchatoNoOneOnline = config.getString("message." + Language + ".FchatoNoOneOnline");
+        messageNotInFaction = ChatMode.FormatString(config.getString("message." + Language + ".NotInFaction"), null);
+        messageIncorectChatModeSwitch = ChatMode.FormatString(config.getString("message." + Language + ".IncorectChatModeSwitch"), null);
+        messageSpyModeOn = ChatMode.FormatString(config.getString("message." + Language + ".SpyModeOn"), null);
+        messageSpyModeOff = ChatMode.FormatString(config.getString("message." + Language + ".SpyModeOff"), null);
+        messageNewChatMode = ChatMode.FormatString(config.getString("message." + Language + ".NewChatMode"), null);
+        messageFchatoMisstype = ChatMode.FormatString(config.getString("message." + Language + ".FchatoMissType"), null);
+        messageFchatoNoOneOnline = ChatMode.FormatString(config.getString("message." + Language + ".FchatoNoOneOnline"), null);
 
 
 
@@ -549,8 +541,6 @@ public class FactionChat extends JavaPlugin {
 
     //for testing purposes
     public static void main(String[] args) {
-        
-        
     }
 
     protected String GetColour(String configString) {

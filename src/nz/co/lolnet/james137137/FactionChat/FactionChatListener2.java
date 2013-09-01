@@ -19,7 +19,6 @@ import org.bukkit.scoreboard.ScoreboardManager;
  */
 public class FactionChatListener2 implements Listener {
 
-    
     private ChatChannel2 channel;
     private OtherChatChannel otherChannel;
     private FactionChat FactionChat;
@@ -76,6 +75,10 @@ public class FactionChatListener2 implements Listener {
                     channel.fChatTruce(talkingPlayer, msg);
                     event.setCancelled(true);
                     isFactionChat = true;
+                } else if (chatmode.equalsIgnoreCase("LEADER")) {
+                    channel.fChatLeader(talkingPlayer, msg);
+                    event.setCancelled(true);
+                    isFactionChat = true;
                 }
 
                 if (isFactionChat) {
@@ -121,7 +124,7 @@ public class FactionChatListener2 implements Listener {
         if (split.length < 2) {
             return;
         }
-        if (split[0].equalsIgnoreCase("/factions") || split[0].equalsIgnoreCase(("/"+FactionChat.FactionsCommand))) {
+        if (split[0].equalsIgnoreCase("/factions") || split[0].equalsIgnoreCase(("/" + FactionChat.FactionsCommand))) {
             if (split[1].equalsIgnoreCase("chat") || split[1].equalsIgnoreCase("c")) {
                 Player player = event.getPlayer();
                 String senderFaction = channel.getFactionName(player);

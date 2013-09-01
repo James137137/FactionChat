@@ -15,8 +15,8 @@ import org.bukkit.entity.Player;
 public class FactionChatAPI {
     private static FactionChat factionChat;
     private static boolean useFaction2;
-    private ChatChannel channel;
-    private ChatChannel2 channel2;
+    private static ChatChannel channel;
+    private static ChatChannel2 channel2;
     
     public void setupAPI(FactionChat fc)
     {
@@ -35,20 +35,32 @@ public class FactionChatAPI {
         }
     }
     
-    public String getFactionName(Player player)
+    public static String getFactionName(Player player)
     {
         if (useFaction2)
         {
-            return channel2.getFactionName(player);
+            return ChatChannel2.getFactionName(player);
         }
         else
         {
-            return channel.getFactionName(player);
+            return ChatChannel.getFactionName(player);
         }
     }
     
-    public String getChatMode (Player player)
+    public static String getChatMode (Player player)
     {
         return ChatMode.getChatMode(player);
+    }
+    
+    public static String getPlayerRank(Player player)
+    {
+        if (useFaction2)
+        {
+            return ChatChannel2.getPlayerRank(player);
+        }
+        else
+        {
+            return ChatChannel.getPlayerRank(player);
+        } 
     }
 }

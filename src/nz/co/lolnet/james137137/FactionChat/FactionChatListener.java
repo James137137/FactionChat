@@ -11,6 +11,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.player.AsyncPlayerChatEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerCommandPreprocessEvent;
+
 /**
  *
  * @author James
@@ -71,6 +72,10 @@ public class FactionChatListener implements Listener {
                     channel.fChatTruce(talkingPlayer, msg);
                     event.setCancelled(true);
                     isFactionChat = true;
+                } else if (chatmode.equalsIgnoreCase("LEADER")) {
+                    channel.fChatLeader(talkingPlayer, msg);
+                    event.setCancelled(true);
+                    isFactionChat = true;
                 }
 
                 if (isFactionChat) {
@@ -116,7 +121,7 @@ public class FactionChatListener implements Listener {
         if (split.length < 2) {
             return;
         }
-        if (split[0].equalsIgnoreCase("/factions") || split[0].equalsIgnoreCase(("/"+FactionChat.FactionsCommand))) {
+        if (split[0].equalsIgnoreCase("/factions") || split[0].equalsIgnoreCase(("/" + FactionChat.FactionsCommand))) {
             if (split[1].equalsIgnoreCase("chat") || split[1].equalsIgnoreCase("c")) {
                 Player player = event.getPlayer();
                 String senderFaction = channel.getFactionName(player);
