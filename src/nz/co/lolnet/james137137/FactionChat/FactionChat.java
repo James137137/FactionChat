@@ -49,7 +49,7 @@ public class FactionChat extends JavaPlugin {
 
     @Override
     public void onEnable() {
-        new FactionChatAPI().setupAPI(this);
+        
         oneOffBroadcast = true;
         FileConfiguration config = getConfig();
         isMetricsOptOut = config.getBoolean("MetricsOptOut");
@@ -82,6 +82,7 @@ public class FactionChat extends JavaPlugin {
         } else {
             log.warning("[FactionChat] Factions is not installed. For full features please install Factions");
         }
+        new FactionChatAPI().setupAPI(this);
 
         if (FactionsEnable) {
             if (Double.parseDouble(FactionPlugin.getDescription().getVersion().substring(0, 2)) >= 2.0) {
