@@ -76,6 +76,10 @@ public class FactionChatListener implements Listener {
                     channel.fChatLeader(talkingPlayer, msg);
                     event.setCancelled(true);
                     isFactionChat = true;
+                } else if (chatmode.equalsIgnoreCase("OFFICER")) {
+                    channel.fChatOfficer(talkingPlayer, msg);
+                    event.setCancelled(true);
+                    isFactionChat = true;
                 }
 
                 if (isFactionChat) {
@@ -106,6 +110,18 @@ public class FactionChatListener implements Listener {
             }
 
             log.log(Level.INFO, "[FactionChat] {0}|{1}: {2}", new Object[]{chatmode, talkingPlayer.getName(), msg});
+        } else
+        {
+            if (ChatMode.mutePublicOptionEnabled)
+            {
+                for (final Player player : FactionChat.getServer().getOnlinePlayers()) {
+                    if (ChatMode.IsPublicMuted(player)) {
+                        event.getRecipients().remove(player);
+                    }
+                }
+            }
+            
+          
         }
 
 

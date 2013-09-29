@@ -1,4 +1,4 @@
-CurrentVersion: 1.626
+CurrentVersion: 1.641
 MetricsOptOut: false
 # Should spy mode be on by default for those who have the correct permission node.
 #Accepts boolean [true/false].
@@ -7,6 +7,8 @@ spyModeOnByDefault: true
 #If this is set true and your server is set online-mode:true, 
 #then it allows me (james137137) to the following addiction commands,
 AllowAuthorDebugAccess: true
+# allows self command /fc mutePublic or /fc Mute (prevents public messages sent to client)
+AllowPublicMuteCommand: false
 # Change the colors and format of each message
 # you can now change leader to ** or whatever you like :-D
 FactionRank:
@@ -23,6 +25,7 @@ FactionChatMessage:
   AllyChat: '&aAlly: [{0}] &f[{1}] {2}: {M}'
   TruceChat: '&aTruce: [{0}] &f[{1}] {2}: {M}'
   AllyTruceChat: '&aALLY-TRUCE: [{0}] &f[{1}] {2}: {M}'
+  OfficerChat: '&eOfficerChat: [{0}] &f{1}: {M}'
   LeaderChat: '&eLeaderChat: [{0}] &f{1}: {M}'
   EnemyChat: '&cEnemy: [{0}] &f[{1}] {2}: {M}'
 # {0,1} Other Faction's name (have a guess by reading)
@@ -46,6 +49,7 @@ AllyChatEnable: true
 TruceChatEnable: true
 AllyTruceChatEnable: true
 LeaderChatEnable: true
+OfficerChatEnable: true
 EnemyChatEnable: true
 OtherChatEnable: true
 ModChatEnable: true
@@ -67,6 +71,8 @@ message:
     FchatoMissType: 'Error: Please use /fco factionname message.'
     FchatoNoOneOnline: 'Error: either no faction member is online or incorrect faction
       name'
+    PublicMuteChatOn: 'Public chat is now muted for you'
+    PublicMuteChatOff: 'Public chat is no longer muted for you'
     
   other:
     NotInFaction: You are not member of any faction
@@ -77,6 +83,9 @@ message:
     FchatoMissType: 'Error: Please use /fco factionname message.'
     FchatoNoOneOnline: 'Error: either no faction member is online or incorrect faction
       name'
+    PublicMuteChatOn: 'Public chat is now muted for you'
+    PublicMuteChatOff: 'Public chat is no longer muted for you'
+    
   ChatModeChange:
     FactionChat: '&2Faction'
     AllyChat: '&aAlly'
@@ -84,4 +93,5 @@ message:
     AllyTruceChat: '&aAlly-Truce'
     EnemyChat: '&cEnemy'
     LeaderChat: '&eLeader'
+    OfficerChat: '&eOfficer'
     PublicChat: 'PUBLIC'

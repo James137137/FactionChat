@@ -300,4 +300,38 @@ public class ChatChannel2 {
 
 
     }
+    
+    protected void fChatOfficer(Player player, String message) {
+
+
+        String senderFaction = getFactionName(player); //obtains player's faction name
+
+        
+        if (senderFaction.contains("Wilderness")) { //checks if player is in a faction
+            player.sendMessage(ChatColor.RED + FactionChat.messageNotInFaction);
+            ChatMode.fixPlayerNotInFaction(player);
+            return;
+
+        }
+        boolean allowCustomColour = player.hasPermission("essentials.chat.color");
+        String[] intput1 = {senderFaction,player.getName(),message};
+        String[] input2 = {ChatMode.FormatString(FactionChat.OfficerChat, intput1,allowCustomColour)};
+        String normalMessage = ChatMode.FormatString(FactionChat.OfficerChat, intput1,allowCustomColour);
+        String spyMessage = ChatMode.FormatString(FactionChat.SpyChat,input2,allowCustomColour);
+        for (Player myPlayer : Bukkit.getServer().getOnlinePlayers()) {
+
+
+            if ((getPlayerRank(myPlayer).equals(FactionChat.LeaderRank) || getPlayerRank(myPlayer).equals(FactionChat.OfficerRank)) && ChatMode.getChatMode(myPlayer).equals("OFFICER")) {
+                myPlayer.sendMessage(normalMessage);
+            } else if (ChatMode.isSpyOn(myPlayer)) {
+                myPlayer.sendMessage(spyMessage);
+            }
+        }
+
+
+
+
+
+
+    }
 }
