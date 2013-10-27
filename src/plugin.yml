@@ -1,7 +1,7 @@
 name: FactionChat
 softdepend: [Factions]
 main: nz.co.lolnet.james137137.FactionChat.FactionChat
-version: 1.641
+version: 1.642
 authors: [James Anderson]
 commands:
   fchat:
@@ -51,6 +51,7 @@ commands:
 permissions:
   FactionChat.*:
     description: Gives access to all FactionChat commands
+    default: op
     children:
       FactionChat.spy: true
       FactionChat.AdminChat: true
@@ -58,6 +59,11 @@ permissions:
       FactionChat.OtherChat: true
       FactionChat.EnemyChat: true
       FactionChat.admins: true
+      FactionChat.mutebypass: true
+      FactionChat.LocalChatBypass.PublicSend: true
+      FactionChat.LocalChatBypass.PublicReceive: true
+      FactionChat.LocalChatBypass.ChannelSend: true
+      FactionChat.LocalChatBypass.ChannelReceive: true
   FactionChat.FactionChat:
     description: Allows player to send and receive messages from their Factions.
     default: true
@@ -119,6 +125,18 @@ permissions:
   FactionChat.Reload:
     description: Allows player to reload plugin
     default: op
-
-  
-     
+  FactionChat.mutebypass:
+    description: Allows staff to bypass publicMute and send messages to all players
+    default: op
+  FactionChat.LocalChatBypass.PublicSend:
+    description: Allows staff to bypass LocalChat and send messages to all players no matter what distance
+    default: op
+  FactionChat.LocalChatBypass.PublicReceive:
+    description: Allows staff to bypass LocalChat and receive messages from all players no matter what distance
+    default: op
+  FactionChat.LocalChatBypass.ChannelSend:
+    description: Allows staff to bypass LocalChat Faction Channel and send messages to all players no matter what distance
+    default: op
+  FactionChat.LocalChatBypass.ChannelReceive:
+    description: Allows staff to bypass LocalChat Faction Channel and receive messages from all players no matter what distance
+    default: op

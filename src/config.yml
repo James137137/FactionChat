@@ -1,4 +1,4 @@
-CurrentVersion: 1.641
+CurrentVersion: 1.642
 MetricsOptOut: false
 # Should spy mode be on by default for those who have the correct permission node.
 #Accepts boolean [true/false].
@@ -16,6 +16,12 @@ FactionRank:
   Officer: 'Officer'
   Member: 'Member'
   Recruit: 'Recruit'
+Features:
+  LocalChat:
+    Enable: false
+    Radius:
+      Public: 50
+      FactionChatChannel: -1
 # {0} Faction name
 # {1} Faction Rank
 # {2} Player name

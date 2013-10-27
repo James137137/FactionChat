@@ -90,6 +90,7 @@ public class ChatChannel2 {
             ChatMode.fixPlayerNotInFaction(player);
             return;
         }
+        String playerFaction = getFactionName(player);
         boolean allowCustomColour = player.hasPermission("essentials.chat.color");
         String[] intput1 = {getFactionName(player),getPlayerRank(player), getPlayerTitle(player)+player.getName(), message};
         String[] input2 = {ChatMode.FormatString(FactionChat.FactionChatMessage, intput1,allowCustomColour)};
@@ -99,7 +100,8 @@ public class ChatChannel2 {
         for (Player myPlayer : Bukkit.getServer().getOnlinePlayers()) {
 
 
-            if (getRelationshipId(player, myPlayer) > 40 && myPlayer.hasPermission("FactionChat.FactionChat")) {
+            if ((getRelationshipId(player, myPlayer) > 40 || playerFaction.equals(getFactionName(myPlayer)))
+                    && myPlayer.hasPermission("FactionChat.FactionChat")) {
                 myPlayer.sendMessage(normalMessage);
             } else if (ChatMode.isSpyOn(myPlayer)) {
 
@@ -118,6 +120,7 @@ public class ChatChannel2 {
             ChatMode.fixPlayerNotInFaction(player);
             return;
         }
+        String playerFaction = getFactionName(player);
         boolean allowCustomColour = player.hasPermission("essentials.chat.color");
         String[] intput1 = {getFactionName(player),getPlayerRank(player), getPlayerTitle(player)+player.getName(), message};
         String[] input2 = {ChatMode.FormatString(FactionChat.AllyTruceChat, intput1,allowCustomColour)};
@@ -127,7 +130,7 @@ public class ChatChannel2 {
         for (Player myPlayer : Bukkit.getServer().getOnlinePlayers()) {
 
 
-            if (getRelationshipId(player, myPlayer) > 20 && myPlayer.hasPermission("FactionChat.AllyChat")) {
+            if (getRelationshipId(player, myPlayer) > 20 || playerFaction.equals(getFactionName(myPlayer))&& myPlayer.hasPermission("FactionChat.AllyChat")) {
                 myPlayer.sendMessage(normalMessage);
             } else if (ChatMode.isSpyOn(myPlayer)) {
 
@@ -142,6 +145,7 @@ public class ChatChannel2 {
             ChatMode.fixPlayerNotInFaction(player);
             return;
         }
+        String playerFaction = getFactionName(player);
         boolean allowCustomColour = player.hasPermission("essentials.chat.color");
         String[] intput1 = {getFactionName(player),getPlayerRank(player), getPlayerTitle(player)+player.getName(), message};
         String[] input2 = {ChatMode.FormatString(FactionChat.AllyChat, intput1,allowCustomColour)};
@@ -151,7 +155,8 @@ public class ChatChannel2 {
         for (Player myPlayer : Bukkit.getServer().getOnlinePlayers()) {
 
 
-            if (getRelationshipId(player, myPlayer) > 30 && myPlayer.hasPermission("FactionChat.AllyChat")) {
+            if ((getRelationshipId(player, myPlayer) > 30 || playerFaction.equals(getFactionName(myPlayer)))
+                    && myPlayer.hasPermission("FactionChat.AllyChat")) {
                 myPlayer.sendMessage(normalMessage);
             } else if (ChatMode.isSpyOn(myPlayer)) {
 
@@ -166,6 +171,7 @@ public class ChatChannel2 {
             ChatMode.fixPlayerNotInFaction(player);
             return;
         }
+        String playerFaction = getFactionName(player);
         boolean allowCustomColour = player.hasPermission("essentials.chat.color");
         String[] intput1 = {getFactionName(player),getPlayerRank(player), getPlayerTitle(player)+player.getName(), message};
         String[] input2 = {ChatMode.FormatString(FactionChat.TruceChat, intput1,allowCustomColour)};
@@ -175,7 +181,8 @@ public class ChatChannel2 {
         for (Player myPlayer : Bukkit.getServer().getOnlinePlayers()) {
 
 
-            if (((getRelationshipId(player, myPlayer) > 20 && getRelationshipId(player, myPlayer) < 40) || getRelationshipId(player, myPlayer) > 40)
+            if ((((getRelationshipId(player, myPlayer) > 20 && getRelationshipId(player, myPlayer) < 40) || getRelationshipId(player, myPlayer) > 40)
+                    || playerFaction.equals(getFactionName(myPlayer)))
                     && myPlayer.hasPermission("FactionChat.AllyChat")) {
                 myPlayer.sendMessage(normalMessage);
             } else if (ChatMode.isSpyOn(myPlayer)) {
@@ -196,6 +203,7 @@ public class ChatChannel2 {
             ChatMode.fixPlayerNotInFaction(player);
             return;
         }
+        String playerFaction = getFactionName(player);
         boolean allowCustomColour = player.hasPermission("essentials.chat.color");
         String[] intput1 = {getFactionName(player),getPlayerRank(player), getPlayerTitle(player)+player.getName(), message};
         String[] input2 = {ChatMode.FormatString(FactionChat.EnemyChat, intput1,allowCustomColour)};
@@ -205,7 +213,8 @@ public class ChatChannel2 {
         for (Player myPlayer : Bukkit.getServer().getOnlinePlayers()) {
 
 
-            if (getRelationshipId(player, myPlayer) < 20 && myPlayer.hasPermission("FactionChat.FactionChat") && !isFactionless(myPlayer)) {
+            if ((getRelationshipId(player, myPlayer) < 20 || playerFaction.equals(getFactionName(myPlayer)))
+                    && myPlayer.hasPermission("FactionChat.EnemyChat") && !isFactionless(myPlayer) && ChatMode.getChatMode(myPlayer).equals("ENEMY")) {
                 myPlayer.sendMessage(normalMessage);
             } else if (ChatMode.isSpyOn(myPlayer)) {
 

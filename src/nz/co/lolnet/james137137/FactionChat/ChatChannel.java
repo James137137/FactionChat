@@ -147,7 +147,7 @@ public class ChatChannel {
 
 
             if ((SenderFaction.getRelationTo(fplayer) == Rel.ALLY || SenderFaction.getRelationTo(fplayer) == Rel.TRUCE
-                    || sSenderFaction.equalsIgnoreCase(getFactionName(fplayer)))
+                    || getFactionName(myPlayer).equalsIgnoreCase(sSenderFaction))
                     && myPlayer.hasPermission("FactionChat.AllyChat")) {
                 fplayer.sendMessage(normalMessage);
             } else if (ChatMode.isSpyOn(myPlayer)) {
@@ -181,7 +181,7 @@ public class ChatChannel {
 
 
             if ((SenderFaction.getRelationTo(fplayer) == Rel.ALLY
-                    || sSenderFaction.equalsIgnoreCase(getFactionName(fplayer)))
+                    || getFactionName(myPlayer).equalsIgnoreCase(sSenderFaction))
                     && myPlayer.hasPermission("FactionChat.AllyChat")) {
                 fplayer.sendMessage(normalMessage);
             } else if (ChatMode.isSpyOn(myPlayer)) {
@@ -215,7 +215,7 @@ public class ChatChannel {
 
 
             if ((SenderFaction.getRelationTo(fplayer) == Rel.TRUCE
-                    || sSenderFaction.equalsIgnoreCase(getFactionName(fplayer)))
+                    || sSenderFaction.equalsIgnoreCase(getFactionName(fplayer)) || getFactionName(myPlayer).equalsIgnoreCase(sSenderFaction))
                     && myPlayer.hasPermission("FactionChat.AllyChat")) {
                 fplayer.sendMessage(normalMessage);
             } else if (ChatMode.isSpyOn(myPlayer)) {
@@ -253,7 +253,8 @@ public class ChatChannel {
             FPlayer fplayer = (FPlayer) FPlayers.i.get(myPlayer);
 
 
-            if ((SenderFaction.getRelationTo(fplayer) == Rel.ENEMY || sSenderFaction.equalsIgnoreCase(getFactionName(fplayer))) && !isFactionless(myPlayer)) {
+            if ((SenderFaction.getRelationTo(fplayer) == Rel.ENEMY || sSenderFaction.equalsIgnoreCase(getFactionName(fplayer)) || getFactionName(myPlayer).equalsIgnoreCase(sSenderFaction)) 
+                    && myPlayer.hasPermission("FactionChat.EnemyChat") && !isFactionless(myPlayer) && ChatMode.getChatMode(myPlayer).equals("ENEMY")) {
                 fplayer.sendMessage(normalMessage);
             } else if (ChatMode.isSpyOn(myPlayer)) {
                 fplayer.sendMessage(spyMessage);

@@ -21,7 +21,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 public class FactionChat extends JavaPlugin {
 
-    static final Logger log = Bukkit.getLogger();
+    static Logger log;
     public static boolean isMetricsOptOut;
     private ChatChannel ChatChannel;
     private ChatChannel2 ChatChannel2;
@@ -48,24 +48,14 @@ public class FactionChat extends JavaPlugin {
     public static boolean FactionsEnable;
     boolean useFaction2 = false;
     boolean oneOffBroadcast;
-
+    
+    
     @Override
     public void onEnable() {
-
+        log = Bukkit.getLogger();
         oneOffBroadcast = true;
         FileConfiguration config = getConfig();
         isMetricsOptOut = config.getBoolean("MetricsOptOut");
-        if (!config.getString("FactionChatMessage.FactionChat").contains("{M}")) {
-            log.info("[FactionChat]: reloading config due to update");
-            removeConfigFile();
-        } else if (config.getDouble("CurrentVersion") < 1.641) {
-            log.info("[FactionChat]: reloading config due to update");
-            removeConfigFile();
-        }
-
-
-
-
         this.saveDefaultConfig();
 
 
@@ -102,10 +92,9 @@ public class FactionChat extends JavaPlugin {
         } else {
             getServer().getPluginManager().registerEvents(new FactionChatListener(this), this); //FactionChat's Listener  
         }
-
+        reload();
         String version = Bukkit.getServer().getPluginManager().getPlugin(this.getName()).getDescription().getVersion();
         log.log(Level.INFO, "{0}: Version: {1} Enabled.", new Object[]{this.getName(), version});
-        reload();
 
 
 
@@ -115,23 +104,27 @@ public class FactionChat extends JavaPlugin {
     public void onDisable() {
         log.log(Level.INFO, "{0}: disabled", this.getName());
     }
+    
+    protected void loadMyNewConfig()
+    {
+        this.getConfig().options().copyDefaults(true);
+        saveConfig();
+    }
 
     protected void removeConfigFile() {
 
         try {
-
+            
             File file = new File("plugins/" + this.getName() + "/config.yml");
-
-            if (file.delete()) {
-                log.log(Level.INFO, "{0} is deleted!", file.getName());
-            } else {
-                log.warning("Delete operation is failed.");
+            String version = Bukkit.getServer().getPluginManager().getPlugin(this.getName()).getDescription().getVersion();
+            boolean renameTo = file.renameTo(new File("plugins/" + this.getName() + "/config.yml."+version+".old"));
+            if (!renameTo)
+            {
+                log.warning("Rename operation is failed.");
             }
+            
 
         } catch (Exception e) {
-
-            e.printStackTrace();
-
         }
     }
 
@@ -230,6 +223,7 @@ public class FactionChat extends JavaPlugin {
         } else {
             reloadCountCheck = 0;
         }
+        loadMyNewConfig();
 
     }
 
@@ -559,15 +553,9 @@ public class FactionChat extends JavaPlugin {
 
     //for testing purposes
     public static void main(String[] args) {
+        boolean a = (true || true) && false;
+        System.out.println(a);
     }
 
-    protected String GetColour(String configString) {
-        String colour = "";
-        int count = (configString.length() / 2);
-        for (int i = 0; i < count; i++) {
-            colour += ChatColor.getByChar(configString.substring(i * 2 + 1, i * 2 + 2));
-
-        }
-        return colour;
-    }
+    
 }

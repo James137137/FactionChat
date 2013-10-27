@@ -4,6 +4,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
+import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
@@ -21,13 +22,13 @@ public class FactionChatListener2 implements Listener {
 
     private ChatChannel2 channel;
     private OtherChatChannel otherChannel;
-    private FactionChat FactionChat;
+    private FactionChat plugin;
     static final Logger log = Bukkit.getLogger();
     public ScoreboardManager scoreboardmanager;
 
     protected FactionChatListener2(FactionChat FactionChat) {
         scoreboardmanager = Bukkit.getScoreboardManager();
-        this.FactionChat = FactionChat;
+        this.plugin = FactionChat;
         if (FactionChat.FactionsEnable) {
             channel = new ChatChannel2(FactionChat);
         }
@@ -53,7 +54,7 @@ public class FactionChatListener2 implements Listener {
         String chatmode = ChatMode.getChatMode(talkingPlayer);
         if (!chatmode.equalsIgnoreCase("PUBLIC")) {
             boolean isFactionChat = false;
-            if (FactionChat.FactionsEnable) {
+            if (plugin.FactionsEnable) {
                 if (chatmode.equalsIgnoreCase("ALLY&TRUCE")) {
                     channel.fChatAT(talkingPlayer, msg);
                     event.setCancelled(true);
@@ -116,9 +117,9 @@ public class FactionChatListener2 implements Listener {
         }
         else
         {
-            if (ChatMode.mutePublicOptionEnabled)
+            if (ChatMode.mutePublicOptionEnabled && !talkingPlayer.hasPermission("FactionChat.mutebypass"))
             {
-                for (final Player player : FactionChat.getServer().getOnlinePlayers()) {
+                for (final Player player : plugin.getServer().getOnlinePlayers()) {
                     if (ChatMode.IsPublicMuted(player)) {
                         
                         if (player.getName().equals(talkingPlayer.getName()))
@@ -139,6 +140,31 @@ public class FactionChatListener2 implements Listener {
 
 
     }
+    
+    @EventHandler(priority = EventPriority.NORMAL)
+    protected void onPlayerChatLocalOption(AsyncPlayerChatEvent event) {
+
+        if (event.isCancelled()) {
+            return;
+        }
+        FileConfiguration config = this.plugin.getConfig();
+        if (!config.getBoolean("Features.LocalChat.Enable"))
+        {
+            return;
+        }
+        Player player = event.getPlayer();
+        double MaxDistance = config.getDouble("Features.LocalChat.Radius.Public");
+        if (MaxDistance < 0)
+        {
+            return;
+        }
+        
+        for (Player player1 : this.plugin.getServer().getOnlinePlayers()) {
+            if (FactionChatAPI.getDistance(player, player1) > MaxDistance) {
+                event.getRecipients().remove(player1);
+            }
+        }
+    }
 
     @EventHandler(priority = EventPriority.LOWEST)
     protected void onPlayerCommand(PlayerCommandPreprocessEvent event) {
@@ -150,15 +176,15 @@ public class FactionChatListener2 implements Listener {
         if (split.length < 2) {
             return;
         }
-        if (split[0].equalsIgnoreCase("/factions") || split[0].equalsIgnoreCase(("/" + FactionChat.FactionsCommand))) {
+        if (split[0].equalsIgnoreCase("/factions") || split[0].equalsIgnoreCase(("/" + plugin.FactionsCommand))) {
             if (split[1].equalsIgnoreCase("chat") || split[1].equalsIgnoreCase("c")) {
                 Player player = event.getPlayer();
                 String senderFaction = channel.getFactionName(player);
                 if (senderFaction.contains("Wilderness") && !player.hasPermission("FactionChat.UserAssistantChat")
-                        && !FactionChat.isDebugger(player.getName())) {
+                        && !plugin.isDebugger(player.getName())) {
                     //checks if player is in a faction
                     //mangaddp juniormoderators FactionChat.JrModChat
-                    player.sendMessage(ChatColor.RED + FactionChat.messageNotInFaction);
+                    player.sendMessage(ChatColor.RED + plugin.messageNotInFaction);
                     return;
                 }
                 if (split.length >= 3) {

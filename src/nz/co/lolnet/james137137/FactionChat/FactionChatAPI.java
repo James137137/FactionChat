@@ -6,6 +6,7 @@ package nz.co.lolnet.james137137.FactionChat;
 
 import static nz.co.lolnet.james137137.FactionChat.FactionChat.FactionsEnable;
 import org.bukkit.Bukkit;
+import org.bukkit.Location;
 import org.bukkit.entity.Player;
 
 /**
@@ -62,5 +63,22 @@ public class FactionChatAPI {
         {
             return ChatChannel.getPlayerRank(player);
         } 
+    }
+    
+    public static double getDistance(Player playerA, Player playerB)
+    {
+        if (playerA == null || playerB == null || !playerA.isOnline() || !playerB.isOnline())
+        {
+            return -1.0;
+        }
+        
+        double distance;
+        Location locationA = playerA.getLocation();
+        Location locationB = playerB.getLocation();
+        distance = Math.pow(locationA.getX()-locationB.getX(),2) + Math.pow(locationA.getY()-locationB.getY(),2) + Math.pow(locationA.getZ()-locationB.getZ(),2);
+        distance = Math.sqrt(distance);
+        
+        
+        return distance;
     }
 }
