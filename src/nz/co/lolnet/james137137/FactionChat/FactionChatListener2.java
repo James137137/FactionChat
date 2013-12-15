@@ -49,6 +49,13 @@ public class FactionChatListener2 implements Listener {
             return;
         }
         Player talkingPlayer = event.getPlayer();
+        if (FactionChat.useBanManager())
+        {
+            if (BanManagerAPI.isMuted(talkingPlayer.getName()))
+            {
+                return;
+            }
+        }
         String msg = event.getMessage();
         //FPlayer me = (FPlayer)FPlayers.i.get(talkingPlayer);
         String chatmode = ChatMode.getChatMode(talkingPlayer);
@@ -168,7 +175,7 @@ public class FactionChatListener2 implements Listener {
 
     @EventHandler(priority = EventPriority.LOWEST)
     protected void onPlayerCommand(PlayerCommandPreprocessEvent event) {
-        if (event.isCancelled()) {
+        if (event.isCancelled() || !FactionChat.FactionsEnable) {
             return;
         }
         String message = event.getMessage();

@@ -1,7 +1,7 @@
 name: FactionChat
-softdepend: [Factions]
+softdepend: [Factions,BanManager]
 main: nz.co.lolnet.james137137.FactionChat.FactionChat
-version: 1.642
+version: 1.722
 authors: [James Anderson]
 commands:
   fchat:
@@ -70,6 +70,9 @@ permissions:
   FactionChat.AllyChat:
     description: Allows player to send and receive messages from their ally Factions
     default: true
+  FactionChat.Chat.Colour:
+    description: Allows player to use colour in chat
+    default: op
   FactionChat.OtherChat:
     description: Allows player to send messages to other Factions
     default: op

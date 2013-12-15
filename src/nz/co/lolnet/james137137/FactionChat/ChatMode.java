@@ -13,10 +13,10 @@ import org.bukkit.entity.Player;
 public class ChatMode {
 
     public static boolean mutePublicOptionEnabled;
-    protected static String FactionName, AllyName, TruceName, AllyTruceName, EnermyName, LeaderName,OfficerName, PublicName;
-    protected static HashMap<String,String> playerChatMode = new HashMap();
-    protected static HashMap<String,Boolean> spyMode = new HashMap();
-    protected static HashMap<String,Boolean> playerPublicModeOff = new HashMap();
+    protected static String FactionName, AllyName, TruceName, AllyTruceName, EnermyName, LeaderName, OfficerName, PublicName;
+    protected static HashMap<String, String> playerChatMode = new HashMap();
+    protected static HashMap<String, Boolean> spyMode = new HashMap();
+    protected static HashMap<String, Boolean> playerPublicModeOff = new HashMap();
 
     protected static void initialize(FactionChat plugin) {
         FileConfiguration config = plugin.getConfig();
@@ -81,6 +81,11 @@ public class ChatMode {
     protected static void NextChatMode(Player player) {
         String playerName = player.getName().toLowerCase();
         String currentChatMode = (String) playerChatMode.get(playerName);
+        if (FactionChat.PublicMuteDefault && !currentChatMode.equalsIgnoreCase("PUBLIC")) {
+            if (!ChatMode.IsPublicMuted(player)) {
+                ChatMode.MutePublicOption(player);
+            }
+        }
         if (FactionChat.FactionsEnable) {
             if (currentChatMode.equalsIgnoreCase("PUBLIC")) {
                 playerChatMode.put(playerName, "ALLY");
@@ -119,14 +124,11 @@ public class ChatMode {
             }
         }
 
-
-
-
         playerChatMode.put(playerName, "PUBLIC");
         player.sendMessage(FactionChat.messageNewChatMode + PublicName);
-
-
-
+        if (ChatMode.IsPublicMuted(player)) {
+            ChatMode.MutePublicOption(player);
+        }
 
     }
 
@@ -158,7 +160,6 @@ public class ChatMode {
                     player.sendMessage(FactionChat.messageNewChatMode + AllyName);
                 }
 
-
             } else if ((input.equalsIgnoreCase("TRUCE") || input.equalsIgnoreCase("T"))) {
                 isFactionChat = true;
                 if (!FactionChat.TruceChatEnable) {
@@ -168,7 +169,6 @@ public class ChatMode {
                     player.sendMessage(FactionChat.messageNewChatMode + TruceName);
                 }
 
-
             } else if ((input.equalsIgnoreCase("FACTION") || input.equalsIgnoreCase("F"))) {
                 isFactionChat = true;
                 if (!FactionChat.FactionChatEnable) {
@@ -177,7 +177,6 @@ public class ChatMode {
                     playerChatMode.put(playerName, "FACTION");
                     player.sendMessage(FactionChat.messageNewChatMode + FactionName);
                 }
-
 
             } else if (((player.hasPermission("FactionChat.EnemyChat") || FactionChat.isDebugger(player.getName()))
                     && (input.equalsIgnoreCase("ENEMY") || input.equalsIgnoreCase("E")))) {
@@ -199,7 +198,7 @@ public class ChatMode {
                 playerChatMode.put(playerName, "LEADER");
                 player.sendMessage(FactionChat.messageNewChatMode + LeaderName);
 
-            } else if ((FactionChatAPI.getPlayerRank(player).equals(FactionChat.LeaderRank) 
+            } else if ((FactionChatAPI.getPlayerRank(player).equals(FactionChat.LeaderRank)
                     || FactionChatAPI.getPlayerRank(player).equals(FactionChat.OfficerRank))
                     && (input.equalsIgnoreCase("Officer") || input.equalsIgnoreCase("O"))) {
                 isFactionChat = true;
@@ -216,8 +215,6 @@ public class ChatMode {
                 return;
             }
         }
-
-
 
         if ((player.hasPermission("FactionChat.UserAssistantChat") || FactionChat.isDebugger(player.getName()))
                 && (input.equalsIgnoreCase("UA") || input.equalsIgnoreCase("UserAssistant"))) {
@@ -304,7 +301,6 @@ public class ChatMode {
                     player.sendMessage(FactionChat.messageNewChatMode + AllyName);
                 }
 
-
             } else if ((input.equalsIgnoreCase("TRUCE") || input.equalsIgnoreCase("T"))) {
                 isFactionChat = true;
                 if (!FactionChat.TruceChatEnable) {
@@ -314,7 +310,6 @@ public class ChatMode {
                     player.sendMessage(FactionChat.messageNewChatMode + TruceName);
                 }
 
-
             } else if ((input.equalsIgnoreCase("FACTION") || input.equalsIgnoreCase("F"))) {
                 isFactionChat = true;
                 if (!FactionChat.FactionChatEnable) {
@@ -323,7 +318,6 @@ public class ChatMode {
                     playerChatMode.put(playerName, "FACTION");
                     player.sendMessage(FactionChat.messageNewChatMode + FactionName);
                 }
-
 
             } else if (((player.hasPermission("FactionChat.EnemyChat") || FactionChat.isDebugger(player.getName()))
                     && (input.equalsIgnoreCase("ENEMY") || input.equalsIgnoreCase("E")))) {
@@ -345,7 +339,7 @@ public class ChatMode {
                 playerChatMode.put(playerName, "LEADER");
                 player.sendMessage(FactionChat.messageNewChatMode + LeaderName);
 
-            } else if ((FactionChatAPI.getPlayerRank(player).equals(FactionChat.LeaderRank) 
+            } else if ((FactionChatAPI.getPlayerRank(player).equals(FactionChat.LeaderRank)
                     || FactionChatAPI.getPlayerRank(player).equals(FactionChat.OfficerRank))
                     && (input.equalsIgnoreCase("Officer") || input.equalsIgnoreCase("O"))) {
                 isFactionChat = true;
@@ -362,8 +356,6 @@ public class ChatMode {
                 return;
             }
         }
-
-
 
         if ((player.hasPermission("FactionChat.UserAssistantChat") || FactionChat.isDebugger(player.getName()))
                 && (input.equalsIgnoreCase("UA") || input.equalsIgnoreCase("UserAssistant"))) {
@@ -425,8 +417,6 @@ public class ChatMode {
         String playerName = player.getName().toLowerCase();
         String chatMode = (String) playerChatMode.get(playerName);
 
-
-
         if (!chatMode.equalsIgnoreCase("PUBLIC")) {
             playerChatMode.put(playerName, "PUBLIC");
             playerPublicModeOff.put(playerName, false);
@@ -469,39 +459,30 @@ public class ChatMode {
     }
 
     public static void MutePublicOption(Player player) {
-        if (!mutePublicOptionEnabled)
-        {
+        if (!mutePublicOptionEnabled) {
             player.sendMessage(ChatColor.RED + "Sorry this feature is disabled");
             return;
         }
         Boolean isOn;
-        if (playerPublicModeOff.get(player.getName()) == null)
-        {
+        if (playerPublicModeOff.get(player.getName()) == null) {
             isOn = false;
-        }else
-        {
+        } else {
             isOn = playerPublicModeOff.get(player.getName());
         }
-         
-        if (isOn){
+
+        if (isOn) {
             player.sendMessage(ChatColor.GREEN + FactionChat.messagePublicMuteChatOff);
-        }
-        else
-        {
+        } else {
             player.sendMessage(ChatColor.GREEN + FactionChat.messagePublicMuteChatOn);
         }
         playerPublicModeOff.put(player.getName(), !isOn);
     }
-    
-    public static boolean IsPublicMuted (Player player)
-    {
+
+    public static boolean IsPublicMuted(Player player) {
         Boolean result = playerPublicModeOff.get(player.getName());
-        if (result == null)
-        {
+        if (result == null) {
             return false;
-        }
-        else
-        {
+        } else {
             return result;
         }
     }

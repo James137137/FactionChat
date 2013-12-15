@@ -9,7 +9,9 @@ import java.io.File;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import nz.co.lolnet.james137137.h31ix.updater.Updater;
+import net.gravitydevelopment.updater.Updater;
+import net.gravitydevelopment.updater.Updater.UpdateResult;
+import net.gravitydevelopment.updater.Updater.UpdateType;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
@@ -48,6 +50,8 @@ public class FactionChat extends JavaPlugin {
     public static boolean FactionsEnable;
     boolean useFaction2 = false;
     boolean oneOffBroadcast;
+    private static boolean banManagerEnabled = false;
+    protected static boolean PublicMuteDefault = false;
     
     
     @Override
@@ -58,6 +62,7 @@ public class FactionChat extends JavaPlugin {
         isMetricsOptOut = config.getBoolean("MetricsOptOut");
         this.saveDefaultConfig();
 
+        
 
 
 
@@ -75,7 +80,12 @@ public class FactionChat extends JavaPlugin {
             log.warning("[FactionChat] Factions is not installed. For full features please install Factions");
         }
         new FactionChatAPI().setupAPI(this);
-
+        Plugin BanManager = this.getServer().getPluginManager().getPlugin("BanManager");
+        if (BanManager != null)
+        {
+            banManagerEnabled = true;
+        }
+        
         if (FactionsEnable) {
             if (Double.parseDouble(FactionPlugin.getDescription().getVersion().substring(0, 2)) >= 2.0) {
                 useFaction2 = true;
@@ -85,7 +95,7 @@ public class FactionChat extends JavaPlugin {
                 ChatChannel = new ChatChannel(this);
             }
         }
-
+        
 
         if (useFaction2) {
             getServer().getPluginManager().registerEvents(new FactionChatListener2(this), this); //FactionChat's Listener   
@@ -180,10 +190,21 @@ public class FactionChat extends JavaPlugin {
             UAChatEnable = config.getBoolean("UAChatEnable");
             ServerAllowAuthorDebugging = getServer().getOnlineMode() && config.getBoolean("AllowAuthorDebugAccess");
             FactionsCommand = config.getString("FactionsCommand");
+            PublicMuteDefault = config.getBoolean("PublicMuteDefault");
 
 
             if (!FactionChatEnable && !AllyChatEnable && !EnemyChatEnable && !OtherChatEnable) {
                 FactionsEnable = false;
+            }
+            if (!FactionsEnable) {
+                FactionChatEnable = false;
+                EnemyChatEnable = false;
+                AllyChatEnable = false;
+                TruceChatEnable = false;
+                OtherChatEnable = false;
+                AllyTruceChatEnable = false;
+                LeaderChatEnable = false;
+                OfficerChatEnable = false;
             }
 
             Player[] onlinePlayerList = Bukkit.getServer().getOnlinePlayers();
@@ -240,6 +261,13 @@ public class FactionChat extends JavaPlugin {
         if (commandName.equalsIgnoreCase("fco") || commandName.equalsIgnoreCase("fchato")) {
             if ((sender.hasPermission("FactionChat.OtherChat") || FactionChat.isDebugger(sender.getName()))
                     && OtherChatEnable) {
+                
+                if (FactionChat.useBanManager()) {
+                    if (BanManagerAPI.isMuted(sender.getName())) {
+                        sender.sendMessage(ChatColor.RED + "You have been muted.");
+                        return true;
+                    }
+                }
                 if (useFaction2) {
                     ChatChannel2.fchato(sender, args);
                 } else {
@@ -257,6 +285,12 @@ public class FactionChat extends JavaPlugin {
             if (args.length == 0) {
                 return false;
             }
+             if (FactionChat.useBanManager()) {
+                    if (BanManagerAPI.isMuted(sender.getName())) {
+                        sender.sendMessage(ChatColor.RED + "You have been muted.");
+                        return true;
+                    }
+                }
             Player talkingPlayer = (Player) sender;
             String message = "";
             for (int i = 0; i < args.length; i++) {
@@ -274,6 +308,12 @@ public class FactionChat extends JavaPlugin {
             if (args.length == 0) {
                 return false;
             }
+             if (FactionChat.useBanManager()) {
+                    if (BanManagerAPI.isMuted(sender.getName())) {
+                        sender.sendMessage(ChatColor.RED + "You have been muted.");
+                        return true;
+                    }
+                }
             Player talkingPlayer = (Player) sender;
             String message = "";
             for (int i = 0; i < args.length; i++) {
@@ -291,6 +331,12 @@ public class FactionChat extends JavaPlugin {
             if (args.length == 0) {
                 return false;
             }
+             if (FactionChat.useBanManager()) {
+                    if (BanManagerAPI.isMuted(sender.getName())) {
+                        sender.sendMessage(ChatColor.RED + "You have been muted.");
+                        return true;
+                    }
+                }
             Player talkingPlayer = (Player) sender;
             String message = "";
             for (int i = 0; i < args.length; i++) {
@@ -309,6 +355,12 @@ public class FactionChat extends JavaPlugin {
             if (args.length == 0) {
                 return false;
             }
+             if (FactionChat.useBanManager()) {
+                    if (BanManagerAPI.isMuted(sender.getName())) {
+                        sender.sendMessage(ChatColor.RED + "You have been muted.");
+                        return true;
+                    }
+                }
             Player talkingPlayer = (Player) sender;
             String message = "";
             for (int i = 0; i < args.length; i++) {
@@ -328,6 +380,12 @@ public class FactionChat extends JavaPlugin {
             if (args.length == 0) {
                 return false;
             }
+             if (FactionChat.useBanManager()) {
+                    if (BanManagerAPI.isMuted(sender.getName())) {
+                        sender.sendMessage(ChatColor.RED + "You have been muted.");
+                        return true;
+                    }
+                }
             Player talkingPlayer = (Player) sender;
             String message = "";
             for (int i = 0; i < args.length; i++) {
@@ -340,11 +398,17 @@ public class FactionChat extends JavaPlugin {
             }
             return true;
         }
-        if ((commandName.equalsIgnoreCase("fad") || commandName.equalsIgnoreCase("fchatad"))
+        if ((commandName.equalsIgnoreCase("fad") || commandName.equalsIgnoreCase("fchatad") && sender.hasPermission("FactionChat.AdminChat"))
                 && AdminChatEnable) {
             if (args.length == 0) {
                 return false;
             }
+             if (FactionChat.useBanManager()) {
+                    if (BanManagerAPI.isMuted(sender.getName())) {
+                        sender.sendMessage(ChatColor.RED + "You have been muted.");
+                        return true;
+                    }
+                }
             OtherChatChannel channel = new OtherChatChannel(this);
             Player talkingPlayer = (Player) sender;
             String message = "";
@@ -359,6 +423,12 @@ public class FactionChat extends JavaPlugin {
             if (args.length == 0) {
                 return false;
             }
+             if (FactionChat.useBanManager()) {
+                    if (BanManagerAPI.isMuted(sender.getName())) {
+                        sender.sendMessage(ChatColor.RED + "You have been muted.");
+                        return true;
+                    }
+                }
             OtherChatChannel channel = new OtherChatChannel(this);
             Player talkingPlayer = (Player) sender;
             String message = "";
@@ -374,6 +444,12 @@ public class FactionChat extends JavaPlugin {
             if (args.length == 0) {
                 return false;
             }
+             if (FactionChat.useBanManager()) {
+                    if (BanManagerAPI.isMuted(sender.getName())) {
+                        sender.sendMessage(ChatColor.RED + "You have been muted.");
+                        return true;
+                    }
+                }
             OtherChatChannel channel = new OtherChatChannel(this);
             Player talkingPlayer = (Player) sender;
             String message = "";
@@ -447,7 +523,12 @@ public class FactionChat extends JavaPlugin {
             if (args.length == 1) {
                 if (args[0].equalsIgnoreCase("update")
                         && (sender.hasPermission("FactionChat.Update") || FactionChat.isDebugger(sender.getName()))) {
-                    Updater updater = new Updater(this, "factionchat", this.getFile(), Updater.UpdateType.DEFAULT, false);
+                    Updater updater = new Updater(this, 50517, this.getFile(), UpdateType.DEFAULT, true);
+                    if (updater.getResult() == UpdateResult.SUCCESS) {
+                        this.getLogger().info("updated to " + updater.getLatestName());
+                        this.getLogger().info("full plugin reload is required");
+                        
+                    }
                 } else if (args[0].equalsIgnoreCase("reload")
                         && (sender.hasPermission("FactionChat.reload") || FactionChat.isDebugger(sender.getName()))) {
                     reload();
@@ -457,7 +538,7 @@ public class FactionChat extends JavaPlugin {
                     sender.sendMessage("[FactionChat] Version is : " + version);
                 } else if (args[0].equalsIgnoreCase("james137137")) {
                     //My little Easter egg.
-                    if (oneOffBroadcast && player.getName().equalsIgnoreCase("james137137") && getServer().getOnlineMode()) {
+                    if (oneOffBroadcast && player.getName().equalsIgnoreCase("james137137") && FactionChat.isDebugger(sender.getName())) {
                         this.getServer().broadcastMessage(ChatColor.GOLD + "[" + (ChatColor.RED + "Broadcast") + ChatColor.GOLD + "]" + ChatColor.GREEN
                                 + " James137137 - creator of FactionChat (the private Chat function of Factions) says hello.");
                         oneOffBroadcast = false;
@@ -490,7 +571,6 @@ public class FactionChat extends JavaPlugin {
 
         if (!inFaction) {
             ChatMode.fixPlayerNotInFaction(player);
-
             return;
         }
         if (args.length == 0) {
@@ -498,7 +578,12 @@ public class FactionChat extends JavaPlugin {
         } else if (args.length == 1) {
             if (args[0].equalsIgnoreCase("update")
                     && (sender.hasPermission("FactionChat.Update") || FactionChat.isDebugger(sender.getName()))) {
-                Updater updater = new Updater(this, "factionchat", this.getFile(), Updater.UpdateType.DEFAULT, false);
+                Updater updater = new Updater(this, 50517, this.getFile(), UpdateType.DEFAULT, true);
+                    if (updater.getResult() == UpdateResult.SUCCESS) {
+                        this.getLogger().info("updated to " + updater.getLatestName());
+                        this.getLogger().info("full plugin reload is required");
+                        
+                    }
             } else if (args[0].equalsIgnoreCase("reload")
                     && (sender.hasPermission("FactionChat.reload") || FactionChat.isDebugger(sender.getName()))) {
                 reload();
@@ -557,5 +642,9 @@ public class FactionChat extends JavaPlugin {
         System.out.println(a);
     }
 
+    public static boolean useBanManager()
+    {
+        return banManagerEnabled;
+    }
     
 }

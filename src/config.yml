@@ -1,4 +1,4 @@
-CurrentVersion: 1.642
+CurrentVersion: 1.722
 MetricsOptOut: false
 # Should spy mode be on by default for those who have the correct permission node.
 #Accepts boolean [true/false].
@@ -7,6 +7,8 @@ spyModeOnByDefault: true
 #If this is set true and your server is set online-mode:true, 
 #then it allows me (james137137) to the following addiction commands,
 AllowAuthorDebugAccess: true
+# mutes public for the player when he/she is in a FactionChat channel (/f chat)
+PublicMuteDefault: false
 # allows self command /fc mutePublic or /fc Mute (prevents public messages sent to client)
 AllowPublicMuteCommand: false
 # Change the colors and format of each message
@@ -43,12 +45,12 @@ FactionChatMessage:
 # {0} Player name
 # {1} Message
 OtherChatMessage:
-  ModChat: '&b[Mod-Chat] &f{0}: &a{1}'
-  AdminChat: '&4[Admin-Chat] &f{0}: &a{1}'
-  UAChat: '&5[UA-Chat] &f{0}: &a{1}'
-  JrModChat: '&b[JrMod-Chat] &f{0}: &a{1}'
-  SrModChat: '&b[SrMod-Chat] &f{0}: &a{1}'
-  JrAdminChat: '&4[JrAdmin-Chat] &f{0}: &a{1}'
+  ModChat: '&b[Mod-Chat] &f{0}: &a{M}'
+  AdminChat: '&4[Admin-Chat] &f{0}: &a{M}'
+  UAChat: '&5[UA-Chat] &f{0}: &a{M}'
+  JrModChat: '&b[JrMod-Chat] &f{0}: &a{M}'
+  SrModChat: '&b[SrMod-Chat] &f{0}: &a{M}'
+  JrAdminChat: '&4[JrAdmin-Chat] &f{0}: &a{M}'
 #Enable/disable any chat (except public)
 FactionChatEnable: true
 AllyChatEnable: true
