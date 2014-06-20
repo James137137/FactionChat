@@ -3,6 +3,7 @@ softdepend: [Factions,BanManager,bPermissions,GroupManager,PermissionsEx,AuthMe]
 main: nz.co.lolnet.james137137.FactionChat.FactionChat
 version: 1.792
 authors: [James Anderson]
+
 commands:
   fchat:
     description: Main command to switch Chat Mode
