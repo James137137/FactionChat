@@ -53,7 +53,6 @@ public class FactionChat extends JavaPlugin {
     boolean oneOffBroadcast;
     private static boolean banManagerEnabled = false;
     protected static boolean PublicMuteDefault = false;
-    public AuthMeAPI authme;
             
     @Override
     public void onEnable() {
@@ -78,11 +77,9 @@ public class FactionChat extends JavaPlugin {
         } else {
             log.warning("[FactionChat] Factions is not installed. For full features please install Factions");
         }
-        Plugin AuthMePlugin = getServer().getPluginManager().getPlugin("AuthMe");
-        if (AuthMePlugin != null && AuthMePlugin.isEnabled())
-        {
-            authme = new AuthMeAPI();
-        }
+        
+        new AuthMeAPI(getServer().getPluginManager().getPlugin("AuthMe")!=null);
+        
         new FactionChatAPI().setupAPI(this);
         Plugin BanManager = this.getServer().getPluginManager().getPlugin("BanManager");
         if (BanManager != null && BanManager.isEnabled()) {

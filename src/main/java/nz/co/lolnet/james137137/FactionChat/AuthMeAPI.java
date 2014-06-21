@@ -3,7 +3,6 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package nz.co.lolnet.james137137.FactionChat;
 
 import org.bukkit.entity.Player;
@@ -14,24 +13,30 @@ import org.bukkit.entity.Player;
  */
 class AuthMeAPI {
 
-    public AuthMeAPI() {
+    static boolean enable;
+
+    public AuthMeAPI(boolean aThis) {
+        enable = aThis;
     }
-    
-    
-    public boolean isLoggedIn(Player player)
-    {
-        try {
+
+    private static boolean isLoggedIn(Player player) {
+        if (enable) {
             return fr.xephi.authme.api.API.isAuthenticated(player);
-        } catch (Exception e) {
-        } catch (NoClassDefFoundError e) {
         }
-        return true;
+        return true
     }
-    
-    public boolean isAllowToChat(Player player) {
+
+    public static boolean isAllowToChat(Player player) {
+        if (!enable) {
+            return true;
+        }
         try {
-            if (fr.xephi.authme.settings.Settings.isChatAllowed) return true;
-            if (isLoggedIn(player)) return true;
+            if (fr.xephi.authme.settings.Settings.isChatAllowed) {
+                return true;
+            }
+            if (isLoggedIn(player)) {
+                return true;
+            }
             return false;
         } catch (Exception e) {
         } catch (NoClassDefFoundError e) {
