@@ -23,23 +23,18 @@ class AuthMeAPI {
         if (enable) {
             return fr.xephi.authme.api.API.isAuthenticated(player);
         }
-        return true
+        return true;
     }
 
     public static boolean isAllowToChat(Player player) {
         if (!enable) {
             return true;
         }
-        try {
-            if (fr.xephi.authme.settings.Settings.isChatAllowed) {
-                return true;
-            }
-            if (isLoggedIn(player)) {
-                return true;
-            }
+        if (fr.xephi.authme.settings.Settings.isChatAllowed) {
+            return true;
+        }
+        if (!isLoggedIn(player)) {
             return false;
-        } catch (Exception e) {
-        } catch (NoClassDefFoundError e) {
         }
         return true;
     }
