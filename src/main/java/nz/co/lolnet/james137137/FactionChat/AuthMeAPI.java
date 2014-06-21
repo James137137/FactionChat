@@ -5,22 +5,37 @@
  */
 
 package nz.co.lolnet.james137137.FactionChat;
+
 import org.bukkit.entity.Player;
+
 /**
  *
  * @author James
  */
 class AuthMeAPI {
 
-    private static boolean enabled;
-    public AuthMeAPI(boolean enabled) {
-        AuthMeAPI.enabled = enabled;
+    public AuthMeAPI() {
     }
     
     
-    public static boolean isLoggedIn(Player player)
+    public boolean isLoggedIn(Player player)
     {
-        if (!enabled) return true;
-        return fr.xephi.authme.api.API.isRegistered(player.getName()) && fr.xephi.authme.api.API.isAuthenticated(player);
+        try {
+            return fr.xephi.authme.api.API.isAuthenticated(player);
+        } catch (Exception e) {
+        } catch (NoClassDefFoundError e) {
+        }
+        return true;
+    }
+    
+    public boolean isAllowToChat(Player player) {
+        try {
+            if (fr.xephi.authme.settings.Settings.isChatAllowed) return true;
+            if (isLoggedIn(player)) return true;
+            return false;
+        } catch (Exception e) {
+        } catch (NoClassDefFoundError e) {
+        }
+        return true;
     }
 }

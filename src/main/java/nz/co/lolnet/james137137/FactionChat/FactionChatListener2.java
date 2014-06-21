@@ -100,6 +100,10 @@ public class FactionChatListener2 implements Listener {
                 return;
             }
         }
+        if (plugin.authme != null)
+            if (!plugin.authme.isAllowToChat(talkingPlayer)) {
+                return;
+            }
         String msg = event.getMessage();
         //FPlayer me = (FPlayer)FPlayers.i.get(talkingPlayer);
         String chatmode = ChatMode.getChatMode(talkingPlayer);
@@ -203,6 +207,10 @@ public class FactionChatListener2 implements Listener {
         }
         FileConfiguration config = this.plugin.getConfig();
         Player player = event.getPlayer();
+        if (plugin.authme != null)
+            if (!plugin.authme.isAllowToChat(player)) {
+                return;
+            }
         Boolean localChatP = ChatMode.LocalChat.get(player.getName());
         if (!Objects.equals(localChatP, Boolean.TRUE)) {
             
@@ -223,6 +231,11 @@ public class FactionChatListener2 implements Listener {
         for (Player player1 : this.plugin.getServer().getOnlinePlayers()) {
             if (FactionChatAPI.getDistance(player, player1) > MaxDistance && !player1.hasPermission("FactionChat.LocalChatBypass.PublicReceive")) {
                 event.getRecipients().remove(player1);
+            } else {
+                if (plugin.authme != null)
+                    if (!plugin.authme.isAllowToChat(player)) {
+                        event.getRecipients().remove(player1);
+                    }
             }
         }
     }
