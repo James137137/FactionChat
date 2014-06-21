@@ -78,7 +78,6 @@ public class FactionChat extends JavaPlugin {
             log.warning("[FactionChat] Factions is not installed. For full features please install Factions");
         }
         
-        new AuthMeAPI(getServer().getPluginManager().getPlugin("AuthMe")!=null);
         
         new FactionChatAPI().setupAPI(this);
         Plugin BanManager = this.getServer().getPluginManager().getPlugin("BanManager");

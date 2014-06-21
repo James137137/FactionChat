@@ -54,17 +54,10 @@
         </dependency>
         <dependency>
             <groupId>me.confuserr</groupId>
-            <artifactId>AuthMe</artifactId>
+            <artifactId>BanManager</artifactId>
             <version>4.0</version>
             <scope>system</scope>
             <systemPath>${basedir}/lib/BanManager.jar</systemPath>
-        </dependency>
-        <dependency>
-            <groupId>fr.xephi</groupId>
-            <artifactId>authme</artifactId>
-            <version>3.4</version>
-            <scope>system</scope>
-            <systemPath>${basedir}/lib/AuthMe.jar</systemPath>
         </dependency>
         <dependency>
             <groupId>org.anjocaido</groupId>
