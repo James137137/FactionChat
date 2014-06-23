@@ -80,6 +80,7 @@ public class FactionChat extends JavaPlugin {
         
         
         new FactionChatAPI().setupAPI(this);
+        new AuthMeAPI(this.getServer().getPluginManager().getPlugin("AuthMe") != null);
         Plugin BanManager = this.getServer().getPluginManager().getPlugin("BanManager");
         if (BanManager != null && BanManager.isEnabled()) {
             banManagerEnabled = true;

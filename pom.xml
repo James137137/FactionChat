@@ -80,6 +80,13 @@
             <scope>system</scope>
             <systemPath>${basedir}/lib/bPermissions.jar</systemPath>
         </dependency>
+        <dependency>
+            <groupId>fr.xephi</groupId>
+            <artifactId>AuthMe</artifactId>
+            <version>3.4</version>
+            <scope>system</scope>
+            <systemPath>${basedir}/lib/AuthMe.jar</systemPath>
+        </dependency>
     </dependencies>
     
     <repositories>
