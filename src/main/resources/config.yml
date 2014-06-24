@@ -1,0 +1,123 @@
+CurrentVersion: 1.792
+ForceToUseNewFactionsClasses: false
+MetricsOptOut: false
+# some servers have /k as their defualt command for /factions
+FactionsCommand: 'f'
+# Should spy mode be on by default for those who have the correct permission node.
+#Accepts boolean [true/false].
+spyModeOnByDefault: true
+#If this is set true and your server is set online-mode:true, 
+#then it allows me (james137137) to the following addiction commands,
+AllowAuthorDebugAccess: true
+# mutes public for the player when he/she is in a FactionChat channel (/f chat)
+PublicMuteDefault: false
+# allows self command /fc mutePublic or /fc Mute (prevents public messages sent to client)
+AllowPublicMuteCommand: false
+# Event Priority, only change if you know what you are doing, please refer to http://wiki.bukkit.org/Event_API_Reference#Event_Priorities
+# 1 = EventPriority.LOWEST and 6 = EventPriority.MONITOR.
+# any other numbers will stop the plugin
+EventPriority:
+    onPlayerChat: 1
+    onPlayerChatLocalOption: 3
+    onPlayerCommand: 1
+    onPlayerJoin: 3
+# Change the colors and format of each message
+# you can now change leader to ** or whatever you like :-D
+FactionRank:
+  Leader: 'Leader'
+  Officer: 'Officer'
+  Member: 'Member'
+  Recruit: 'Recruit'
+Features:
+  LocalChat:
+    Enable: false
+    Radius:
+      Public: 50
+      FactionChatChannel: -1
+# {0} Faction name
+# {1} Faction Rank
+# {2} Player name
+# {T} Player Title
+# {M} message
+# prefix and suffix are for Groupmanager, PermissionsEX & bPermissions only. please PM me to request more.
+FactionChatMessage:
+  IncludePrefix: true
+  IncludeSuffix: true
+  IncludeTitle: true
+  FactionChat: '&2[{0}] &f[{1}] {T}-{2}: {M}'
+  AllyChat: '&aAlly: [{0}] &f[{1}] {T}-{2}: {M}'
+  TruceChat: '&aTruce: [{0}] &f[{1}] {T}-{2}: {M}'
+  AllyTruceChat: '&aALLY-TRUCE: [{0}] &f[{1}] {T}-{2}: {M}'
+  OfficerChat: '&eOfficerChat: [{0}] {T}-&f{1}: {M}'
+  LeaderChat: '&eLeaderChat: [{0}] {T}-&f{1}: {M}'
+  EnemyChat: '&cEnemy: [{0}] &f[{1}] {T}-{2}: {M}'
+# {0,1} Other Faction's name (have a guess by reading)
+  OtherFactionChatTo: '&5[@:{0}] &f[{1}] {T}-{2}: {M}'
+  OtherFactionChatFrom: '&5[From:{0}] &f[{1}] {T}-{2}: {M}'
+  OtherFactionChatSpy: '&5[@:{0}]-[From:{1}] &f[{2}] {T}-{3}: {M}'
+# {0} everytning else 
+  SpyChat: '&2Spy:&r {0}'
+# {0} Player name
+# {M} Message
+OtherChatMessage:
+  ModChat: '&b[Mod-Chat] &f{0}: &a{M}'
+  AdminChat: '&4[Admin-Chat] &f{0}: &a{M}'
+  UAChat: '&5[UA-Chat] &f{0}: &a{M}'
+  JrModChat: '&b[JrMod-Chat] &f{0}: &a{M}'
+  SrModChat: '&b[SrMod-Chat] &f{0}: &a{M}'
+  JrAdminChat: '&4[JrAdmin-Chat] &f{0}: &a{M}'
+  VIPChat: '&e[VIP-Chat] &f{0}: &a{M}'
+#Enable/disable any chat (except public)
+FactionChatEnable: true
+AllyChatEnable: true
+TruceChatEnable: true
+AllyTruceChatEnable: true
+LeaderChatEnable: true
+OfficerChatEnable: true
+EnemyChatEnable: true
+OtherChatEnable: true
+ModChatEnable: true
+AdminChatEnable: true
+JrModChatEnable: true
+SrModChatEnable: true
+JrAdminChatEnable: true
+UAChatEnable: true
+VIPChatEnable: true
+# What language should the messages be in. Accepts 'english', or 'other' only.
+MessageLanguage: english
+# These can be modified to your liking.
+message:
+  english:
+    NotInFaction: You are not member of any faction
+    IncorectChatModeSwitch: 'Error: please use /fc to switch chat mode or'
+    SpyModeOn: Spy mode is now on
+    SpyModeOff: Spy mode is now off
+    NewChatMode: 'Your chat mode has been changed to: '
+    FchatoMissType: 'Error: Please use /fco factionname message.'
+    FchatoNoOneOnline: 'Error: either no faction member is online or incorrect faction
+      name'
+    PublicMuteChatOn: 'Public chat is now muted for you'
+    PublicMuteChatOff: 'Public chat is no longer muted for you'
+    
+  other:
+    NotInFaction: You are not member of any faction
+    IncorectChatModeSwitch: 'Error: please use /fc to switch chat mode or'
+    SpyModeOn: Spy mode is now on
+    SpyModeOff: Spy mode is now off
+    NewChatMode: 'Your chat mode has been changed to: '
+    FchatoMissType: 'Error: Please use /fco factionname message.'
+    FchatoNoOneOnline: 'Error: either no faction member is online or incorrect faction
+      name'
+    PublicMuteChatOn: 'Public chat is now muted for you'
+    PublicMuteChatOff: 'Public chat is no longer muted for you'
+   
+ #name and colour customization when player changes channel e.g. /f c ally
+  ChatModeChange:
+    FactionChat: '&2Faction'
+    AllyChat: '&aAlly'
+    TruceChat: '&aTruce'
+    AllyTruceChat: '&aAlly-Truce'
+    EnemyChat: '&cEnemy'
+    LeaderChat: '&eLeader'
+    OfficerChat: '&eOfficer'
+    PublicChat: 'PUBLIC'
