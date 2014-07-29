@@ -12,7 +12,7 @@ import org.bukkit.event.EventException;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
-import org.bukkit.event.player.AsyncPlayerChatEvent;
+import org.bukkit.event.player.PlayerChatEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerCommandPreprocessEvent;
 import org.bukkit.plugin.EventExecutor;
@@ -49,19 +49,19 @@ public class FactionChatListener2 implements Listener {
         onPlayerJoinEP = setupEventPriority("EventPriority.onPlayerJoin");
 
         PluginManager pm = Bukkit.getPluginManager();
-        pm.registerEvent(AsyncPlayerChatEvent.class, this, onPlayerChatEP, new EventExecutor() {
+        pm.registerEvent(PlayerChatEvent.class, this, onPlayerChatEP, new EventExecutor() {
 
             @Override
             public void execute(Listener ll, Event event) throws EventException {
-                FactionChatListener2.this.onPlayerChat( (AsyncPlayerChatEvent) event);
+                FactionChatListener2.this.onPlayerChat( (PlayerChatEvent) event);
             }
         }, plugin);
         
-        pm.registerEvent(AsyncPlayerChatEvent.class, this, onPlayerChatLocalOptionEP, new EventExecutor() {
+        pm.registerEvent(PlayerChatEvent.class, this, onPlayerChatLocalOptionEP, new EventExecutor() {
 
             @Override
             public void execute(Listener ll, Event event) throws EventException {
-                FactionChatListener2.this.onPlayerChatLocalOption( (AsyncPlayerChatEvent) event);
+                FactionChatListener2.this.onPlayerChatLocalOption( (PlayerChatEvent) event);
             }
         }, plugin);
         
@@ -87,7 +87,7 @@ public class FactionChatListener2 implements Listener {
         ChatMode.SetNewChatMode(player);
     }
 
-    protected void onPlayerChat(AsyncPlayerChatEvent event) {
+    protected void onPlayerChat(PlayerChatEvent event) {
 
         if (event.isCancelled()) {
             return;
@@ -196,7 +196,7 @@ public class FactionChatListener2 implements Listener {
 
     }
     
-    protected void onPlayerChatLocalOption(AsyncPlayerChatEvent event) {
+    protected void onPlayerChatLocalOption(PlayerChatEvent event) {
 
         if (event.isCancelled()) {
             return;
