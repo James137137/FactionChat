@@ -13,8 +13,6 @@ import org.bukkit.event.EventException;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
-import org.bukkit.event.player.AsyncPlayerChatEvent;
-import org.bukkit.event.player.PlayerChatEvent;
 import org.bukkit.event.player.PlayerCommandPreprocessEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.plugin.EventExecutor;
@@ -49,19 +47,19 @@ public class FactionChatListener implements Listener {
 
         PluginManager pm = Bukkit.getPluginManager();
         if (!plugin.getConfig().getBoolean("DontUseAsyncEvent")) {
-            pm.registerEvent(AsyncPlayerChatEvent.class, this, onPlayerChatEP, new EventExecutor() {
+            pm.registerEvent(org.bukkit.event.player.AsyncPlayerChatEvent.class, this, onPlayerChatEP, new EventExecutor() {
 
                 @Override
                 public void execute(Listener ll, Event event) throws EventException {
-                    FactionChatListener.this.onPlayerChat((AsyncPlayerChatEvent) event);
+                    FactionChatListener.this.onPlayerChat((org.bukkit.event.player.AsyncPlayerChatEvent) event);
                 }
             }, plugin);
 
-            pm.registerEvent(AsyncPlayerChatEvent.class, this, onPlayerChatLocalOptionEP, new EventExecutor() {
+            pm.registerEvent(org.bukkit.event.player.AsyncPlayerChatEvent.class, this, onPlayerChatLocalOptionEP, new EventExecutor() {
 
                 @Override
                 public void execute(Listener ll, Event event) throws EventException {
-                    FactionChatListener.this.onPlayerChatLocalOption((AsyncPlayerChatEvent) event);
+                    FactionChatListener.this.onPlayerChatLocalOption((org.bukkit.event.player.AsyncPlayerChatEvent) event);
                 }
             }, plugin);
 
@@ -74,11 +72,11 @@ public class FactionChatListener implements Listener {
                 }
             }, plugin);
 
-            pm.registerEvent(AsyncPlayerChatEvent.class, this, onPlayerChatLocalOptionEP, new EventExecutor() {
+            pm.registerEvent(org.bukkit.event.player.PlayerChatEvent.class, this, onPlayerChatLocalOptionEP, new EventExecutor() {
 
                 @Override
                 public void execute(Listener ll, Event event) throws EventException {
-                    FactionChatListener.this.onPlayerChatLocalOption_NonAsync((PlayerChatEvent) event);
+                    FactionChatListener.this.onPlayerChatLocalOption_NonAsync((org.bukkit.event.player.PlayerChatEvent) event);
                 }
             }, plugin);
         }
@@ -106,7 +104,7 @@ public class FactionChatListener implements Listener {
         ChatMode.SetNewChatMode(player);
     }
 
-    protected void onPlayerChat(AsyncPlayerChatEvent event) {
+    protected void onPlayerChat(org.bukkit.event.player.AsyncPlayerChatEvent event) {
 
         if (event.isCancelled()) {
             return;
@@ -116,7 +114,7 @@ public class FactionChatListener implements Listener {
 
     }
 
-    private void onPlayerChat_NonAsync(PlayerChatEvent event) {
+    private void onPlayerChat_NonAsync(org.bukkit.event.player.PlayerChatEvent event) {
         if (event.isCancelled()) {
             return;
         }
@@ -219,14 +217,14 @@ public class FactionChatListener implements Listener {
         return setCancelled;
     }
 
-    private void onPlayerChatLocalOption_NonAsync(PlayerChatEvent event) {
+    private void onPlayerChatLocalOption_NonAsync(org.bukkit.event.player.PlayerChatEvent event) {
         if (event.isCancelled()) {
             return;
         }
         onPlayerChatLocalOption(event.getPlayer(), event.getRecipients());
     }
     
-    protected void onPlayerChatLocalOption(AsyncPlayerChatEvent event) {
+    protected void onPlayerChatLocalOption(org.bukkit.event.player.AsyncPlayerChatEvent event) {
         if (event.isCancelled()) {
             return;
         }
