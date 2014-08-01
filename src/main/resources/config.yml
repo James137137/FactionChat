@@ -1,10 +1,11 @@
 CurrentVersion: 1.792
 ForceToUseNewFactionsClasses: false
 MetricsOptOut: false
+DontUseAsyncEvent: false
 # some servers have /k as their defualt command for /factions
 FactionsCommand: 'f'
 # Should spy mode be on by default for those who have the correct permission node.
-#Accepts boolean [true/false].
+# Accepts boolean [true/false].
 spyModeOnByDefault: true
 #If this is set true and your server is set online-mode:true, 
 #then it allows me (james137137) to the following addiction commands,

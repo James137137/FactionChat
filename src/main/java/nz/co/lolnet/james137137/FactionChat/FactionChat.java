@@ -61,16 +61,16 @@ public class FactionChat extends JavaPlugin {
         oneOffBroadcast = true;
         FileConfiguration config = getConfig();
         this.saveDefaultConfig();
+        
+        
+        
         isMetricsOptOut = config.getBoolean("MetricsOptOut");
         
-
-        try {
-            Metrics metrics = new Metrics(this);
-            metrics.start();
-        } catch (IOException e) {
-            // Failed to submit the stats :-(
-            log.log(Level.INFO, "[{0}] Metrics: Failed to submit the stats", this.getName());
+        if (!isMetricsOptOut)
+        {
+            runMetrics();
         }
+        
         Plugin FactionPlugin = getServer().getPluginManager().getPlugin("Factions");
         if (FactionPlugin != null) {
             FactionsEnable = true;
@@ -640,6 +640,16 @@ public class FactionChat extends JavaPlugin {
 
     public static boolean useBanManager() {
         return banManagerEnabled;
+    }
+
+    private void runMetrics() {
+        try {
+            Metrics metrics = new Metrics(this);
+            metrics.start();
+        } catch (IOException e) {
+            // Failed to submit the stats :-(
+            log.log(Level.INFO, "[{0}] Metrics: Failed to submit the stats", this.getName());
+        }
     }
 
 }
