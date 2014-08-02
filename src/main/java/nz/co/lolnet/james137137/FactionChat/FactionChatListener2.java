@@ -138,7 +138,7 @@ public class FactionChatListener2 implements Listener {
                 }
 
                 if (isFactionChat) {
-                    log.log(Level.INFO, "[FactionChat] {0}|{1}: {2}", new Object[]{chatmode, talkingPlayer.getName(), msg});
+                    log.info("[FactionChat] " + chatmode + "|" + talkingPlayer.getName() + ": " + msg);
                     return;
                 }
 
@@ -168,7 +168,7 @@ public class FactionChatListener2 implements Listener {
                 event.setCancelled(true);
             }
 
-            log.log(Level.INFO, "[FactionChat] {0}|{1}: {2}", new Object[]{chatmode, talkingPlayer.getName(), msg});
+            log.info("[FactionChat] " + chatmode + "|" + talkingPlayer.getName() + ": " + msg);
         }
         else
         {

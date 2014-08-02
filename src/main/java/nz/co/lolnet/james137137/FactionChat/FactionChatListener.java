@@ -167,7 +167,7 @@ public class FactionChatListener implements Listener {
                 }
 
                 if (isFactionChat) {
-                    log.log(Level.INFO, "[FactionChat] {0}|{1}: {2}", new Object[]{chatmode, talkingPlayer.getName(), msg});
+                    log.info("[FactionChat] " + chatmode + "|" + talkingPlayer.getName() + ": " + msg);
                     return setCancelled;
                 }
 
@@ -196,7 +196,7 @@ public class FactionChatListener implements Listener {
                 setCancelled = true;
             }
 
-            log.log(Level.INFO, "[FactionChat] {0}|{1}: {2}", new Object[]{chatmode, talkingPlayer.getName(), msg});
+            log.info("[FactionChat] " + chatmode + "|" + talkingPlayer.getName() + ": " + msg);
         } else {
             if (ChatMode.mutePublicOptionEnabled && !talkingPlayer.hasPermission("FactionChat.mutebypass")) {
                 for (final Player player : plugin.getServer().getOnlinePlayers()) {
