@@ -103,13 +103,13 @@ public class FactionChat extends JavaPlugin {
         }
         reload();
         String version = Bukkit.getServer().getPluginManager().getPlugin(this.getName()).getDescription().getVersion();
-        log.log(Level.INFO, "{0}: Version: {1} Enabled.", new Object[]{this.getName(), version});
+        log.info(this.getName() + ": Version: " + version + " Enabled.");
 
     }
 
     @Override
     public void onDisable() {
-        log.log(Level.INFO, "{0}: disabled", this.getName());
+        log.info(this.getName() + ": disabled");
     }
 
     protected void loadMyNewConfig() {
@@ -648,7 +648,7 @@ public class FactionChat extends JavaPlugin {
             metrics.start();
         } catch (IOException e) {
             // Failed to submit the stats :-(
-            log.log(Level.INFO, "[{0}] Metrics: Failed to submit the stats", this.getName());
+            log.info("[" + this.getName() + "] Metrics: Failed to submit the stats");
         }
     }
 
