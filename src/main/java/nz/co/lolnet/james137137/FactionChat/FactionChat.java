@@ -53,7 +53,7 @@ public class FactionChat extends JavaPlugin {
     boolean oneOffBroadcast;
     private static boolean banManagerEnabled = false;
     protected static boolean PublicMuteDefault = false;
-            
+
     @Override
     public void onEnable() {
         plugin = this;
@@ -61,24 +61,20 @@ public class FactionChat extends JavaPlugin {
         oneOffBroadcast = true;
         FileConfiguration config = getConfig();
         this.saveDefaultConfig();
-        
-        
-        
+
         isMetricsOptOut = config.getBoolean("MetricsOptOut");
-        
-        if (!isMetricsOptOut)
-        {
+
+        if (!isMetricsOptOut) {
             runMetrics();
         }
-        
+
         Plugin FactionPlugin = getServer().getPluginManager().getPlugin("Factions");
         if (FactionPlugin != null) {
             FactionsEnable = true;
         } else {
             log.warning("[FactionChat] Factions is not installed. For full features please install Factions");
         }
-        
-        
+
         new FactionChatAPI().setupAPI(this);
         new AuthMeAPI(this.getServer().getPluginManager().getPlugin("AuthMe") != null);
         Plugin BanManager = this.getServer().getPluginManager().getPlugin("BanManager");
@@ -509,7 +505,11 @@ public class FactionChat extends JavaPlugin {
     }
 
     protected void CommandFC(CommandSender sender, String args[]) {
-        Player player = (Player) sender;//get player
+        Player player = null;
+        if (sender instanceof Player) {
+            player = (Player) sender;//get player  
+        }
+
         boolean inFaction = true;
         if (!FactionsEnable) {
             if (args.length == 1) {
@@ -528,28 +528,33 @@ public class FactionChat extends JavaPlugin {
                 } else if (args[0].equalsIgnoreCase("ver") || args[0].equalsIgnoreCase("version")) {
                     String version = Bukkit.getServer().getPluginManager().getPlugin(this.getName()).getDescription().getVersion();
                     sender.sendMessage("[FactionChat] Version is : " + version);
-                } else if (args[0].equalsIgnoreCase("james137137")) {
+                } else if (args[0].equalsIgnoreCase("james137137") && player != null) {
                     //My little Easter egg.
                     if (oneOffBroadcast && player.getName().equalsIgnoreCase("james137137") && FactionChat.isDebugger(sender.getName())) {
                         this.getServer().broadcastMessage(ChatColor.GOLD + "[" + (ChatColor.RED + "Broadcast") + ChatColor.GOLD + "]" + ChatColor.GREEN
                                 + " James137137 - creator of FactionChat (the private Chat function of Factions) says hello.");
                         oneOffBroadcast = false;
                     }
-                } else if (args[0].equalsIgnoreCase("mutePublic") || args[0].equalsIgnoreCase("mute")) {
+                } else if ((args[0].equalsIgnoreCase("mutePublic") || args[0].equalsIgnoreCase("mute")) && player != null) {
                     if (player.hasPermission("FactionChat.command.mutePublic")) {
                         ChatMode.MutePublicOption(player);
-                    }
-                    else
-                    {
+                    } else {
                         player.sendMessage("You don't have permission to run that command.");
                     }
 
                 } else {
-                    ChatMode.setChatMode(player, args[0]);
+                    if (player != null) {
+                        ChatMode.setChatMode(player, args[0]);
+                    }
+                    else
+                    {
+                        sender.sendMessage("You are not a player, you can still run /fc update and /fc reload");
+                    }
+
                 }
 
             } else {
-                player.sendMessage(ChatColor.RED + "Please use /fc Option");
+                sender.sendMessage(ChatColor.RED + "Please use /fc Option");
             }
             return;
         }
