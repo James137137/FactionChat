@@ -12,6 +12,8 @@ spyModeOnByDefault: true
 AllowAuthorDebugAccess: true
 # mutes public for the player when he/she is in a FactionChat channel (/f chat)
 PublicMuteDefault: false
+# reduces the chance of spam by allowing 1 message per X miliSecounds (ms)
+ChatLimit: 100
 # allows self command /fc mutePublic or /fc Mute (prevents public messages sent to client)
 AllowPublicMuteCommand: false
 #this will disabled certain commands please make sure you include the aliases 

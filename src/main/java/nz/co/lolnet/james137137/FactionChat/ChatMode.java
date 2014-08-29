@@ -17,8 +17,10 @@ public class ChatMode {
     protected static String FactionName, AllyName, TruceName, AllyTruceName, EnermyName, LeaderName, OfficerName, PublicName;
     protected static HashMap<String, String> playerChatMode = new HashMap();
     protected static HashMap<String, Boolean> spyMode = new HashMap();
+    protected static HashMap<String, Long> lastChat = new HashMap();
     protected static HashMap<String, Boolean> playerMutePublicMode = new HashMap();
     protected static HashMap<String, Boolean> LocalChat = new HashMap();
+    private static long chatTimeLimit;
 
     protected static void initialize(FactionChat plugin) {
         FileConfiguration config = plugin.getConfig();
@@ -31,6 +33,7 @@ public class ChatMode {
         LeaderName = FormatString(config.getString("message.ChatModeChange.LeaderChat"), null);
         OfficerName = FormatString(config.getString("message.ChatModeChange.OfficerChat"), null);
         mutePublicOptionEnabled = config.getBoolean("AllowPublicMuteCommand");
+        chatTimeLimit = config.getLong("ChatLimit");
     }
 
     protected static boolean isSpyOn(Player player) {
@@ -67,6 +70,19 @@ public class ChatMode {
         return chatMode;
     }
 
+    public static long getLastChat(String playerName) {
+        return lastChat.get(playerName.toLowerCase());
+    }
+    
+    public static void updateLastChat(String playerName) {
+        lastChat.put(playerName.toLowerCase(),System.currentTimeMillis());
+    }
+    
+    public static boolean canChat(String playerName) {
+        return (System.currentTimeMillis() - getLastChat(playerName) >= chatTimeLimit);
+    }
+    
+
     protected static void SetNewChatMode(Player player) {
         String playerName = player.getName().toLowerCase();
         playerMutePublicMode.put(player.getName(), false);
@@ -77,6 +93,7 @@ public class ChatMode {
         } else {
             spyMode.put(playerName, false);
         }
+        lastChat.put(playerName,System.currentTimeMillis());
 
     }
 
