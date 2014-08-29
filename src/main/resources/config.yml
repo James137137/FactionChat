@@ -14,6 +14,14 @@ AllowAuthorDebugAccess: true
 PublicMuteDefault: false
 # allows self command /fc mutePublic or /fc Mute (prevents public messages sent to client)
 AllowPublicMuteCommand: false
+#this will disabled certain commands please make sure you include the aliases 
+#for example -fchatf and -ff
+# they must be only contain lower case 
+DisabledCommands:
+    - Example_fchatf
+    - Example_fchatat
+    - Example_fa
+    - Example_fat
 # Event Priority, only change if you know what you are doing, please refer to http://wiki.bukkit.org/Event_API_Reference#Event_Priorities
 # 1 = EventPriority.LOWEST and 6 = EventPriority.MONITOR.
 # any other numbers will stop the plugin

@@ -4,14 +4,15 @@
  */
 package nz.co.lolnet.james137137.FactionChat;
 
-import nz.co.lolnet.james137137.mcstats.Metrics;
 import java.io.File;
 import java.io.IOException;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import net.gravitydevelopment.updater.Updater;
 import net.gravitydevelopment.updater.Updater.UpdateResult;
 import net.gravitydevelopment.updater.Updater.UpdateType;
+import nz.co.lolnet.james137137.mcstats.Metrics;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
@@ -53,6 +54,7 @@ public class FactionChat extends JavaPlugin {
     boolean oneOffBroadcast;
     private static boolean banManagerEnabled = false;
     protected static boolean PublicMuteDefault = false;
+    private static List<String> disabledCommands;
 
     @Override
     public void onEnable() {
@@ -183,6 +185,7 @@ public class FactionChat extends JavaPlugin {
             ServerAllowAuthorDebugging = getServer().getOnlineMode() && config.getBoolean("AllowAuthorDebugAccess");
             FactionsCommand = config.getString("FactionsCommand");
             PublicMuteDefault = config.getBoolean("PublicMuteDefault");
+            disabledCommands = config.getStringList("DisabledCommands");
 
             if (!FactionChatEnable && !AllyChatEnable && !EnemyChatEnable && !OtherChatEnable) {
                 FactionsEnable = false;
@@ -243,6 +246,12 @@ public class FactionChat extends JavaPlugin {
     @Override
     public boolean onCommand(CommandSender sender, Command command, String commandLabel, String[] args) {
         String commandName = command.getName().toLowerCase();
+        if (disabledCommands.contains(commandName))
+            {
+                sender.sendMessage("This command has been disabled in FactionChat config. If you belive this is an error please report this to"
+                        + " your server administrators.");
+                return true;
+            }
         if (commandName.equalsIgnoreCase("fc") || commandName.equalsIgnoreCase("fchat")) {
             CommandFC(sender, args);
             return true;
