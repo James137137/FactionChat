@@ -29,7 +29,7 @@
             <artifactId>factions</artifactId>
             <version>1.8.2</version>
             <scope>system</scope>
-            <systemPath>${basedir}/lib/Factions.jar</systemPath>
+            <systemPath>${basedir}/lib/Factions 1.8.2 UUID.jar</systemPath>
         </dependency>
         <dependency>
             <groupId>com.massivecraft</groupId>
