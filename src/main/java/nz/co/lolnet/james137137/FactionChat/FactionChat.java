@@ -44,6 +44,8 @@ public class FactionChat extends JavaPlugin {
     protected static String messageFchatoNoOneOnline;
     protected static String messagePublicMuteChatOn;
     protected static String messagePublicMuteChatOff;
+    protected static String messageAllyMuteChatOn;
+    protected static String messageAllyMuteChatOff;
     protected static boolean ServerAllowAuthorDebugging;
     protected static boolean FactionChatEnable, AllyChatEnable, TruceChatEnable, AllyTruceChatEnable, EnemyChatEnable, LeaderChatEnable, OfficerChatEnable, OtherChatEnable,
             ModChatEnable, AdminChatEnable, JrModChatEnable, SrModChatEnable, JrAdminChatEnable, UAChatEnable, VIPChatEnable;
@@ -551,6 +553,13 @@ public class FactionChat extends JavaPlugin {
                         player.sendMessage("You don't have permission to run that command.");
                     }
 
+                } else if (args[0].equalsIgnoreCase("muteAlly")) {
+                    if (player.hasPermission("FactionChat.command.muteAlly")) {
+                        ChatMode.muteAllyOption(player);
+                    } else {
+                        player.sendMessage("You don't have permission to run that command.");
+                    }
+
                 } else {
                     if (player != null) {
                         ChatMode.setChatMode(player, args[0]);
@@ -636,6 +645,8 @@ public class FactionChat extends JavaPlugin {
         messageFchatoNoOneOnline = ChatMode.FormatString(config.getString("message." + Language + ".FchatoNoOneOnline"), null);
         messagePublicMuteChatOn = ChatMode.FormatString(config.getString("message." + Language + ".PublicMuteChatOn"), null);
         messagePublicMuteChatOff = ChatMode.FormatString(config.getString("message." + Language + ".PublicMuteChatOff"), null);
+        messageAllyMuteChatOn = ChatMode.FormatString(config.getString("message." + Language + ".AllyMuteChatOn"), null);
+        messageAllyMuteChatOff = ChatMode.FormatString(config.getString("message." + Language + ".AllyMuteChatOff"), null);
 
     }
 

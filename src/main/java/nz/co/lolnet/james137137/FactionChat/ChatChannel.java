@@ -142,7 +142,7 @@ public class ChatChannel {
 
             if ((SenderFaction.getRelationTo(fplayer) == Rel.ALLY || SenderFaction.getRelationTo(fplayer) == Rel.TRUCE
                     || getFactionName(myPlayer).equalsIgnoreCase(sSenderFaction))
-                    && myPlayer.hasPermission("FactionChat.AllyChat") && player.hasPermission("FactionChat.TruceChat")) {
+                    && myPlayer.hasPermission("FactionChat.AllyChat") && player.hasPermission("FactionChat.TruceChat") && !ChatMode.IsAllyMuted(player)) {
                 fplayer.sendMessage(normalMessage);
             } else if (ChatMode.isSpyOn(myPlayer)) {
                 fplayer.sendMessage(spyMessage);
@@ -180,7 +180,7 @@ public class ChatChannel {
 
             if ((SenderFaction.getRelationTo(fplayer) == Rel.ALLY
                     || getFactionName(myPlayer).equalsIgnoreCase(sSenderFaction))
-                    && myPlayer.hasPermission("FactionChat.AllyChat")) {
+                    && myPlayer.hasPermission("FactionChat.AllyChat") && !ChatMode.IsAllyMuted(player)) {
                 fplayer.sendMessage(normalMessage);
             } else if (ChatMode.isSpyOn(myPlayer)) {
                 fplayer.sendMessage(spyMessage);
@@ -218,7 +218,7 @@ public class ChatChannel {
 
             if ((SenderFaction.getRelationTo(fplayer) == Rel.TRUCE
                     || sSenderFaction.equalsIgnoreCase(getFactionName(fplayer)) || getFactionName(myPlayer).equalsIgnoreCase(sSenderFaction))
-                    && player.hasPermission("FactionChat.TruceChat")) {
+                    && player.hasPermission("FactionChat.TruceChat") && !ChatMode.IsAllyMuted(player)) {
                 fplayer.sendMessage(normalMessage);
             } else if (ChatMode.isSpyOn(myPlayer)) {
                 fplayer.sendMessage(spyMessage);

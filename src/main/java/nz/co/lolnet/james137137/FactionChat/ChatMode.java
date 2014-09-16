@@ -19,6 +19,7 @@ public class ChatMode {
     protected static HashMap<String, Boolean> spyMode = new HashMap();
     protected static HashMap<String, Long> lastChat = new HashMap();
     protected static HashMap<String, Boolean> playerMutePublicMode = new HashMap();
+    protected static HashMap<String, Boolean> playerMuteAllyMode = new HashMap();
     protected static HashMap<String, Boolean> LocalChat = new HashMap();
     private static long chatTimeLimit;
 
@@ -527,6 +528,31 @@ public class ChatMode {
 
     public static boolean IsPublicMuted(Player player) {
         Boolean result = playerMutePublicMode.get(player.getName());
+        if (result == null) {
+            return false;
+        } else {
+            return result;
+        }
+    }
+
+    public static void muteAllyOption(Player player) {
+        Boolean isOn;
+        if (playerMuteAllyMode.get(player.getName()) == null) {
+            isOn = false;
+        } else {
+            isOn = playerMuteAllyMode.get(player.getName());
+        }
+
+        if (isOn) {
+            player.sendMessage(ChatColor.GREEN + FactionChat.messageAllyMuteChatOff);
+        } else {
+            player.sendMessage(ChatColor.GREEN + FactionChat.messageAllyMuteChatOn);
+        }
+        playerMuteAllyMode.put(player.getName(), !isOn);
+    }
+    
+    public static boolean IsAllyMuted(Player player) {
+        Boolean result = playerMuteAllyMode.get(player.getName());
         if (result == null) {
             return false;
         } else {

@@ -3,19 +3,20 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package nz.co.lolnet.james137137.FactionChat;
-
-import me.confuserr.banmanager.BmAPI;
 
 /**
  *
  * @author James
  */
 public class BanManagerAPI {
-    
-    public static boolean isMuted(String PlayerName)
-    {
-        return BmAPI.isMuted(PlayerName);
+
+    public static boolean isMuted(String PlayerName) {
+        try {
+            return me.confuserr.banmanager.BmAPI.isMuted(PlayerName);
+        } catch (Exception e) {
+            return me.confuser.banmanager.BmAPI.isMuted(PlayerName);
+        }
+
     }
 }

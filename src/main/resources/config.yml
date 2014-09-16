@@ -109,6 +109,8 @@ message:
       name'
     PublicMuteChatOn: 'Public chat is now muted for you'
     PublicMuteChatOff: 'Public chat is no longer muted for you'
+    AllyMuteChatOn: 'Ally chat is now muted for you'
+    AllyMuteChatOff: 'Ally chat is no longer muted for you'
     
   other:
     NotInFaction: You are not member of any faction

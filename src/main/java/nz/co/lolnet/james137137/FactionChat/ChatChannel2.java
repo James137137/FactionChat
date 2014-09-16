@@ -142,7 +142,7 @@ public class ChatChannel2 {
 
         for (Player myPlayer : Bukkit.getServer().getOnlinePlayers()) {
 
-            if (getRelationshipId(player, myPlayer) > 20 || playerFaction.equals(getFactionName(myPlayer)) && myPlayer.hasPermission("FactionChat.AllyChat") && player.hasPermission("FactionChat.TruceChat")) {
+            if (getRelationshipId(player, myPlayer) > 20 || playerFaction.equals(getFactionName(myPlayer)) && myPlayer.hasPermission("FactionChat.AllyChat") && player.hasPermission("FactionChat.TruceChat") && !ChatMode.IsAllyMuted(player)) {
                 myPlayer.sendMessage(normalMessage);
             } else if (ChatMode.isSpyOn(myPlayer)) {
 
@@ -173,7 +173,7 @@ public class ChatChannel2 {
         for (Player myPlayer : Bukkit.getServer().getOnlinePlayers()) {
 
             if ((getRelationshipId(player, myPlayer) > 30 || playerFaction.equals(getFactionName(myPlayer)))
-                    && myPlayer.hasPermission("FactionChat.AllyChat")) {
+                    && myPlayer.hasPermission("FactionChat.AllyChat") && !ChatMode.IsAllyMuted(player)) {
                 myPlayer.sendMessage(normalMessage);
             } else if (ChatMode.isSpyOn(myPlayer)) {
 
@@ -205,7 +205,7 @@ public class ChatChannel2 {
 
             if ((((getRelationshipId(player, myPlayer) > 20 && getRelationshipId(player, myPlayer) < 40) || getRelationshipId(player, myPlayer) > 40)
                     || playerFaction.equals(getFactionName(myPlayer)))
-                    && myPlayer.hasPermission("FactionChat.AllyChat") && player.hasPermission("FactionChat.TruceChat")) {
+                    && player.hasPermission("FactionChat.TruceChat") && !ChatMode.IsAllyMuted(player)) {
                 myPlayer.sendMessage(normalMessage);
             } else if (ChatMode.isSpyOn(myPlayer)) {
 
