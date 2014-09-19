@@ -3,7 +3,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>nz.co.lolnet.james137137</groupId>
     <artifactId>FactionChat</artifactId>
-    <version>1.794</version>
+    <version>1.795-SNAPSHOT</version>
     <packaging>jar</packaging>
     <properties>
         
@@ -44,13 +44,6 @@
             <version>7.0.1</version>
             <scope>system</scope>
             <systemPath>${basedir}/lib/mcore 7.0.1.jar</systemPath>
-        </dependency>
-        <dependency>
-            <groupId>me.confuserr</groupId>
-            <artifactId>BanManager</artifactId>
-            <version>4.0</version>
-            <scope>system</scope>
-            <systemPath>${basedir}/lib/BanManager.jar</systemPath>
         </dependency>
         <dependency>
             <groupId>me.confuserr</groupId>

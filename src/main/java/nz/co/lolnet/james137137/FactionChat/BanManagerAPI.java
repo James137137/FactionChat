@@ -13,9 +13,9 @@ public class BanManagerAPI {
 
     public static boolean isMuted(String PlayerName) {
         try {
-            return me.confuserr.banmanager.BmAPI.isMuted(PlayerName);
-        } catch (Exception e) {
             return me.confuser.banmanager.BmAPI.isMuted(PlayerName);
+        } catch (Exception e) {
+            return false;
         }
 
     }
