@@ -87,6 +87,19 @@ public class FactionChatAPI {
         }
     }
 
+    public static boolean isFactionChatMessage(org.bukkit.event.player.AsyncPlayerChatEvent event) {
+
+        String chatmode = ChatMode.getChatMode(event.getPlayer());
+        return !chatmode.equalsIgnoreCase("PUBLIC");
+    }
+
+    @Deprecated
+    public static boolean isFactionChatMessage(org.bukkit.event.player.PlayerChatEvent event) {
+
+        String chatmode = ChatMode.getChatMode(event.getPlayer());
+        return !chatmode.equalsIgnoreCase("PUBLIC");
+    }
+
     public static double getDistance(Player playerA, Player playerB) {
         if (playerA == null || playerB == null || !playerA.isOnline() || !playerB.isOnline()) {
             return -1.0;
