@@ -36,7 +36,7 @@ public class ChatChannel2 {
     protected static String getFactionID(Player player) {
         UPlayer uPlayer = UPlayer.get(player);
         Faction faction = uPlayer.getFaction();
-        return faction.getId();
+        return faction.getName();
 
     }
 
@@ -44,7 +44,7 @@ public class ChatChannel2 {
         UPlayer uPlayer1 = UPlayer.get(player1);
         UPlayer uPlayer2 = UPlayer.get(player2);
 
-        return uPlayer1.getRelationTo(uPlayer2).getValue();
+        return uPlayer1.getRelationTo(uPlayer2.getFaction()).getValue();
     }
 
     public boolean isFactionless(Player player) {
