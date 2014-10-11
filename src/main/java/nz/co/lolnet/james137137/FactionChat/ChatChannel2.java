@@ -1,12 +1,12 @@
 package nz.co.lolnet.james137137.FactionChat;
 
 import com.massivecraft.factions.Rel;
+import com.massivecraft.factions.entity.Faction;
+import com.massivecraft.factions.entity.MPlayer;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
-import com.massivecraft.factions.entity.UPlayer;
-import com.massivecraft.factions.entity.Faction;
 
 /**
  *
@@ -28,27 +28,27 @@ public class ChatChannel2 {
      *
      */
     protected static String getFactionName(Player player) {
-        UPlayer uPlayer = UPlayer.get(player);
+        MPlayer uPlayer = MPlayer.get(player);
         Faction faction = uPlayer.getFaction();
         return faction.getName();
     }
 
     protected static String getFactionID(Player player) {
-        UPlayer uPlayer = UPlayer.get(player);
+        MPlayer uPlayer = MPlayer.get(player);
         Faction faction = uPlayer.getFaction();
         return faction.getName();
 
     }
 
     protected int getRelationshipId(Player player1, Player player2) {
-        UPlayer uPlayer1 = UPlayer.get(player1);
-        UPlayer uPlayer2 = UPlayer.get(player2);
+        MPlayer uPlayer1 = MPlayer.get(player1);
+        MPlayer uPlayer2 = MPlayer.get(player2);
 
         return uPlayer1.getRelationTo(uPlayer2.getFaction()).getValue();
     }
 
     public boolean isFactionless(Player player) {
-        return UPlayer.get(player).getFaction().getName().contains("Wilderness");
+        return MPlayer.get(player).getFaction().getName().contains("Wilderness");
     }
 
     /**
@@ -60,7 +60,7 @@ public class ChatChannel2 {
         if (!IncludeTitle) {
             return "";
         }
-        String title = UPlayer.get(player).getTitle();
+        String title = MPlayer.get(player).getTitle();
         if (title.contains("no title set")) {
             return "";
         }
@@ -68,7 +68,7 @@ public class ChatChannel2 {
     }
 
     protected static String getPlayerRank(Player player) {
-        Rel role = UPlayer.get(player).getRole();
+        Rel role = MPlayer.get(player).getRole();
         if (role.equals(Rel.LEADER)) {
             return FactionChat.LeaderRank;
         } else if (role.equals(Rel.OFFICER)) {
