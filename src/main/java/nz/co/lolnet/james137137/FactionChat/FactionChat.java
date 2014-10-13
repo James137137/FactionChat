@@ -113,7 +113,7 @@ public class FactionChat extends JavaPlugin {
     }
 
     protected void loadMyNewConfig() {
-        this.getConfig().options().copyDefaults(true);
+        this.getConfig().options().copyDefaults();
         saveConfig();
     }
 
