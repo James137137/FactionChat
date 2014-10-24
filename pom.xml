@@ -3,7 +3,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>nz.co.lolnet.james137137</groupId>
     <artifactId>FactionChat</artifactId>
-    <version>1.795</version>
+    <version>1.796</version>
     <packaging>jar</packaging>
     <properties>
         
@@ -43,7 +43,7 @@
             <artifactId>mcore</artifactId>
             <version>7.4.0</version>
             <scope>system</scope>
-            <systemPath>${basedir}/lib/mcore 7.4.0.jar</systemPath>
+            <systemPath>${basedir}/lib/MassiveCore.jar</systemPath>
         </dependency>
         <dependency>
             <groupId>me.confuserr</groupId>

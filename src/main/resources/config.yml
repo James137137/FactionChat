@@ -1,4 +1,4 @@
-CurrentVersion: 1.793
+CurrentVersion: 1.796
 ForceToUseNewFactionsClasses: false
 MetricsOptOut: false
 DontUseAsyncEvent: false
@@ -55,13 +55,13 @@ FactionChatMessage:
   IncludePrefix: true
   IncludeSuffix: true
   IncludeTitle: true
-  FactionChat: '&2[{0}] &f[{1}] {T}-{2}: {M}'
-  AllyChat: '&aAlly: [{0}] &f[{1}] {T}-{2}: {M}'
-  TruceChat: '&aTruce: [{0}] &f[{1}] {T}-{2}: {M}'
-  AllyTruceChat: '&aALLY-TRUCE: [{0}] &f[{1}] {T}-{2}: {M}'
-  OfficerChat: '&eOfficerChat: [{0}] {T}-&f{1}: {M}'
-  LeaderChat: '&eLeaderChat: [{0}] {T}-&f{1}: {M}'
-  EnemyChat: '&cEnemy: [{0}] &f[{1}] {T}-{2}: {M}'
+  FactionChat: '&2[{0}] &f[{1}] {T}{2}: {M}'
+  AllyChat: '&aAlly: [{0}] &f[{1}] {T}{2}: {M}'
+  TruceChat: '&aTruce: [{0}] &f[{1}] {T}{2}: {M}'
+  AllyTruceChat: '&aALLY-TRUCE: [{0}] &f[{1}] {T}{2}: {M}'
+  OfficerChat: '&eOfficerChat: [{0}] {T}&f{1}: {M}'
+  LeaderChat: '&eLeaderChat: [{0}] {T}&f{1}: {M}'
+  EnemyChat: '&cEnemy: [{0}] &f[{1}] {T}{2}: {M}'
 # {0,1} Other Faction's name (have a guess by reading)
   OtherFactionChatTo: '&5[@:{0}] &f[{1}] {T}-{2}: {M}'
   OtherFactionChatFrom: '&5[From:{0}] &f[{1}] {T}-{2}: {M}'

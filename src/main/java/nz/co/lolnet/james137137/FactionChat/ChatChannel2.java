@@ -2,7 +2,7 @@ package nz.co.lolnet.james137137.FactionChat;
 
 import com.massivecraft.factions.Rel;
 import com.massivecraft.factions.entity.Faction;
-import com.massivecraft.factions.entity.MPlayer;
+import com.massivecraft.factions.entity.UPlayer;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
@@ -28,27 +28,27 @@ public class ChatChannel2 {
      *
      */
     protected static String getFactionName(Player player) {
-        MPlayer uPlayer = MPlayer.get(player);
-        Faction faction = uPlayer.getFaction();
+        UPlayer uplayer = UPlayer.get(player);
+        Faction faction = uplayer.getFaction();
         return faction.getName();
     }
 
     protected static String getFactionID(Player player) {
-        MPlayer uPlayer = MPlayer.get(player);
-        Faction faction = uPlayer.getFaction();
-        return faction.getName();
+        UPlayer uplayer = UPlayer.get(player);
+        Faction faction = uplayer.getFaction();
+        return faction.getUniverse()+"-" + getFactionName(player);
 
     }
 
-    protected int getRelationshipId(Player player1, Player player2) {
-        MPlayer uPlayer1 = MPlayer.get(player1);
-        MPlayer uPlayer2 = MPlayer.get(player2);
+    protected Rel getRelationship(Player player1, Player player2) {
+        UPlayer uplayer1 = UPlayer.get(player1);
+        UPlayer uplayer2 = UPlayer.get(player2);
 
-        return uPlayer1.getRelationTo(uPlayer2.getFaction()).getValue();
+        return uplayer1.getRelationTo(uplayer2.getFaction());
     }
 
     public boolean isFactionless(Player player) {
-        return MPlayer.get(player).getFaction().getName().contains("Wilderness");
+        return UPlayer.get(player).getFaction().getName().contains("Wilderness");
     }
 
     /**
@@ -60,7 +60,7 @@ public class ChatChannel2 {
         if (!IncludeTitle) {
             return "";
         }
-        String title = MPlayer.get(player).getTitle();
+        String title = UPlayer.get(player).getTitle();
         if (title.contains("no title set")) {
             return "";
         }
@@ -68,7 +68,7 @@ public class ChatChannel2 {
     }
 
     protected static String getPlayerRank(Player player) {
-        Rel role = MPlayer.get(player).getRole();
+        Rel role = UPlayer.get(player).getRole();
         if (role.equals(Rel.LEADER)) {
             return FactionChat.LeaderRank;
         } else if (role.equals(Rel.OFFICER)) {
@@ -107,7 +107,7 @@ public class ChatChannel2 {
         playerFaction = getFactionID(player);
         for (Player myPlayer : Bukkit.getServer().getOnlinePlayers()) {
 
-            if ((getRelationshipId(player, myPlayer) > 40 || playerFaction.equals(getFactionName(myPlayer)))
+            if ((getRelationship(player, myPlayer).isAtLeast(Rel.RECRUIT))
                     && myPlayer.hasPermission("FactionChat.FactionChat")) {
                 myPlayer.sendMessage(normalMessage);
             } else if (ChatMode.isSpyOn(myPlayer)) {
@@ -142,7 +142,7 @@ public class ChatChannel2 {
 
         for (Player myPlayer : Bukkit.getServer().getOnlinePlayers()) {
 
-            if (getRelationshipId(player, myPlayer) > 20 || playerFaction.equals(getFactionName(myPlayer)) && myPlayer.hasPermission("FactionChat.AllyChat") && player.hasPermission("FactionChat.TruceChat") && !ChatMode.IsAllyMuted(player)) {
+            if (getRelationship(player, myPlayer).isAtLeast(Rel.TRUCE) && myPlayer.hasPermission("FactionChat.AllyChat") && player.hasPermission("FactionChat.TruceChat") && !ChatMode.IsAllyMuted(player)) {
                 myPlayer.sendMessage(normalMessage);
             } else if (ChatMode.isSpyOn(myPlayer)) {
 
@@ -172,7 +172,7 @@ public class ChatChannel2 {
 
         for (Player myPlayer : Bukkit.getServer().getOnlinePlayers()) {
 
-            if ((getRelationshipId(player, myPlayer) > 30 || playerFaction.equals(getFactionName(myPlayer)))
+            if ((getRelationship(player, myPlayer).isAtLeast(Rel.ALLY))
                     && myPlayer.hasPermission("FactionChat.AllyChat") && !ChatMode.IsAllyMuted(player)) {
                 myPlayer.sendMessage(normalMessage);
             } else if (ChatMode.isSpyOn(myPlayer)) {
@@ -203,7 +203,8 @@ public class ChatChannel2 {
 
         for (Player myPlayer : Bukkit.getServer().getOnlinePlayers()) {
 
-            if ((((getRelationshipId(player, myPlayer) > 20 && getRelationshipId(player, myPlayer) < 40) || getRelationshipId(player, myPlayer) > 40)
+            
+            if (((getRelationship(player, myPlayer).equals(Rel.TRUCE) || getRelationship(player, myPlayer).isAtLeast(Rel.RECRUIT))
                     || playerFaction.equals(getFactionName(myPlayer)))
                     && player.hasPermission("FactionChat.TruceChat") && !ChatMode.IsAllyMuted(player)) {
                 myPlayer.sendMessage(normalMessage);
@@ -239,7 +240,7 @@ public class ChatChannel2 {
 
         for (Player myPlayer : Bukkit.getServer().getOnlinePlayers()) {
 
-            if ((getRelationshipId(player, myPlayer) < 20 || playerFaction.equals(getFactionName(myPlayer)))
+            if ((getRelationship(player, myPlayer).equals(Rel.ENEMY) || getRelationship(player, myPlayer).isAtLeast(Rel.RECRUIT))
                     && myPlayer.hasPermission("FactionChat.EnemyChat") && !isFactionless(myPlayer) && ChatMode.getChatMode(myPlayer).equals("ENEMY")) {
                 myPlayer.sendMessage(normalMessage);
             } else if (ChatMode.isSpyOn(myPlayer)) {
