@@ -3,7 +3,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>nz.co.lolnet.james137137</groupId>
     <artifactId>FactionChat</artifactId>
-    <version>1.796</version>
+    <version>1.8.0</version>
     <packaging>jar</packaging>
     <properties>
         

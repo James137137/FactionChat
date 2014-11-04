@@ -12,6 +12,7 @@ import java.util.logging.Logger;
 import net.gravitydevelopment.updater.Updater;
 import net.gravitydevelopment.updater.Updater.UpdateResult;
 import net.gravitydevelopment.updater.Updater.UpdateType;
+import nz.co.lolnet.james137137.FactionChat.FactionsAPI.FactionsAPI;
 import nz.co.lolnet.james137137.mcstats.Metrics;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -28,7 +29,6 @@ public class FactionChat extends JavaPlugin {
     static Logger log;
     public static boolean isMetricsOptOut;
     private ChatChannel ChatChannel;
-    private ChatChannel2 ChatChannel2;
     public static String FactionChatMessage, AllyTruceChat, AllyChat, TruceChat, EnemyChat, LeaderChat, OfficerChat,
             OtherFactionChatTo, OtherFactionChatFrom, OtherFactionChatSpy, SpyChat,
             ModChat, AdminChat, VIPChat, UAChat, JrModChat, SrModChat, JrAdminChat;
@@ -52,11 +52,11 @@ public class FactionChat extends JavaPlugin {
     protected static String FactionsCommand;
     private int reloadCountCheck = 0;
     public static boolean FactionsEnable;
-    boolean useFaction2 = false;
     boolean oneOffBroadcast;
     private static boolean banManagerEnabled = false;
     protected static boolean PublicMuteDefault = false;
     private static List<String> disabledCommands;
+    public static FactionsAPI factionsAPI;
 
     @Override
     public void onEnable() {
@@ -87,20 +87,25 @@ public class FactionChat extends JavaPlugin {
         }
 
         if (FactionsEnable) {
-            if (getConfig().getBoolean("ForceToUseNewFactionsClasses") || Double.parseDouble(FactionPlugin.getDescription().getVersion().substring(0, 2)) >= 2.0) {
-                useFaction2 = true;
-                ChatChannel2 = new ChatChannel2(this);
+            if (Double.parseDouble(FactionPlugin.getDescription().getVersion().substring(0, 2)) >= 2.0) {
+                try {
+                    factionsAPI = (FactionsAPI) Class.forName("nz.co.lolnet.james137137.FactionChat.FactionsAPI.FactionsAPI2").getConstructor().newInstance();
+                } catch (Exception ex) {
+                    Logger.getLogger(FactionChat.class.getName()).log(Level.SEVERE, null, ex);
+                }
             } else {
-                useFaction2 = false;
-                ChatChannel = new ChatChannel(this);
+                try {
+                    factionsAPI = (FactionsAPI) Class.forName("nz.co.lolnet.james137137.FactionChat.FactionsAPI.FactionsAPI1_8").getConstructor().newInstance();
+                } catch (Exception ex) {
+                    Logger.getLogger(FactionChat.class.getName()).log(Level.SEVERE, null, ex);
+                }
+
             }
+            ChatChannel = new ChatChannel(this);
         }
 
-        if (useFaction2) {
-            getServer().getPluginManager().registerEvents(new FactionChatListener2(this), this); //FactionChat's Listener   
-        } else {
-            getServer().getPluginManager().registerEvents(new FactionChatListener(this), this); //FactionChat's Listener  
-        }
+        getServer().getPluginManager().registerEvents(new FactionChatListener(this), this); //FactionChat's Listener  
+
         reload();
         String version = Bukkit.getServer().getPluginManager().getPlugin(this.getName()).getDescription().getVersion();
         log.info(this.getName() + ": Version: " + version + " Enabled.");
@@ -248,12 +253,11 @@ public class FactionChat extends JavaPlugin {
     @Override
     public boolean onCommand(CommandSender sender, Command command, String commandLabel, String[] args) {
         String commandName = command.getName().toLowerCase();
-        if (disabledCommands.contains(commandName))
-            {
-                sender.sendMessage("This command has been disabled in FactionChat config. If you belive this is an error please report this to"
-                        + " your server administrators.");
-                return true;
-            }
+        if (disabledCommands.contains(commandName)) {
+            sender.sendMessage("This command has been disabled in FactionChat config. If you belive this is an error please report this to"
+                    + " your server administrators.");
+            return true;
+        }
         if (commandName.equalsIgnoreCase("fc") || commandName.equalsIgnoreCase("fchat")) {
             CommandFC(sender, args);
             return true;
@@ -268,11 +272,8 @@ public class FactionChat extends JavaPlugin {
                         return true;
                     }
                 }
-                if (useFaction2) {
-                    ChatChannel2.fchato(sender, args);
-                } else {
-                    ChatChannel.fchato(sender, args);
-                }
+
+                ChatChannel.fchato(sender, args);
 
             } else {
                 sender.sendMessage(ChatColor.DARK_RED + "you need the permission to use that");
@@ -296,11 +297,8 @@ public class FactionChat extends JavaPlugin {
             for (int i = 0; i < args.length; i++) {
                 message += args[i] + " ";
             }
-            if (useFaction2) {
-                ChatChannel2.fChatF(talkingPlayer, message);
-            } else {
-                ChatChannel.fChatF(talkingPlayer, message);
-            }
+            ChatChannel.fChatF(talkingPlayer, message);
+
             return true;
         }
         if ((commandName.equalsIgnoreCase("fat") || commandName.equalsIgnoreCase("fchatat"))
@@ -319,11 +317,9 @@ public class FactionChat extends JavaPlugin {
             for (int i = 0; i < args.length; i++) {
                 message += args[i] + " ";
             }
-            if (useFaction2) {
-                ChatChannel2.fChatAT(talkingPlayer, message);
-            } else {
-                ChatChannel.fChatAT(talkingPlayer, message);
-            }
+
+            ChatChannel.fChatAT(talkingPlayer, message);
+
             return true;
         }
         if ((commandName.equalsIgnoreCase("fa") || commandName.equalsIgnoreCase("fchata"))
@@ -342,11 +338,9 @@ public class FactionChat extends JavaPlugin {
             for (int i = 0; i < args.length; i++) {
                 message += args[i] + " ";
             }
-            if (useFaction2) {
-                ChatChannel2.fChatA(talkingPlayer, message);
-            } else {
-                ChatChannel.fChatA(talkingPlayer, message);
-            }
+
+            ChatChannel.fChatA(talkingPlayer, message);
+
             return true;
         }
 
@@ -366,11 +360,9 @@ public class FactionChat extends JavaPlugin {
             for (int i = 0; i < args.length; i++) {
                 message += args[i] + " ";
             }
-            if (useFaction2) {
-                ChatChannel2.fChatTruce(talkingPlayer, message);
-            } else {
-                ChatChannel.fChatTruce(talkingPlayer, message);
-            }
+
+            ChatChannel.fChatTruce(talkingPlayer, message);
+
             return true;
         }
 
@@ -391,11 +383,9 @@ public class FactionChat extends JavaPlugin {
             for (int i = 0; i < args.length; i++) {
                 message += args[i] + " ";
             }
-            if (useFaction2) {
-                ChatChannel2.fChatE(talkingPlayer, message);
-            } else {
-                ChatChannel.fChatE(talkingPlayer, message);
-            }
+
+            ChatChannel.fChatE(talkingPlayer, message);
+
             return true;
         }
         if ((commandName.equalsIgnoreCase("fad") || commandName.equalsIgnoreCase("fchatad") && sender.hasPermission("FactionChat.AdminChat"))
@@ -563,9 +553,7 @@ public class FactionChat extends JavaPlugin {
                 } else {
                     if (player != null) {
                         ChatMode.setChatMode(player, args[0]);
-                    }
-                    else
-                    {
+                    } else {
                         sender.sendMessage("You are not a player, you can still run /fc update and /fc reload");
                     }
 
@@ -577,11 +565,8 @@ public class FactionChat extends JavaPlugin {
             return;
         }
         String senderFaction;
-        if (useFaction2) {
-            senderFaction = ChatChannel2.getFactionName(player);
-        } else {
-            senderFaction = ChatChannel.getFactionName(player);
-        }
+
+        senderFaction = factionsAPI.getFactionName(player);
 
         if (senderFaction.contains("Wilderness") && !sender.hasPermission("FactionChat.UserAssistantChat")
                 && !FactionChat.isDebugger(sender.getName())) {

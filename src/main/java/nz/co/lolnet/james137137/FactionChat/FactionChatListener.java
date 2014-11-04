@@ -270,7 +270,7 @@ public class FactionChatListener implements Listener {
             if (split[1].equalsIgnoreCase("chat") || split[1].equalsIgnoreCase("c")) {
                 event.setCancelled(true);
                 Player player = event.getPlayer();
-                String senderFaction = channel.getFactionName(player);
+                String senderFaction = FactionChat.factionsAPI.getFactionName(player);
                 if (senderFaction.contains("Wilderness") && !player.hasPermission("FactionChat.UserAssistantChat")
                         && !plugin.isDebugger(player.getName())) {
                     //checks if player is in a faction
