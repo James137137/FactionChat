@@ -129,7 +129,11 @@ public class FactionChatListener implements Listener {
                 return setCancelled;
             }
         }
+<<<<<<< HEAD
 
+=======
+        String msg = event.getMessage();
+>>>>>>> parent of 60c62c6... Update AuthMe fix
         //FPlayer me = (FPlayer)FPlayers.i.get(talkingPlayer);
         String chatmode = ChatMode.getChatMode(talkingPlayer);
         if (!chatmode.equalsIgnoreCase("PUBLIC")) {
@@ -233,6 +237,10 @@ public class FactionChatListener implements Listener {
 
     private void onPlayerChatLocalOption(Player player, Set<Player> recipients) {
         FileConfiguration config = this.plugin.getConfig();
+<<<<<<< HEAD
+=======
+        Player player = event.getPlayer();
+>>>>>>> parent of 60c62c6... Update AuthMe fix
         Boolean localChatP = ChatMode.LocalChat.get(player.getName());
         if (!Objects.equals(localChatP, Boolean.TRUE)) {
 
@@ -252,7 +260,11 @@ public class FactionChatListener implements Listener {
 
         for (Player player1 : this.plugin.getServer().getOnlinePlayers()) {
             if (FactionChatAPI.getDistance(player, player1) > MaxDistance && !player1.hasPermission("FactionChat.LocalChatBypass.PublicReceive")) {
+<<<<<<< HEAD
                 recipients.remove(player1);
+=======
+                event.getRecipients().remove(player1);
+>>>>>>> parent of 60c62c6... Update AuthMe fix
             }
         }
     }
