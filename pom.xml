@@ -93,4 +93,7 @@
         </repository>
     </repositories>
     
+    <build>
+        <finalName>FactionChat</finalName>
+    </build>
 </project>
