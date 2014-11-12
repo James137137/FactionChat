@@ -86,15 +86,15 @@ public class ChatChannel {
         String spyMessage = ChatMode.FormatString(FactionChat.SpyChat, input2, playerTitle, allowCustomColour);
 
         for (Player myPlayer : Bukkit.getServer().getOnlinePlayers()) {
-
+            
             MyRel relationship = FactionChat.factionsAPI.getRelationship(player, myPlayer);
 
             if ((relationship == MyRel.ALLY || relationship == MyRel.TRUCE
                     || FactionChat.factionsAPI.getFactionName(myPlayer).equalsIgnoreCase(sSenderFaction))
                     && myPlayer.hasPermission("FactionChat.AllyChat") && player.hasPermission("FactionChat.TruceChat") && !ChatMode.IsAllyMuted(player)) {
-                player.sendMessage(normalMessage);
+                myPlayer.sendMessage(normalMessage);
             } else if (ChatMode.isSpyOn(myPlayer)) {
-                player.sendMessage(spyMessage);
+                myPlayer.sendMessage(spyMessage);
             }
         }
     }
@@ -127,9 +127,9 @@ public class ChatChannel {
             if ((relationship == MyRel.ALLY
                     || FactionChat.factionsAPI.getFactionName(myPlayer).equalsIgnoreCase(sSenderFaction))
                     && myPlayer.hasPermission("FactionChat.AllyChat") && !ChatMode.IsAllyMuted(player)) {
-                player.sendMessage(normalMessage);
+                myPlayer.sendMessage(normalMessage);
             } else if (ChatMode.isSpyOn(myPlayer)) {
-                player.sendMessage(spyMessage);
+                myPlayer.sendMessage(spyMessage);
             }
         }
     }
@@ -162,9 +162,9 @@ public class ChatChannel {
             if ((relationship == MyRel.TRUCE
                     || sSenderFaction.equalsIgnoreCase(FactionChat.factionsAPI.getFactionName(player)) || FactionChat.factionsAPI.getFactionName(myPlayer).equalsIgnoreCase(sSenderFaction))
                     && player.hasPermission("FactionChat.TruceChat") && !ChatMode.IsAllyMuted(player)) {
-                player.sendMessage(normalMessage);
+                myPlayer.sendMessage(normalMessage);
             } else if (ChatMode.isSpyOn(myPlayer)) {
-                player.sendMessage(spyMessage);
+                myPlayer.sendMessage(spyMessage);
             }
         }
     }
@@ -202,9 +202,9 @@ public class ChatChannel {
             if ((relationship == MyRel.ENEMY
                     || sSenderFaction.equalsIgnoreCase(FactionChat.factionsAPI.getFactionName(player)) || FactionChat.factionsAPI.getFactionName(myPlayer).equalsIgnoreCase(sSenderFaction))
                     && myPlayer.hasPermission("FactionChat.EnemyChat") && !FactionChat.factionsAPI.isFactionless(myPlayer) && ChatMode.getChatMode(myPlayer).equals("ENEMY")) {
-                player.sendMessage(normalMessage);
+                myPlayer.sendMessage(normalMessage);
             } else if (ChatMode.isSpyOn(myPlayer)) {
-                player.sendMessage(spyMessage);
+                myPlayer.sendMessage(spyMessage);
             }
         }
 
