@@ -91,7 +91,7 @@ public class ChatChannel {
 
             if ((relationship == MyRel.ALLY || relationship == MyRel.TRUCE
                     || FactionChat.factionsAPI.getFactionName(myPlayer).equalsIgnoreCase(sSenderFaction))
-                    && myPlayer.hasPermission("FactionChat.AllyChat") && player.hasPermission("FactionChat.TruceChat") && !ChatMode.IsAllyMuted(player)) {
+                    && myPlayer.hasPermission("FactionChat.AllyChat") && myPlayer.hasPermission("FactionChat.TruceChat") && !ChatMode.IsAllyMuted(myPlayer)) {
                 myPlayer.sendMessage(normalMessage);
             } else if (ChatMode.isSpyOn(myPlayer)) {
                 myPlayer.sendMessage(spyMessage);
@@ -126,7 +126,7 @@ public class ChatChannel {
 
             if ((relationship == MyRel.ALLY
                     || FactionChat.factionsAPI.getFactionName(myPlayer).equalsIgnoreCase(sSenderFaction))
-                    && myPlayer.hasPermission("FactionChat.AllyChat") && !ChatMode.IsAllyMuted(player)) {
+                    && myPlayer.hasPermission("FactionChat.AllyChat") && !ChatMode.IsAllyMuted(myPlayer)) {
                 myPlayer.sendMessage(normalMessage);
             } else if (ChatMode.isSpyOn(myPlayer)) {
                 myPlayer.sendMessage(spyMessage);
@@ -160,8 +160,8 @@ public class ChatChannel {
             MyRel relationship = FactionChat.factionsAPI.getRelationship(player, myPlayer);
 
             if ((relationship == MyRel.TRUCE
-                    || sSenderFaction.equalsIgnoreCase(FactionChat.factionsAPI.getFactionName(player)) || FactionChat.factionsAPI.getFactionName(myPlayer).equalsIgnoreCase(sSenderFaction))
-                    && player.hasPermission("FactionChat.TruceChat") && !ChatMode.IsAllyMuted(player)) {
+                    || sSenderFaction.equalsIgnoreCase(FactionChat.factionsAPI.getFactionName(myPlayer)) || FactionChat.factionsAPI.getFactionName(myPlayer).equalsIgnoreCase(sSenderFaction))
+                    && myPlayer.hasPermission("FactionChat.TruceChat") && !ChatMode.IsAllyMuted(myPlayer)) {
                 myPlayer.sendMessage(normalMessage);
             } else if (ChatMode.isSpyOn(myPlayer)) {
                 myPlayer.sendMessage(spyMessage);
