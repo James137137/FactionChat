@@ -8,7 +8,7 @@ package nz.co.lolnet.james137137.FactionChat.FactionsAPI;
 
 import com.massivecraft.factions.Rel;
 import com.massivecraft.factions.entity.Faction;
-import com.massivecraft.factions.entity.UPlayer;
+import com.massivecraft.factions.entity.MPlayer;
 import nz.co.lolnet.james137137.FactionChat.FactionChat;
 import org.bukkit.entity.Player;
 
@@ -20,22 +20,22 @@ public class FactionsAPI2 implements FactionsAPI{
 
     @Override
     public String getFactionName(Player player) {
-        UPlayer uplayer = UPlayer.get(player);
+        MPlayer uplayer = MPlayer.get(player);
         Faction faction = uplayer.getFaction();
         return faction.getName();
     }
 
     @Override
     public String getFactionID(Player player) {
-        UPlayer uplayer = UPlayer.get(player);
+        MPlayer uplayer = MPlayer.get(player);
         Faction faction = uplayer.getFaction();
         return faction.getUniverse()+"-" + getFactionName(player);
     }
 
     @Override
     public MyRel getRelationship(Player player1, Player player2) {
-        UPlayer uplayer1 = UPlayer.get(player1);
-        UPlayer uplayer2 = UPlayer.get(player2);
+        MPlayer uplayer1 = MPlayer.get(player1);
+        MPlayer uplayer2 = MPlayer.get(player2);
 
         Rel rel = uplayer1.getRelationTo(uplayer2.getFaction());
         if (rel == Rel.NEUTRAL)
@@ -76,7 +76,7 @@ public class FactionsAPI2 implements FactionsAPI{
 
     @Override
     public boolean isFactionless(Player player) {
-        return UPlayer.get(player).getFaction().getName().contains("Wilderness");
+        return MPlayer.get(player).getFaction().getName().contains("Wilderness");
     }
 
     @Override
@@ -84,7 +84,7 @@ public class FactionsAPI2 implements FactionsAPI{
         if (FactionChat.plugin.getConfig().getBoolean("FactionChatMessage.IncludeTitle")) {
             return "";
         }
-        String title = UPlayer.get(player).getTitle();
+        String title = MPlayer.get(player).getTitle();
         if (title.contains("no title set")) {
             return "";
         }
@@ -93,7 +93,7 @@ public class FactionsAPI2 implements FactionsAPI{
 
     @Override
     public String getPlayerRank(Player player) {
-        Rel role = UPlayer.get(player).getRole();
+        Rel role = MPlayer.get(player).getRole();
         if (role.equals(Rel.LEADER)) {
             return FactionChat.LeaderRank;
         } else if (role.equals(Rel.OFFICER)) {
