@@ -16,7 +16,7 @@ import org.bukkit.entity.Player;
  *
  * @author James
  */
-public class FactionsAPI2 implements FactionsAPI{
+public class FactionsAPI_2_7_1 implements FactionsAPI{
 
     @Override
     public String getFactionName(Player player) {
