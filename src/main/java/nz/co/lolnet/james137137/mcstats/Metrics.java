@@ -45,6 +45,7 @@ import java.net.Proxy;
 import java.net.URL;
 import java.net.URLConnection;
 import java.net.URLEncoder;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Iterator;
@@ -54,6 +55,7 @@ import java.util.UUID;
 import java.util.logging.Level;
 import java.util.zip.GZIPOutputStream;
 import nz.co.lolnet.james137137.FactionChat.FactionChat;
+import org.bukkit.entity.Player;
 
 public class Metrics {
 
@@ -337,7 +339,10 @@ public class Metrics {
         boolean onlineMode = Bukkit.getServer().getOnlineMode(); // TRUE if online mode is enabled
         String pluginVersion = description.getVersion();
         String serverVersion = Bukkit.getVersion();
-        int playersOnline = Bukkit.getServer().getOnlinePlayers().length;
+        int playersOnline = 0;
+        for (Player player : Bukkit.getServer().getOnlinePlayers()) {
+            playersOnline++;
+        }
 
         // END server software specific section -- all code below does not use any code outside of this class / Java
 

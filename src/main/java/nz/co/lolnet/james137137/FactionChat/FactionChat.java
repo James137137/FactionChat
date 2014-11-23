@@ -208,9 +208,9 @@ public class FactionChat extends JavaPlugin {
                 OfficerChatEnable = false;
             }
 
-            Player[] onlinePlayerList = Bukkit.getServer().getOnlinePlayers();
-            for (int i = 0; i < onlinePlayerList.length; i++) {
-                ChatMode.SetNewChatMode(onlinePlayerList[i]);
+            
+            for (Player player : Bukkit.getServer().getOnlinePlayers()) {
+                ChatMode.SetNewChatMode(player);
             }
 
             SetMessages(config);

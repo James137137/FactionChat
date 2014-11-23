@@ -13,7 +13,6 @@ import org.bukkit.entity.Player;
 public class ChatChannel {
 
     private FactionChat plugin;
-    private static Player[] onlinePlayerList;
     boolean IncludeTitle;
 
     ChatChannel(FactionChat aThis) {
@@ -245,7 +244,7 @@ public class ChatChannel {
                  SenderFaction.sendMessage(ChatColor.DARK_GREEN + "[" + sSenderFaction + ChatColor.DARK_GREEN + "] " + ChatColor.RESET + player.getName() + ": " + message);
                  SenderFaction.getRelationTo(fSenderPlayer);
                  * */
-                onlinePlayerList = Bukkit.getServer().getOnlinePlayers(); //get list of every online player
+                
                 String playersFaction; //creates string outside loop
                 String targetFaction = args[0] + senderFaction.charAt(senderFaction.length() - 2) + senderFaction.charAt(senderFaction.length() - 1);
 
@@ -258,17 +257,17 @@ public class ChatChannel {
                 String FromMessage = ChatMode.FormatString(FactionChat.OtherFactionChatFrom, intput1, playerTitle, allowCustomColour);
                 String spyMessage = ChatMode.FormatString(FactionChat.SpyChat, input2, playerTitle, allowCustomColour);
                 //start of loop
-                for (int i = 0; i < onlinePlayerList.length; i++) {
+                for (Player myPlayer : Bukkit.getServer().getOnlinePlayers()) {
 
-                    playersFaction = FactionChat.factionsAPI.getFactionName(onlinePlayerList[i]);
+                    playersFaction = FactionChat.factionsAPI.getFactionName(myPlayer);
 
                     if (playersFaction.equalsIgnoreCase(senderFaction)) {
-                        onlinePlayerList[i].sendMessage(toMessage);
+                        myPlayer.sendMessage(toMessage);
                     } else if (playersFaction.equalsIgnoreCase(targetFaction)) {
-                        onlinePlayerList[i].sendMessage(FromMessage);
+                        myPlayer.sendMessage(FromMessage);
                         count++;
-                    } else if (ChatMode.isSpyOn(onlinePlayerList[i])) {
-                        onlinePlayerList[i].sendMessage(spyMessage);
+                    } else if (ChatMode.isSpyOn(myPlayer)) {
+                        myPlayer.sendMessage(spyMessage);
                     }
 
                 }
