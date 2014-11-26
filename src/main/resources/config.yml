@@ -1,0 +1,22 @@
+AutoUpdate: false
+
+#this will disabled certain commands please make sure you include the aliases 
+#for example -fchatf and -ff
+DisabledCommands:
+    - example_fchatf
+    - example_fchatat
+    - example_fa
+    - example_fat
+Messages:
+    NotInFaction: You are not member of any faction
+    IncorectChatModeSwitch: 'Error: please use /fc to switch chat mode or'
+    SpyModeOn: Spy mode is now on
+    SpyModeOff: Spy mode is now off
+    NewChatMode: 'Your chat mode has been changed to: '
+    FchatoMissType: 'Error: Please use /fco factionname message.'
+    FchatoNoOneOnline: 'Error: either no faction member is online or incorrect faction name'
+    PublicMuteChatOn: 'Public chat is now muted for you'
+    PublicMuteChatOff: 'Public chat is no longer muted for you'
+    AllyMuteChatOn: 'Ally chat is now muted for you'
+    AllyMuteChatOff: 'Ally chat is no longer muted for you'
+    DisableCommand: 'This command has been disabled in FactionChat config. If you belive this is an error please report this to  your server administrators.'

@@ -38,6 +38,7 @@ import org.json.simple.JSONValue;
  */
 
 public class Updater {
+    public static boolean AutoUpdateEnable = false;
 
     private Plugin plugin;
     private UpdateType type;
