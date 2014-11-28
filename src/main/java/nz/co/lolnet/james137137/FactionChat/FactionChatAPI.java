@@ -63,6 +63,11 @@ public class FactionChatAPI {
             }
             return;
         }
+        if (prefixAndSuffix == null)
+        {
+            IncludePrefix = false;
+            IncludeSuffix = false;
+        }
     }
 
     public FactionChatAPI() {
