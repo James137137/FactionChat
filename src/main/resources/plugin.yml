@@ -1,7 +1,7 @@
 name: FactionChat
 softdepend: [Factions,BanManager,bPermissions,GroupManager,PermissionsEx,AuthMe]
 main: nz.co.lolnet.james137137.FactionChat.FactionChat
-version: 1.8.5
+version: 1.8.6
 authors: [James Anderson]
 commands:
   fchat:

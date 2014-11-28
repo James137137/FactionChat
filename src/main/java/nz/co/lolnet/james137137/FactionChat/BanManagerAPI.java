@@ -13,7 +13,8 @@ public class BanManagerAPI {
 
     public static boolean isMuted(String PlayerName) {
         try {
-            return me.confuser.banmanager.BmAPI.isMuted(PlayerName);
+            boolean result = me.confuser.banmanager.BmAPI.isMuted(PlayerName);
+            return result;
         } catch (Exception e) {
             return false;
         }
