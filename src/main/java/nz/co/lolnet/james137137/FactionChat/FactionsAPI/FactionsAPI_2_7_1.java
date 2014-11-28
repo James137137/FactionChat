@@ -81,7 +81,7 @@ public class FactionsAPI_2_7_1 implements FactionsAPI{
 
     @Override
     public String getPlayerTitle(Player player) {
-        if (FactionChat.plugin.getConfig().getBoolean("FactionChatMessage.IncludeTitle")) {
+        if (!FactionChat.plugin.getConfig().getBoolean("FactionChatMessage.IncludeTitle")) {
             return "";
         }
         String title = MPlayer.get(player).getTitle();
