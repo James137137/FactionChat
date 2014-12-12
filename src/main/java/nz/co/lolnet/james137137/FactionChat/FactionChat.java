@@ -87,19 +87,10 @@ public class FactionChat extends JavaPlugin {
         }
 
         if (FactionsEnable) {
-            if (Double.parseDouble(FactionPlugin.getDescription().getVersion().substring(0, 2)) >= 2.0) {
-                try {
-                    factionsAPI = (FactionsAPI) Class.forName("nz.co.lolnet.james137137.FactionChat.FactionsAPI.FactionsAPI_2_7_1").getConstructor().newInstance();
-                } catch (Exception ex) {
-                    Logger.getLogger(FactionChat.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            } else {
-                try {
-                    factionsAPI = (FactionsAPI) Class.forName("nz.co.lolnet.james137137.FactionChat.FactionsAPI.FactionsAPI1_8").getConstructor().newInstance();
-                } catch (Exception ex) {
-                    Logger.getLogger(FactionChat.class.getName()).log(Level.SEVERE, null, ex);
-                }
-
+            try {
+                factionsAPI = (FactionsAPI) Class.forName("nz.co.lolnet.james137137.FactionChat.FactionsAPI.FactionsAPI1_7").getConstructor().newInstance();
+            } catch (Exception ex) {
+                Logger.getLogger(FactionChat.class.getName()).log(Level.SEVERE, null, ex);
             }
             ChatChannel = new ChatChannel(this);
         }
@@ -208,7 +199,6 @@ public class FactionChat extends JavaPlugin {
                 OfficerChatEnable = false;
             }
 
-            
             for (Player player : Bukkit.getServer().getOnlinePlayers()) {
                 ChatMode.SetNewChatMode(player);
             }

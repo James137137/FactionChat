@@ -27,23 +27,9 @@
         <dependency>
             <groupId>com.massivecraft</groupId>
             <artifactId>factions</artifactId>
-            <version>1.8.2</version>
+            <version>1.6.9.5-U0.1.12</version>
             <scope>system</scope>
-            <systemPath>${basedir}/lib/Factions 1.8.2 UUID.jar</systemPath>
-        </dependency>
-        <dependency>
-            <groupId>com.massivecraft</groupId>
-            <artifactId>factions2</artifactId>
-            <version> 2.7.1</version>
-            <scope>system</scope>
-            <systemPath>${basedir}/lib/Factions 2.7.1.jar</systemPath>
-        </dependency>
-        <dependency>
-            <groupId>com.massivecraft</groupId>
-            <artifactId>mcore</artifactId>
-            <version>7.4.0</version>
-            <scope>system</scope>
-            <systemPath>${basedir}/lib/MassiveCore.jar</systemPath>
+            <systemPath>${basedir}/lib/FactionsUUID.jar</systemPath>
         </dependency>
         <dependency>
             <groupId>me.confuserr</groupId>
