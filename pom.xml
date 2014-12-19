@@ -18,6 +18,11 @@
             <artifactId>bukkit</artifactId>
             <version>1.7.10-R0.1-SNAPSHOT</version>
         </dependency>
+        <dependency>
+            <groupId>nz.co.lolnet.james137137</groupId>
+            <artifactId>FactionsAPI</artifactId>
+            <version>1.0.3</version>
+        </dependency>
     </dependencies>
     
     <repositories>
@@ -29,9 +34,36 @@
             <id>vault-repo</id>
             <url>http://maven.sk89q.com/repo/</url>
         </repository>
+        <repository>
+            <id>file.repo</id>
+            <url>file://${project.basedir}/repo</url>
+        </repository>
     </repositories>
     
     <build>
         <finalName>FactionChat</finalName>
+        
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-shade-plugin</artifactId>
+                <version>1.6</version>
+                <executions>
+                    <execution>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>shade</goal>
+                        </goals>
+                        <configuration>
+                            <artifactSet>
+                                <includes>
+                                    <include>*:FactionsAPI</include>
+                                </includes>
+                            </artifactSet>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
     </build>
 </project>
