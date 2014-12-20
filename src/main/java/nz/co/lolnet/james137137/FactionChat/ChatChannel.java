@@ -42,8 +42,11 @@ public class ChatChannel {
 
         }
         boolean allowCustomColour = player.hasPermission("essentials.chat.color");
-        String[] intput1 = {senderFaction, FactionChat.factionsAPI.getPlayerRank(player), FactionChatAPI.getPrefix(player) + player.getName() + FactionChatAPI.getSuffix(player) + ChatColor.RESET, message};
-        String playerTitle = FactionChat.factionsAPI.getPlayerTitle(player);
+        String[] intput1 = {senderFaction, FactionChat.factionsAPI.getPlayerRank(player).toString(), FactionChatAPI.getPrefix(player) + player.getName() + FactionChatAPI.getSuffix(player) + ChatColor.RESET, message};
+        String playerTitle = "";
+        if (FactionChat.IncludeTitle) {
+            playerTitle = FactionChat.factionsAPI.getPlayerTitle(player);
+        }
         String[] input2 = {ChatMode.FormatString(FactionChat.FactionChatMessage, intput1, playerTitle, allowCustomColour)};
         String normalMessage = ChatMode.FormatString(FactionChat.FactionChatMessage, intput1, playerTitle, allowCustomColour);
         String spyMessage = ChatMode.FormatString(FactionChat.SpyChat, input2, playerTitle, allowCustomColour);
@@ -78,14 +81,17 @@ public class ChatChannel {
 
         }
         boolean allowCustomColour = player.hasPermission("essentials.chat.color");
-        String playerTitle = FactionChat.factionsAPI.getPlayerTitle(player);
-        String[] intput1 = {sSenderFaction, FactionChat.factionsAPI.getPlayerRank(player), FactionChatAPI.getPrefix(player) + player.getName() + FactionChatAPI.getSuffix(player) + ChatColor.RESET, message};
+        String playerTitle = "";
+        if (FactionChat.IncludeTitle) {
+            playerTitle = FactionChat.factionsAPI.getPlayerTitle(player);
+        }
+        String[] intput1 = {sSenderFaction, FactionChat.factionsAPI.getPlayerRank(player).toString(), FactionChatAPI.getPrefix(player) + player.getName() + FactionChatAPI.getSuffix(player) + ChatColor.RESET, message};
         String[] input2 = {ChatMode.FormatString(FactionChat.AllyTruceChat, intput1, playerTitle, allowCustomColour)};
         String normalMessage = ChatMode.FormatString(FactionChat.AllyTruceChat, intput1, playerTitle, allowCustomColour);
         String spyMessage = ChatMode.FormatString(FactionChat.SpyChat, input2, playerTitle, allowCustomColour);
 
         for (Player myPlayer : Bukkit.getServer().getOnlinePlayers()) {
-            
+
             MyRel relationship = FactionChat.factionsAPI.getRelationship(player, myPlayer);
 
             if ((relationship == MyRel.ALLY || relationship == MyRel.TRUCE
@@ -113,8 +119,11 @@ public class ChatChannel {
 
         }
         boolean allowCustomColour = player.hasPermission("essentials.chat.color");
-        String playerTitle = FactionChat.factionsAPI.getPlayerTitle(player);
-        String[] intput1 = {sSenderFaction, FactionChat.factionsAPI.getPlayerRank(player), FactionChatAPI.getPrefix(player) + player.getName() + FactionChatAPI.getSuffix(player) + ChatColor.RESET, message};
+        String playerTitle = "";
+        if (FactionChat.IncludeTitle) {
+            playerTitle = FactionChat.factionsAPI.getPlayerTitle(player);
+        }
+        String[] intput1 = {sSenderFaction, FactionChat.factionsAPI.getPlayerRank(player).toString(), FactionChatAPI.getPrefix(player) + player.getName() + FactionChatAPI.getSuffix(player) + ChatColor.RESET, message};
         String[] input2 = {ChatMode.FormatString(FactionChat.AllyChat, intput1, playerTitle, allowCustomColour)};
         String normalMessage = ChatMode.FormatString(FactionChat.AllyChat, intput1, playerTitle, allowCustomColour);
         String spyMessage = ChatMode.FormatString(FactionChat.SpyChat, input2, playerTitle, allowCustomColour);
@@ -148,8 +157,11 @@ public class ChatChannel {
 
         }
         boolean allowCustomColour = player.hasPermission("essentials.chat.color");
-        String playerTitle = FactionChat.factionsAPI.getPlayerTitle(player);
-        String[] intput1 = {sSenderFaction, FactionChat.factionsAPI.getPlayerRank(player), FactionChatAPI.getPrefix(player) + player.getName() + FactionChatAPI.getSuffix(player) + ChatColor.RESET, message};
+        String playerTitle = "";
+        if (FactionChat.IncludeTitle) {
+            playerTitle = FactionChat.factionsAPI.getPlayerTitle(player);
+        }
+        String[] intput1 = {sSenderFaction, FactionChat.factionsAPI.getPlayerRank(player).toString(), FactionChatAPI.getPrefix(player) + player.getName() + FactionChatAPI.getSuffix(player) + ChatColor.RESET, message};
         String[] input2 = {ChatMode.FormatString(FactionChat.TruceChat, intput1, playerTitle, allowCustomColour)};
         String normalMessage = ChatMode.FormatString(FactionChat.TruceChat, intput1, playerTitle, allowCustomColour);
         String spyMessage = ChatMode.FormatString(FactionChat.SpyChat, input2, playerTitle, allowCustomColour);
@@ -188,8 +200,11 @@ public class ChatChannel {
         }
 
         boolean allowCustomColour = player.hasPermission("essentials.chat.color");
-        String playerTitle = FactionChat.factionsAPI.getPlayerTitle(player);
-        String[] intput1 = {sSenderFaction, FactionChat.factionsAPI.getPlayerRank(player), FactionChatAPI.getPrefix(player) + player.getName() + FactionChatAPI.getSuffix(player) + ChatColor.RESET, message};
+        String playerTitle = "";
+        if (FactionChat.IncludeTitle) {
+            playerTitle = FactionChat.factionsAPI.getPlayerTitle(player);
+        }
+        String[] intput1 = {sSenderFaction, FactionChat.factionsAPI.getPlayerRank(player).toString(), FactionChatAPI.getPrefix(player) + player.getName() + FactionChatAPI.getSuffix(player) + ChatColor.RESET, message};
         String[] input2 = {ChatMode.FormatString(FactionChat.EnemyChat, intput1, playerTitle, allowCustomColour)};
         String normalMessage = ChatMode.FormatString(FactionChat.EnemyChat, intput1, playerTitle, allowCustomColour);
         String spyMessage = ChatMode.FormatString(FactionChat.SpyChat, input2, playerTitle, allowCustomColour);
@@ -244,14 +259,16 @@ public class ChatChannel {
                  SenderFaction.sendMessage(ChatColor.DARK_GREEN + "[" + sSenderFaction + ChatColor.DARK_GREEN + "] " + ChatColor.RESET + player.getName() + ": " + message);
                  SenderFaction.getRelationTo(fSenderPlayer);
                  * */
-                
                 String playersFaction; //creates string outside loop
                 String targetFaction = args[0] + senderFaction.charAt(senderFaction.length() - 2) + senderFaction.charAt(senderFaction.length() - 1);
 
                 int count = 0;
                 boolean allowCustomColour = player.hasPermission("essentials.chat.color");
-                String playerTitle = FactionChat.factionsAPI.getPlayerTitle(player);
-                String[] intput1 = {senderFaction, FactionChat.factionsAPI.getPlayerRank(player), FactionChatAPI.getPrefix(player) + player.getName() + FactionChatAPI.getSuffix(player) + ChatColor.RESET, message};
+                String playerTitle = "";
+                if (FactionChat.IncludeTitle) {
+                    playerTitle = FactionChat.factionsAPI.getPlayerTitle(player);
+                }
+                String[] intput1 = {senderFaction, FactionChat.factionsAPI.getPlayerRank(player).toString(), FactionChatAPI.getPrefix(player) + player.getName() + FactionChatAPI.getSuffix(player) + ChatColor.RESET, message};
                 String[] input2 = {ChatMode.FormatString(FactionChat.OtherFactionChatSpy, intput1, playerTitle, allowCustomColour)};
                 String toMessage = ChatMode.FormatString(FactionChat.OtherFactionChatTo, intput1, playerTitle, allowCustomColour);
                 String FromMessage = ChatMode.FormatString(FactionChat.OtherFactionChatFrom, intput1, playerTitle, allowCustomColour);
@@ -295,7 +312,11 @@ public class ChatChannel {
 
         }
         boolean allowCustomColour = player.hasPermission("essentials.chat.color");
-        String playerTitle = FactionChat.factionsAPI.getPlayerTitle(player);
+        String playerTitle = "";
+        if (FactionChat.IncludeTitle) {
+            playerTitle = FactionChat.factionsAPI.getPlayerTitle(player);
+        }
+
         String[] intput1 = {senderFaction, FactionChatAPI.getPrefix(player) + player.getName() + FactionChatAPI.getSuffix(player) + ChatColor.RESET, message};
         String[] input2 = {ChatMode.FormatString(FactionChat.LeaderChat, intput1, playerTitle, allowCustomColour)};
         String normalMessage = ChatMode.FormatString(FactionChat.LeaderChat, intput1, playerTitle, allowCustomColour);
@@ -326,7 +347,10 @@ public class ChatChannel {
 
         }
         boolean allowCustomColour = player.hasPermission("essentials.chat.color");
-        String playerTitle = FactionChat.factionsAPI.getPlayerTitle(player);
+        String playerTitle = "";
+        if (FactionChat.IncludeTitle) {
+            playerTitle = FactionChat.factionsAPI.getPlayerTitle(player);
+        }
         String[] intput1 = {senderFaction, FactionChatAPI.getPrefix(player) + player.getName() + FactionChatAPI.getSuffix(player) + ChatColor.RESET, message};
         String[] input2 = {ChatMode.FormatString(FactionChat.OfficerChat, intput1, playerTitle, allowCustomColour)};
         String normalMessage = ChatMode.FormatString(FactionChat.OfficerChat, intput1, playerTitle, allowCustomColour);

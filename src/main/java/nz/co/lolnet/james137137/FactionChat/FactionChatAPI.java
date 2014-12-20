@@ -83,7 +83,7 @@ public class FactionChatAPI {
     }
 
     public static String getPlayerRank(Player player) {
-        return factionChat.factionsAPI.getPlayerRank(player);
+        return factionChat.factionsAPI.getPlayerRank(player).toString();
     }
 
     public static boolean isFactionChatMessage(org.bukkit.event.player.AsyncPlayerChatEvent event) {

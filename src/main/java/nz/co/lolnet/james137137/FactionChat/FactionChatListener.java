@@ -2,7 +2,6 @@ package nz.co.lolnet.james137137.FactionChat;
 
 import java.util.Objects;
 import java.util.Set;
-import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -10,7 +9,6 @@ import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Event;
 import org.bukkit.event.EventException;
-import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerCommandPreprocessEvent;
@@ -176,22 +174,10 @@ public class FactionChatListener implements Listener {
             if (chatmode.equalsIgnoreCase("VIP")) {
                 otherChannel.VIPChat(talkingPlayer, msg);
                 setCancelled = true;
-            } else if (chatmode.equalsIgnoreCase("UserAssistant")) {
-                otherChannel.userAssistantChat(talkingPlayer, msg);
-                setCancelled = true;
-            } else if (chatmode.equalsIgnoreCase("JrMOD")) {
-                otherChannel.jrModChat(talkingPlayer, msg);
-                setCancelled = true;
-            } else if (chatmode.equalsIgnoreCase("MOD")) {
+            }  else if (chatmode.equalsIgnoreCase("MOD")) {
                 otherChannel.modChat(talkingPlayer, msg);
                 setCancelled = true;
-            } else if (chatmode.equalsIgnoreCase("SrMOD")) {
-                otherChannel.SrModChat(talkingPlayer, msg);
-                setCancelled = true;
-            } else if (chatmode.equalsIgnoreCase("JrAdmin")) {
-                otherChannel.JrAdminChat(talkingPlayer, msg);
-                setCancelled = true;
-            } else if (chatmode.equalsIgnoreCase("ADMIN")) {
+            }  else if (chatmode.equalsIgnoreCase("ADMIN")) {
                 otherChannel.adminChat(talkingPlayer, msg);
                 setCancelled = true;
             }

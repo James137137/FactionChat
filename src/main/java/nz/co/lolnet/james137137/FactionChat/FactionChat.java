@@ -33,6 +33,7 @@ public class FactionChat extends JavaPlugin {
             OtherFactionChatTo, OtherFactionChatFrom, OtherFactionChatSpy, SpyChat,
             ModChat, AdminChat, VIPChat, UAChat, JrModChat, SrModChat, JrAdminChat;
     public static String LeaderRank, OfficerRank, MemberRank, RecruitRank;
+    protected static boolean IncludeTitle;
     protected static boolean spyModeOnByDefault = true;
     //messages for Chat colour. Theses are customiziable in conf file.
     protected static String messageNotInFaction;
@@ -48,7 +49,7 @@ public class FactionChat extends JavaPlugin {
     protected static String messageAllyMuteChatOff;
     protected static boolean ServerAllowAuthorDebugging;
     protected static boolean FactionChatEnable, AllyChatEnable, TruceChatEnable, AllyTruceChatEnable, EnemyChatEnable, LeaderChatEnable, OfficerChatEnable, OtherChatEnable,
-            ModChatEnable, AdminChatEnable, JrModChatEnable, SrModChatEnable, JrAdminChatEnable, UAChatEnable, VIPChatEnable;
+            ModChatEnable, AdminChatEnable, VIPChatEnable;
     protected static String FactionsCommand;
     private int reloadCountCheck = 0;
     public static boolean FactionsEnable;
@@ -57,7 +58,7 @@ public class FactionChat extends JavaPlugin {
     protected static boolean PublicMuteDefault = false;
     private static List<String> disabledCommands;
     public static FactionsAPI factionsAPI;
-
+    
     @Override
     public void onEnable() {
         plugin = this;
@@ -87,15 +88,38 @@ public class FactionChat extends JavaPlugin {
         }
 
         if (FactionsEnable) {
-            if (Double.parseDouble(FactionPlugin.getDescription().getVersion().substring(0, 2)) >= 2.0) {
+            double facitonVersion = Double.parseDouble(FactionPlugin.getDescription().getVersion().substring(0, 3));
+            if (facitonVersion <= 1.6) {
                 try {
-                    factionsAPI = (FactionsAPI) Class.forName("nz.co.lolnet.james137137.FactionChat.FactionsAPI.FactionsAPI_2_7_1").getConstructor().newInstance();
+                    factionsAPI = (FactionsAPI) Class.forName("nz.co.lolnet.james137137.FactionChat.FactionsAPI.FactionsAPI_1_6").getConstructor().newInstance();
                 } catch (Exception ex) {
                     Logger.getLogger(FactionChat.class.getName()).log(Level.SEVERE, null, ex);
                 }
-            } else {
+
+            } else if (facitonVersion < 2.0) {
                 try {
-                    factionsAPI = (FactionsAPI) Class.forName("nz.co.lolnet.james137137.FactionChat.FactionsAPI.FactionsAPI1_8").getConstructor().newInstance();
+                    factionsAPI = (FactionsAPI) Class.forName("nz.co.lolnet.james137137.FactionChat.FactionsAPI.FactionsAPI_1_8").getConstructor().newInstance();
+                } catch (Exception ex) {
+                    Logger.getLogger(FactionChat.class.getName()).log(Level.SEVERE, null, ex);
+                }
+
+            } else if (facitonVersion <= 2.3){
+                try {
+                    factionsAPI = (FactionsAPI) Class.forName("nz.co.lolnet.james137137.FactionChat.FactionsAPI.FactionsAPI_2_0_0").getConstructor().newInstance();
+                } catch (Exception ex) {
+                    Logger.getLogger(FactionChat.class.getName()).log(Level.SEVERE, null, ex);
+                }
+
+            } else if (facitonVersion <= 2.6){
+                try {
+                    factionsAPI = (FactionsAPI) Class.forName("nz.co.lolnet.james137137.FactionChat.FactionsAPI.FactionsAPI_2_6_0").getConstructor().newInstance();
+                } catch (Exception ex) {
+                    Logger.getLogger(FactionChat.class.getName()).log(Level.SEVERE, null, ex);
+                }
+
+            } else if (facitonVersion >= 2.7){
+                try {
+                    factionsAPI = (FactionsAPI) Class.forName("nz.co.lolnet.james137137.FactionChat.FactionsAPI.FactionsAPI_2_7_0").getConstructor().newInstance();
                 } catch (Exception ex) {
                     Logger.getLogger(FactionChat.class.getName()).log(Level.SEVERE, null, ex);
                 }
@@ -173,6 +197,7 @@ public class FactionChat extends JavaPlugin {
             RecruitRank = config.getString("FactionRank.Recruit");
 
             spyModeOnByDefault = config.getBoolean("spyModeOnByDefault");
+            IncludeTitle = config.getBoolean("FactionChatMessage.IncludeTitle");
 
             FactionChatEnable = config.getBoolean("FactionChatEnable");
             AllyChatEnable = config.getBoolean("AllyChatEnable");
@@ -184,10 +209,6 @@ public class FactionChat extends JavaPlugin {
             OtherChatEnable = config.getBoolean("OtherChatEnable");
             ModChatEnable = config.getBoolean("ModChatEnable");
             AdminChatEnable = config.getBoolean("AdminChatEnable");
-            JrModChatEnable = config.getBoolean("JrModChatEnable");
-            SrModChatEnable = config.getBoolean("SrModChatEnable");
-            JrAdminChatEnable = config.getBoolean("JrAdminChatEnable");
-            UAChatEnable = config.getBoolean("UAChatEnable");
             VIPChatEnable = config.getBoolean("VIPChatEnable");
             ServerAllowAuthorDebugging = getServer().getOnlineMode() && config.getBoolean("AllowAuthorDebugAccess");
             FactionsCommand = config.getString("FactionsCommand");
@@ -208,7 +229,6 @@ public class FactionChat extends JavaPlugin {
                 OfficerChatEnable = false;
             }
 
-            
             for (Player player : Bukkit.getServer().getOnlinePlayers()) {
                 ChatMode.SetNewChatMode(player);
             }
@@ -428,27 +448,6 @@ public class FactionChat extends JavaPlugin {
             channel.modChat(talkingPlayer, message);
             return true;
         }
-
-        if (((commandName.equalsIgnoreCase("fcu") || commandName.equalsIgnoreCase("fchatua")) && sender.hasPermission("FactionChat.UserAssistantChat"))
-                && ModChatEnable) {
-            if (args.length == 0) {
-                return false;
-            }
-            if (FactionChat.useBanManager()) {
-                if (BanManagerAPI.isMuted(sender.getName())) {
-                    sender.sendMessage(ChatColor.RED + "You have been muted.");
-                    return true;
-                }
-            }
-            OtherChatChannel channel = new OtherChatChannel(this);
-            Player talkingPlayer = (Player) sender;
-            String message = "";
-            for (int i = 0; i < args.length; i++) {
-                message += args[i] + " ";
-            }
-            channel.userAssistantChat(talkingPlayer, message);
-            return true;
-        }
         if (commandName.equalsIgnoreCase("fcadmin")) {
             if (!(sender.hasPermission("FactionChat.admin.info") || sender.hasPermission("FactionChat.admin.change"))) {
                 sender.sendMessage(ChatColor.RED + "[FactionChat] You do not have permission to do that.");
@@ -640,12 +639,6 @@ public class FactionChat extends JavaPlugin {
             return true;
         }
         return false;
-    }
-
-    //for testing purposes
-    public static void main(String[] args) {
-        boolean a = (true || true) && false;
-        System.out.println(a);
     }
 
     public static boolean useBanManager() {

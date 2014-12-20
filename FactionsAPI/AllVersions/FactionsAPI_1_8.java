@@ -10,14 +10,13 @@ import com.massivecraft.factions.FPlayer;
 import com.massivecraft.factions.FPlayers;
 import com.massivecraft.factions.Faction;
 import com.massivecraft.factions.struct.Rel;
-import nz.co.lolnet.james137137.FactionChat.FactionChat;
 import org.bukkit.entity.Player;
 
 /**
  *
  * @author James
  */
-public class FactionsAPI1_8 implements FactionsAPI{
+public class FactionsAPI_1_8 implements FactionsAPI{
 
     @Override
     public String getFactionName(Player player) {
@@ -78,9 +77,6 @@ public class FactionsAPI1_8 implements FactionsAPI{
 
     @Override
     public String getPlayerTitle(Player player) {
-        if (!FactionChat.plugin.getConfig().getBoolean("FactionChatMessage.IncludeTitle")) {
-            return "";
-        }
         String title = ((FPlayer) FPlayers.i.get(player)).getTitle();
         if (title.contains("no title set")) {
             return "";
@@ -89,18 +85,18 @@ public class FactionsAPI1_8 implements FactionsAPI{
     }
 
     @Override
-    public String getPlayerRank(Player player) {
+    public MyRel getPlayerRank(Player player) {
         Rel role = ((FPlayer) FPlayers.i.get(player)).getRole();
         if (role.equals(Rel.LEADER)) {
-            return FactionChat.LeaderRank;
+            return MyRel.LEADER;
         } else if (role.equals(Rel.OFFICER)) {
-            return FactionChat.OfficerRank;
+            return MyRel.OFFICER;
         } else if (role.equals(Rel.MEMBER)) {
-            return FactionChat.MemberRank;
+            return MyRel.MEMBER;
         } else if (role.equals(Rel.RECRUIT)) {
-            return FactionChat.RecruitRank;
+            return MyRel.RECRUIT;
         } else {
-            return "";
+            return MyRel.NEUTRAL;
         }
     }
     

@@ -3,7 +3,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>nz.co.lolnet.james137137</groupId>
     <artifactId>FactionChat</artifactId>
-    <version>1.8.6</version>
+    <version>1.9.3</version>
     <packaging>jar</packaging>
     <properties>
         
@@ -14,36 +14,10 @@
     </properties>
     <dependencies>
         <dependency>
-            <groupId>org.bukkit</groupId>
-            <artifactId>bukkit</artifactId>
-            <version>1.7.10-R0.1-SNAPSHOT</version>
-        </dependency>
-        <dependency>
             <groupId>net.milkbowl.vault</groupId>
             <artifactId>Vault</artifactId>
             <version>1.2.16</version>
             <optional>true</optional>
-        </dependency>
-        <dependency>
-            <groupId>com.massivecraft</groupId>
-            <artifactId>factions</artifactId>
-            <version>1.8.2</version>
-            <scope>system</scope>
-            <systemPath>${basedir}/lib/Factions 1.8.2 UUID.jar</systemPath>
-        </dependency>
-        <dependency>
-            <groupId>com.massivecraft</groupId>
-            <artifactId>factions2</artifactId>
-            <version> 2.7.1</version>
-            <scope>system</scope>
-            <systemPath>${basedir}/lib/Factions 2.7.1.jar</systemPath>
-        </dependency>
-        <dependency>
-            <groupId>com.massivecraft</groupId>
-            <artifactId>mcore</artifactId>
-            <version>7.4.0</version>
-            <scope>system</scope>
-            <systemPath>${basedir}/lib/MassiveCore.jar</systemPath>
         </dependency>
         <dependency>
             <groupId>me.confuserr</groupId>
@@ -80,12 +54,26 @@
             <scope>system</scope>
             <systemPath>${basedir}/lib/AuthMe.jar</systemPath>
         </dependency>
+        <dependency>
+            <groupId>nz.co.lolnet.james137137</groupId>
+            <artifactId>FactionsAPI</artifactId>
+            <version>1.0.3</version>
+        </dependency>
+        <dependency>
+            <groupId>org.bukkit</groupId>
+            <artifactId>bukkit</artifactId>
+            <version>1.7.9-R0.2</version>
+        </dependency>
     </dependencies>
     
     <repositories>
         <repository>
-            <id>bukkit-repo</id>
-            <url>http://repo.bukkit.org/content/groups/public</url>
+            <id>file.repo</id>
+            <url>file://${project.basedir}/repo</url>
+        </repository>
+        <repository>
+            <id>spigot-repo</id>
+            <url>hub.spigotmc.org/nexus/content/groups/public/</url>
         </repository>
         <repository>
             <id>vault-repo</id>
@@ -95,5 +83,27 @@
     
     <build>
         <finalName>FactionChat</finalName>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-shade-plugin</artifactId>
+                <version>1.6</version>
+                <executions>
+                    <execution>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>shade</goal>
+                        </goals>
+                        <configuration>
+                            <artifactSet>
+                                <includes>
+                                    <include>*:FactionsAPI</include>
+                                </includes>
+                            </artifactSet>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
     </build>
 </project>
