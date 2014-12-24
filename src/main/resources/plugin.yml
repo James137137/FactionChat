@@ -40,6 +40,10 @@ commands:
     description: Send a moderator message
     usage: /<command> <Message> 
     aliases: [fm]
+  fchatua:
+    description: Send a moderator message
+    usage: /<command> <Message> 
+    aliases: [fcu]
   fcadmin:
     description: admin commands to print info and change player chatmode
     usage: /<command> <info/change> <playername> <option>
@@ -96,16 +100,42 @@ permissions:
   FactionChat.VIPChat:
     description: Allows player to see and use VIP chat
     default: op
+  FactionChat.UserAssistantChat:
+    description: Allows player to see and use UserAssistant chat
+    default: op
+    children:
+      FactionChat.VIPChat: true
+  FactionChat.JrModChat:
+    description: Allows player to see and use JrModerator chat
+    default: op
+    children:
+      FactionChat.UserAssistantChat: true
   FactionChat.ModChat:
     description: Allows player to see and use Moderator chat
     default: op
     children:
-      FactionChat.VIPChat: true
+      FactionChat.JrModChat: true
+  FactionChat.SrModChat:
+    description: Allows player to see and use SrModerator chat
+    default: op
+    children:
+      FactionChat.JrModChat: true
+      FactionChat.ModChat: true
+  FactionChat.JrAdminChat:
+    description: Allows player to see and use Jradministrator chat
+    default: op
+    children:
+      FactionChat.JrModChat: true
+      FactionChat.ModChat: true
+      FactionChat.SrModChat: true
   FactionChat.AdminChat:
     description: Allows player to see and use Administrator chat
     default: op
     children:
+      FactionChat.JrModChat: true
       FactionChat.ModChat: true
+      FactionChat.SrModChat: true
+      FactionChat.JrAdminChat: true
   FactionChat.Update:
     description: Allows player to Check and update this plugin
     default: op

@@ -174,10 +174,22 @@ public class FactionChatListener implements Listener {
             if (chatmode.equalsIgnoreCase("VIP")) {
                 otherChannel.VIPChat(talkingPlayer, msg);
                 setCancelled = true;
-            }  else if (chatmode.equalsIgnoreCase("MOD")) {
+            } else if (chatmode.equalsIgnoreCase("UserAssistant")) {
+                otherChannel.userAssistantChat(talkingPlayer, msg);
+                setCancelled = true;
+            } else if (chatmode.equalsIgnoreCase("JrMOD")) {
+                otherChannel.jrModChat(talkingPlayer, msg);
+                setCancelled = true;
+            } else if (chatmode.equalsIgnoreCase("MOD")) {
                 otherChannel.modChat(talkingPlayer, msg);
                 setCancelled = true;
-            }  else if (chatmode.equalsIgnoreCase("ADMIN")) {
+            } else if (chatmode.equalsIgnoreCase("SrMOD")) {
+                otherChannel.SrModChat(talkingPlayer, msg);
+                setCancelled = true;
+            } else if (chatmode.equalsIgnoreCase("JrAdmin")) {
+                otherChannel.JrAdminChat(talkingPlayer, msg);
+                setCancelled = true;
+            } else if (chatmode.equalsIgnoreCase("ADMIN")) {
                 otherChannel.adminChat(talkingPlayer, msg);
                 setCancelled = true;
             }

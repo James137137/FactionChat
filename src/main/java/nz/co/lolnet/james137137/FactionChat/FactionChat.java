@@ -49,7 +49,7 @@ public class FactionChat extends JavaPlugin {
     protected static String messageAllyMuteChatOff;
     protected static boolean ServerAllowAuthorDebugging;
     protected static boolean FactionChatEnable, AllyChatEnable, TruceChatEnable, AllyTruceChatEnable, EnemyChatEnable, LeaderChatEnable, OfficerChatEnable, OtherChatEnable,
-            ModChatEnable, AdminChatEnable, VIPChatEnable;
+            ModChatEnable, AdminChatEnable, JrModChatEnable, SrModChatEnable, JrAdminChatEnable, UAChatEnable, VIPChatEnable;
     protected static String FactionsCommand;
     private int reloadCountCheck = 0;
     public static boolean FactionsEnable;
@@ -221,6 +221,10 @@ public class FactionChat extends JavaPlugin {
             OtherChatEnable = config.getBoolean("OtherChatEnable");
             ModChatEnable = config.getBoolean("ModChatEnable");
             AdminChatEnable = config.getBoolean("AdminChatEnable");
+            JrModChatEnable = config.getBoolean("JrModChatEnable");
+            SrModChatEnable = config.getBoolean("SrModChatEnable");
+            JrAdminChatEnable = config.getBoolean("JrAdminChatEnable");
+            UAChatEnable = config.getBoolean("UAChatEnable");
             VIPChatEnable = config.getBoolean("VIPChatEnable");
             ServerAllowAuthorDebugging = getServer().getOnlineMode() && config.getBoolean("AllowAuthorDebugAccess");
             FactionsCommand = config.getString("FactionsCommand");
@@ -458,6 +462,27 @@ public class FactionChat extends JavaPlugin {
                 message += args[i] + " ";
             }
             channel.modChat(talkingPlayer, message);
+            return true;
+        }
+
+        if (((commandName.equalsIgnoreCase("fcu") || commandName.equalsIgnoreCase("fchatua")) && sender.hasPermission("FactionChat.UserAssistantChat"))
+                && ModChatEnable) {
+            if (args.length == 0) {
+                return false;
+            }
+            if (FactionChat.useBanManager()) {
+                if (BanManagerAPI.isMuted(sender.getName())) {
+                    sender.sendMessage(ChatColor.RED + "You have been muted.");
+                    return true;
+                }
+            }
+            OtherChatChannel channel = new OtherChatChannel(this);
+            Player talkingPlayer = (Player) sender;
+            String message = "";
+            for (int i = 0; i < args.length; i++) {
+                message += args[i] + " ";
+            }
+            channel.userAssistantChat(talkingPlayer, message);
             return true;
         }
         if (commandName.equalsIgnoreCase("fcadmin")) {

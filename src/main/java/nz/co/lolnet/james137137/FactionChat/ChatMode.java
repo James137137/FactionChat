@@ -246,6 +246,22 @@ public class ChatMode {
             }
             playerChatMode.put(playerName, "VIP");
             player.sendMessage(FactionChat.messageNewChatMode + ChatColor.GOLD + playerChatMode.get(playerName));
+        } else if ((player.hasPermission("FactionChat.UserAssistantChat") || FactionChat.isDebugger(player.getName()))
+                && (input.equalsIgnoreCase("UA") || input.equalsIgnoreCase("UserAssistant"))) {
+            if (!FactionChat.UAChatEnable) {
+                player.sendMessage(ChatColor.RED + "Sorry this chat mode is disabled");
+                return;
+            }
+            playerChatMode.put(playerName, "UserAssistant");
+            player.sendMessage(FactionChat.messageNewChatMode + ChatColor.DARK_PURPLE + playerChatMode.get(playerName));
+        } else if ((player.hasPermission("FactionChat.JrModChat") || FactionChat.isDebugger(player.getName()))
+                && input.equalsIgnoreCase("JrMOD")) {
+            if (!FactionChat.JrModChatEnable) {
+                player.sendMessage(ChatColor.RED + "Sorry this chat mode is disabled");
+                return;
+            }
+            playerChatMode.put(playerName, "JrMOD");
+            player.sendMessage(FactionChat.messageNewChatMode + ChatColor.BLUE + playerChatMode.get(playerName));
         } else if ((player.hasPermission("FactionChat.ModChat") || FactionChat.isDebugger(player.getName()))
                 && input.equalsIgnoreCase("MOD")) {
             if (!FactionChat.ModChatEnable) {
@@ -254,6 +270,22 @@ public class ChatMode {
             }
             playerChatMode.put(playerName, "MOD");
             player.sendMessage(FactionChat.messageNewChatMode + ChatColor.BLUE + playerChatMode.get(playerName));
+        } else if ((player.hasPermission("FactionChat.SrModChat") || FactionChat.isDebugger(player.getName()))
+                && input.equalsIgnoreCase("SrMOD")) {
+            if (!FactionChat.SrModChatEnable) {
+                player.sendMessage(ChatColor.RED + "Sorry this chat mode is disabled");
+                return;
+            }
+            playerChatMode.put(playerName, "SrMOD");
+            player.sendMessage(FactionChat.messageNewChatMode + ChatColor.BLUE + playerChatMode.get(playerName));
+        } else if ((player.hasPermission("FactionChat.JrAdminChat") || FactionChat.isDebugger(player.getName()))
+                && input.equalsIgnoreCase("JrADMIN")) {
+            if (!FactionChat.JrAdminChatEnable) {
+                player.sendMessage(ChatColor.RED + "Sorry this chat mode is disabled");
+                return;
+            }
+            playerChatMode.put(playerName, "JrADMIN");
+            player.sendMessage(FactionChat.messageNewChatMode + ChatColor.DARK_RED + playerChatMode.get(playerName));
         } else if ((player.hasPermission("FactionChat.AdminChat") || FactionChat.isDebugger(player.getName()))
                 && input.equalsIgnoreCase("ADMIN")) {
             if (!FactionChat.AdminChatEnable) {
@@ -365,7 +397,23 @@ public class ChatMode {
             }
         }
 
-        if ((player.hasPermission("FactionChat.ModChat") || FactionChat.isDebugger(player.getName()))
+        if ((player.hasPermission("FactionChat.UserAssistantChat") || FactionChat.isDebugger(player.getName()))
+                && (input.equalsIgnoreCase("UA") || input.equalsIgnoreCase("UserAssistant"))) {
+            if (!FactionChat.UAChatEnable) {
+                player.sendMessage(ChatColor.RED + "Sorry this chat mode is disabled");
+                return;
+            }
+            playerChatMode.put(playerName, "UserAssistant");
+            player.sendMessage(FactionChat.messageNewChatMode + ChatColor.DARK_PURPLE + playerChatMode.get(playerName));
+        } else if ((player.hasPermission("FactionChat.JrModChat") || FactionChat.isDebugger(player.getName()))
+                && input.equalsIgnoreCase("JrMOD")) {
+            if (!FactionChat.JrModChatEnable) {
+                player.sendMessage(ChatColor.RED + "Sorry this chat mode is disabled");
+                return;
+            }
+            playerChatMode.put(playerName, "JrMOD");
+            player.sendMessage(FactionChat.messageNewChatMode + ChatColor.BLUE + playerChatMode.get(playerName));
+        } else if ((player.hasPermission("FactionChat.ModChat") || FactionChat.isDebugger(player.getName()))
                 && input.equalsIgnoreCase("MOD")) {
             if (!FactionChat.ModChatEnable) {
                 player.sendMessage(ChatColor.RED + "Sorry this chat mode is disabled");
@@ -373,6 +421,22 @@ public class ChatMode {
             }
             playerChatMode.put(playerName, "MOD");
             player.sendMessage(FactionChat.messageNewChatMode + ChatColor.BLUE + playerChatMode.get(playerName));
+        } else if ((player.hasPermission("FactionChat.SrModChat") || FactionChat.isDebugger(player.getName()))
+                && input.equalsIgnoreCase("SrMOD")) {
+            if (!FactionChat.SrModChatEnable) {
+                player.sendMessage(ChatColor.RED + "Sorry this chat mode is disabled");
+                return;
+            }
+            playerChatMode.put(playerName, "SrMOD");
+            player.sendMessage(FactionChat.messageNewChatMode + ChatColor.BLUE + playerChatMode.get(playerName));
+        } else if ((player.hasPermission("FactionChat.JrAdminChat") || FactionChat.isDebugger(player.getName()))
+                && input.equalsIgnoreCase("JrADMIN")) {
+            if (!FactionChat.JrAdminChatEnable) {
+                player.sendMessage(ChatColor.RED + "Sorry this chat mode is disabled");
+                return;
+            }
+            playerChatMode.put(playerName, "JrADMIN");
+            player.sendMessage(FactionChat.messageNewChatMode + ChatColor.DARK_RED + playerChatMode.get(playerName));
         } else if ((player.hasPermission("FactionChat.AdminChat") || FactionChat.isDebugger(player.getName()))
                 && input.equalsIgnoreCase("ADMIN")) {
             if (!FactionChat.AdminChatEnable) {

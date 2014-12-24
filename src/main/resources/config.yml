@@ -72,6 +72,10 @@ FactionChatMessage:
 OtherChatMessage:
   ModChat: '&b[Mod-Chat] &f{0}: &a{M}'
   AdminChat: '&4[Admin-Chat] &f{0}: &a{M}'
+  UAChat: '&5[UA-Chat] &f{0}: &a{M}'
+  JrModChat: '&b[JrMod-Chat] &f{0}: &a{M}'
+  SrModChat: '&b[SrMod-Chat] &f{0}: &a{M}'
+  JrAdminChat: '&4[JrAdmin-Chat] &f{0}: &a{M}'
   VIPChat: '&e[VIP-Chat] &f{0}: &a{M}'
 #Enable/disable any chat (except public)
 FactionChatEnable: true
@@ -84,6 +88,10 @@ EnemyChatEnable: true
 OtherChatEnable: true
 ModChatEnable: true
 AdminChatEnable: true
+JrModChatEnable: true
+SrModChatEnable: true
+JrAdminChatEnable: true
+UAChatEnable: true
 VIPChatEnable: true
 # What language should the messages be in. Accepts 'english', or 'other' only.
 MessageLanguage: english
