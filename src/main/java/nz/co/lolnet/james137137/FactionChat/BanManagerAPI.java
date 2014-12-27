@@ -5,19 +5,23 @@
  */
 package nz.co.lolnet.james137137.FactionChat;
 
+import org.bukkit.entity.Player;
+
 /**
  *
  * @author James
  */
 public class BanManagerAPI {
 
-    public static boolean isMuted(String PlayerName) {
+    public static boolean isMuted(Player player) {
         try {
-            boolean result = me.confuser.banmanager.BmAPI.isMuted(PlayerName);
-            return result;
+            return me.confuser.banmanager.BmAPI.isMuted(player);
         } catch (Exception e) {
-            return false;
+            try {
+                return me.confuser.banmanager.BmAPI.isMuted(player.getName());
+            } catch (Exception e2) {
+            }
         }
-
+        return false;
     }
 }

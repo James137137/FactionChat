@@ -303,7 +303,7 @@ public class FactionChat extends JavaPlugin {
                     && OtherChatEnable) {
 
                 if (FactionChat.useBanManager()) {
-                    if (BanManagerAPI.isMuted(sender.getName())) {
+                    if (BanManagerAPI.isMuted((Player) sender)) {
                         sender.sendMessage(ChatColor.RED + "You have been muted.");
                         return true;
                     }
@@ -323,7 +323,7 @@ public class FactionChat extends JavaPlugin {
                 return false;
             }
             if (FactionChat.useBanManager()) {
-                if (BanManagerAPI.isMuted(sender.getName())) {
+                if (BanManagerAPI.isMuted((Player) sender)) {
                     sender.sendMessage(ChatColor.RED + "You have been muted.");
                     return true;
                 }
@@ -343,7 +343,7 @@ public class FactionChat extends JavaPlugin {
                 return false;
             }
             if (FactionChat.useBanManager()) {
-                if (BanManagerAPI.isMuted(sender.getName())) {
+                if (BanManagerAPI.isMuted((Player) sender)) {
                     sender.sendMessage(ChatColor.RED + "You have been muted.");
                     return true;
                 }
@@ -364,7 +364,7 @@ public class FactionChat extends JavaPlugin {
                 return false;
             }
             if (FactionChat.useBanManager()) {
-                if (BanManagerAPI.isMuted(sender.getName())) {
+                if (BanManagerAPI.isMuted((Player) sender)) {
                     sender.sendMessage(ChatColor.RED + "You have been muted.");
                     return true;
                 }
@@ -386,7 +386,7 @@ public class FactionChat extends JavaPlugin {
                 return false;
             }
             if (FactionChat.useBanManager()) {
-                if (BanManagerAPI.isMuted(sender.getName())) {
+                if (BanManagerAPI.isMuted((Player) sender)) {
                     sender.sendMessage(ChatColor.RED + "You have been muted.");
                     return true;
                 }
@@ -409,7 +409,7 @@ public class FactionChat extends JavaPlugin {
                 return false;
             }
             if (FactionChat.useBanManager()) {
-                if (BanManagerAPI.isMuted(sender.getName())) {
+                if (BanManagerAPI.isMuted((Player) sender)) {
                     sender.sendMessage(ChatColor.RED + "You have been muted.");
                     return true;
                 }
@@ -430,7 +430,7 @@ public class FactionChat extends JavaPlugin {
                 return false;
             }
             if (FactionChat.useBanManager()) {
-                if (BanManagerAPI.isMuted(sender.getName())) {
+                if (BanManagerAPI.isMuted((Player) sender)) {
                     sender.sendMessage(ChatColor.RED + "You have been muted.");
                     return true;
                 }
@@ -450,7 +450,7 @@ public class FactionChat extends JavaPlugin {
                 return false;
             }
             if (FactionChat.useBanManager()) {
-                if (BanManagerAPI.isMuted(sender.getName())) {
+                if (BanManagerAPI.isMuted((Player) sender)) {
                     sender.sendMessage(ChatColor.RED + "You have been muted.");
                     return true;
                 }
@@ -471,7 +471,7 @@ public class FactionChat extends JavaPlugin {
                 return false;
             }
             if (FactionChat.useBanManager()) {
-                if (BanManagerAPI.isMuted(sender.getName())) {
+                if (BanManagerAPI.isMuted((Player) sender)) {
                     sender.sendMessage(ChatColor.RED + "You have been muted.");
                     return true;
                 }

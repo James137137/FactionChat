@@ -123,7 +123,7 @@ public class FactionChatListener implements Listener {
     private boolean onChat(Player talkingPlayer, String msg, Set<Player> recipients) {
         boolean setCancelled = false;
         if (FactionChat.useBanManager()) {
-            if (BanManagerAPI.isMuted(talkingPlayer.getName())) {
+            if (BanManagerAPI.isMuted(talkingPlayer)) {
                 return setCancelled;
             }
         }
