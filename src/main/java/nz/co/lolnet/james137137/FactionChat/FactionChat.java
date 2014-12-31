@@ -83,8 +83,16 @@ public class FactionChat extends JavaPlugin {
         new FactionChatAPI().setupAPI(this);
         new AuthMeAPI(this.getServer().getPluginManager().getPlugin("AuthMe") != null);
         Plugin BanManager = this.getServer().getPluginManager().getPlugin("BanManager");
-        if (BanManager != null && BanManager.isEnabled()) {
-            banManagerEnabled = true;
+        if (BanManager != null && BanManager.isEnabled() ) {
+            if (Double.parseDouble(BanManager.getDescription().getVersion().substring(0, 2)) >= 4.0)
+            {
+               banManagerEnabled = true; 
+            }
+            else
+            {
+                log.info("[FactionChat] BanManager Version is not 4.0 or above. Unable to support. (please update)");
+            }
+            
         }
 
         if (FactionsEnable) {
