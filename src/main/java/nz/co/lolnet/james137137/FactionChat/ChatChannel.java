@@ -323,7 +323,7 @@ public class ChatChannel {
         String spyMessage = ChatMode.FormatString(FactionChat.SpyChat, input2, playerTitle, allowCustomColour);
         for (Player myPlayer : Bukkit.getServer().getOnlinePlayers()) {
 
-            if (FactionChat.factionsAPI.getPlayerRank(myPlayer).equals(FactionChat.LeaderRank) && ChatMode.getChatMode(myPlayer).equals("LEADER")) {
+            if (FactionChatAPI.getPlayerRank(player).equals(FactionChat.LeaderRank) && ChatMode.getChatMode(myPlayer).equals("LEADER")) {
                 myPlayer.sendMessage(normalMessage);
             } else if (ChatMode.isSpyOn(myPlayer)) {
                 myPlayer.sendMessage(spyMessage);
@@ -357,7 +357,8 @@ public class ChatChannel {
         String spyMessage = ChatMode.FormatString(FactionChat.SpyChat, input2, playerTitle, allowCustomColour);
         for (Player myPlayer : Bukkit.getServer().getOnlinePlayers()) {
 
-            if ((FactionChat.factionsAPI.getPlayerRank(myPlayer).equals(FactionChat.LeaderRank) || FactionChat.factionsAPI.getPlayerRank(myPlayer).equals(FactionChat.OfficerRank)) && ChatMode.getChatMode(myPlayer).equals("OFFICER")) {
+            if ((FactionChatAPI.getPlayerRank(player).equals(FactionChat.LeaderRank)
+                    || FactionChatAPI.getPlayerRank(player).equals(FactionChat.OfficerRank)) && ChatMode.getChatMode(myPlayer).equals("OFFICER")) {
                 myPlayer.sendMessage(normalMessage);
             } else if (ChatMode.isSpyOn(myPlayer)) {
                 myPlayer.sendMessage(spyMessage);
