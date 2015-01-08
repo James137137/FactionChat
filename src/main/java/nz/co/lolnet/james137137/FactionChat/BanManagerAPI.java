@@ -13,15 +13,22 @@ import org.bukkit.entity.Player;
  */
 public class BanManagerAPI {
 
+    static Boolean useDevBM;
+
     public static boolean isMuted(Player player) {
-        try {
-            return me.confuser.banmanager.BmAPI.isMuted(player);
-        } catch (Exception e) {
-            try {
-                return me.confuser.banmanager.BmAPI.isMuted(player.getName());
-            } catch (Exception e2) {
-            }
+        if (useDevBM == null) {
+            useDevBM = FactionChat.plugin.getConfig().getBoolean("UseDevBanManager");
         }
-        return false;
+        try {
+            if (useDevBM) {
+                boolean muted = me.confuser.banmanager.BmAPI.isMuted(player);
+                return muted;
+            } else {
+                boolean muted = me.confuser.banmanager.BmAPI.isMuted(player.getName());
+                return muted;
+            }
+        } catch (Exception e) {
+            return false;
+        }
     }
 }

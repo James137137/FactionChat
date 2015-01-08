@@ -2,6 +2,7 @@ ForceToUseNewFactionsClasses: false
 MetricsOptOut: false
 DontUseAsyncEvent: false
 # some servers have /k as their defualt command for /factions
+UseDevBanManager: false
 FactionsCommand: 'f'
 # Should spy mode be on by default for those who have the correct permission node.
 # Accepts boolean [true/false].

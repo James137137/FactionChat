@@ -3,7 +3,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>nz.co.lolnet.james137137</groupId>
     <artifactId>FactionChat</artifactId>
-    <version>1.9.7</version>
+    <version>1.9.8</version>
     <packaging>jar</packaging>
     <properties>
         
@@ -22,9 +22,9 @@
         <dependency>
             <groupId>me.confuserr</groupId>
             <artifactId>BanManager</artifactId>
-            <version>4.0</version>
+            <version>4.0-dev</version>
             <scope>system</scope>
-            <systemPath>${basedir}/lib/BanManager-dev.jar</systemPath>
+            <systemPath>${basedir}/lib/BanManager.jar</systemPath>
         </dependency>
         <dependency>
             <groupId>org.anjocaido</groupId>
