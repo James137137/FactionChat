@@ -594,6 +594,38 @@ public class FactionChat extends JavaPlugin {
                         player.sendMessage("You don't have permission to run that command.");
                     }
 
+                } else if (args[0].equalsIgnoreCase("mutePlayer")) {
+                    if (player.hasPermission("FactionChat.command.mutePlayer")) {
+                        if (args.length >= 2)
+                        {
+                          ChatMode.mutePlayerOption(player,args[1],true);  
+                        }
+                        else
+                        {
+                            player.sendMessage("Missing player Name please use:");
+                            player.sendMessage("/fc mutePlayer PlayerName");
+                        }
+                        
+                    } else {
+                        player.sendMessage("You don't have permission to run that command.");
+                    }
+
+                } else if (args[0].equalsIgnoreCase("unmutePlayer")) {
+                    if (player.hasPermission("FactionChat.command.mutePlayer")) {
+                        if (args.length >= 2)
+                        {
+                          ChatMode.mutePlayerOption(player,args[1],false);  
+                        }
+                        else
+                        {
+                            player.sendMessage("Missing player Name please use:");
+                            player.sendMessage("/fc mutePlayer PlayerName");
+                        }
+                        
+                    } else {
+                        player.sendMessage("You don't have permission to run that command.");
+                    }
+
                 } else {
                     if (player != null) {
                         ChatMode.setChatMode(player, args[0]);

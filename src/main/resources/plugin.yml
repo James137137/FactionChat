@@ -78,7 +78,10 @@ permissions:
      default: true
   FactionChat.command.muteAlly:
      description: Allows player run command /fc muteAlly
-     default: true 
+     default: true
+  FactionChat.command.mutePlayer:
+     description: Allows player run command /fc mutePlayer
+     default: true
   FactionChat.Chat.Colour:
     description: Allows player to use colour in chat
     default: op

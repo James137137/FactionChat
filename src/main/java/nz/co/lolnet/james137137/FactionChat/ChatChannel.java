@@ -53,7 +53,8 @@ public class ChatChannel {
         senderFaction = FactionChat.factionsAPI.getFactionID(player);
         for (Player myPlayer : Bukkit.getServer().getOnlinePlayers()) {
 
-            if (FactionChat.factionsAPI.getFactionID(myPlayer).equalsIgnoreCase(senderFaction) && myPlayer.hasPermission("FactionChat.FactionChat")) {
+            
+            if (!ChatMode.IsPlayerMutedTarget(myPlayer, player) && FactionChat.factionsAPI.getFactionID(myPlayer).equalsIgnoreCase(senderFaction) && myPlayer.hasPermission("FactionChat.FactionChat")) {
                 myPlayer.sendMessage(normalMessage);
             } else if (ChatMode.isSpyOn(myPlayer)) {
 
@@ -94,7 +95,7 @@ public class ChatChannel {
 
             MyRel relationship = FactionChat.factionsAPI.getRelationship(player, myPlayer);
 
-            if ((relationship == MyRel.ALLY || relationship == MyRel.TRUCE
+            if (!ChatMode.IsPlayerMutedTarget(myPlayer, player) && (relationship == MyRel.ALLY || relationship == MyRel.TRUCE
                     || FactionChat.factionsAPI.getFactionName(myPlayer).equalsIgnoreCase(sSenderFaction))
                     && myPlayer.hasPermission("FactionChat.AllyChat") && myPlayer.hasPermission("FactionChat.TruceChat") && !ChatMode.IsAllyMuted(myPlayer)) {
                 myPlayer.sendMessage(normalMessage);
@@ -132,7 +133,7 @@ public class ChatChannel {
 
             MyRel relationship = FactionChat.factionsAPI.getRelationship(player, myPlayer);
 
-            if ((relationship == MyRel.ALLY
+            if (!ChatMode.IsPlayerMutedTarget(myPlayer, player) && (relationship == MyRel.ALLY
                     || FactionChat.factionsAPI.getFactionName(myPlayer).equalsIgnoreCase(sSenderFaction))
                     && myPlayer.hasPermission("FactionChat.AllyChat") && !ChatMode.IsAllyMuted(myPlayer)) {
                 myPlayer.sendMessage(normalMessage);
@@ -170,7 +171,7 @@ public class ChatChannel {
 
             MyRel relationship = FactionChat.factionsAPI.getRelationship(player, myPlayer);
 
-            if ((relationship == MyRel.TRUCE
+            if (!ChatMode.IsPlayerMutedTarget(myPlayer, player) && (relationship == MyRel.TRUCE
                     || sSenderFaction.equalsIgnoreCase(FactionChat.factionsAPI.getFactionName(myPlayer)) || FactionChat.factionsAPI.getFactionName(myPlayer).equalsIgnoreCase(sSenderFaction))
                     && myPlayer.hasPermission("FactionChat.TruceChat") && !ChatMode.IsAllyMuted(myPlayer)) {
                 myPlayer.sendMessage(normalMessage);
@@ -213,7 +214,7 @@ public class ChatChannel {
 
             MyRel relationship = FactionChat.factionsAPI.getRelationship(player, myPlayer);
 
-            if ((relationship == MyRel.ENEMY
+            if (!ChatMode.IsPlayerMutedTarget(myPlayer, player) && (relationship == MyRel.ENEMY
                     || sSenderFaction.equalsIgnoreCase(FactionChat.factionsAPI.getFactionName(player)) || FactionChat.factionsAPI.getFactionName(myPlayer).equalsIgnoreCase(sSenderFaction))
                     && myPlayer.hasPermission("FactionChat.EnemyChat") && !FactionChat.factionsAPI.isFactionless(myPlayer) && ChatMode.getChatMode(myPlayer).equals("ENEMY")) {
                 myPlayer.sendMessage(normalMessage);
@@ -323,7 +324,7 @@ public class ChatChannel {
         String spyMessage = ChatMode.FormatString(FactionChat.SpyChat, input2, playerTitle, allowCustomColour);
         for (Player myPlayer : Bukkit.getServer().getOnlinePlayers()) {
 
-            if (FactionChatAPI.getPlayerRank(player).equals(FactionChat.LeaderRank) && ChatMode.getChatMode(myPlayer).equals("LEADER")) {
+            if (!ChatMode.IsPlayerMutedTarget(myPlayer, player) && FactionChatAPI.getPlayerRank(player).equals(FactionChat.LeaderRank) && ChatMode.getChatMode(myPlayer).equals("LEADER")) {
                 myPlayer.sendMessage(normalMessage);
             } else if (ChatMode.isSpyOn(myPlayer)) {
                 myPlayer.sendMessage(spyMessage);
@@ -357,7 +358,7 @@ public class ChatChannel {
         String spyMessage = ChatMode.FormatString(FactionChat.SpyChat, input2, playerTitle, allowCustomColour);
         for (Player myPlayer : Bukkit.getServer().getOnlinePlayers()) {
 
-            if ((FactionChatAPI.getPlayerRank(player).equals(FactionChat.LeaderRank)
+            if (!ChatMode.IsPlayerMutedTarget(myPlayer, player) && (FactionChatAPI.getPlayerRank(player).equals(FactionChat.LeaderRank)
                     || FactionChatAPI.getPlayerRank(player).equals(FactionChat.OfficerRank)) && ChatMode.getChatMode(myPlayer).equals("OFFICER")) {
                 myPlayer.sendMessage(normalMessage);
             } else if (ChatMode.isSpyOn(myPlayer)) {

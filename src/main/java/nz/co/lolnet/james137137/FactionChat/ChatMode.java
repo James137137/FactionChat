@@ -1,6 +1,8 @@
 package nz.co.lolnet.james137137.FactionChat;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Objects;
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
@@ -20,6 +22,7 @@ public class ChatMode {
     protected static HashMap<String, Long> lastChat = new HashMap();
     protected static HashMap<String, Boolean> playerMutePublicMode = new HashMap();
     protected static HashMap<String, Boolean> playerMuteAllyMode = new HashMap();
+    protected static HashMap<String, List<String>> playerMuteList = new HashMap();
     protected static HashMap<String, Boolean> LocalChat = new HashMap();
     private static long chatTimeLimit;
 
@@ -35,6 +38,17 @@ public class ChatMode {
         OfficerName = FormatString(config.getString("message.ChatModeChange.OfficerChat"), null);
         mutePublicOptionEnabled = config.getBoolean("AllowPublicMuteCommand");
         chatTimeLimit = config.getLong("ChatLimit");
+    }
+    public static void cleanup(Player player)
+    {
+        String playerName = player.getName();
+        playerChatMode.remove(playerName);
+        spyMode.remove(playerName);
+        lastChat.remove(playerName);
+        playerMutePublicMode.remove(playerName);
+        playerMuteAllyMode.remove(playerName);
+        playerMuteList.remove(playerName);
+        LocalChat.remove(playerName);
     }
 
     protected static boolean isSpyOn(Player player) {
@@ -74,15 +88,14 @@ public class ChatMode {
     public static long getLastChat(String playerName) {
         return lastChat.get(playerName.toLowerCase());
     }
-    
+
     public static void updateLastChat(String playerName) {
-        lastChat.put(playerName.toLowerCase(),System.currentTimeMillis());
+        lastChat.put(playerName.toLowerCase(), System.currentTimeMillis());
     }
-    
+
     public static boolean canChat(String playerName) {
         return (System.currentTimeMillis() - getLastChat(playerName) >= chatTimeLimit);
     }
-    
 
     protected static void SetNewChatMode(Player player) {
         String playerName = player.getName().toLowerCase();
@@ -94,7 +107,7 @@ public class ChatMode {
         } else {
             spyMode.put(playerName, false);
         }
-        lastChat.put(playerName,System.currentTimeMillis());
+        lastChat.put(playerName, System.currentTimeMillis());
 
     }
 
@@ -237,7 +250,7 @@ public class ChatMode {
                 return;
             }
         }
-        
+
         if ((player.hasPermission("FactionChat.VIPChat") || FactionChat.isDebugger(player.getName()))
                 && (input.equalsIgnoreCase("VIP") || input.equalsIgnoreCase("V"))) {
             if (!FactionChat.VIPChatEnable) {
@@ -479,7 +492,7 @@ public class ChatMode {
         return message;
     }
 
-    protected static String FormatString(String message, String[] args,String playerTitle,boolean allowCostomColour) {
+    protected static String FormatString(String message, String[] args, String playerTitle, boolean allowCostomColour) {
         message = message.replaceAll("/&", "/and");
         if (args != null) {
             for (int i = 0; i < args.length; i++) {
@@ -493,12 +506,9 @@ public class ChatMode {
             if (allowCostomColour) {
                 message = message.replaceAll("&", "" + (char) 167);
             }
-            if (playerTitle != null)
-            {
-               message = message.replace("{T}", playerTitle); 
-            }
-            else
-            {
+            if (playerTitle != null) {
+                message = message.replace("{T}", playerTitle);
+            } else {
                 message = message.replace("{T}", "");
             }
         }
@@ -550,7 +560,7 @@ public class ChatMode {
         }
         playerMuteAllyMode.put(player.getName(), !isOn);
     }
-    
+
     public static boolean IsAllyMuted(Player player) {
         Boolean result = playerMuteAllyMode.get(player.getName());
         if (result == null) {
@@ -558,5 +568,42 @@ public class ChatMode {
         } else {
             return result;
         }
+    }
+
+    static void mutePlayerOption(Player player, String playerToMute, boolean mute) {
+        List<String> muteList = playerMuteList.get(player.getName());
+        if (muteList == null) {
+            muteList = new ArrayList<>();
+        }
+        Player player1 = FactionChat.plugin.getServer().getPlayer(playerToMute);
+        if (player1 == null || !player1.isOnline()) {
+            player.sendMessage(ChatColor.RED + playerToMute + " is not online.");
+            return;
+        }
+        if (mute) {
+            if (!muteList.contains(playerToMute)) {
+                muteList.add(playerToMute);
+                player.sendMessage(ChatColor.YELLOW + playerToMute + ChatColor.GREEN + " has been muted.");
+            } else {
+                player.sendMessage(ChatColor.RED + playerToMute + " is already muted. Use /fc unmute PlayerName to unmute");
+            }
+
+        } else {
+            if (muteList.contains(playerToMute)) {
+                muteList.remove(playerToMute);
+                player.sendMessage(ChatColor.YELLOW + playerToMute + ChatColor.GREEN + " has been unmuted.");
+            } else {
+                player.sendMessage(ChatColor.RED + playerToMute + " is not muted.");
+            }
+        }
+        playerMuteList.put(player.getName(), muteList);
+    }
+
+    public static boolean IsPlayerMutedTarget(Player player, Player target) {
+        List<String> muteList = playerMuteList.get(player.getName());
+        if (muteList != null) {
+            return muteList.contains(target.getName());
+        }
+        return false;
     }
 }
