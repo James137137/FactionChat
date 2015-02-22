@@ -103,7 +103,7 @@ public class FactionChatListener implements Listener {
         Player player = event.getPlayer();
         ChatMode.SetNewChatMode(player);
     }
-    
+
     @EventHandler
     public void onPlayerQuit(PlayerQuitEvent event) {
         ChatMode.cleanup(event.getPlayer());
@@ -203,37 +203,34 @@ public class FactionChatListener implements Listener {
 
             log.info("[FactionChat] " + chatmode + "|" + talkingPlayer.getName() + ": " + msg);
         } else {
-            if (ChatMode.mutePublicOptionEnabled && !talkingPlayer.hasPermission("FactionChat.mutebypass")) {
-                for (final Player player : plugin.getServer().getOnlinePlayers()) {
-                    if (ChatMode.IsPublicMuted(player)) {
-
-                        if (player.getName().equals(talkingPlayer.getName())) {
-                            ChatMode.MutePublicOption(player);
-                        } else {
-                            recipients.remove(player);
-                        }
-
-                    }
-                }
-            }
+            checkLocalMute(talkingPlayer, recipients);
 
         }
 
         return setCancelled;
     }
 
-    private void onPlayerChatLocalOption_NonAsync(org.bukkit.event.player.PlayerChatEvent event) {
-        if (event.isCancelled()) {
+    private void checkLocalMute(Player talkingPlayer, Set<Player> recipients) {
+        if (talkingPlayer.hasPermission("FactionChat.mutebypass")) {
             return;
         }
-        onPlayerChatLocalOption(event.getPlayer(), event.getRecipients());
-    }
-    
-    protected void onPlayerChatLocalOption(org.bukkit.event.player.AsyncPlayerChatEvent event) {
-        if (event.isCancelled()) {
-            return;
+
+        for (final Player player : plugin.getServer().getOnlinePlayers()) {
+            
+            if (ChatMode.mutePublicOptionEnabled && ChatMode.IsPublicMuted(player)) {
+
+                if (player.getName().equals(talkingPlayer.getName())) {
+                    ChatMode.MutePublicOption(player);
+                } else {
+                    recipients.remove(player);
+                }
+
+            } else if (ChatMode.IsPlayerMutedTarget(player, talkingPlayer)) {
+                recipients.remove(player);
+            }
+            
         }
-        onPlayerChatLocalOption(event.getPlayer(), event.getRecipients());
+
     }
 
     private void onPlayerChatLocalOption(Player player, Set<Player> recipients) {
@@ -260,6 +257,20 @@ public class FactionChatListener implements Listener {
                 recipients.remove(player1);
             }
         }
+    }
+
+    private void onPlayerChatLocalOption_NonAsync(org.bukkit.event.player.PlayerChatEvent event) {
+        if (event.isCancelled()) {
+            return;
+        }
+        onPlayerChatLocalOption(event.getPlayer(), event.getRecipients());
+    }
+
+    protected void onPlayerChatLocalOption(org.bukkit.event.player.AsyncPlayerChatEvent event) {
+        if (event.isCancelled()) {
+            return;
+        }
+        onPlayerChatLocalOption(event.getPlayer(), event.getRecipients());
     }
 
     protected void onPlayerCommand(PlayerCommandPreprocessEvent event) {

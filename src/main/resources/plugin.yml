@@ -81,7 +81,7 @@ permissions:
      default: true
   FactionChat.command.mutePlayer:
      description: Allows player run command /fc mutePlayer
-     default: true
+     default: op
   FactionChat.Chat.Colour:
     description: Allows player to use colour in chat
     default: op
