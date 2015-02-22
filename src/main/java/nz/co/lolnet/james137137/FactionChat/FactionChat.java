@@ -557,7 +557,7 @@ public class FactionChat extends JavaPlugin {
 
         boolean inFaction = true;
         if (!FactionsEnable) {
-            if (args.length == 1) {
+            if (args.length >= 1) {
                 if (args[0].equalsIgnoreCase("update")
                         && (sender.hasPermission("FactionChat.Update") || FactionChat.isDebugger(sender.getName()))) {
                     Updater updater = new Updater(this, 50517, this.getFile(), UpdateType.DEFAULT, true);
