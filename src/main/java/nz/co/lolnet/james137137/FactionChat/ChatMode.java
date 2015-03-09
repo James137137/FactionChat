@@ -509,6 +509,7 @@ public class ChatMode {
             if (playerTitle != null) {
                 message = message.replace("{T}", playerTitle);
             } else {
+                message = message.replace("{T}-", "");
                 message = message.replace("{T}", "");
             }
         }
