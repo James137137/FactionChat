@@ -284,7 +284,7 @@ public class FactionChat extends JavaPlugin {
         } else {
             reloadCountCheck = 0;
         }
-        loadMyNewConfig();
+        //loadMyNewConfig();
 
     }
 
