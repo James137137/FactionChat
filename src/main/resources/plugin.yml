@@ -49,117 +49,117 @@ commands:
     usage: /<command> <info/change> <playername> <option>
        
 permissions:
-  FactionChat.*:
-    description: Gives access to all FactionChat commands
+  factionchat.*:
+    description: gives access to all factionchat commands
     default: op
     children:
-      FactionChat.spy: true
-      FactionChat.AdminChat: true
-      FactionChat.Update: true
-      FactionChat.OtherChat: true
-      FactionChat.EnemyChat: true
-      FactionChat.admins: true
-      FactionChat.mutebypass: true
-      FactionChat.LocalChatBypass.PublicSend: true
-      FactionChat.LocalChatBypass.PublicReceive: true
-      FactionChat.LocalChatBypass.ChannelSend: true
-      FactionChat.LocalChatBypass.ChannelReceive: true
-  FactionChat.FactionChat:
-    description: Allows player to send and receive messages from their Factions.
+      factionchat.spy: true
+      factionchat.adminchat: true
+      factionchat.update: true
+      factionchat.otherchat: true
+      factionchat.enemychat: true
+      factionchat.admins: true
+      factionchat.mutebypass: true
+      factionchat.localchatbypass.publicsend: true
+      factionchat.localchatbypass.publicreceive: true
+      factionchat.localchatbypass.channelsend: true
+      factionchat.localchatbypass.channelreceive: true
+  factionchat.factionchat:
+    description: allows player to send and receive messages from their factions.
     default: true
-  FactionChat.AllyChat:
-    description: Allows player to send and receive messages from their ally Factions
+  factionchat.allychat:
+    description: allows player to send and receive messages from their ally factions
     default: true
-  FactionChat.TruceChat:
-    description: Allows player to send and receive messages from their truce Factions
+  factionchat.trucechat:
+    description: allows player to send and receive messages from their truce factions
     default: true  
-  FactionChat.command.mutePublic:
-     description: Allows player run command /fc mute or /fc mutePublic
+  factionchat.command.mutepublic:
+     description: allows player run command /fc mute or /fc mutepublic
      default: true
-  FactionChat.command.muteAlly:
-     description: Allows player run command /fc muteAlly
+  factionchat.command.muteally:
+     description: allows player run command /fc muteally
      default: true
-  FactionChat.command.mutePlayer:
-     description: Allows player run command /fc mutePlayer
+  factionchat.command.muteplayer:
+     description: allows player run command /fc muteplayer
      default: op
-  FactionChat.Chat.Colour:
-    description: Allows player to use colour in chat
+  factionchat.chat.colour:
+    description: allows player to use colour in chat
     default: op
-  FactionChat.OtherChat:
-    description: Allows player to send messages to other Factions
+  factionchat.otherchat:
+    description: allows player to send messages to other factions
     default: op
-  FactionChat.EnemyChat:
-    description: Allows player to use Enemy chat.
+  factionchat.enemychat:
+    description: allows player to use enemy chat.
     default: op    
-  FactionChat.admin.info:
-    description: Allows player to display infomation of a player
+  factionchat.admin.info:
+    description: allows player to display infomation of a player
     default: op
-  FactionChat.admin.change:
-    description: Allows player to change chat mode of the target player
+  factionchat.admin.change:
+    description: allows player to change chat mode of the target player
     default: op
-  FactionChat.spy:
-    description: Allows player to see all Faction,ally,Enemy,and other chat
+  factionchat.spy:
+    description: allows player to see all faction,ally,enemy,and other chat
     default: op
-  FactionChat.VIPChat:
-    description: Allows player to see and use VIP chat
+  factionchat.vipchat:
+    description: allows player to see and use vip chat
     default: op
-  FactionChat.UserAssistantChat:
-    description: Allows player to see and use UserAssistant chat
-    default: op
-    children:
-      FactionChat.VIPChat: true
-  FactionChat.JrModChat:
-    description: Allows player to see and use JrModerator chat
+  factionchat.userassistantchat:
+    description: allows player to see and use userassistant chat
     default: op
     children:
-      FactionChat.UserAssistantChat: true
-  FactionChat.ModChat:
-    description: Allows player to see and use Moderator chat
+      factionchat.vipchat: true
+  factionchat.jrmodchat:
+    description: allows player to see and use jrmoderator chat
     default: op
     children:
-      FactionChat.JrModChat: true
-  FactionChat.SrModChat:
-    description: Allows player to see and use SrModerator chat
+      factionchat.userassistantchat: true
+  factionchat.modchat:
+    description: allows player to see and use moderator chat
     default: op
     children:
-      FactionChat.JrModChat: true
-      FactionChat.ModChat: true
-  FactionChat.JrAdminChat:
-    description: Allows player to see and use Jradministrator chat
+      factionchat.jrmodchat: true
+  factionchat.srmodchat:
+    description: allows player to see and use srmoderator chat
     default: op
     children:
-      FactionChat.JrModChat: true
-      FactionChat.ModChat: true
-      FactionChat.SrModChat: true
-  FactionChat.AdminChat:
-    description: Allows player to see and use Administrator chat
+      factionchat.jrmodchat: true
+      factionchat.modchat: true
+  factionchat.jradminchat:
+    description: allows player to see and use jradministrator chat
     default: op
     children:
-      FactionChat.JrModChat: true
-      FactionChat.ModChat: true
-      FactionChat.SrModChat: true
-      FactionChat.JrAdminChat: true
-  FactionChat.Update:
-    description: Allows player to Check and update this plugin
+      factionchat.jrmodchat: true
+      factionchat.modchat: true
+      factionchat.srmodchat: true
+  factionchat.adminchat:
+    description: allows player to see and use administrator chat
     default: op
-  FactionChat.Reload:
-    description: Allows player to reload plugin
+    children:
+      factionchat.jrmodchat: true
+      factionchat.modchat: true
+      factionchat.srmodchat: true
+      factionchat.jradminchat: true
+  factionchat.update:
+    description: allows player to check and update this plugin
     default: op
-  FactionChat.mutebypass:
-    description: Allows staff to bypass publicMute and send messages to all players
+  factionchat.reload:
+    description: allows player to reload plugin
     default: op
-  FactionChat.LocalChat.command:
-    description: Allows players to swich to/from LocalChat on themself
+  factionchat.mutebypass:
+    description: allows staff to bypass publicmute and send messages to all players
     default: op
-  FactionChat.LocalChatBypass.PublicSend:
-    description: Allows staff to bypass LocalChat and send messages to all players no matter what distance
+  factionchat.localchat.command:
+    description: allows players to swich to/from localchat on themself
     default: op
-  FactionChat.LocalChatBypass.PublicReceive:
-    description: Allows staff to bypass LocalChat and receive messages from all players no matter what distance
+  factionchat.localchatbypass.publicsend:
+    description: allows staff to bypass localchat and send messages to all players no matter what distance
     default: op
-  FactionChat.LocalChatBypass.ChannelSend:
-    description: Allows staff to bypass LocalChat Faction Channel and send messages to all players no matter what distance
+  factionchat.localchatbypass.publicreceive:
+    description: allows staff to bypass localchat and receive messages from all players no matter what distance
     default: op
-  FactionChat.LocalChatBypass.ChannelReceive:
-    description: Allows staff to bypass LocalChat Faction Channel and receive messages from all players no matter what distance
+  factionchat.localchatbypass.channelsend:
+    description: allows staff to bypass localchat faction channel and send messages to all players no matter what distance
+    default: op
+  factionchat.localchatbypass.channelreceive:
+    description: allows staff to bypass localchat faction channel and receive messages from all players no matter what distance
     default: op
