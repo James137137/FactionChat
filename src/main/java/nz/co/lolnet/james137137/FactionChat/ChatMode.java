@@ -39,8 +39,8 @@ public class ChatMode {
         mutePublicOptionEnabled = config.getBoolean("AllowPublicMuteCommand");
         chatTimeLimit = config.getLong("ChatLimit");
     }
-    public static void cleanup(Player player)
-    {
+
+    public static void cleanup(Player player) {
         String playerName = player.getName();
         playerChatMode.remove(playerName);
         spyMode.remove(playerName);
@@ -482,6 +482,11 @@ public class ChatMode {
 
         message = message.replaceAll("/&", "/and");
         if (args != null) {
+            
+            if (args.length >= 3) {
+                args[2] = args[2].replaceAll("&", "" + (char) 167);
+            }
+            
             for (int i = 0; i < args.length; i++) {
                 message = message.replace("{" + i + "}", args[i]);
             }
@@ -495,6 +500,11 @@ public class ChatMode {
     protected static String FormatString(String message, String[] args, String playerTitle, boolean allowCostomColour) {
         message = message.replaceAll("/&", "/and");
         if (args != null) {
+            
+            if (args.length >= 3) {
+                args[2] = args[2].replaceAll("&", "" + (char) 167);
+            }
+            
             for (int i = 0; i < args.length; i++) {
                 message = message.replace("{" + i + "}", args[i]);
             }
