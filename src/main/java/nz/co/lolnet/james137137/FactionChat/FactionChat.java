@@ -94,6 +94,7 @@ public class FactionChat extends JavaPlugin {
 
         if (FactionsEnable) {
             ComparableVersion facitonVersion = new ComparableVersion(FactionPlugin.getDescription().getVersion());
+            //FactionsAPI_1_8_3_FactionsOne_1.class
             if (facitonVersion.compareTo(new ComparableVersion("1.6.999")) < 0) {
                 try {
                     factionsAPI = (FactionsAPI) Class.forName("nz.co.lolnet.james137137.FactionChat.FactionsAPI.FactionsAPI_1_6").getConstructor().newInstance();
