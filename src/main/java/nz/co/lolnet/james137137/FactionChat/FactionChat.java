@@ -94,8 +94,13 @@ public class FactionChat extends JavaPlugin {
 
         if (FactionsEnable) {
             ComparableVersion facitonVersion = new ComparableVersion(FactionPlugin.getDescription().getVersion());
-            //FactionsAPI_1_8_3_FactionsOne_1.class
-            if (facitonVersion.compareTo(new ComparableVersion("1.6.999")) < 0) {
+            if (FactionPlugin.getDescription().getAuthors().contains("externo6")) {
+                try {
+                    factionsAPI = (FactionsAPI) Class.forName("nz.co.lolnet.james137137.FactionChat.FactionsAPI.FactionsAPI_1_8_3_FactionsOne_1").getConstructor().newInstance();
+                } catch (Exception ex) {
+                    Logger.getLogger(FactionChat.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            } else if (facitonVersion.compareTo(new ComparableVersion("1.6.999")) < 0) {
                 try {
                     factionsAPI = (FactionsAPI) Class.forName("nz.co.lolnet.james137137.FactionChat.FactionsAPI.FactionsAPI_1_6").getConstructor().newInstance();
                 } catch (Exception ex) {
