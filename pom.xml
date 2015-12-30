@@ -24,13 +24,6 @@
             <systemPath>${basedir}/lib/BanManager.jar</systemPath>
         </dependency>
         <dependency>
-            <groupId>org.anjocaido</groupId>
-            <artifactId>GroupManager</artifactId>
-            <version>2.11.1</version>
-            <scope>system</scope>
-            <systemPath>${basedir}/lib/EssentialsGroupManager.jar</systemPath>
-        </dependency>
-        <dependency>
             <groupId>ru.tehkode</groupId>
             <artifactId>PermissionsEx</artifactId>
             <version>1.20.4</version>
@@ -58,6 +51,12 @@
             <groupId>org.bukkit</groupId>
             <artifactId>bukkit</artifactId>
             <version>1.8.8-R0.1-SNAPSHOT</version>
+        </dependency>
+        <dependency>
+            <groupId>net.ess3</groupId>
+            <artifactId>GroupManager</artifactId>
+            <version>2.x-SNAPSHOT</version>
+            <type>jar</type>
         </dependency>
     </dependencies>
     
