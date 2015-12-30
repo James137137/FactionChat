@@ -46,10 +46,8 @@
         </dependency>
         <dependency>
             <groupId>fr.xephi</groupId>
-            <artifactId>AuthMe</artifactId>
-            <version>3.4</version>
-            <scope>system</scope>
-            <systemPath>${basedir}/lib/AuthMe.jar</systemPath>
+            <artifactId>authme</artifactId>
+            <version>5.2-SNAPSHOT</version>
         </dependency>
         <dependency>
             <groupId>nz.co.lolnet.james137137</groupId>
@@ -67,6 +65,10 @@
         <repository>
             <id>file.repo</id>
             <url>file://${project.basedir}/repo</url>
+        </repository>
+        <repository>
+            <id>AuthMe-repo</id>
+            <url>http://ci.xephi.fr/plugin/repository/everything</url>
         </repository>
         <repository>
             <id>spigot-repo</id>
