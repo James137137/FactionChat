@@ -13,7 +13,6 @@ import net.gravitydevelopment.updater.Updater;
 import net.gravitydevelopment.updater.Updater.UpdateResult;
 import net.gravitydevelopment.updater.Updater.UpdateType;
 import nz.co.lolnet.james137137.FactionChat.FactionsAPI.FactionsAPI;
-import nz.co.lolnet.james137137.mcstats.Metrics;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
@@ -70,7 +69,7 @@ public class FactionChat extends JavaPlugin {
         isMetricsOptOut = config.getBoolean("MetricsOptOut");
 
         if (!isMetricsOptOut) {
-            runMetrics();
+            //runMetrics();
         }
 
         Plugin FactionPlugin = getServer().getPluginManager().getPlugin("Factions");
@@ -698,16 +697,6 @@ public class FactionChat extends JavaPlugin {
 
     public static boolean useBanManager() {
         return banManagerEnabled;
-    }
-
-    private void runMetrics() {
-        try {
-            Metrics metrics = new Metrics(this);
-            metrics.start();
-        } catch (IOException e) {
-            // Failed to submit the stats :-(
-            log.info("[" + this.getName() + "] Metrics: Failed to submit the stats");
-        }
     }
 
 }
