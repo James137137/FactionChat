@@ -19,7 +19,7 @@
         <dependency>
             <groupId>me.confuserr</groupId>
             <artifactId>BanManager</artifactId>
-            <version>4.0-dev</version>
+            <version>5.8.0</version>
             <scope>system</scope>
             <systemPath>${basedir}/lib/BanManager.jar</systemPath>
         </dependency>
