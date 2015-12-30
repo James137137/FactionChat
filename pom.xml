@@ -24,13 +24,6 @@
             <systemPath>${basedir}/lib/BanManager.jar</systemPath>
         </dependency>
         <dependency>
-            <groupId>ru.tehkode</groupId>
-            <artifactId>PermissionsEx</artifactId>
-            <version>1.20.4</version>
-            <scope>system</scope>
-            <systemPath>${basedir}/lib/PermissionsEx.jar</systemPath>
-        </dependency>
-        <dependency>
             <groupId>de.bananaco</groupId>
             <artifactId>bPermissions</artifactId>
             <version>2.10.7</version>
@@ -56,6 +49,12 @@
             <groupId>net.ess3</groupId>
             <artifactId>GroupManager</artifactId>
             <version>2.x-SNAPSHOT</version>
+            <type>jar</type>
+        </dependency>
+        <dependency>
+            <groupId>ru.tehkode</groupId>
+            <artifactId>PermissionsEx</artifactId>
+            <version>1.19.1</version>
             <type>jar</type>
         </dependency>
     </dependencies>
