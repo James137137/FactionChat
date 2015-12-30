@@ -5,7 +5,6 @@
  */
 package nz.co.lolnet.james137137.FactionChat.PrefixAndSuffix;
 
-import nz.co.lolnet.james137137.FactionChat.FactionChat;
 import org.bukkit.entity.Player;
 import ru.tehkode.permissions.bukkit.PermissionsEx;
 

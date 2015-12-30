@@ -8,7 +8,6 @@ package nz.co.lolnet.james137137.FactionChat.PrefixAndSuffix;
 
 import de.bananaco.bpermissions.api.ApiLayer;
 import de.bananaco.bpermissions.api.CalculableType;
-import nz.co.lolnet.james137137.FactionChat.FactionChat;
 import org.bukkit.entity.Player;
 
 /**
