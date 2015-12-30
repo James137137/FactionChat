@@ -19,13 +19,14 @@ class AuthMeAPI {
         enable = aThis;
     }
 
-    private static boolean isLoggedIn(Player player) {
+    public static boolean isLoggedIn(Player player) {
         if (enable) {
             return fr.xephi.authme.api.API.isAuthenticated(player);
         }
         return true;
     }
 
+    @Deprecated
     public static boolean isAllowToChat(Player player) {
         if (!enable) {
             return true;
