@@ -19,7 +19,7 @@ class AuthMeAPI {
         enable = aThis;
     }
 
-    public static boolean isLoggedIn(Player player) {
+    private static boolean isLoggedIn(Player player) {
         if (enable) {
             boolean result = false;
             try {
@@ -31,18 +31,11 @@ class AuthMeAPI {
         }
         return true;
     }
-
-    @Deprecated
+    
     public static boolean isAllowToChat(Player player) {
         if (!enable) {
             return true;
         }
-        if (fr.xephi.authme.settings.Settings.isChatAllowed) {
-            return true;
-        }
-        if (isLoggedIn(player)) {
-            return true;
-        }
-        return false;
+        return isLoggedIn(player);
     }
 }
