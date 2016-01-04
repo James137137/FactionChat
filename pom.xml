@@ -46,10 +46,11 @@
             <version>1.8.8-R0.1-SNAPSHOT</version>
         </dependency>
         <dependency>
-            <groupId>net.ess3</groupId>
+            <groupId>org.anjocaido</groupId>
             <artifactId>GroupManager</artifactId>
-            <version>2.x-SNAPSHOT</version>
-            <type>jar</type>
+            <version>2.11.1</version>
+            <scope>system</scope>
+            <systemPath>${basedir}/lib/EssentialsGroupManager.jar</systemPath>
         </dependency>
         <dependency>
             <groupId>ru.tehkode</groupId>
