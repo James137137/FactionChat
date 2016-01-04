@@ -55,7 +55,8 @@
             <groupId>ru.tehkode</groupId>
             <artifactId>PermissionsEx</artifactId>
             <version>1.19.1</version>
-            <type>jar</type>
+            <scope>system</scope>
+            <systemPath>${basedir}/lib/PermissionsEx.jar</systemPath>
         </dependency>
     </dependencies>
     
