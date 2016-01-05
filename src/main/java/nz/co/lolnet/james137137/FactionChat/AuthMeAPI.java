@@ -23,9 +23,9 @@ class AuthMeAPI {
         if (enable) {
             boolean result = false;
             try {
-                result = fr.xephi.authme.api.NewAPI.getInstance().isAuthenticated(player);
+                result = fr.xephi.authme.api.NewAPI.getInstance().isAuthenticated(player) && fr.xephi.authme.api.NewAPI.getInstance().isRegistered(player.getName());
             } catch (Exception e) {
-                result = fr.xephi.authme.api.API.isAuthenticated(player);
+                result = fr.xephi.authme.api.API.isAuthenticated(player) && fr.xephi.authme.api.API.isRegistered(player.getName());
             }
             return result;
         }
