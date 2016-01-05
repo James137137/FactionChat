@@ -17,11 +17,9 @@
             <optional>true</optional>
         </dependency>
         <dependency>
-            <groupId>me.confuserr</groupId>
+            <groupId>me.confuser</groupId>
             <artifactId>BanManager</artifactId>
             <version>5.8.0</version>
-            <scope>system</scope>
-            <systemPath>${basedir}/lib/BanManager.jar</systemPath>
         </dependency>
         <dependency>
             <groupId>de.bananaco</groupId>
@@ -75,6 +73,10 @@
         <repository>
             <id>vault-repo</id>
             <url>http://maven.sk89q.com/repo/</url>
+        </repository>
+        <repository>
+            <id>confuser-repo</id>
+            <url>http://ci.frostcast.net/plugin/repository/everything</url>
         </repository>
     </repositories>
     
