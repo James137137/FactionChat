@@ -47,10 +47,8 @@
         </dependency>
         <dependency>
             <groupId>org.anjocaido</groupId>
-            <artifactId>GroupManager</artifactId>
-            <version>2.11.1</version>
-            <scope>system</scope>
-            <systemPath>${basedir}/lib/EssentialsGroupManager.jar</systemPath>
+            <artifactId>groupmanagerx</artifactId>
+            <version>2.2-SNAPSHOT</version>
         </dependency>
         <dependency>
             <groupId>ru.tehkode</groupId>
