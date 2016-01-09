@@ -21,8 +21,10 @@ class AuthMeAPI {
 
     private static boolean isLoggedIn(Player player) {
         if (enable) {
-            boolean result = false;
+            boolean result;
             try {
+                System.out.println("FactionChat debug: Authenticated: " + fr.xephi.authme.api.NewAPI.getInstance().isAuthenticated(player));
+                System.out.println("FactionChat debug: Registered: " + fr.xephi.authme.api.NewAPI.getInstance().isRegistered(player.getName()));
                 result = fr.xephi.authme.api.NewAPI.getInstance().isAuthenticated(player) && fr.xephi.authme.api.NewAPI.getInstance().isRegistered(player.getName());
             } catch (Exception e) {
                 result = fr.xephi.authme.api.API.isAuthenticated(player) && fr.xephi.authme.api.API.isRegistered(player.getName());
@@ -31,11 +33,16 @@ class AuthMeAPI {
         }
         return true;
     }
-    
+
     public static boolean isAllowToChat(Player player) {
+        System.out.println("FactionChat debug: " + player.getDisplayName());
         if (!enable) {
+            System.out.println("FactionChat debug: AuthMeAPI Enabled = false");
             return true;
         }
-        return isLoggedIn(player);
+        boolean result = isLoggedIn(player);
+        System.out.println("FactionChat debug: AuthMeAPI isLoggedIn = " + result);
+        System.out.println("FactionChat debug End: " + player.getDisplayName());
+        return result;
     }
 }
