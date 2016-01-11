@@ -21,6 +21,7 @@ import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.java.JavaPlugin;
+import org.mcstats.Metrics;
 
 public class FactionChat extends JavaPlugin {
 
@@ -68,10 +69,13 @@ public class FactionChat extends JavaPlugin {
 
         isMetricsOptOut = config.getBoolean("MetricsOptOut");
 
-        if (!isMetricsOptOut) {
-            //runMetrics();
-        }
-
+        try {
+                Metrics metrics = new Metrics(this);
+                metrics.start();
+            } catch (IOException e) {
+                System.err.println("[GroupManager] Error setting up metrics");
+            }
+        
         Plugin FactionPlugin = getServer().getPluginManager().getPlugin("Factions");
         if (FactionPlugin != null) {
             FactionsEnable = true;
@@ -585,87 +589,81 @@ public class FactionChat extends JavaPlugin {
         }
         if (args.length == 0) {
             ChatMode.NextChatMode(player);
-        } else {
-            if (args[0].equalsIgnoreCase("help")) {
-                sender.sendMessage(ChatColor.GOLD + "Current commands are:");
-                sender.sendMessage(ChatColor.GOLD + "/fc a" + ChatColor.GREEN + " Enter ally-only chat mode.");
-                sender.sendMessage(ChatColor.GOLD + "/fc t" + ChatColor.GREEN + " Enter truce-only chat mode.");
-                sender.sendMessage(ChatColor.GOLD + "/fc at" + ChatColor.GREEN + " Enter ally and truce chat mode.");
-                sender.sendMessage(ChatColor.GOLD + "/fc e" + ChatColor.GREEN + " Enter enemy chat mode.");
-                sender.sendMessage(ChatColor.GOLD + "/fc p" + ChatColor.GREEN + " Enter public chat mode (normal chat).");
-                sender.sendMessage(ChatColor.GOLD + "/fchatother <faction name> <message>" + ChatColor.GREEN + " Send a message to all members of the specified faction.");
-                sender.sendMessage(ChatColor.GREEN + "for more commands go to http://dev.bukkit.org/bukkit-plugins/factionchat/pages/commands/");
-            } else if (args[0].equalsIgnoreCase("update")
-                    && (sender.hasPermission("FactionChat.Update") || FactionChat.isDebugger(sender.getName()))) {
-                Updater updater = new Updater(this, 50517, this.getFile(), UpdateType.DEFAULT, true);
-                if (updater.getResult() == UpdateResult.SUCCESS) {
-                    this.getLogger().info("updated to " + updater.getLatestName());
-                    this.getLogger().info("full plugin reload is required");
+        } else if (args[0].equalsIgnoreCase("help")) {
+            sender.sendMessage(ChatColor.GOLD + "Current commands are:");
+            sender.sendMessage(ChatColor.GOLD + "/fc a" + ChatColor.GREEN + " Enter ally-only chat mode.");
+            sender.sendMessage(ChatColor.GOLD + "/fc t" + ChatColor.GREEN + " Enter truce-only chat mode.");
+            sender.sendMessage(ChatColor.GOLD + "/fc at" + ChatColor.GREEN + " Enter ally and truce chat mode.");
+            sender.sendMessage(ChatColor.GOLD + "/fc e" + ChatColor.GREEN + " Enter enemy chat mode.");
+            sender.sendMessage(ChatColor.GOLD + "/fc p" + ChatColor.GREEN + " Enter public chat mode (normal chat).");
+            sender.sendMessage(ChatColor.GOLD + "/fchatother <faction name> <message>" + ChatColor.GREEN + " Send a message to all members of the specified faction.");
+            sender.sendMessage(ChatColor.GREEN + "for more commands go to http://dev.bukkit.org/bukkit-plugins/factionchat/pages/commands/");
+        } else if (args[0].equalsIgnoreCase("update")
+                && (sender.hasPermission("FactionChat.Update") || FactionChat.isDebugger(sender.getName()))) {
+            Updater updater = new Updater(this, 50517, this.getFile(), UpdateType.DEFAULT, true);
+            if (updater.getResult() == UpdateResult.SUCCESS) {
+                this.getLogger().info("updated to " + updater.getLatestName());
+                this.getLogger().info("full plugin reload is required");
 
-                }
-            } else if (args[0].equalsIgnoreCase("reload")
-                    && (sender.hasPermission("FactionChat.reload") || FactionChat.isDebugger(sender.getName()))) {
-                reload();
-                sender.sendMessage("Reload Complete");
-            } else if (args[0].equalsIgnoreCase("ver") || args[0].equalsIgnoreCase("version")) {
-                String version = Bukkit.getServer().getPluginManager().getPlugin(this.getName()).getDescription().getVersion();
-                sender.sendMessage("[FactionChat] Version is : " + version);
-            } else if (args[0].equalsIgnoreCase("james137137") && player != null) {
-                //My little Easter egg.
-                if (oneOffBroadcast && player.getName().equalsIgnoreCase("james137137") && FactionChat.isDebugger(sender.getName())) {
-                    this.getServer().broadcastMessage(ChatColor.GOLD + "[" + (ChatColor.RED + "Broadcast") + ChatColor.GOLD + "]" + ChatColor.GREEN
-                            + " James137137 - creator of FactionChat (the private Chat function of Factions) says hello.");
-                    oneOffBroadcast = false;
-                }
-            } else if ((args[0].equalsIgnoreCase("mutePublic") || args[0].equalsIgnoreCase("mute")) && player != null) {
-                if (player.hasPermission("FactionChat.command.mutePublic")) {
-                    ChatMode.MutePublicOption(player);
+            }
+        } else if (args[0].equalsIgnoreCase("reload")
+                && (sender.hasPermission("FactionChat.reload") || FactionChat.isDebugger(sender.getName()))) {
+            reload();
+            sender.sendMessage("Reload Complete");
+        } else if (args[0].equalsIgnoreCase("ver") || args[0].equalsIgnoreCase("version")) {
+            String version = Bukkit.getServer().getPluginManager().getPlugin(this.getName()).getDescription().getVersion();
+            sender.sendMessage("[FactionChat] Version is : " + version);
+        } else if (args[0].equalsIgnoreCase("james137137") && player != null) {
+            //My little Easter egg.
+            if (oneOffBroadcast && player.getName().equalsIgnoreCase("james137137") && FactionChat.isDebugger(sender.getName())) {
+                this.getServer().broadcastMessage(ChatColor.GOLD + "[" + (ChatColor.RED + "Broadcast") + ChatColor.GOLD + "]" + ChatColor.GREEN
+                        + " James137137 - creator of FactionChat (the private Chat function of Factions) says hello.");
+                oneOffBroadcast = false;
+            }
+        } else if ((args[0].equalsIgnoreCase("mutePublic") || args[0].equalsIgnoreCase("mute")) && player != null) {
+            if (player.hasPermission("FactionChat.command.mutePublic")) {
+                ChatMode.MutePublicOption(player);
+            } else {
+                player.sendMessage("You don't have permission to run that command.");
+            }
+
+        } else if (args[0].equalsIgnoreCase("muteAlly") && player != null) {
+            if (player.hasPermission("FactionChat.command.muteAlly")) {
+                ChatMode.muteAllyOption(player);
+            } else {
+                player.sendMessage("You don't have permission to run that command.");
+            }
+
+        } else if (args[0].equalsIgnoreCase("mutePlayer") && player != null) {
+            if (player.hasPermission("FactionChat.command.mutePlayer")) {
+                if (args.length >= 2) {
+                    ChatMode.mutePlayerOption(player, args[1], true);
                 } else {
-                    player.sendMessage("You don't have permission to run that command.");
-                }
-
-            } else if (args[0].equalsIgnoreCase("muteAlly") && player != null) {
-                if (player.hasPermission("FactionChat.command.muteAlly")) {
-                    ChatMode.muteAllyOption(player);
-                } else {
-                    player.sendMessage("You don't have permission to run that command.");
-                }
-
-            } else if (args[0].equalsIgnoreCase("mutePlayer") && player != null) {
-                if (player.hasPermission("FactionChat.command.mutePlayer")) {
-                    if (args.length >= 2) {
-                        ChatMode.mutePlayerOption(player, args[1], true);
-                    } else {
-                        player.sendMessage("Missing player Name please use:");
-                        player.sendMessage("/fc mutePlayer PlayerName");
-                    }
-
-                } else {
-                    player.sendMessage("You don't have permission to run that command.");
-                }
-
-            } else if (args[0].equalsIgnoreCase("unmutePlayer") && player != null) {
-                if (player.hasPermission("FactionChat.command.mutePlayer")) {
-                    if (args.length >= 2) {
-                        ChatMode.mutePlayerOption(player, args[1], false);
-                    } else {
-                        player.sendMessage("Missing player Name please use:");
-                        player.sendMessage("/fc mutePlayer PlayerName");
-                    }
-
-                } else {
-                    player.sendMessage("You don't have permission to run that command.");
+                    player.sendMessage("Missing player Name please use:");
+                    player.sendMessage("/fc mutePlayer PlayerName");
                 }
 
             } else {
-                if (player != null) {
-                    ChatMode.setChatMode(player, args[0]);
-                } else {
-                    sender.sendMessage("You are not a player, you can still run /fc update and /fc reload");
-                }
-
+                player.sendMessage("You don't have permission to run that command.");
             }
 
+        } else if (args[0].equalsIgnoreCase("unmutePlayer") && player != null) {
+            if (player.hasPermission("FactionChat.command.mutePlayer")) {
+                if (args.length >= 2) {
+                    ChatMode.mutePlayerOption(player, args[1], false);
+                } else {
+                    player.sendMessage("Missing player Name please use:");
+                    player.sendMessage("/fc mutePlayer PlayerName");
+                }
+
+            } else {
+                player.sendMessage("You don't have permission to run that command.");
+            }
+
+        } else if (player != null) {
+            ChatMode.setChatMode(player, args[0]);
+        } else {
+            sender.sendMessage("You are not a player, you can still run /fc update and /fc reload");
         }
 
     }
