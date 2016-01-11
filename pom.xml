@@ -15,21 +15,25 @@
             <artifactId>Vault</artifactId>
             <version>1.2.16</version>
             <optional>true</optional>
+            <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>me.confuser</groupId>
             <artifactId>BanManager</artifactId>
             <version>5.8.0</version>
+            <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>de.bananaco</groupId>
             <artifactId>bPermissions</artifactId>
             <version>2.12-DEV</version>
+            <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>fr.xephi</groupId>
             <artifactId>authme</artifactId>
             <version>5.2-SNAPSHOT</version>
+            <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>nz.co.lolnet.james137137</groupId>
@@ -40,18 +44,19 @@
             <groupId>org.bukkit</groupId>
             <artifactId>bukkit</artifactId>
             <version>1.8.8-R0.1-SNAPSHOT</version>
+            <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>org.anjocaido</groupId>
             <artifactId>groupmanagerx</artifactId>
             <version>2.2-SNAPSHOT</version>
+            <scope>provided</scope>
         </dependency>
         <dependency>
-            <groupId>ru.tehkode</groupId>
-            <artifactId>PermissionsEx</artifactId>
-            <version>1.23.1</version>
-            <scope>system</scope>
-            <systemPath>${basedir}/lib/PermissionsEx.jar</systemPath>
+            <groupId>ninja.leaping.permissionsex</groupId>
+            <artifactId>permissionsex-bukkit</artifactId>
+            <version>2.0-SNAPSHOT</version>
+            <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>org.mcstats.bukkit</groupId>
@@ -90,8 +95,8 @@
             <url>http://ci.frostcast.net/plugin/repository/everything/</url>
         </repository>
         <repository>
-            <id>pex-repo</id>
-            <url>http://pex-repo.aoeu.xyz/</url>
+            <id>Lolnet-repo</id>
+            <url>http://jenkins.lolnet.co.nz/plugin/repository/everything/</url>
         </repository>
     </repositories>
     
