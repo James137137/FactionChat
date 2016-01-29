@@ -9,10 +9,13 @@ import java.io.IOException;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
 import net.gravitydevelopment.updater.Updater;
 import net.gravitydevelopment.updater.Updater.UpdateResult;
 import net.gravitydevelopment.updater.Updater.UpdateType;
+
 import nz.co.lolnet.james137137.FactionChat.FactionsAPI.FactionsAPI;
+
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
@@ -70,12 +73,12 @@ public class FactionChat extends JavaPlugin {
         isMetricsOptOut = config.getBoolean("MetricsOptOut");
 
         try {
-                Metrics metrics = new Metrics(this);
-                metrics.start();
-            } catch (IOException e) {
-                System.err.println("[GroupManager] Error setting up metrics");
-            }
-        
+            Metrics metrics = new Metrics(this);
+            metrics.start();
+        } catch (IOException e) {
+            // Failed to submit the stats :-(
+        }
+
         Plugin FactionPlugin = getServer().getPluginManager().getPlugin("Factions");
         if (FactionPlugin != null) {
             FactionsEnable = true;
