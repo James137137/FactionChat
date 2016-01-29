@@ -1,5 +1,5 @@
 name: FactionChat
-softdepend: [Factions,BanManager,bPermissions,GroupManager,PermissionsEx,AuthMe]
+softdepend: [Factions, BanManager, bPermissions, GroupManager, PermissionsEx, AuthMe, Essentials]
 main: nz.co.lolnet.james137137.FactionChat.FactionChat
 version: ${project.version}
 authors: [James Anderson]

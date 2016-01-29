@@ -24,6 +24,9 @@ DisabledCommands:
     - Example_fchatat
     - Example_fa
     - Example_fat
+Essentials:
+    useNickName: false
+    
 # Event Priority, only change if you know what you are doing, please refer to http://wiki.bukkit.org/Event_API_Reference#Event_Priorities
 # 1 = EventPriority.LOWEST and 6 = EventPriority.MONITOR.
 # any other numbers will stop the plugin

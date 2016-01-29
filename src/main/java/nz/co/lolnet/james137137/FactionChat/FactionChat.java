@@ -31,6 +31,7 @@ public class FactionChat extends JavaPlugin {
     public static FactionChat plugin;
     static Logger log;
     public static boolean isMetricsOptOut;
+    public static boolean useEssentialsNick = false;
     private ChatChannel ChatChannel;
     public static String FactionChatMessage, AllyTruceChat, AllyChat, TruceChat, EnemyChat, LeaderChat, OfficerChat,
             OtherFactionChatTo, OtherFactionChatFrom, OtherFactionChatSpy, SpyChat,
@@ -87,7 +88,9 @@ public class FactionChat extends JavaPlugin {
         }
 
         new FactionChatAPI().setupAPI(this);
-        new AuthMeAPI(this.getServer().getPluginManager().getPlugin("AuthMe") != null);
+        
+        new EssentialsAPI(this.getServer().getPluginManager().getPlugin("AuthMe") != null);
+        new AuthMeAPI(this.getServer().getPluginManager().getPlugin("Essentials") != null);
         Plugin BanManager = this.getServer().getPluginManager().getPlugin("BanManager");
         if (BanManager != null && BanManager.isEnabled()) {
             if (Double.parseDouble(BanManager.getDescription().getVersion().substring(0, 2)) >= 4.0) {
