@@ -110,7 +110,7 @@ public class FactionChat extends JavaPlugin {
                     Logger.getLogger(FactionChat.class.getName()).log(Level.SEVERE, null, ex);
                 }
             } else if (facitonVersion.compareTo(new ComparableVersion("1.6.999")) < 0) {
-                Logger.getLogger(FactionChat.class.getName()).warning("FactionChat no longer supports Factions 1.6");
+                Logger.getLogger(FactionChat.class.getName()).warning("FactionChat no longer supports Factions 1.6. If you would like this re-added please contact James137137 on dev.bukkit.org");
                 this.getPluginLoader().disablePlugin(this);
                 return;
             } else if (facitonVersion.compareTo(new ComparableVersion("1.9.999")) < 0) {
