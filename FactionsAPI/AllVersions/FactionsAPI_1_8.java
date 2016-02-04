@@ -10,29 +10,67 @@ import com.massivecraft.factions.FPlayer;
 import com.massivecraft.factions.FPlayers;
 import com.massivecraft.factions.Faction;
 import com.massivecraft.factions.struct.Rel;
+import org.bukkit.entity.Player;
 
 
 /**
  *
  * @author James
  */
-public class FactionsAPI_1_8 implements FactionsAPI{
+public class FactionsAPI_1_8 implements FactionsAPI {
 
     @Override
     public String getFactionName(Object player) {
-        return ((FPlayer) FPlayers.i.get(player)).getFaction().getTag();
+        if (player instanceof Player)
+        {
+            return ((FPlayer) FPlayers.i.get((Player) player)).getFaction().getTag();
+        } else if (player instanceof String)
+        {
+            return ((FPlayer) FPlayers.i.get((String) player)).getFaction().getTag();
+        }
+        else
+        {
+            return null;
+        }
     }
 
     @Override
     public String getFactionID(Object player) {
-        return ((FPlayer) FPlayers.i.get(player)).getFaction().getId();
+        if (player instanceof Player)
+        {
+            return ((FPlayer) FPlayers.i.get((Player) player)).getFaction().getId();
+        } else if (player instanceof String)
+        {
+            return ((FPlayer) FPlayers.i.get((Player) player)).getFaction().getId();
+        }
+        else
+        {
+            return null;
+        }
+        
     }
 
     @Override
     public MyRel getRelationship(Object player1, Object player2) {
-        FPlayer fSenderPlayer = (FPlayer) FPlayers.i.get(player1);
+        FPlayer fSenderPlayer = null;
+        FPlayer fplayer = null;
+        if (player1 instanceof Player)
+        {
+            fSenderPlayer = (FPlayer) FPlayers.i.get((Player) player1);
+        } else if (player1 instanceof String)
+        {
+            fSenderPlayer = (FPlayer) FPlayers.i.get((String) player1);
+        }
+        
+        if (player2 instanceof Player)
+        {
+            fplayer = (FPlayer) FPlayers.i.get((Player) player2);
+        } else if (player2 instanceof String)
+        {
+            fplayer = (FPlayer) FPlayers.i.get((String) player2);
+        }
+        
         Faction SenderFaction = fSenderPlayer.getFaction();
-        FPlayer fplayer = (FPlayer) FPlayers.i.get(player2);
         Rel rel = SenderFaction.getRelationTo(fplayer);
         if (rel == Rel.NEUTRAL)
         {
@@ -77,7 +115,16 @@ public class FactionsAPI_1_8 implements FactionsAPI{
 
     @Override
     public String getPlayerTitle(Object player) {
-        String title = ((FPlayer) FPlayers.i.get(player)).getTitle();
+        String title = null;
+        
+        if (player instanceof Player)
+        {
+            title = ((FPlayer) FPlayers.i.get((Player) player)).getTitle();
+        } else if (player instanceof String)
+        {
+            title = ((FPlayer) FPlayers.i.get((String) player)).getTitle();
+        }
+        
         if (title.contains("no title set")) {
             return "";
         }
@@ -86,7 +133,14 @@ public class FactionsAPI_1_8 implements FactionsAPI{
 
     @Override
     public MyRel getPlayerRank(Object player) {
-        Rel role = ((FPlayer) FPlayers.i.get(player)).getRole();
+        Rel role = null;
+        if (player instanceof Player)
+        {
+            role = ((FPlayer) FPlayers.i.get((Player) player)).getRole();
+        } else if (player instanceof String)
+        {
+            role = ((FPlayer) FPlayers.i.get((String) player)).getRole();
+        }
         if (role.equals(Rel.LEADER)) {
             return MyRel.LEADER;
         } else if (role.equals(Rel.OFFICER)) {
@@ -99,5 +153,6 @@ public class FactionsAPI_1_8 implements FactionsAPI{
             return MyRel.NEUTRAL;
         }
     }
-    
+
 }
+
