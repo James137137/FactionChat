@@ -15,6 +15,7 @@ import net.gravitydevelopment.updater.Updater.UpdateResult;
 import net.gravitydevelopment.updater.Updater.UpdateType;
 
 import nz.co.lolnet.james137137.FactionChat.FactionsAPI.FactionsAPI;
+import nz.co.lolnet.james137137.FactionChat.FactionsInfoServer.FactionInfoServer;
 
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -168,12 +169,14 @@ public class FactionChat extends JavaPlugin {
 
         reload();
         String version = Bukkit.getServer().getPluginManager().getPlugin(this.getName()).getDescription().getVersion();
+        new FactionInfoServer(this.getConfig().getInt("FactionInfoServerPort"));
         log.info(this.getName() + ": Version: " + version + " Enabled.");
 
     }
 
     @Override
     public void onDisable() {
+        plugin = null;
         log.info(this.getName() + ": disabled");
     }
 
