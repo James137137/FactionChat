@@ -9,7 +9,7 @@ package nz.co.lolnet.james137137.FactionChat.FactionsAPI;
 import com.massivecraft.factions.Rel;
 import com.massivecraft.factions.entity.Faction;
 import com.massivecraft.factions.entity.MPlayer;
-import org.bukkit.entity.Player;
+
 
 /**
  *
@@ -18,21 +18,21 @@ import org.bukkit.entity.Player;
 public class FactionsAPI_2_7_0 implements FactionsAPI{
 
     @Override
-    public String getFactionName(Player player) {
+    public String getFactionName(Object player) {
         MPlayer uplayer = MPlayer.get(player);
         Faction faction = uplayer.getFaction();
         return faction.getName();
     }
 
     @Override
-    public String getFactionID(Player player) {
+    public String getFactionID(Object player) {
         MPlayer uplayer = MPlayer.get(player);
         Faction faction = uplayer.getFaction();
         return faction.getUniverse()+"-" + getFactionName(player);
     }
 
     @Override
-    public MyRel getRelationship(Player player1, Player player2) {
+    public MyRel getRelationship(Object player1, Object player2) {
         MPlayer uplayer1 = MPlayer.get(player1);
         MPlayer uplayer2 = MPlayer.get(player2);
 
@@ -74,12 +74,12 @@ public class FactionsAPI_2_7_0 implements FactionsAPI{
     }
 
     @Override
-    public boolean isFactionless(Player player) {
+    public boolean isFactionless(Object player) {
         return MPlayer.get(player).getFaction().getName().contains("Wilderness");
     }
 
     @Override
-    public String getPlayerTitle(Player player) {
+    public String getPlayerTitle(Object player) {
         String title = MPlayer.get(player).getTitle();
         if (title.contains("no title set")) {
             return "";
@@ -88,7 +88,7 @@ public class FactionsAPI_2_7_0 implements FactionsAPI{
     }
 
     @Override
-    public MyRel getPlayerRank(Player player) {
+    public MyRel getPlayerRank(Object player) {
         Rel role = MPlayer.get(player).getRole();
         if (role.equals(Rel.LEADER)) {
             return MyRel.LEADER;

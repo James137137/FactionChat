@@ -10,7 +10,7 @@ import com.massivecraft.factions.FPlayer;
 import com.massivecraft.factions.FPlayers;
 import com.massivecraft.factions.Faction;
 import com.massivecraft.factions.struct.Rel;
-import org.bukkit.entity.Player;
+
 
 /**
  *
@@ -19,17 +19,17 @@ import org.bukkit.entity.Player;
 public class FactionsAPI_1_8 implements FactionsAPI{
 
     @Override
-    public String getFactionName(Player player) {
+    public String getFactionName(Object player) {
         return ((FPlayer) FPlayers.i.get(player)).getFaction().getTag();
     }
 
     @Override
-    public String getFactionID(Player player) {
+    public String getFactionID(Object player) {
         return ((FPlayer) FPlayers.i.get(player)).getFaction().getId();
     }
 
     @Override
-    public MyRel getRelationship(Player player1, Player player2) {
+    public MyRel getRelationship(Object player1, Object player2) {
         FPlayer fSenderPlayer = (FPlayer) FPlayers.i.get(player1);
         Faction SenderFaction = fSenderPlayer.getFaction();
         FPlayer fplayer = (FPlayer) FPlayers.i.get(player2);
@@ -71,12 +71,12 @@ public class FactionsAPI_1_8 implements FactionsAPI{
     }
 
     @Override
-    public boolean isFactionless(Player player) {
+    public boolean isFactionless(Object player) {
         return getFactionName(player).contains("Wilderness");
     }
 
     @Override
-    public String getPlayerTitle(Player player) {
+    public String getPlayerTitle(Object player) {
         String title = ((FPlayer) FPlayers.i.get(player)).getTitle();
         if (title.contains("no title set")) {
             return "";
@@ -85,7 +85,7 @@ public class FactionsAPI_1_8 implements FactionsAPI{
     }
 
     @Override
-    public MyRel getPlayerRank(Player player) {
+    public MyRel getPlayerRank(Object player) {
         Rel role = ((FPlayer) FPlayers.i.get(player)).getRole();
         if (role.equals(Rel.LEADER)) {
             return MyRel.LEADER;

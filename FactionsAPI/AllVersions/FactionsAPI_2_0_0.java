@@ -8,7 +8,7 @@ package nz.co.lolnet.james137137.FactionChat.FactionsAPI;
 import com.massivecraft.factions.Rel;
 import com.massivecraft.factions.entity.Faction;
 import com.massivecraft.factions.entity.UPlayer;
-import org.bukkit.entity.Player;
+
 
 /**
  *
@@ -17,7 +17,7 @@ import org.bukkit.entity.Player;
 public class FactionsAPI_2_0_0 implements FactionsAPI {
 
     @Override
-    public String getFactionName(Player player) {
+    public String getFactionName(Object player) {
         UPlayer uPlayer = UPlayer.get(player);
         Faction faction = uPlayer.getFaction();
 
@@ -25,14 +25,14 @@ public class FactionsAPI_2_0_0 implements FactionsAPI {
     }
 
     @Override
-    public String getFactionID(Player player) {
+    public String getFactionID(Object player) {
         UPlayer uPlayer = UPlayer.get(player);
         Faction faction = uPlayer.getFaction();
         return faction.getId();
     }
 
     @Override
-    public MyRel getRelationship(Player player1, Player player2) {
+    public MyRel getRelationship(Object player1, Object player2) {
         Rel rel;
         UPlayer uplayer1 = UPlayer.get(player1);
         UPlayer uplayer2 = UPlayer.get(player2);
@@ -66,12 +66,12 @@ public class FactionsAPI_2_0_0 implements FactionsAPI {
     }
 
     @Override
-    public boolean isFactionless(Player player) {
+    public boolean isFactionless(Object player) {
         return UPlayer.get(player).getFaction().getName().contains("Wilderness");
     }
 
     @Override
-    public String getPlayerTitle(Player player) {
+    public String getPlayerTitle(Object player) {
         String title = UPlayer.get(player).getTitle();
         if (title.contains("no title set")) {
             return "";
@@ -80,7 +80,7 @@ public class FactionsAPI_2_0_0 implements FactionsAPI {
     }
 
     @Override
-    public MyRel getPlayerRank(Player player) {
+    public MyRel getPlayerRank(Object player) {
         Rel role = UPlayer.get(player).getRole();
         if (role.equals(Rel.LEADER)) {
             return MyRel.LEADER;

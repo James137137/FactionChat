@@ -6,7 +6,6 @@
 
 package nz.co.lolnet.james137137.FactionChat.FactionsAPI;
 
-import org.bukkit.entity.Player;
 
 /**
  *
@@ -15,15 +14,15 @@ import org.bukkit.entity.Player;
 public interface FactionsAPI {
     
     
-    public String getFactionName(Player player);
+    public String getFactionName(Object player);
     
-    public String getFactionID(Player player);
+    public String getFactionID(Object player);
     
-    public MyRel getRelationship(Player player1, Player player2);
+    public MyRel getRelationship(Object player1, Object player2);
     
-    public boolean isFactionless(Player player);
+    public boolean isFactionless(Object player);
     
-    public String getPlayerTitle(Player player);
+    public String getPlayerTitle(Object player);
     
-    public MyRel getPlayerRank(Player player);
+    public MyRel getPlayerRank(Object player);
 }
