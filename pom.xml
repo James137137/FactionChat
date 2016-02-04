@@ -14,6 +14,7 @@
             <groupId>net.ess3</groupId>
             <artifactId>Essentials</artifactId>
             <version>2.14-SNAPSHOT</version>
+            <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>net.milkbowl.vault</groupId>
@@ -125,16 +126,10 @@
                 <artifactId>maven-shade-plugin</artifactId>
                 <version>2.3</version>
                 <configuration>
-                    <artifactSet>
-                        <includes>
-                            <include>org.mcstats.*:*</include>
-                            <include>*:FactionsAPI</include>
-                        </includes>
-                    </artifactSet>
                     <relocations>
                         <relocation>
                             <pattern>org.mcstats</pattern>
-                            <shadedPattern>nz.co.lolnet.james137137.FactionChat</shadedPattern>
+                            <shadedPattern>nz.co.lolnet.james137137.FactionChat.internal.mcstats</shadedPattern>
                         </relocation>
                     </relocations>
                 </configuration>
