@@ -381,12 +381,9 @@ public class ChatChannel {
             playerTitle = FactionChat.factionsAPI.getPlayerTitle(player);
         }
         String playerName;
-        if (FactionChat.useEssentialsNick)
-        {
+        if (FactionChat.useEssentialsNick) {
             playerName = EssentialsAPI.getNickname(player);
-        }
-        else
-        {
+        } else {
             playerName = "~" + player.getName();
         }
         String[] intput1 = {senderFaction, FactionChatAPI.getPrefix(player) + playerName + FactionChatAPI.getSuffix(player) + ChatColor.RESET, message};
