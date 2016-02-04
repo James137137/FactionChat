@@ -110,12 +110,9 @@ public class FactionChat extends JavaPlugin {
                     Logger.getLogger(FactionChat.class.getName()).log(Level.SEVERE, null, ex);
                 }
             } else if (facitonVersion.compareTo(new ComparableVersion("1.6.999")) < 0) {
-                try {
-                    factionsAPI = (FactionsAPI) Class.forName("nz.co.lolnet.james137137.FactionChat.FactionsAPI.FactionsAPI_1_6").getConstructor().newInstance();
-                } catch (Exception ex) {
-                    Logger.getLogger(FactionChat.class.getName()).log(Level.SEVERE, null, ex);
-                }
-
+                Logger.getLogger(FactionChat.class.getName()).warning("FactionChat no longer supports Factions 1.6");
+                this.getPluginLoader().disablePlugin(this);
+                return;
             } else if (facitonVersion.compareTo(new ComparableVersion("1.9.999")) < 0) {
                 try {
                     factionsAPI = (FactionsAPI) Class.forName("nz.co.lolnet.james137137.FactionChat.FactionsAPI.FactionsAPI_1_8").getConstructor().newInstance();
