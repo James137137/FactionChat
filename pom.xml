@@ -148,7 +148,6 @@
                     <groupId>com.mojang</groupId>
                 </exclusion>
             </exclusions>
-            </exclusions>
         </dependency>
         <dependency>
             <groupId>org.mcstats.bukkit</groupId>
