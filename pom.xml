@@ -1,56 +1,56 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xmlns="http://maven.apache.org/POM/4.0.0"
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-	<modelVersion>4.0.0</modelVersion>
+    xmlns="http://maven.apache.org/POM/4.0.0"
+    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
 
     <groupId>nz.co.lolnet.james137137</groupId>
     <artifactId>factionchat</artifactId>
     <version>1.9.13-SNAPSHOT</version>
     <packaging>jar</packaging>
-	<name>FactionChat</name>
+    <name>FactionChat</name>
 
-	<prerequisites>
-		<maven>3.3.3</maven>
-	</prerequisites>
+    <prerequisites>
+        <maven>3.3.3</maven>
+    </prerequisites>
 
-	<properties>
-		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 
-		<!-- Change Compiler Version (JDK) HERE! -->
-		<javaVersion>1.7</javaVersion>
+        <!-- Change Compiler Version (JDK) HERE! -->
+        <javaVersion>1.7</javaVersion>
 
-		<!-- Change Bukkit Version HERE! -->
-		<bukkitVersion>1.8.8-R0.1-SNAPSHOT</bukkitVersion>
-	</properties>
+        <!-- Change Bukkit Version HERE! -->
+        <bukkitVersion>1.8.8-R0.1-SNAPSHOT</bukkitVersion>
+    </properties>
 
     <dependencies>
-		<dependency>
-			<groupId>net.ess3</groupId>
-			<artifactId>EssentialsX</artifactId>
-			<version>2.0.1-SNAPSHOT</version>
-			<scope>provided</scope>
-			<exclusions>
-				<exclusion>
-					<groupId>org.spigotmc</groupId>
-					<artifactId>spigot-api</artifactId>
-				</exclusion>
-			</exclusions>
-			<optional>true</optional>
-		</dependency>
-		<!-- TODO: use VaultAPI instead of the implementation -->
+        <dependency>
+            <groupId>net.ess3</groupId>
+            <artifactId>EssentialsX</artifactId>
+            <version>2.0.1-SNAPSHOT</version>
+            <scope>provided</scope>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.spigotmc</groupId>
+                    <artifactId>spigot-api</artifactId>
+                </exclusion>
+            </exclusions>
+            <optional>true</optional>
+        </dependency>
+        <!-- TODO: use VaultAPI instead of the implementation -->
         <dependency>
             <groupId>net.milkbowl.vault</groupId>
             <artifactId>Vault</artifactId>
             <version>1.23.1</version>
             <scope>provided</scope>
             <optional>true</optional>
-			<exclusions>
-				<exclusion>
-					<groupId>org.bukkit</groupId>
-					<artifactId>bukkit</artifactId>
-				</exclusion>
-			</exclusions>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.bukkit</groupId>
+                    <artifactId>bukkit</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
         <dependency>
             <groupId>me.confuser</groupId>
@@ -58,12 +58,12 @@
             <version>5.8.0</version>
             <scope>provided</scope>
             <optional>true</optional>
-			<exclusions>
-				<exclusion>
-					<groupId>org.bukkit</groupId>
-					<artifactId>bukkit</artifactId>
-				</exclusion>
-			</exclusions>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.bukkit</groupId>
+                    <artifactId>bukkit</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
         <dependency>
             <groupId>de.bananaco</groupId>
@@ -71,12 +71,12 @@
             <version>2.12-DEV</version>
             <scope>provided</scope>
             <optional>true</optional>
-			<exclusions>
-				<exclusion>
-					<groupId>org.bukkit</groupId>
-					<artifactId>bukkit</artifactId>
-				</exclusion>
-			</exclusions>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.bukkit</groupId>
+                    <artifactId>bukkit</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
         <dependency>
             <groupId>fr.xephi</groupId>
@@ -84,12 +84,12 @@
             <version>5.2-SNAPSHOT</version>
             <scope>provided</scope>
             <optional>true</optional>
-			<exclusions>
-				<exclusion>
-					<groupId>org.bukkit</groupId>
-					<artifactId>bukkit</artifactId>
-				</exclusion>
-			</exclusions>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.bukkit</groupId>
+                    <artifactId>bukkit</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
         <dependency>
             <groupId>nz.co.lolnet.james137137</groupId>
@@ -97,12 +97,12 @@
             <version>1.0.8</version>
             <scope>compile</scope>
             <optional>true</optional>
-			<exclusions>
-				<exclusion>
-					<groupId>org.bukkit</groupId>
-					<artifactId>bukkit</artifactId>
-				</exclusion>
-			</exclusions>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.bukkit</groupId>
+                    <artifactId>bukkit</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
         <dependency>
             <groupId>org.bukkit</groupId>
@@ -117,12 +117,12 @@
             <version>2.2-SNAPSHOT</version>
             <scope>provided</scope>
             <optional>true</optional>
-			<exclusions>
-				<exclusion>
-					<groupId>org.bukkit</groupId>
-					<artifactId>bukkit</artifactId>
-				</exclusion>
-			</exclusions>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.bukkit</groupId>
+                    <artifactId>bukkit</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
         <dependency>
             <groupId>ru.tehkode</groupId>
@@ -130,25 +130,25 @@
             <version>1.23.3</version>
             <scope>provided</scope>
             <optional>true</optional>
-			<exclusions>
-				<exclusion>
-					<groupId>org.bukkit</groupId>
-					<artifactId>bukkit</artifactId>
-				</exclusion>
-				<exclusion>
-					<groupId>net.gravitydevelopment.updater</groupId>
-					<artifactId>updater</artifactId>
-				</exclusion>
-				<exclusion>
-					<artifactId>commons-dbcp</artifactId>
-					<groupId>commons-dbcp</groupId>
-				</exclusion>
-				<exclusion>
-					<artifactId>AccountsClient</artifactId>
-					<groupId>com.mojang</groupId>
-				</exclusion>
-			</exclusions>
-			</exclusions>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.bukkit</groupId>
+                    <artifactId>bukkit</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>net.gravitydevelopment.updater</groupId>
+                    <artifactId>updater</artifactId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>commons-dbcp</artifactId>
+                    <groupId>commons-dbcp</groupId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>AccountsClient</artifactId>
+                    <groupId>com.mojang</groupId>
+                </exclusion>
+            </exclusions>
+            </exclusions>
         </dependency>
         <dependency>
             <groupId>org.mcstats.bukkit</groupId>
@@ -156,17 +156,17 @@
             <version>R8-SNAPSHOT</version>
             <scope>compile</scope>
             <optional>true</optional>
-			<exclusions>
-				<exclusion>
-					<groupId>org.bukkit</groupId>
-					<artifactId>bukkit</artifactId>
-				</exclusion>
-			</exclusions>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.bukkit</groupId>
+                    <artifactId>bukkit</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
     </dependencies>
     
     <repositories>
-		<!-- TODO: host the api on a proper maven repo! -->
+        <!-- TODO: host the api on a proper maven repo! -->
         <repository>
             <id>file.repo</id>
             <url>file://${project.basedir}/repo</url>
@@ -192,14 +192,14 @@
             <id>pex-repo</id>
             <url>http://pex-repo.aoeu.xyz</url>
         </repository>
-		<repository>
-			<id>ess-repo</id>
-			<url>http://ci.drtshock.net/plugin/repository/everything</url>
-		</repository>
+        <repository>
+            <id>ess-repo</id>
+            <url>http://ci.drtshock.net/plugin/repository/everything</url>
+        </repository>
     </repositories>
     
     <build>
-		<finalName>${project.name}-${project.version}</finalName>
+        <finalName>${project.name}-${project.version}</finalName>
         <resources>
             <resource>
                 <targetPath>.</targetPath>
@@ -211,15 +211,15 @@
             </resource>
         </resources>
         <plugins>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-compiler-plugin</artifactId>
-				<version>3.5</version>
-				<configuration>
-					<source>1.7</source>
-					<target>${javaVersion}</target>
-				</configuration>
-			</plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.5</version>
+                <configuration>
+                    <source>1.7</source>
+                    <target>${javaVersion}</target>
+                </configuration>
+            </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-shade-plugin</artifactId>
