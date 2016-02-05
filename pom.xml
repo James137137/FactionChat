@@ -15,61 +15,70 @@
             <artifactId>Essentials</artifactId>
             <version>2.14-SNAPSHOT</version>
             <scope>provided</scope>
+            <optional>true</optional>
         </dependency>
         <dependency>
             <groupId>net.milkbowl.vault</groupId>
             <artifactId>Vault</artifactId>
             <version>1.2.16</version>
-            <optional>true</optional>
             <scope>provided</scope>
+            <optional>true</optional>
         </dependency>
         <dependency>
             <groupId>me.confuser</groupId>
             <artifactId>BanManager</artifactId>
             <version>5.8.0</version>
             <scope>provided</scope>
+            <optional>true</optional>
         </dependency>
         <dependency>
             <groupId>de.bananaco</groupId>
             <artifactId>bPermissions</artifactId>
             <version>2.12-DEV</version>
             <scope>provided</scope>
+            <optional>true</optional>
         </dependency>
         <dependency>
             <groupId>fr.xephi</groupId>
             <artifactId>authme</artifactId>
             <version>5.2-SNAPSHOT</version>
             <scope>provided</scope>
+            <optional>true</optional>
         </dependency>
         <dependency>
             <groupId>nz.co.lolnet.james137137</groupId>
             <artifactId>FactionsAPI</artifactId>
             <version>1.0.8</version>
+            <scope>compile</scope>
+            <optional>true</optional>
         </dependency>
         <dependency>
             <groupId>org.bukkit</groupId>
             <artifactId>bukkit</artifactId>
             <version>1.8.8-R0.1-SNAPSHOT</version>
             <scope>provided</scope>
+            <optional>true</optional>
         </dependency>
         <dependency>
             <groupId>org.anjocaido</groupId>
             <artifactId>groupmanagerx</artifactId>
             <version>2.2-SNAPSHOT</version>
             <scope>provided</scope>
+            <optional>true</optional>
         </dependency>
         <dependency>
             <groupId>ru.tehkode</groupId>
             <artifactId>PermissionsEx</artifactId>
             <version>1.23.3</version>
-            <scope>system</scope>
-            <systemPath>${basedir}/lib/PermissionsEx-1.23.3.jar</systemPath>
+            <scope>provided</scope>
+            <optional>true</optional>
         </dependency>
         <dependency>
             <groupId>org.mcstats.bukkit</groupId>
             <artifactId>metrics</artifactId>
-            <version>R7</version>
+            <version>R8-SNAPSHOT</version>
             <scope>compile</scope>
+            <optional>true</optional>
         </dependency>
     </dependencies>
     
@@ -78,8 +87,9 @@
             <id>file.repo</id>
             <url>file://${project.basedir}/repo</url>
         </repository>
+        <!-- Includes also MCStats -->
         <repository>
-            <id>AuthMe-repo</id>
+            <id>xephi-repo</id>
             <url>http://ci.xephi.fr/plugin/repository/everything</url>
         </repository>
         <repository>
@@ -97,10 +107,6 @@
         <repository>
             <id>pex-repo</id>
             <url>http://pex-repo.aoeu.xyz</url>
-        </repository>
-        <repository>
-            <id>Plugin Metrics</id>
-            <url>http://repo.mcstats.org/content/repositories/public</url>
         </repository>
         <repository>
             <id>ess-repo</id>
@@ -124,12 +130,12 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-shade-plugin</artifactId>
-                <version>2.3</version>
+                <version>2.4.3</version>
                 <configuration>
                     <relocations>
                         <relocation>
                             <pattern>org.mcstats</pattern>
-                            <shadedPattern>nz.co.lolnet.james137137.FactionChat.internal.mcstats</shadedPattern>
+                            <shadedPattern>nz.co.lolnet.james137137.FactionChat</shadedPattern>
                         </relocation>
                     </relocations>
                 </configuration>
