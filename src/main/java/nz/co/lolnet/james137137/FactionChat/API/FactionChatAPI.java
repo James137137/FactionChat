@@ -20,7 +20,7 @@ import org.bukkit.plugin.Plugin;
  */
 public class FactionChatAPI {
     
-    
+    public static ChatFilter chatFilter = null;
     private static FactionChat factionChat;
     private static boolean IncludePrefix;
     private static boolean IncludeSuffix;
@@ -145,5 +145,13 @@ public class FactionChatAPI {
         }
 
         return suffix;
+    }
+    
+    public static String filterChat(Player player, String message) {
+        if (chatFilter != null) {
+            return chatFilter.filterMessage(player,message);
+        } else {
+            return message;
+        }
     }
 }

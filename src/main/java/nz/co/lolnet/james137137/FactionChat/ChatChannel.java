@@ -37,6 +37,7 @@ public class ChatChannel {
             return;
 
         }
+        message = FactionChatAPI.filterChat(player, message);
         String playerName;
         if (FactionChat.useEssentialsNick) {
             playerName = "~" + EssentialsAPI.getNickname(player);
@@ -82,6 +83,7 @@ public class ChatChannel {
             return;
 
         }
+        message = FactionChatAPI.filterChat(player, message);
         boolean allowCustomColour = player.hasPermission("essentials.chat.color");
         String playerTitle = "";
         if (FactionChat.IncludeTitle) {
@@ -126,6 +128,7 @@ public class ChatChannel {
             return;
 
         }
+        message = FactionChatAPI.filterChat(player,message);
         boolean allowCustomColour = player.hasPermission("essentials.chat.color");
         String playerTitle = "";
         if (FactionChat.IncludeTitle) {
@@ -170,6 +173,7 @@ public class ChatChannel {
             return;
 
         }
+        message = FactionChatAPI.filterChat(player, message);
         boolean allowCustomColour = player.hasPermission("essentials.chat.color");
         String playerTitle = "";
         if (FactionChat.IncludeTitle) {
@@ -218,7 +222,7 @@ public class ChatChannel {
             return;
 
         }
-
+        message = FactionChatAPI.filterChat(player, message);
         boolean allowCustomColour = player.hasPermission("essentials.chat.color");
         String playerTitle = "";
         if (FactionChat.IncludeTitle) {
@@ -277,6 +281,7 @@ public class ChatChannel {
                 for (int i = 1; i < args.length; i++) {
                     message += args[i] + " ";
                 }
+                message = FactionChatAPI.filterChat(player, message);
 
                 String playersFaction; //creates string outside loop
                 String targetFaction = args[0] + senderFaction.charAt(senderFaction.length() - 2) + senderFaction.charAt(senderFaction.length() - 1);
@@ -336,6 +341,7 @@ public class ChatChannel {
             return;
 
         }
+        message = FactionChatAPI.filterChat(player, message);
         boolean allowCustomColour = player.hasPermission("essentials.chat.color");
         String playerTitle = "";
         if (FactionChat.IncludeTitle) {
@@ -377,6 +383,7 @@ public class ChatChannel {
             return;
 
         }
+        message = FactionChatAPI.filterChat(player, message);
         boolean allowCustomColour = player.hasPermission("essentials.chat.color");
         String playerTitle = "";
         if (FactionChat.IncludeTitle) {

@@ -25,6 +25,7 @@ public class OtherChatChannel {
         if (!AuthMeAPI.isAllowToChat(player)) {
             return;
         }
+        message = FactionChatAPI.filterChat(player, message);
         boolean allowCustomColour = player.hasPermission("essentials.chat.color") || player.hasPermission("FactionChat.Chat.Colour");
         String[] intput1 = {FactionChatAPI.getPrefix(player) + player.getName() + FactionChatAPI.getSuffix(player) + ChatColor.RESET, message};
         String normalMessage = ChatMode.FormatString(FactionChat.UAChat, intput1, null, allowCustomColour);
@@ -41,6 +42,7 @@ public class OtherChatChannel {
         if (!AuthMeAPI.isAllowToChat(player)) {
             return;
         }
+        message = FactionChatAPI.filterChat(player, message);
         boolean allowCustomColour = player.hasPermission("essentials.chat.color") || player.hasPermission("FactionChat.Chat.Colour");
         String[] intput1 = {FactionChatAPI.getPrefix(player) + player.getName() + FactionChatAPI.getSuffix(player) + ChatColor.RESET, message};
         String normalMessage = ChatMode.FormatString(FactionChat.JrModChat, intput1, null, allowCustomColour);
@@ -57,6 +59,7 @@ public class OtherChatChannel {
         if (!AuthMeAPI.isAllowToChat(player)) {
             return;
         }
+        message = FactionChatAPI.filterChat(player, message);
         String[] intput1 = {FactionChatAPI.getPrefix(player) + player.getName() + FactionChatAPI.getSuffix(player) + ChatColor.RESET, message};
         boolean allowCustomColour = player.hasPermission("essentials.chat.color") || player.hasPermission("FactionChat.Chat.Colour");
         String normalMessage = ChatMode.FormatString(FactionChat.ModChat, intput1, null, allowCustomColour);
@@ -73,6 +76,7 @@ public class OtherChatChannel {
         if (!AuthMeAPI.isAllowToChat(player)) {
             return;
         }
+        message = FactionChatAPI.filterChat(player, message);
         String[] intput1 = {FactionChatAPI.getPrefix(player) + player.getName() + FactionChatAPI.getSuffix(player) + ChatColor.RESET, message};
         boolean allowCustomColour = player.hasPermission("essentials.chat.color") || player.hasPermission("FactionChat.Chat.Colour");
         String normalMessage = ChatMode.FormatString(FactionChat.SrModChat, intput1, null, allowCustomColour);
@@ -89,6 +93,7 @@ public class OtherChatChannel {
         if (!AuthMeAPI.isAllowToChat(player)) {
             return;
         }
+        message = FactionChatAPI.filterChat(player, message);
         String[] intput1 = {FactionChatAPI.getPrefix(player) + player.getName() + FactionChatAPI.getSuffix(player) + ChatColor.RESET, message};
         boolean allowCustomColour = player.hasPermission("essentials.chat.color") || player.hasPermission("FactionChat.Chat.Colour");
         String normalMessage = ChatMode.FormatString(FactionChat.JrAdminChat, intput1, null, allowCustomColour);
@@ -105,6 +110,7 @@ public class OtherChatChannel {
         if (!AuthMeAPI.isAllowToChat(player)) {
             return;
         }
+        message = FactionChatAPI.filterChat(player, message);
         String[] intput1 = {FactionChatAPI.getPrefix(player) + player.getName() + FactionChatAPI.getSuffix(player) + ChatColor.RESET, message};
         boolean allowCustomColour = player.hasPermission("essentials.chat.color") || player.hasPermission("FactionChat.Chat.Colour");
         String normalMessage = ChatMode.FormatString(FactionChat.AdminChat, intput1, null, allowCustomColour);
@@ -121,6 +127,7 @@ public class OtherChatChannel {
         if (!AuthMeAPI.isAllowToChat(player)) {
             return;
         }
+        message = FactionChatAPI.filterChat(player, message);
         boolean allowCustomColour = player.hasPermission("essentials.chat.color") || player.hasPermission("FactionChat.Chat.Colour");
         String[] intput1 = {FactionChatAPI.getPrefix(player) + player.getName() + FactionChatAPI.getSuffix(player) + ChatColor.RESET, message};
         String normalMessage = ChatMode.FormatString(FactionChat.VIPChat, intput1, null, allowCustomColour);
