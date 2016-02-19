@@ -15,7 +15,7 @@ import com.massivecraft.factions.entity.MPlayer;
  *
  * @author James
  */
-public class FactionsAPI_2_8_0 implements FactionsAPI{
+public class FactionsAPI_2_8_6 implements FactionsAPI{
 
     @Override
     public String getFactionName(Object player) {
