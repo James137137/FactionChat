@@ -3,9 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package nz.co.lolnet.james137137.FactionChat;
+package nz.co.lolnet.james137137.FactionChat.API;
 
 import com.earth2me.essentials.Essentials;
+import nz.co.lolnet.james137137.FactionChat.FactionChat;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
@@ -18,7 +19,7 @@ public class EssentialsAPI {
     static boolean enable;
     static Essentials essentials = null;
 
-    EssentialsAPI(boolean aThis) {
+    public EssentialsAPI(boolean aThis) {
         enable = aThis;
         FactionChat.useEssentialsNick = FactionChat.plugin.getConfig().getBoolean("Essentials.useNickName");
         if (enable) {

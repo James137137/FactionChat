@@ -4,6 +4,9 @@
  */
 package nz.co.lolnet.james137137.FactionChat;
 
+import nz.co.lolnet.james137137.FactionChat.API.FactionChatAPI;
+import nz.co.lolnet.james137137.FactionChat.API.BanManagerAPI;
+import nz.co.lolnet.james137137.FactionChat.API.EssentialsAPI;
 import java.io.File;
 import java.io.IOException;
 import java.util.List;

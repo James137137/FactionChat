@@ -1,5 +1,7 @@
 package nz.co.lolnet.james137137.FactionChat;
 
+import nz.co.lolnet.james137137.FactionChat.API.FactionChatAPI;
+import nz.co.lolnet.james137137.FactionChat.API.EssentialsAPI;
 import nz.co.lolnet.james137137.FactionChat.FactionsAPI.MyRel;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;

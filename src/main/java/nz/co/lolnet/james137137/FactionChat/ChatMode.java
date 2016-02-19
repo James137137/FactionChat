@@ -1,5 +1,6 @@
 package nz.co.lolnet.james137137.FactionChat;
 
+import nz.co.lolnet.james137137.FactionChat.API.FactionChatAPI;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -76,7 +77,7 @@ public class ChatMode {
 
     }
 
-    protected static String getChatMode(Player player) {
+    public static String getChatMode(Player player) {
         String playerName = player.getName();
         String chatMode = (String) getPlayerChatMode(playerName);
         if (chatMode == null) {

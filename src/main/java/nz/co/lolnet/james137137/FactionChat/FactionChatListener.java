@@ -1,5 +1,7 @@
 package nz.co.lolnet.james137137.FactionChat;
 
+import nz.co.lolnet.james137137.FactionChat.API.FactionChatAPI;
+import nz.co.lolnet.james137137.FactionChat.API.BanManagerAPI;
 import java.util.Objects;
 import java.util.Set;
 import java.util.logging.Logger;
