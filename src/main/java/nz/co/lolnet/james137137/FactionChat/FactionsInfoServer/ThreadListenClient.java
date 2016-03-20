@@ -67,6 +67,8 @@ public class ThreadListenClient implements Runnable {
                 } else if (inputLine.startsWith("getPlayerRank")) {
                     String[] split = inputLine.split("~~~~");
                     output = Integer.toString(FactionChat.factionsAPI.getPlayerRank((String) split[1]).getValue());
+                } else if (inputLine.startsWith("ping")) {
+                    output = "pong";
                 }
                 out.println(output);
 
