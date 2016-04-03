@@ -6,7 +6,7 @@
 
     <groupId>nz.co.lolnet.james137137</groupId>
     <artifactId>factionchat</artifactId>
-    <version>1.9.16</version>
+    <version>1.9.17</version>
     <packaging>jar</packaging>
     <name>FactionChat</name>
 
@@ -21,7 +21,7 @@
         <javaVersion>1.7</javaVersion>
 
         <!-- Change Bukkit Version HERE! -->
-        <bukkitVersion>1.8.8-R0.1-SNAPSHOT</bukkitVersion>
+        <bukkitVersion>1.9.2-R0.1-SNAPSHOT</bukkitVersion>
     </properties>
 
     <dependencies>
@@ -107,7 +107,7 @@
         <dependency>
             <groupId>org.bukkit</groupId>
             <artifactId>bukkit</artifactId>
-            <version>1.8.8-R0.1-SNAPSHOT</version>
+            <version>1.9.2-R0.1-SNAPSHOT</version>
             <scope>provided</scope>
             <optional>true</optional>
         </dependency>
