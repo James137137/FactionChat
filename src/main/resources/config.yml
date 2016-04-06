@@ -19,7 +19,7 @@ AllowPublicMuteCommand: false
 #this will disabled certain commands please make sure you include the aliases 
 #for example -fchatf and -ff
 # they must be only contain lower case 
-FactionInfoServerPort: 10011
+FactionInfoServerPort: 10137
 DisabledCommands:
     - Example_fchatf
     - Example_fchatat
