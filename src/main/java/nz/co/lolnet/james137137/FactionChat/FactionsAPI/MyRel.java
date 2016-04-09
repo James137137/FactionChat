@@ -5,6 +5,7 @@
  */
 package nz.co.lolnet.james137137.FactionChat.FactionsAPI;
 
+import nz.co.lolnet.james137137.FactionChat.Config;
 import nz.co.lolnet.james137137.FactionChat.FactionChat;
 
 /**
@@ -91,13 +92,13 @@ public enum MyRel {
     @Override
     public String toString() {
         if (this.equals(MyRel.LEADER)) {
-            return FactionChat.LeaderRank;
+            return Config.LeaderRank;
         } else if (this.equals(MyRel.OFFICER)) {
-            return FactionChat.OfficerRank;
+            return Config.OfficerRank;
         } else if (this.equals(MyRel.MEMBER)) {
-            return FactionChat.MemberRank;
+            return Config.MemberRank;
         } else if (this.equals(MyRel.RECRUIT)) {
-            return FactionChat.RecruitRank;
+            return Config.RecruitRank;
         } else {
             return "";
         }

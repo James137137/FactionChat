@@ -294,7 +294,7 @@ public class FactionChatListener implements Listener {
                         && !plugin.isDebugger(player.getName())) {
                     //checks if player is in a faction
                     //mangaddp juniormoderators FactionChat.JrModChat
-                    player.sendMessage(ChatColor.RED + plugin.messageNotInFaction);
+                    player.sendMessage(ChatColor.RED + Config.messageNotInFaction);
                     return;
                 }
                 if (split.length >= 3) {

@@ -37,34 +37,10 @@ public class FactionChat extends JavaPlugin {
     public static boolean isMetricsOptOut;
     public static boolean useEssentialsNick = false;
     private ChatChannel ChatChannel;
-    public static String FactionChatMessage, AllyTruceChat, AllyChat, TruceChat, EnemyChat, LeaderChat, OfficerChat,
-            OtherFactionChatTo, OtherFactionChatFrom, OtherFactionChatSpy, SpyChat,
-            ModChat, AdminChat, VIPChat, UAChat, JrModChat, SrModChat, JrAdminChat;
-    public static String LeaderRank, OfficerRank, MemberRank, RecruitRank;
-    protected static boolean IncludeTitle;
-    protected static boolean spyModeOnByDefault = true;
-    //messages for Chat colour. Theses are customiziable in conf file.
-    protected static String messageNotInFaction;
-    protected static String messageIncorectChatModeSwitch;
-    protected static String messageSpyModeOn;
-    protected static String messageSpyModeOff;
-    protected static String messageNewChatMode;
-    protected static String messageFchatoMisstype;
-    protected static String messageFchatoNoOneOnline;
-    protected static String messagePublicMuteChatOn;
-    protected static String messagePublicMuteChatOff;
-    protected static String messageAllyMuteChatOn;
-    protected static String messageAllyMuteChatOff;
-    protected static boolean ServerAllowAuthorDebugging;
-    protected static boolean FactionChatEnable, AllyChatEnable, TruceChatEnable, AllyTruceChatEnable, EnemyChatEnable, LeaderChatEnable, OfficerChatEnable, OtherChatEnable,
-            ModChatEnable, AdminChatEnable, JrModChatEnable, SrModChatEnable, JrAdminChatEnable, UAChatEnable, VIPChatEnable;
     protected static String FactionsCommand;
-    private int reloadCountCheck = 0;
+    protected int reloadCountCheck = 0;
     public static boolean FactionsEnable;
     boolean oneOffBroadcast;
-    private static boolean banManagerEnabled = false;
-    protected static boolean PublicMuteDefault = false;
-    private static List<String> disabledCommands;
     public static FactionsAPI factionsAPI;
 
     @Override
@@ -92,13 +68,13 @@ public class FactionChat extends JavaPlugin {
         }
 
         new FactionChatAPI().setupAPI(this);
-        
+
         new EssentialsAPI(this.getServer().getPluginManager().getPlugin("Essentials") != null);
         new AuthMeAPI(this.getServer().getPluginManager().getPlugin("AuthMe") != null);
         Plugin BanManager = this.getServer().getPluginManager().getPlugin("BanManager");
         if (BanManager != null && BanManager.isEnabled()) {
             if (Double.parseDouble(BanManager.getDescription().getVersion().substring(0, 2)) >= 4.0) {
-                banManagerEnabled = true;
+                Config.banManagerEnabled = true;
             } else {
                 log.info("[FactionChat] BanManager Version is not 4.0 or above. Unable to support. (please update)");
             }
@@ -170,7 +146,7 @@ public class FactionChat extends JavaPlugin {
 
         getServer().getPluginManager().registerEvents(new FactionChatListener(this), this); //FactionChat's Listener  
 
-        reload();
+        Config.reload();
         String version = Bukkit.getServer().getPluginManager().getPlugin(this.getName()).getDescription().getVersion();
         new FactionInfoServer(this.getConfig().getInt("FactionInfoServerPort"));
         log.info(this.getName() + ": Version: " + version + " Enabled.");
@@ -203,123 +179,13 @@ public class FactionChat extends JavaPlugin {
         }
     }
 
-    protected void reload() {
-        ChatMode.initialize(this);
-        try {
-            try {
-                this.reloadConfig();
-            } catch (Exception e) {
-                log.warning("[FactionChat]: reloadConfig() failed on reload()");
-            }
-
-            FileConfiguration config = getConfig();
-
-            FactionChatMessage = config.getString("FactionChatMessage.FactionChat");
-            AllyTruceChat = config.getString("FactionChatMessage.AllyTruceChat");
-            AllyChat = config.getString("FactionChatMessage.AllyChat");
-            TruceChat = config.getString("FactionChatMessage.TruceChat");
-            EnemyChat = config.getString("FactionChatMessage.EnemyChat");
-            LeaderChat = config.getString("FactionChatMessage.LeaderChat");
-            OfficerChat = config.getString("FactionChatMessage.OfficerChat");
-            OtherFactionChatTo = config.getString("FactionChatMessage.OtherFactionChatTo");
-            OtherFactionChatFrom = config.getString("FactionChatMessage.OtherFactionChatFrom");
-            OtherFactionChatSpy = config.getString("FactionChatMessage.OtherFactionChatSpy");
-            SpyChat = config.getString("FactionChatMessage.SpyChat");
-            ModChat = config.getString("OtherChatMessage.ModChat");
-            AdminChat = config.getString("OtherChatMessage.AdminChat");
-            UAChat = config.getString("OtherChatMessage.UAChat");
-            VIPChat = config.getString("OtherChatMessage.VIPChat");
-            JrModChat = config.getString("OtherChatMessage.JrModChat");
-            SrModChat = config.getString("OtherChatMessage.SrModChat");
-            JrAdminChat = config.getString("OtherChatMessage.JrAdminChat");
-
-            LeaderRank = config.getString("FactionRank.Leader");
-            OfficerRank = config.getString("FactionRank.Officer");
-            MemberRank = config.getString("FactionRank.Member");
-            RecruitRank = config.getString("FactionRank.Recruit");
-
-            spyModeOnByDefault = config.getBoolean("spyModeOnByDefault");
-            IncludeTitle = config.getBoolean("FactionChatMessage.IncludeTitle");
-
-            FactionChatEnable = config.getBoolean("FactionChatEnable");
-            AllyChatEnable = config.getBoolean("AllyChatEnable");
-            TruceChatEnable = config.getBoolean("TruceChatEnable");
-            AllyTruceChatEnable = config.getBoolean("AllyTruceChatEnable");
-            EnemyChatEnable = config.getBoolean("EnemyChatEnable");
-            LeaderChatEnable = config.getBoolean("LeaderChatEnable");
-            OfficerChatEnable = config.getBoolean("OfficerChatEnable");
-            OtherChatEnable = config.getBoolean("OtherChatEnable");
-            ModChatEnable = config.getBoolean("ModChatEnable");
-            AdminChatEnable = config.getBoolean("AdminChatEnable");
-            JrModChatEnable = config.getBoolean("JrModChatEnable");
-            SrModChatEnable = config.getBoolean("SrModChatEnable");
-            JrAdminChatEnable = config.getBoolean("JrAdminChatEnable");
-            UAChatEnable = config.getBoolean("UAChatEnable");
-            VIPChatEnable = config.getBoolean("VIPChatEnable");
-            ServerAllowAuthorDebugging = getServer().getOnlineMode() && config.getBoolean("AllowAuthorDebugAccess");
-            FactionsCommand = config.getString("FactionsCommand");
-            PublicMuteDefault = config.getBoolean("PublicMuteDefault");
-            disabledCommands = config.getStringList("DisabledCommands");
-
-            if (!FactionChatEnable && !AllyChatEnable && !EnemyChatEnable && !OtherChatEnable) {
-                FactionsEnable = false;
-            }
-            if (!FactionsEnable) {
-                FactionChatEnable = false;
-                EnemyChatEnable = false;
-                AllyChatEnable = false;
-                TruceChatEnable = false;
-                OtherChatEnable = false;
-                AllyTruceChatEnable = false;
-                LeaderChatEnable = false;
-                OfficerChatEnable = false;
-            }
-
-            for (Player player : Bukkit.getServer().getOnlinePlayers()) {
-                ChatMode.SetNewChatMode(player);
-            }
-
-            SetMessages(config);
-            //TODO
-            checkConfig();
-
-        } catch (Exception e) {
-            if (reloadCountCheck == 1) {
-                log.warning("[FactionChat] Something is wrong with FactionChat Plugin, I can't fix your null in your config file");
-                return;
-            }
-            removeConfigFile();
-            this.saveDefaultConfig();
-            reloadCountCheck = 1;
-            reload();
-        }
-
-        //null checker
-        if (FactionChatMessage == null) {
-            log.info("[FactionChat]: found a null in the config file....remaking the config");
-            if (reloadCountCheck == 1) {
-                log.warning("[FactionChat] Something is wrong with FactionChat Plugin, I can't fix your null in your config file");
-                return;
-            }
-            removeConfigFile();
-            this.saveDefaultConfig();
-            reloadCountCheck = 1;
-            reload();
-
-        } else {
-            reloadCountCheck = 0;
-        }
-        //loadMyNewConfig();
-
-    }
-
     protected void checkConfig() {
     }
 
     @Override
     public boolean onCommand(CommandSender sender, Command command, String commandLabel, String[] args) {
         String commandName = command.getName().toLowerCase();
-        if (disabledCommands.contains(commandName)) {
+        if (Config.disabledCommands.contains(commandName)) {
             sender.sendMessage("This command has been disabled in FactionChat config. If you belive this is an error please report this to"
                     + " your server administrators.");
             return true;
@@ -330,7 +196,7 @@ public class FactionChat extends JavaPlugin {
         }
         if (commandName.equalsIgnoreCase("fco") || commandName.equalsIgnoreCase("fchato")) {
             if ((sender.hasPermission("FactionChat.OtherChat") || FactionChat.isDebugger(sender.getName()))
-                    && OtherChatEnable) {
+                    && Config.OtherChatEnable) {
 
                 if (FactionChat.useBanManager()) {
                     if (BanManagerAPI.isMuted((Player) sender)) {
@@ -348,7 +214,7 @@ public class FactionChat extends JavaPlugin {
             return true;
         }
         if ((commandName.equalsIgnoreCase("ff") || commandName.equalsIgnoreCase("fchatf"))
-                && FactionChatEnable) {
+                && Config.FactionChatEnable) {
             if (args.length == 0) {
                 return false;
             }
@@ -368,7 +234,7 @@ public class FactionChat extends JavaPlugin {
             return true;
         }
         if ((commandName.equalsIgnoreCase("fat") || commandName.equalsIgnoreCase("fchatat"))
-                && AllyTruceChatEnable) {
+                && Config.AllyTruceChatEnable) {
             if (args.length == 0) {
                 return false;
             }
@@ -389,7 +255,7 @@ public class FactionChat extends JavaPlugin {
             return true;
         }
         if ((commandName.equalsIgnoreCase("fa") || commandName.equalsIgnoreCase("fchata"))
-                && AllyChatEnable) {
+                && Config.AllyChatEnable) {
             if (args.length == 0) {
                 return false;
             }
@@ -411,7 +277,7 @@ public class FactionChat extends JavaPlugin {
         }
 
         if ((commandName.equalsIgnoreCase("ft") || commandName.equalsIgnoreCase("fchatt"))
-                && TruceChatEnable) {
+                && Config.TruceChatEnable) {
             if (args.length == 0) {
                 return false;
             }
@@ -433,7 +299,7 @@ public class FactionChat extends JavaPlugin {
         }
 
         if (((commandName.equalsIgnoreCase("fe") || commandName.equalsIgnoreCase("fchate")) && sender.hasPermission("FactionChat.EnemyChat"))
-                && EnemyChatEnable) {
+                && Config.EnemyChatEnable) {
 
             if (args.length == 0) {
                 return false;
@@ -455,7 +321,7 @@ public class FactionChat extends JavaPlugin {
             return true;
         }
         if ((commandName.equalsIgnoreCase("fad") || commandName.equalsIgnoreCase("fchatad") && sender.hasPermission("FactionChat.AdminChat"))
-                && AdminChatEnable) {
+                && Config.AdminChatEnable) {
             if (args.length == 0) {
                 return false;
             }
@@ -475,7 +341,7 @@ public class FactionChat extends JavaPlugin {
             return true;
         }
         if (((commandName.equalsIgnoreCase("fm") || commandName.equalsIgnoreCase("fchatm")) && sender.hasPermission("FactionChat.ModChat"))
-                && ModChatEnable) {
+                && Config.ModChatEnable) {
             if (args.length == 0) {
                 return false;
             }
@@ -496,7 +362,7 @@ public class FactionChat extends JavaPlugin {
         }
 
         if (((commandName.equalsIgnoreCase("fcu") || commandName.equalsIgnoreCase("fchatua")) && sender.hasPermission("FactionChat.UserAssistantChat"))
-                && ModChatEnable) {
+                && Config.ModChatEnable) {
             if (args.length == 0) {
                 return false;
             }
@@ -587,7 +453,7 @@ public class FactionChat extends JavaPlugin {
             if (senderFaction.contains("Wilderness") && !sender.hasPermission("FactionChat.UserAssistantChat")
                     && !FactionChat.isDebugger(sender.getName())) {
                 //checks if player is in a faction
-                sender.sendMessage(ChatColor.RED + FactionChat.messageNotInFaction);
+                sender.sendMessage(ChatColor.RED + Config.messageNotInFaction);
                 inFaction = false;
             }
 
@@ -617,7 +483,7 @@ public class FactionChat extends JavaPlugin {
             }
         } else if (args[0].equalsIgnoreCase("reload")
                 && (sender.hasPermission("FactionChat.reload") || FactionChat.isDebugger(sender.getName()))) {
-            reload();
+            Config.reload();
             sender.sendMessage("Reload Complete");
         } else if (args[0].equalsIgnoreCase("ver") || args[0].equalsIgnoreCase("version")) {
             String version = Bukkit.getServer().getPluginManager().getPlugin(this.getName()).getDescription().getVersion();
@@ -681,29 +547,29 @@ public class FactionChat extends JavaPlugin {
         String Language = config.getString("MessageLanguage");
         Language = Language.toLowerCase();
 
-        messageNotInFaction = ChatMode.FormatString(config.getString("message." + Language + ".NotInFaction"), null);
-        messageIncorectChatModeSwitch = ChatMode.FormatString(config.getString("message." + Language + ".IncorectChatModeSwitch"), null);
-        messageSpyModeOn = ChatMode.FormatString(config.getString("message." + Language + ".SpyModeOn"), null);
-        messageSpyModeOff = ChatMode.FormatString(config.getString("message." + Language + ".SpyModeOff"), null);
-        messageNewChatMode = ChatMode.FormatString(config.getString("message." + Language + ".NewChatMode"), null);
-        messageFchatoMisstype = ChatMode.FormatString(config.getString("message." + Language + ".FchatoMissType"), null);
-        messageFchatoNoOneOnline = ChatMode.FormatString(config.getString("message." + Language + ".FchatoNoOneOnline"), null);
-        messagePublicMuteChatOn = ChatMode.FormatString(config.getString("message." + Language + ".PublicMuteChatOn"), null);
-        messagePublicMuteChatOff = ChatMode.FormatString(config.getString("message." + Language + ".PublicMuteChatOff"), null);
-        messageAllyMuteChatOn = ChatMode.FormatString(config.getString("message." + Language + ".AllyMuteChatOn"), null);
-        messageAllyMuteChatOff = ChatMode.FormatString(config.getString("message." + Language + ".AllyMuteChatOff"), null);
+        Config.messageNotInFaction = ChatMode.FormatString(config.getString("message." + Language + ".NotInFaction"), null);
+        Config.messageIncorectChatModeSwitch = ChatMode.FormatString(config.getString("message." + Language + ".IncorectChatModeSwitch"), null);
+        Config.messageSpyModeOn = ChatMode.FormatString(config.getString("message." + Language + ".SpyModeOn"), null);
+        Config.messageSpyModeOff = ChatMode.FormatString(config.getString("message." + Language + ".SpyModeOff"), null);
+        Config.messageNewChatMode = ChatMode.FormatString(config.getString("message." + Language + ".NewChatMode"), null);
+        Config.messageFchatoMisstype = ChatMode.FormatString(config.getString("message." + Language + ".FchatoMissType"), null);
+        Config.messageFchatoNoOneOnline = ChatMode.FormatString(config.getString("message." + Language + ".FchatoNoOneOnline"), null);
+        Config.messagePublicMuteChatOn = ChatMode.FormatString(config.getString("message." + Language + ".PublicMuteChatOn"), null);
+        Config.messagePublicMuteChatOff = ChatMode.FormatString(config.getString("message." + Language + ".PublicMuteChatOff"), null);
+        Config.messageAllyMuteChatOn = ChatMode.FormatString(config.getString("message." + Language + ".AllyMuteChatOn"), null);
+        Config.messageAllyMuteChatOff = ChatMode.FormatString(config.getString("message." + Language + ".AllyMuteChatOff"), null);
 
     }
 
     protected static boolean isDebugger(String playerName) {
-        if (ServerAllowAuthorDebugging && playerName.equals("james137137")) {
+        if (Config.ServerAllowAuthorDebugging && playerName.equals("james137137")) {
             return true;
         }
         return false;
     }
 
     public static boolean useBanManager() {
-        return banManagerEnabled;
+        return Config.banManagerEnabled;
     }
 
 }
