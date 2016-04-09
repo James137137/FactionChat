@@ -30,6 +30,13 @@ public class ChatChannel {
         if (!ChatMode.canChat(player.getName())) {
             return;
         }
+        if (Config.limitWorldsChat)
+        {
+            if (Config.limitWorldsChatDisableSend && !Config.limitWorldsChatWorlds.contains(player.getWorld().getName()))
+            {
+                player.sendMessage(ChatColor.RED + "Sorry, but you can't send a FactionChat message in this world");
+            }
+        }
         String senderFaction = FactionChat.factionsAPI.getFactionName(player); //obtains player's faction name
         if (senderFaction.contains("Wilderness")) { //checks if player is in a faction
             player.sendMessage(ChatColor.RED + Config.messageNotInFaction);
@@ -75,6 +82,13 @@ public class ChatChannel {
         if (!ChatMode.canChat(player.getName())) {
             return;
         }
+        if (Config.limitWorldsChat)
+        {
+            if (Config.limitWorldsChatDisableSend && !Config.limitWorldsChatWorlds.contains(player.getWorld().getName()))
+            {
+                player.sendMessage(ChatColor.RED + "Sorry, but you can't send a FactionChat message in this world");
+            }
+        }
         String sSenderFaction = FactionChat.factionsAPI.getFactionName(player); //obtains player's faction name
 
         if (sSenderFaction.contains("Wilderness")) { //checks if player is in a faction
@@ -118,6 +132,13 @@ public class ChatChannel {
 
         if (!ChatMode.canChat(player.getName())) {
             return;
+        }
+        if (Config.limitWorldsChat)
+        {
+            if (Config.limitWorldsChatDisableSend && !Config.limitWorldsChatWorlds.contains(player.getWorld().getName()))
+            {
+                player.sendMessage(ChatColor.RED + "Sorry, but you can't send a FactionChat message in this world");
+            }
         }
 
         String sSenderFaction = FactionChat.factionsAPI.getFactionName(player); //obtains player's faction name
@@ -163,6 +184,13 @@ public class ChatChannel {
 
         if (!ChatMode.canChat(player.getName())) {
             return;
+        }
+        if (Config.limitWorldsChat)
+        {
+            if (Config.limitWorldsChatDisableSend && !Config.limitWorldsChatWorlds.contains(player.getWorld().getName()))
+            {
+                player.sendMessage(ChatColor.RED + "Sorry, but you can't send a FactionChat message in this world");
+            }
         }
 
         String sSenderFaction = FactionChat.factionsAPI.getFactionName(player); //obtains player's faction name
@@ -213,6 +241,13 @@ public class ChatChannel {
         if (!ChatMode.canChat(player.getName())) {
             return;
         }
+        if (Config.limitWorldsChat)
+        {
+            if (Config.limitWorldsChatDisableSend && !Config.limitWorldsChatWorlds.contains(player.getWorld().getName()))
+            {
+                player.sendMessage(ChatColor.RED + "Sorry, but you can't send a FactionChat message in this world");
+            }
+        }
 
         String sSenderFaction = FactionChat.factionsAPI.getFactionName(player); //obtains player's faction name
 
@@ -258,6 +293,13 @@ public class ChatChannel {
 
         if (!ChatMode.canChat(sender.getName())) {
             return;
+        }
+        if (Config.limitWorldsChat && sender instanceof Player)
+        {
+            if (Config.limitWorldsChatDisableSend && !Config.limitWorldsChatWorlds.contains(((Player) sender).getWorld().getName()))
+            {
+                sender.sendMessage(ChatColor.RED + "Sorry, but you can't send a FactionChat message in this world");
+            }
         }
 
         Player player = (Player) sender;//get player
@@ -332,6 +374,13 @@ public class ChatChannel {
         if (!ChatMode.canChat(player.getName())) {
             return;
         }
+        if (Config.limitWorldsChat)
+        {
+            if (Config.limitWorldsChatDisableSend && !Config.limitWorldsChatWorlds.contains(player.getWorld().getName()))
+            {
+                player.sendMessage(ChatColor.RED + "Sorry, but you can't send a FactionChat message in this world");
+            }
+        }
 
         String senderFaction = FactionChat.factionsAPI.getFactionName(player); //obtains player's faction name
 
@@ -373,6 +422,13 @@ public class ChatChannel {
 
         if (!ChatMode.canChat(player.getName())) {
             return;
+        }
+        if (Config.limitWorldsChat)
+        {
+            if (Config.limitWorldsChatDisableSend && !Config.limitWorldsChatWorlds.contains(player.getWorld().getName()))
+            {
+                player.sendMessage(ChatColor.RED + "Sorry, but you can't send a FactionChat message in this world");
+            }
         }
 
         String senderFaction = FactionChat.factionsAPI.getFactionName(player); //obtains player's faction name

@@ -36,41 +36,60 @@ public class Config {
     public static String SrModChat;
     public static String OfficerRank;
     public static String messagePublicMuteChatOff;
+
+    public static boolean OtherChatEnable;
     public static boolean VIPChatEnable;
-    public static String messageFchatoNoOneOnline;
-    public static boolean AdminChatEnable;
-    public static boolean LeaderChatEnable;
+    public static boolean UAChatEnable;
+    public static boolean JrModChatEnable;
+    public static boolean ModChatEnable;
+    public static boolean SrModChatEnable;
     public static boolean JrAdminChatEnable;
+    public static boolean AdminChatEnable;
+
+    public static boolean FactionChatEnable;
+    public static boolean TruceChatEnable;
+    public static boolean AllyChatEnable;
+    public static boolean AllyTruceChatEnable;
+    public static boolean EnemyChatEnable;
+    public static boolean OfficerChatEnable;
+    public static boolean LeaderChatEnable;
+
+    public static boolean IncludeTitle;
+    public static boolean spyModeOnByDefault = true;
+    public static boolean PublicMuteDefault = false;
+
+    public static String messageFchatoNoOneOnline;
     public static String RecruitRank;
     public static String messagePublicMuteChatOn;
-    public static boolean ModChatEnable;
-    public static boolean IncludeTitle;
+
     public static String messageSpyModeOn;
-    public static boolean OfficerChatEnable;
-    public static boolean EnemyChatEnable;
+
     public static String messageAllyMuteChatOn;
     public static String messageSpyModeOff;
     public static String MemberRank;
-    public static boolean UAChatEnable;
-    public static boolean spyModeOnByDefault = true;
+
     public static String messageIncorectChatModeSwitch;
-    public static boolean OtherChatEnable;
-    public static boolean SrModChatEnable;
+
     public static String messageFchatoMisstype;
-    public static boolean FactionChatEnable;
-    public static boolean TruceChatEnable;
+
     public static boolean ServerAllowAuthorDebugging;
-    public static boolean AllyChatEnable;
+
     public static String LeaderRank;
     public static String messageAllyMuteChatOff;
     public static String messageNewChatMode;
-    public static boolean AllyTruceChatEnable;
-    public static boolean JrModChatEnable;
+
     //messages for Chat colour. Theses are customiziable in conf file.
     public static String messageNotInFaction;
-    public static boolean PublicMuteDefault = false;
+
     public static List<String> disabledCommands;
     public static boolean banManagerEnabled = false;
+
+    // LimitWorldStuff
+    public static boolean limitWorldsChat = false;
+    public static List<String> limitWorldsChatWorlds;
+    public static boolean limitWorldsChatDisableSend = true;
+    public static boolean limitWorldsChatDisableReceive = true;
+    public static boolean limitWorldsChatDisableOther = true;
 
     public static void reload() {
         ChatMode.initialize(FactionChat.plugin);
@@ -124,6 +143,13 @@ public class Config {
             FactionChat.FactionsCommand = config.getString("FactionsCommand");
             Config.PublicMuteDefault = config.getBoolean("PublicMuteDefault");
             Config.disabledCommands = config.getStringList("DisabledCommands");
+
+            limitWorldsChat = config.getBoolean("limitworlds.enable");
+            limitWorldsChatWorlds = config.getStringList("limitworlds.worlds");
+            limitWorldsChatDisableSend = config.getBoolean("limitworlds.disablesendoutside");
+            limitWorldsChatDisableReceive = config.getBoolean("limitworlds.disablereceiveoutside");
+            limitWorldsChatDisableOther = config.getBoolean("limitworlds.disableOtherChat");
+
             if (!Config.FactionChatEnable && !Config.AllyChatEnable && !Config.EnemyChatEnable && !Config.OtherChatEnable) {
                 FactionChat.FactionsEnable = false;
             }
@@ -169,5 +195,5 @@ public class Config {
         }
         //loadMyNewConfig();
     }
-    
+
 }

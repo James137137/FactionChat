@@ -25,8 +25,20 @@ DisabledCommands:
     - Example_fchatat
     - Example_fa
     - Example_fat
+#Essentials support
 Essentials:
     useNickName: false
+    
+# Set FactionChat to only be active in a certain worlds
+limitworlds:
+    enable: false
+    worlds:
+        - 'world'
+        - 'factionworld'
+        - 'faction_World_Nether'
+    disablesendoutside: true
+    disablereceiveoutside: true
+    disableOtherChat: false
     
 # Event Priority, only change if you know what you are doing, please refer to http://wiki.bukkit.org/Event_API_Reference#Event_Priorities
 # 1 = EventPriority.LOWEST and 6 = EventPriority.MONITOR.

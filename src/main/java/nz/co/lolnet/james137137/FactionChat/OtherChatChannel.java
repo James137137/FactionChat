@@ -25,6 +25,13 @@ public class OtherChatChannel {
         if (!AuthMeAPI.isAllowToChat(player)) {
             return;
         }
+        if (Config.limitWorldsChat)
+        {
+            if (Config.limitWorldsChatDisableOther && Config.limitWorldsChatDisableSend && !Config.limitWorldsChatWorlds.contains(player.getWorld().getName()))
+            {
+                player.sendMessage(ChatColor.RED + "Sorry, but you can't send a FactionChat message in this world");
+            }
+        }
         message = FactionChatAPI.filterChat(player, message);
         boolean allowCustomColour = player.hasPermission("essentials.chat.color") || player.hasPermission("FactionChat.Chat.Colour");
         String[] intput1 = {FactionChatAPI.getPrefix(player) + player.getName() + FactionChatAPI.getSuffix(player) + ChatColor.RESET, message};
@@ -41,6 +48,13 @@ public class OtherChatChannel {
     protected void jrModChat(Player player, String message) {
         if (!AuthMeAPI.isAllowToChat(player)) {
             return;
+        }
+        if (Config.limitWorldsChat)
+        {
+            if (Config.limitWorldsChatDisableOther && Config.limitWorldsChatDisableSend && !Config.limitWorldsChatWorlds.contains(player.getWorld().getName()))
+            {
+                player.sendMessage(ChatColor.RED + "Sorry, but you can't send a FactionChat message in this world");
+            }
         }
         message = FactionChatAPI.filterChat(player, message);
         boolean allowCustomColour = player.hasPermission("essentials.chat.color") || player.hasPermission("FactionChat.Chat.Colour");
@@ -59,6 +73,13 @@ public class OtherChatChannel {
         if (!AuthMeAPI.isAllowToChat(player)) {
             return;
         }
+        if (Config.limitWorldsChat)
+        {
+            if (Config.limitWorldsChatDisableOther && Config.limitWorldsChatDisableSend && !Config.limitWorldsChatWorlds.contains(player.getWorld().getName()))
+            {
+                player.sendMessage(ChatColor.RED + "Sorry, but you can't send a FactionChat message in this world");
+            }
+        }
         message = FactionChatAPI.filterChat(player, message);
         String[] intput1 = {FactionChatAPI.getPrefix(player) + player.getName() + FactionChatAPI.getSuffix(player) + ChatColor.RESET, message};
         boolean allowCustomColour = player.hasPermission("essentials.chat.color") || player.hasPermission("FactionChat.Chat.Colour");
@@ -75,6 +96,13 @@ public class OtherChatChannel {
     protected void SrModChat(Player player, String message) {
         if (!AuthMeAPI.isAllowToChat(player)) {
             return;
+        }
+        if (Config.limitWorldsChat)
+        {
+            if (Config.limitWorldsChatDisableOther && Config.limitWorldsChatDisableSend && !Config.limitWorldsChatWorlds.contains(player.getWorld().getName()))
+            {
+                player.sendMessage(ChatColor.RED + "Sorry, but you can't send a FactionChat message in this world");
+            }
         }
         message = FactionChatAPI.filterChat(player, message);
         String[] intput1 = {FactionChatAPI.getPrefix(player) + player.getName() + FactionChatAPI.getSuffix(player) + ChatColor.RESET, message};
@@ -93,6 +121,13 @@ public class OtherChatChannel {
         if (!AuthMeAPI.isAllowToChat(player)) {
             return;
         }
+        if (Config.limitWorldsChat)
+        {
+            if (Config.limitWorldsChatDisableOther && Config.limitWorldsChatDisableSend && !Config.limitWorldsChatWorlds.contains(player.getWorld().getName()))
+            {
+                player.sendMessage(ChatColor.RED + "Sorry, but you can't send a FactionChat message in this world");
+            }
+        }
         message = FactionChatAPI.filterChat(player, message);
         String[] intput1 = {FactionChatAPI.getPrefix(player) + player.getName() + FactionChatAPI.getSuffix(player) + ChatColor.RESET, message};
         boolean allowCustomColour = player.hasPermission("essentials.chat.color") || player.hasPermission("FactionChat.Chat.Colour");
@@ -110,6 +145,13 @@ public class OtherChatChannel {
         if (!AuthMeAPI.isAllowToChat(player)) {
             return;
         }
+        if (Config.limitWorldsChat)
+        {
+            if (Config.limitWorldsChatDisableOther && Config.limitWorldsChatDisableSend && !Config.limitWorldsChatWorlds.contains(player.getWorld().getName()))
+            {
+                player.sendMessage(ChatColor.RED + "Sorry, but you can't send a FactionChat message in this world");
+            }
+        }
         message = FactionChatAPI.filterChat(player, message);
         String[] intput1 = {FactionChatAPI.getPrefix(player) + player.getName() + FactionChatAPI.getSuffix(player) + ChatColor.RESET, message};
         boolean allowCustomColour = player.hasPermission("essentials.chat.color") || player.hasPermission("FactionChat.Chat.Colour");
@@ -126,6 +168,13 @@ public class OtherChatChannel {
     public void VIPChat(Player player, String message) {
         if (!AuthMeAPI.isAllowToChat(player)) {
             return;
+        }
+        if (Config.limitWorldsChat)
+        {
+            if (Config.limitWorldsChatDisableOther && Config.limitWorldsChatDisableSend && !Config.limitWorldsChatWorlds.contains(player.getWorld().getName()))
+            {
+                player.sendMessage(ChatColor.RED + "Sorry, but you can't send a FactionChat message in this world");
+            }
         }
         message = FactionChatAPI.filterChat(player, message);
         boolean allowCustomColour = player.hasPermission("essentials.chat.color") || player.hasPermission("FactionChat.Chat.Colour");

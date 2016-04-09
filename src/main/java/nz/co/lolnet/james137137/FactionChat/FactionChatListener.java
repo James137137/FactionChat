@@ -116,7 +116,7 @@ public class FactionChatListener implements Listener {
 
         if (event.isCancelled() || isNpc(event.getPlayer())) {
             return;
-        }  
+        }
         boolean cancelEvent = onChat(event.getPlayer(), event.getMessage(), event.getRecipients());
         event.setCancelled(cancelEvent);
 
@@ -141,6 +141,16 @@ public class FactionChatListener implements Listener {
         //FPlayer me = (FPlayer)FPlayers.i.get(talkingPlayer);
         String chatmode = ChatMode.getChatMode(talkingPlayer);
         if (!chatmode.equalsIgnoreCase("PUBLIC")) {
+            if (Config.limitWorldsChat) {
+                if (Config.limitWorldsChatDisableOther && Config.limitWorldsChatDisableReceive) {
+                    for (Player recipient : recipients) {
+                        if (!Config.limitWorldsChatWorlds.contains(recipient.getWorld().getName()))
+                        {
+                            recipients.remove(recipient);
+                        }
+                    }
+                }
+            }
             boolean isFactionChat = false;
             if (plugin.FactionsEnable) {
                 if (chatmode.equalsIgnoreCase("ALLY&TRUCE")) {
