@@ -148,7 +148,9 @@ public class FactionChat extends JavaPlugin {
 
         Config.reload();
         String version = Bukkit.getServer().getPluginManager().getPlugin(this.getName()).getDescription().getVersion();
-        new FactionInfoServer(this.getConfig().getInt("FactionInfoServerPort"));
+        if (this.getConfig().getBoolean("FactionInfoServer.enable")) {
+            new FactionInfoServer(this.getConfig().getInt("FactionInfoServer.port"));
+        }
         log.info(this.getName() + ": Version: " + version + " Enabled.");
 
     }
