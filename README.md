@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.org/James137137/FactionChat.svg?branch=master)](https://travis-ci.org/James137137/FactionChat)
+[![Build Status](http://jenkins.lolnet.co.nz/job/FactionChat/badge/icon)](http://jenkins.lolnet.co.nz/job/FactionChat/)
 
 # FactionChat
 A Bukkit Plugin that allows internal chat of factions
