@@ -4,6 +4,8 @@
  */
 package nz.co.lolnet.james137137.FactionChat;
 
+
+import nz.co.lolnet.james137137.FactionChat.API.AuthMeAPI;
 import nz.co.lolnet.james137137.FactionChat.API.FactionChatAPI;
 import nz.co.lolnet.james137137.FactionChat.API.BanManagerAPI;
 import nz.co.lolnet.james137137.FactionChat.API.EssentialsAPI;
@@ -16,6 +18,7 @@ import java.util.logging.Logger;
 import net.gravitydevelopment.updater.Updater;
 import net.gravitydevelopment.updater.Updater.UpdateResult;
 import net.gravitydevelopment.updater.Updater.UpdateType;
+import nz.co.lolnet.james137137.FactionChat.API.McMMOAPI;
 
 import nz.co.lolnet.james137137.FactionChat.FactionsAPI.FactionsAPI;
 import nz.co.lolnet.james137137.FactionChat.FactionsInfoServer.FactionInfoServer;
@@ -72,6 +75,10 @@ public class FactionChat extends JavaPlugin {
 
         new EssentialsAPI(this.getServer().getPluginManager().getPlugin("Essentials") != null);
         new AuthMeAPI(this.getServer().getPluginManager().getPlugin("AuthMe") != null);
+        if (this.getServer().getPluginManager().getPlugin("mcMMO") != null)
+        {
+            new McMMOAPI(this);
+        }
         Plugin BanManager = this.getServer().getPluginManager().getPlugin("BanManager");
         if (BanManager != null && BanManager.isEnabled()) {
             if (Double.parseDouble(BanManager.getDescription().getVersion().substring(0, 2)) >= 4.0) {
