@@ -5,6 +5,7 @@ import nz.co.lolnet.james137137.FactionChat.API.BanManagerAPI;
 import java.util.Objects;
 import java.util.Set;
 import java.util.logging.Logger;
+import nz.co.lolnet.james137137.FactionChat.API.Event.FactionChatPlayerChatEvent;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.configuration.file.FileConfiguration;
@@ -131,15 +132,17 @@ public class FactionChatListener implements Listener {
     }
 
     private boolean onChat(Player talkingPlayer, String msg, Set<Player> recipients) {
-        boolean setCancelled = false;
-        if (FactionChat.useBanManager()) {
-            if (BanManagerAPI.isMuted(talkingPlayer)) {
-                return setCancelled;
-            }
-        }
-
-        //FPlayer me = (FPlayer)FPlayers.i.get(talkingPlayer);
+        boolean success = false;
+        
         String chatmode = ChatMode.getChatMode(talkingPlayer);
+        
+        FactionChatPlayerChatEvent event = new FactionChatPlayerChatEvent(talkingPlayer,chatmode,msg,recipients);
+        plugin.getServer().getPluginManager().callEvent(event);
+        if (event.isCancelled())
+        {
+            return false; //let other plugins decide to cancel or not
+        }
+        
         if (!chatmode.equalsIgnoreCase("PUBLIC")) {
             if (Config.limitWorldsChat) {
                 if (Config.limitWorldsChatDisableOther && Config.limitWorldsChatDisableReceive) {
@@ -155,63 +158,63 @@ public class FactionChatListener implements Listener {
             if (plugin.FactionsEnable) {
                 if (chatmode.equalsIgnoreCase("ALLY&TRUCE")) {
                     channel.fChatAT(talkingPlayer, msg);
-                    setCancelled = true;
+                    success = true;
                     isFactionChat = true;
 
                 } else if (chatmode.equalsIgnoreCase("ENEMY")) {
                     channel.fChatE(talkingPlayer, msg);
-                    setCancelled = true;
+                    success = true;
                     isFactionChat = true;
                 } else if (chatmode.equalsIgnoreCase("FACTION")) {
                     channel.fChatF(talkingPlayer, msg);
-                    setCancelled = true;
+                    success = true;
                     isFactionChat = true;
                 } else if (chatmode.equalsIgnoreCase("ALLY")) {
                     channel.fChatA(talkingPlayer, msg);
-                    setCancelled = true;
+                    success = true;
                     isFactionChat = true;
                 } else if (chatmode.equalsIgnoreCase("TRUCE")) {
                     channel.fChatTruce(talkingPlayer, msg);
-                    setCancelled = true;
+                    success = true;
                     isFactionChat = true;
                 } else if (chatmode.equalsIgnoreCase("LEADER")) {
                     channel.fChatLeader(talkingPlayer, msg);
-                    setCancelled = true;
+                    success = true;
                     isFactionChat = true;
                 } else if (chatmode.equalsIgnoreCase("OFFICER")) {
                     channel.fChatOfficer(talkingPlayer, msg);
-                    setCancelled = true;
+                    success = true;
                     isFactionChat = true;
                 }
 
                 if (isFactionChat) {
                     log.info("[FactionChat] " + chatmode + "|" + talkingPlayer.getName() + ": " + msg);
-                    return setCancelled;
+                    return success;
                 }
 
             }
 
             if (chatmode.equalsIgnoreCase("VIP")) {
                 otherChannel.VIPChat(talkingPlayer, msg);
-                setCancelled = true;
+                success = true;
             } else if (chatmode.equalsIgnoreCase("UserAssistant")) {
                 otherChannel.userAssistantChat(talkingPlayer, msg);
-                setCancelled = true;
+                success = true;
             } else if (chatmode.equalsIgnoreCase("JrMOD")) {
                 otherChannel.jrModChat(talkingPlayer, msg);
-                setCancelled = true;
+                success = true;
             } else if (chatmode.equalsIgnoreCase("MOD")) {
                 otherChannel.modChat(talkingPlayer, msg);
-                setCancelled = true;
+                success = true;
             } else if (chatmode.equalsIgnoreCase("SrMOD")) {
                 otherChannel.SrModChat(talkingPlayer, msg);
-                setCancelled = true;
+                success = true;
             } else if (chatmode.equalsIgnoreCase("JrAdmin")) {
                 otherChannel.JrAdminChat(talkingPlayer, msg);
-                setCancelled = true;
+                success = true;
             } else if (chatmode.equalsIgnoreCase("ADMIN")) {
                 otherChannel.adminChat(talkingPlayer, msg);
-                setCancelled = true;
+                success = true;
             }
 
             log.info("[FactionChat] " + chatmode + "|" + talkingPlayer.getName() + ": " + msg);
@@ -220,7 +223,7 @@ public class FactionChatListener implements Listener {
 
         }
 
-        return setCancelled;
+        return success;
     }
 
     private void checkLocalMute(Player talkingPlayer, Set<Player> recipients) {

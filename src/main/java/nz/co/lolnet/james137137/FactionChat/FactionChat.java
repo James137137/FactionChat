@@ -42,6 +42,7 @@ public class FactionChat extends JavaPlugin {
     public static boolean FactionsEnable;
     boolean oneOffBroadcast;
     public static FactionsAPI factionsAPI;
+    public static BanManagerAPI banManagerAPI;
 
     @Override
     public void onEnable() {
@@ -75,6 +76,7 @@ public class FactionChat extends JavaPlugin {
         if (BanManager != null && BanManager.isEnabled()) {
             if (Double.parseDouble(BanManager.getDescription().getVersion().substring(0, 2)) >= 4.0) {
                 Config.banManagerEnabled = true;
+                banManagerAPI = new BanManagerAPI(plugin);
             } else {
                 log.info("[FactionChat] BanManager Version is not 4.0 or above. Unable to support. (please update)");
             }

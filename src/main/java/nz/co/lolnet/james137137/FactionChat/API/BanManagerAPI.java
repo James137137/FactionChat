@@ -5,16 +5,31 @@
  */
 package nz.co.lolnet.james137137.FactionChat.API;
 
+import nz.co.lolnet.james137137.FactionChat.API.Event.FactionChatPlayerChatEvent;
 import nz.co.lolnet.james137137.FactionChat.FactionChat;
 import org.bukkit.entity.Player;
+import org.bukkit.event.EventHandler;
+import org.bukkit.event.Listener;
 
 /**
  *
  * @author James
  */
-public class BanManagerAPI {
+public class BanManagerAPI implements Listener {
 
-    static Boolean useDevBM;
+    private static Boolean useDevBM = false;
+
+    public BanManagerAPI(FactionChat plugin) {
+        plugin.getServer().getPluginManager().registerEvents(this, plugin);
+        useDevBM = true;
+    }
+
+    @EventHandler
+    public void onPlayerChat(FactionChatPlayerChatEvent event) {
+        if (!event.getChatMode().equalsIgnoreCase("public") && isMuted(event.getPlayer())) {
+            event.setCancelled(true);
+        }
+    }
 
     public static boolean isMuted(Player player) {
         if (useDevBM == null) {
