@@ -212,6 +212,10 @@
             <id>ess-repo</id>
             <url>http://ci.drtshock.net/plugin/repository/everything</url>
         </repository>
+        <repository>
+            <id>lolnet-repo</id>
+            <url>http://jenkins.lolnet.co.nz/plugin/repository/everything/</url>
+        </repository>
     </repositories>
     
     <build>
