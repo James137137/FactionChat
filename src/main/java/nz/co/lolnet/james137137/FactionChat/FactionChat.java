@@ -50,6 +50,8 @@ public class FactionChat extends JavaPlugin {
     @Override
     public void onEnable() {
         plugin = this;
+        String version = Bukkit.getServer().getPluginManager().getPlugin(this.getName()).getDescription().getVersion();
+        log.info(this.getName() + ": Version: " + version + " Enabling");
         log = Bukkit.getLogger();
         oneOffBroadcast = true;
         FileConfiguration config = getConfig();
@@ -77,7 +79,7 @@ public class FactionChat extends JavaPlugin {
         new AuthMeAPI(this.getServer().getPluginManager().getPlugin("AuthMe") != null);
         if (this.getServer().getPluginManager().getPlugin("mcMMO") != null)
         {
-            new McMMOAPI(this);
+            getServer().getPluginManager().registerEvents(new McMMOAPI(this), this);
         }
         Plugin BanManager = this.getServer().getPluginManager().getPlugin("BanManager");
         if (BanManager != null && BanManager.isEnabled()) {
@@ -99,8 +101,11 @@ public class FactionChat extends JavaPlugin {
                     Logger.getLogger(FactionChat.class.getName()).log(Level.SEVERE, null, ex);
                 }
             } else if (facitonVersion.compareTo(new ComparableVersion("1.6.999")) < 0) {
-                Logger.getLogger(FactionChat.class.getName()).warning("FactionChat no longer supports Factions 1.6. If you would like this re-added please contact James137137 on dev.bukkit.org");
-                this.getPluginLoader().disablePlugin(this);
+                try {
+                    factionsAPI = (FactionsAPI) Class.forName("nz.co.lolnet.james137137.FactionChat.FactionsAPI.FactionsAPI_1_6").getConstructor().newInstance();
+                } catch (Exception ex) {
+                    Logger.getLogger(FactionChat.class.getName()).log(Level.SEVERE, null, ex);
+                }
                 return;
             } else if (facitonVersion.compareTo(new ComparableVersion("1.9.999")) < 0) {
                 try {
@@ -156,7 +161,6 @@ public class FactionChat extends JavaPlugin {
         getServer().getPluginManager().registerEvents(new FactionChatListener(this), this); //FactionChat's Listener  
 
         Config.reload();
-        String version = Bukkit.getServer().getPluginManager().getPlugin(this.getName()).getDescription().getVersion();
         if (this.getConfig().getBoolean("FactionInfoServer.enable")) {
             new FactionInfoServer(this.getConfig().getInt("FactionInfoServer.port"));
         }

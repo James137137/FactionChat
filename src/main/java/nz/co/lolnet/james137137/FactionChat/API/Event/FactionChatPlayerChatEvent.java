@@ -6,6 +6,7 @@
 package nz.co.lolnet.james137137.FactionChat.API.Event;
 
 import java.util.Set;
+import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Cancellable;
 import org.bukkit.event.HandlerList;
@@ -28,6 +29,7 @@ public class FactionChatPlayerChatEvent extends PlayerEvent implements Cancellab
         super(player);
         this.player = player;
     }
+    
 
     public FactionChatPlayerChatEvent(Player talkingPlayer, String chatmode, String msg, Set<Player> recipients) {
         super(talkingPlayer);
@@ -41,7 +43,11 @@ public class FactionChatPlayerChatEvent extends PlayerEvent implements Cancellab
     public HandlerList getHandlers() {
         return handlers;
     }
-
+    
+    public static HandlerList getHandlerList() {
+        return handlers;
+    }
+    
     @Override
     public boolean isCancelled() {
         return cancel;

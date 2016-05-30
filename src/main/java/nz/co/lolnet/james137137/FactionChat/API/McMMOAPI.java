@@ -21,12 +21,12 @@ import org.bukkit.event.Listener;
 public class McMMOAPI implements Listener{
 
     public McMMOAPI(FactionChat plugin) {
-        plugin.getServer().getPluginManager().registerEvents(this, plugin);
+        
     }
     
     
     @EventHandler
-    public void onPlayerChat(FactionChatPlayerChatEvent event) {
+    public void onPlayerFactionChat(FactionChatPlayerChatEvent event) {
         McMMOPlayer mcMMOPlayer = UserManager.getOfflinePlayer(event.getPlayer());
         if (mcMMOPlayer == null) {
             return;
