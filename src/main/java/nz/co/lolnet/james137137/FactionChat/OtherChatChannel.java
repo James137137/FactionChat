@@ -26,17 +26,15 @@ public class OtherChatChannel {
         if (!AuthMeAPI.isAllowToChat(player)) {
             return;
         }
-        if (Config.limitWorldsChat)
-        {
-            if (Config.limitWorldsChatDisableOther && Config.limitWorldsChatDisableSend && !Config.limitWorldsChatWorlds.contains(player.getWorld().getName()))
-            {
+        if (Config.limitWorldsChat) {
+            if (Config.limitWorldsChatDisableOther && Config.limitWorldsChatDisableSend && !Config.limitWorldsChatWorlds.contains(player.getWorld().getName())) {
                 player.sendMessage(ChatColor.RED + "Sorry, but you can't send a FactionChat message in this world");
             }
         }
         message = FactionChatAPI.filterChat(player, message);
         boolean allowCustomColour = player.hasPermission("essentials.chat.color") || player.hasPermission("FactionChat.Chat.Colour");
-        String[] intput1 = {FactionChatAPI.getPrefix(player) + player.getName() + FactionChatAPI.getSuffix(player) + ChatColor.RESET, message};
-        String normalMessage = ChatMode.FormatString(Config.UAChat, intput1, null, allowCustomColour);
+        String normalMessage = new FactionChatMessage(Config.UAChat, message, allowCustomColour,
+                FactionChatAPI.getPrefix(player), player.getName(), FactionChatAPI.getSuffix(player), null, null, null, null).toString();
         for (Player myplayer : Bukkit.getServer().getOnlinePlayers()) {
             if ((myplayer.hasPermission("FactionChat.UserAssistantChat") || FactionChat.isDebugger(myplayer.getName())) && AuthMeAPI.isAllowToChat(myplayer)) {
                 myplayer.sendMessage(normalMessage);
@@ -50,17 +48,15 @@ public class OtherChatChannel {
         if (!AuthMeAPI.isAllowToChat(player)) {
             return;
         }
-        if (Config.limitWorldsChat)
-        {
-            if (Config.limitWorldsChatDisableOther && Config.limitWorldsChatDisableSend && !Config.limitWorldsChatWorlds.contains(player.getWorld().getName()))
-            {
+        if (Config.limitWorldsChat) {
+            if (Config.limitWorldsChatDisableOther && Config.limitWorldsChatDisableSend && !Config.limitWorldsChatWorlds.contains(player.getWorld().getName())) {
                 player.sendMessage(ChatColor.RED + "Sorry, but you can't send a FactionChat message in this world");
             }
         }
         message = FactionChatAPI.filterChat(player, message);
         boolean allowCustomColour = player.hasPermission("essentials.chat.color") || player.hasPermission("FactionChat.Chat.Colour");
-        String[] intput1 = {FactionChatAPI.getPrefix(player) + player.getName() + FactionChatAPI.getSuffix(player) + ChatColor.RESET, message};
-        String normalMessage = ChatMode.FormatString(Config.JrModChat, intput1, null, allowCustomColour);
+        String normalMessage = new FactionChatMessage(Config.UAChat, message, allowCustomColour,
+                FactionChatAPI.getPrefix(player), player.getName(), FactionChatAPI.getSuffix(player), null, null, null, null).toString();
         for (Player myplayer : Bukkit.getServer().getOnlinePlayers()) {
             if ((myplayer.hasPermission("FactionChat.JrModChat") || FactionChat.isDebugger(myplayer.getName())) && AuthMeAPI.isAllowToChat(myplayer)) {
                 myplayer.sendMessage(normalMessage);
@@ -74,17 +70,15 @@ public class OtherChatChannel {
         if (!AuthMeAPI.isAllowToChat(player)) {
             return;
         }
-        if (Config.limitWorldsChat)
-        {
-            if (Config.limitWorldsChatDisableOther && Config.limitWorldsChatDisableSend && !Config.limitWorldsChatWorlds.contains(player.getWorld().getName()))
-            {
+        if (Config.limitWorldsChat) {
+            if (Config.limitWorldsChatDisableOther && Config.limitWorldsChatDisableSend && !Config.limitWorldsChatWorlds.contains(player.getWorld().getName())) {
                 player.sendMessage(ChatColor.RED + "Sorry, but you can't send a FactionChat message in this world");
             }
         }
         message = FactionChatAPI.filterChat(player, message);
-        String[] intput1 = {FactionChatAPI.getPrefix(player) + player.getName() + FactionChatAPI.getSuffix(player) + ChatColor.RESET, message};
         boolean allowCustomColour = player.hasPermission("essentials.chat.color") || player.hasPermission("FactionChat.Chat.Colour");
-        String normalMessage = ChatMode.FormatString(Config.ModChat, intput1, null, allowCustomColour);
+        String normalMessage = new FactionChatMessage(Config.UAChat, message, allowCustomColour,
+                FactionChatAPI.getPrefix(player), player.getName(), FactionChatAPI.getSuffix(player), null, null, null, null).toString();
         for (Player myplayer : Bukkit.getServer().getOnlinePlayers()) {
             if ((myplayer.hasPermission("FactionChat.ModChat") || FactionChat.isDebugger(myplayer.getName())) && AuthMeAPI.isAllowToChat(myplayer)) {
                 myplayer.sendMessage(normalMessage);
@@ -98,17 +92,15 @@ public class OtherChatChannel {
         if (!AuthMeAPI.isAllowToChat(player)) {
             return;
         }
-        if (Config.limitWorldsChat)
-        {
-            if (Config.limitWorldsChatDisableOther && Config.limitWorldsChatDisableSend && !Config.limitWorldsChatWorlds.contains(player.getWorld().getName()))
-            {
+        if (Config.limitWorldsChat) {
+            if (Config.limitWorldsChatDisableOther && Config.limitWorldsChatDisableSend && !Config.limitWorldsChatWorlds.contains(player.getWorld().getName())) {
                 player.sendMessage(ChatColor.RED + "Sorry, but you can't send a FactionChat message in this world");
             }
         }
         message = FactionChatAPI.filterChat(player, message);
-        String[] intput1 = {FactionChatAPI.getPrefix(player) + player.getName() + FactionChatAPI.getSuffix(player) + ChatColor.RESET, message};
         boolean allowCustomColour = player.hasPermission("essentials.chat.color") || player.hasPermission("FactionChat.Chat.Colour");
-        String normalMessage = ChatMode.FormatString(Config.SrModChat, intput1, null, allowCustomColour);
+        String normalMessage = new FactionChatMessage(Config.UAChat, message, allowCustomColour,
+                FactionChatAPI.getPrefix(player), player.getName(), FactionChatAPI.getSuffix(player), null, null, null, null).toString();
         for (Player myplayer : Bukkit.getServer().getOnlinePlayers()) {
             if ((myplayer.hasPermission("FactionChat.SrModChat") || FactionChat.isDebugger(myplayer.getName())) && AuthMeAPI.isAllowToChat(myplayer)) {
                 myplayer.sendMessage(normalMessage);
@@ -122,17 +114,15 @@ public class OtherChatChannel {
         if (!AuthMeAPI.isAllowToChat(player)) {
             return;
         }
-        if (Config.limitWorldsChat)
-        {
-            if (Config.limitWorldsChatDisableOther && Config.limitWorldsChatDisableSend && !Config.limitWorldsChatWorlds.contains(player.getWorld().getName()))
-            {
+        if (Config.limitWorldsChat) {
+            if (Config.limitWorldsChatDisableOther && Config.limitWorldsChatDisableSend && !Config.limitWorldsChatWorlds.contains(player.getWorld().getName())) {
                 player.sendMessage(ChatColor.RED + "Sorry, but you can't send a FactionChat message in this world");
             }
         }
         message = FactionChatAPI.filterChat(player, message);
-        String[] intput1 = {FactionChatAPI.getPrefix(player) + player.getName() + FactionChatAPI.getSuffix(player) + ChatColor.RESET, message};
         boolean allowCustomColour = player.hasPermission("essentials.chat.color") || player.hasPermission("FactionChat.Chat.Colour");
-        String normalMessage = ChatMode.FormatString(Config.JrAdminChat, intput1, null, allowCustomColour);
+        String normalMessage = new FactionChatMessage(Config.UAChat, message, allowCustomColour,
+                FactionChatAPI.getPrefix(player), player.getName(), FactionChatAPI.getSuffix(player), null, null, null, null).toString();
         for (Player myplayer : Bukkit.getServer().getOnlinePlayers()) {
             if ((myplayer.hasPermission("FactionChat.JrAdminChat") || FactionChat.isDebugger(myplayer.getName())) && AuthMeAPI.isAllowToChat(myplayer)) {
                 myplayer.sendMessage(normalMessage);
@@ -146,17 +136,15 @@ public class OtherChatChannel {
         if (!AuthMeAPI.isAllowToChat(player)) {
             return;
         }
-        if (Config.limitWorldsChat)
-        {
-            if (Config.limitWorldsChatDisableOther && Config.limitWorldsChatDisableSend && !Config.limitWorldsChatWorlds.contains(player.getWorld().getName()))
-            {
+        if (Config.limitWorldsChat) {
+            if (Config.limitWorldsChatDisableOther && Config.limitWorldsChatDisableSend && !Config.limitWorldsChatWorlds.contains(player.getWorld().getName())) {
                 player.sendMessage(ChatColor.RED + "Sorry, but you can't send a FactionChat message in this world");
             }
         }
         message = FactionChatAPI.filterChat(player, message);
-        String[] intput1 = {FactionChatAPI.getPrefix(player) + player.getName() + FactionChatAPI.getSuffix(player) + ChatColor.RESET, message};
         boolean allowCustomColour = player.hasPermission("essentials.chat.color") || player.hasPermission("FactionChat.Chat.Colour");
-        String normalMessage = ChatMode.FormatString(Config.AdminChat, intput1, null, allowCustomColour);
+        String normalMessage = new FactionChatMessage(Config.UAChat, message, allowCustomColour,
+                FactionChatAPI.getPrefix(player), player.getName(), FactionChatAPI.getSuffix(player), null, null, null, null).toString();
         for (Player myplayer : Bukkit.getServer().getOnlinePlayers()) {
             if ((myplayer.hasPermission("FactionChat.AdminChat") || FactionChat.isDebugger(myplayer.getName())) && AuthMeAPI.isAllowToChat(myplayer)) {
                 myplayer.sendMessage(normalMessage);
@@ -170,17 +158,15 @@ public class OtherChatChannel {
         if (!AuthMeAPI.isAllowToChat(player)) {
             return;
         }
-        if (Config.limitWorldsChat)
-        {
-            if (Config.limitWorldsChatDisableOther && Config.limitWorldsChatDisableSend && !Config.limitWorldsChatWorlds.contains(player.getWorld().getName()))
-            {
+        if (Config.limitWorldsChat) {
+            if (Config.limitWorldsChatDisableOther && Config.limitWorldsChatDisableSend && !Config.limitWorldsChatWorlds.contains(player.getWorld().getName())) {
                 player.sendMessage(ChatColor.RED + "Sorry, but you can't send a FactionChat message in this world");
             }
         }
         message = FactionChatAPI.filterChat(player, message);
         boolean allowCustomColour = player.hasPermission("essentials.chat.color") || player.hasPermission("FactionChat.Chat.Colour");
-        String[] intput1 = {FactionChatAPI.getPrefix(player) + player.getName() + FactionChatAPI.getSuffix(player) + ChatColor.RESET, message};
-        String normalMessage = ChatMode.FormatString(Config.VIPChat, intput1, null, allowCustomColour);
+        String normalMessage = new FactionChatMessage(Config.UAChat, message, allowCustomColour,
+                FactionChatAPI.getPrefix(player), player.getName(), FactionChatAPI.getSuffix(player), null, null, null, null).toString();
         for (Player myplayer : Bukkit.getServer().getOnlinePlayers()) {
             if ((myplayer.hasPermission("FactionChat.VIPChat") || FactionChat.isDebugger(myplayer.getName())) && AuthMeAPI.isAllowToChat(myplayer)) {
                 myplayer.sendMessage(normalMessage);

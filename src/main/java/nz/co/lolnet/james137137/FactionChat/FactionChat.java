@@ -4,7 +4,6 @@
  */
 package nz.co.lolnet.james137137.FactionChat;
 
-
 import nz.co.lolnet.james137137.FactionChat.API.AuthMeAPI;
 import nz.co.lolnet.james137137.FactionChat.API.FactionChatAPI;
 import nz.co.lolnet.james137137.FactionChat.API.BanManagerAPI;
@@ -77,8 +76,7 @@ public class FactionChat extends JavaPlugin {
 
         new EssentialsAPI(this.getServer().getPluginManager().getPlugin("Essentials") != null);
         new AuthMeAPI(this.getServer().getPluginManager().getPlugin("AuthMe") != null);
-        if (this.getServer().getPluginManager().getPlugin("mcMMO") != null)
-        {
+        if (this.getServer().getPluginManager().getPlugin("mcMMO") != null) {
             getServer().getPluginManager().registerEvents(new McMMOAPI(this), this);
         }
         Plugin BanManager = this.getServer().getPluginManager().getPlugin("BanManager");
@@ -562,17 +560,17 @@ public class FactionChat extends JavaPlugin {
         String Language = config.getString("MessageLanguage");
         Language = Language.toLowerCase();
 
-        Config.messageNotInFaction = ChatMode.FormatString(config.getString("message." + Language + ".NotInFaction"), null);
-        Config.messageIncorectChatModeSwitch = ChatMode.FormatString(config.getString("message." + Language + ".IncorectChatModeSwitch"), null);
-        Config.messageSpyModeOn = ChatMode.FormatString(config.getString("message." + Language + ".SpyModeOn"), null);
-        Config.messageSpyModeOff = ChatMode.FormatString(config.getString("message." + Language + ".SpyModeOff"), null);
-        Config.messageNewChatMode = ChatMode.FormatString(config.getString("message." + Language + ".NewChatMode"), null);
-        Config.messageFchatoMisstype = ChatMode.FormatString(config.getString("message." + Language + ".FchatoMissType"), null);
-        Config.messageFchatoNoOneOnline = ChatMode.FormatString(config.getString("message." + Language + ".FchatoNoOneOnline"), null);
-        Config.messagePublicMuteChatOn = ChatMode.FormatString(config.getString("message." + Language + ".PublicMuteChatOn"), null);
-        Config.messagePublicMuteChatOff = ChatMode.FormatString(config.getString("message." + Language + ".PublicMuteChatOff"), null);
-        Config.messageAllyMuteChatOn = ChatMode.FormatString(config.getString("message." + Language + ".AllyMuteChatOn"), null);
-        Config.messageAllyMuteChatOff = ChatMode.FormatString(config.getString("message." + Language + ".AllyMuteChatOff"), null);
+        Config.messageNotInFaction = new FactionChatMessage(null, config.getString("message." + Language + ".NotInFaction"), true).toString();
+        Config.messageIncorectChatModeSwitch = new FactionChatMessage(null, config.getString("message." + Language + ".IncorectChatModeSwitch"), true).toString();
+        Config.messageSpyModeOn = new FactionChatMessage(null, config.getString("message." + Language + ".SpyModeOn"), true).toString();
+        Config.messageSpyModeOff = new FactionChatMessage(null, config.getString("message." + Language + ".SpyModeOff"), true).toString();
+        Config.messageNewChatMode = new FactionChatMessage(null, config.getString("message." + Language + ".NewChatMode"), true).toString();
+        Config.messageFchatoMisstype = new FactionChatMessage(null, config.getString("message." + Language + ".FchatoMissType"), true).toString();
+        Config.messageFchatoNoOneOnline = new FactionChatMessage(null, config.getString("message." + Language + ".FchatoNoOneOnline"), true).toString();
+        Config.messagePublicMuteChatOn = new FactionChatMessage(null, config.getString("message." + Language + ".PublicMuteChatOn"), true).toString();
+        Config.messagePublicMuteChatOff = new FactionChatMessage(null, config.getString("message." + Language + ".PublicMuteChatOff"), true).toString();
+        Config.messageAllyMuteChatOn = new FactionChatMessage(null, config.getString("message." + Language + ".AllyMuteChatOn"), true).toString();
+        Config.messageAllyMuteChatOff = new FactionChatMessage(null, config.getString("message." + Language + ".AllyMuteChatOff"), true).toString();
 
     }
 

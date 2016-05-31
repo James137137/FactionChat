@@ -30,10 +30,8 @@ public class ChatChannel {
         if (!ChatMode.canChat(player.getName())) {
             return;
         }
-        if (Config.limitWorldsChat)
-        {
-            if (Config.limitWorldsChatDisableSend && !Config.limitWorldsChatWorlds.contains(player.getWorld().getName()))
-            {
+        if (Config.limitWorldsChat) {
+            if (Config.limitWorldsChatDisableSend && !Config.limitWorldsChatWorlds.contains(player.getWorld().getName())) {
                 player.sendMessage(ChatColor.RED + "Sorry, but you can't send a FactionChat message in this world");
             }
         }
@@ -52,14 +50,21 @@ public class ChatChannel {
             playerName = player.getName();
         }
         boolean allowCustomColour = player.hasPermission("essentials.chat.color");
-        String[] intput1 = {senderFaction, FactionChat.factionsAPI.getPlayerRank(player).toString(), FactionChatAPI.getPrefix(player) + playerName + FactionChatAPI.getSuffix(player) + ChatColor.RESET, message};
         String playerTitle = "";
         if (Config.IncludeTitle) {
             playerTitle = FactionChat.factionsAPI.getPlayerTitle(player);
         }
-        String[] input2 = {ChatMode.FormatString(Config.FactionChatMessage, intput1, playerTitle, allowCustomColour)};
-        String normalMessage = ChatMode.FormatString(Config.FactionChatMessage, intput1, playerTitle, allowCustomColour);
-        String spyMessage = ChatMode.FormatString(Config.SpyChat, input2, playerTitle, allowCustomColour);
+
+        String playerPrefix = FactionChatAPI.getPrefix(player);
+        String playerSuffix = FactionChatAPI.getSuffix(player);
+        String playerFactionTitle = playerTitle;
+        String playerFactionRank = FactionChat.factionsAPI.getPlayerRank(player).toString();
+        String FacitonName = senderFaction;
+        String otherFactionName = null;
+
+        String normalMessage = new FactionChatMessage(Config.FactionChatMessage, message, allowCustomColour, playerPrefix, playerName, playerSuffix, playerFactionTitle, playerFactionRank, FacitonName, otherFactionName).toString();
+        String spyMessage = new FactionChatMessage(Config.SpyChat, normalMessage, allowCustomColour).toString();
+
         senderFaction = FactionChat.factionsAPI.getFactionID(player);
         for (Player myPlayer : Bukkit.getServer().getOnlinePlayers()) {
 
@@ -82,10 +87,8 @@ public class ChatChannel {
         if (!ChatMode.canChat(player.getName())) {
             return;
         }
-        if (Config.limitWorldsChat)
-        {
-            if (Config.limitWorldsChatDisableSend && !Config.limitWorldsChatWorlds.contains(player.getWorld().getName()))
-            {
+        if (Config.limitWorldsChat) {
+            if (Config.limitWorldsChatDisableSend && !Config.limitWorldsChatWorlds.contains(player.getWorld().getName())) {
                 player.sendMessage(ChatColor.RED + "Sorry, but you can't send a FactionChat message in this world");
             }
         }
@@ -109,10 +112,16 @@ public class ChatChannel {
         } else {
             playerName = player.getName();
         }
-        String[] intput1 = {sSenderFaction, FactionChat.factionsAPI.getPlayerRank(player).toString(), FactionChatAPI.getPrefix(player) + playerName + FactionChatAPI.getSuffix(player) + ChatColor.RESET, message};
-        String[] input2 = {ChatMode.FormatString(Config.AllyTruceChat, intput1, playerTitle, allowCustomColour)};
-        String normalMessage = ChatMode.FormatString(Config.AllyTruceChat, intput1, playerTitle, allowCustomColour);
-        String spyMessage = ChatMode.FormatString(Config.SpyChat, input2, playerTitle, allowCustomColour);
+
+        String playerPrefix = FactionChatAPI.getPrefix(player);
+        String playerSuffix = FactionChatAPI.getSuffix(player);
+        String playerFactionTitle = playerTitle;
+        String playerFactionRank = FactionChat.factionsAPI.getPlayerRank(player).toString();
+        String FacitonName = sSenderFaction;
+        String otherFactionName = null;
+
+        String normalMessage = new FactionChatMessage(Config.AllyTruceChat, message, allowCustomColour, playerPrefix, playerName, playerSuffix, playerFactionTitle, playerFactionRank, FacitonName, otherFactionName).toString();
+        String spyMessage = new FactionChatMessage(Config.SpyChat, normalMessage, allowCustomColour).toString();
 
         for (Player myPlayer : Bukkit.getServer().getOnlinePlayers()) {
 
@@ -133,62 +142,8 @@ public class ChatChannel {
         if (!ChatMode.canChat(player.getName())) {
             return;
         }
-        if (Config.limitWorldsChat)
-        {
-            if (Config.limitWorldsChatDisableSend && !Config.limitWorldsChatWorlds.contains(player.getWorld().getName()))
-            {
-                player.sendMessage(ChatColor.RED + "Sorry, but you can't send a FactionChat message in this world");
-            }
-        }
-
-        String sSenderFaction = FactionChat.factionsAPI.getFactionName(player); //obtains player's faction name
-
-        if (sSenderFaction.contains("Wilderness")) { //checks if player is in a faction
-            player.sendMessage(ChatColor.RED + Config.messageNotInFaction);
-            ChatMode.fixPlayerNotInFaction(player);
-            return;
-
-        }
-        message = FactionChatAPI.filterChat(player,message);
-        boolean allowCustomColour = player.hasPermission("essentials.chat.color");
-        String playerTitle = "";
-        if (Config.IncludeTitle) {
-            playerTitle = FactionChat.factionsAPI.getPlayerTitle(player);
-        }
-        String playerName;
-        if (FactionChat.useEssentialsNick) {
-            playerName = "~" + EssentialsAPI.getNickname(player);
-        } else {
-            playerName = player.getName();
-        }
-        String[] intput1 = {sSenderFaction, FactionChat.factionsAPI.getPlayerRank(player).toString(), FactionChatAPI.getPrefix(player) + playerName + FactionChatAPI.getSuffix(player) + ChatColor.RESET, message};
-        String[] input2 = {ChatMode.FormatString(Config.AllyChat, intput1, playerTitle, allowCustomColour)};
-        String normalMessage = ChatMode.FormatString(Config.AllyChat, intput1, playerTitle, allowCustomColour);
-        String spyMessage = ChatMode.FormatString(Config.SpyChat, input2, playerTitle, allowCustomColour);
-
-        for (Player myPlayer : Bukkit.getServer().getOnlinePlayers()) {
-
-            MyRel relationship = FactionChat.factionsAPI.getRelationship(player, myPlayer);
-
-            if (!ChatMode.IsPlayerMutedTarget(myPlayer, player) && (relationship == MyRel.ALLY
-                    || FactionChat.factionsAPI.getFactionName(myPlayer).equalsIgnoreCase(sSenderFaction))
-                    && myPlayer.hasPermission("FactionChat.AllyChat") && !ChatMode.IsAllyMuted(myPlayer)) {
-                myPlayer.sendMessage(normalMessage);
-            } else if (ChatMode.isSpyOn(myPlayer)) {
-                myPlayer.sendMessage(spyMessage);
-            }
-        }
-    }
-
-    public void fChatTruce(Player player, String message) {
-
-        if (!ChatMode.canChat(player.getName())) {
-            return;
-        }
-        if (Config.limitWorldsChat)
-        {
-            if (Config.limitWorldsChatDisableSend && !Config.limitWorldsChatWorlds.contains(player.getWorld().getName()))
-            {
+        if (Config.limitWorldsChat) {
+            if (Config.limitWorldsChatDisableSend && !Config.limitWorldsChatWorlds.contains(player.getWorld().getName())) {
                 player.sendMessage(ChatColor.RED + "Sorry, but you can't send a FactionChat message in this world");
             }
         }
@@ -213,10 +168,71 @@ public class ChatChannel {
         } else {
             playerName = player.getName();
         }
-        String[] intput1 = {sSenderFaction, FactionChat.factionsAPI.getPlayerRank(player).toString(), FactionChatAPI.getPrefix(player) + playerName + FactionChatAPI.getSuffix(player) + ChatColor.RESET, message};
-        String[] input2 = {ChatMode.FormatString(Config.TruceChat, intput1, playerTitle, allowCustomColour)};
-        String normalMessage = ChatMode.FormatString(Config.TruceChat, intput1, playerTitle, allowCustomColour);
-        String spyMessage = ChatMode.FormatString(Config.SpyChat, input2, playerTitle, allowCustomColour);
+
+        String playerPrefix = FactionChatAPI.getPrefix(player);
+        String playerSuffix = FactionChatAPI.getSuffix(player);
+        String playerFactionTitle = playerTitle;
+        String playerFactionRank = FactionChat.factionsAPI.getPlayerRank(player).toString();
+        String FacitonName = sSenderFaction;
+        String otherFactionName = null;
+
+        String normalMessage = new FactionChatMessage(Config.AllyChat, message, allowCustomColour, playerPrefix, playerName, playerSuffix, playerFactionTitle, playerFactionRank, FacitonName, otherFactionName).toString();
+        String spyMessage = new FactionChatMessage(Config.SpyChat, normalMessage, allowCustomColour).toString();
+
+        for (Player myPlayer : Bukkit.getServer().getOnlinePlayers()) {
+
+            MyRel relationship = FactionChat.factionsAPI.getRelationship(player, myPlayer);
+
+            if (!ChatMode.IsPlayerMutedTarget(myPlayer, player) && (relationship == MyRel.ALLY
+                    || FactionChat.factionsAPI.getFactionName(myPlayer).equalsIgnoreCase(sSenderFaction))
+                    && myPlayer.hasPermission("FactionChat.AllyChat") && !ChatMode.IsAllyMuted(myPlayer)) {
+                myPlayer.sendMessage(normalMessage);
+            } else if (ChatMode.isSpyOn(myPlayer)) {
+                myPlayer.sendMessage(spyMessage);
+            }
+        }
+    }
+
+    public void fChatTruce(Player player, String message) {
+
+        if (!ChatMode.canChat(player.getName())) {
+            return;
+        }
+        if (Config.limitWorldsChat) {
+            if (Config.limitWorldsChatDisableSend && !Config.limitWorldsChatWorlds.contains(player.getWorld().getName())) {
+                player.sendMessage(ChatColor.RED + "Sorry, but you can't send a FactionChat message in this world");
+            }
+        }
+
+        String sSenderFaction = FactionChat.factionsAPI.getFactionName(player); //obtains player's faction name
+
+        if (sSenderFaction.contains("Wilderness")) { //checks if player is in a faction
+            player.sendMessage(ChatColor.RED + Config.messageNotInFaction);
+            ChatMode.fixPlayerNotInFaction(player);
+            return;
+
+        }
+        message = FactionChatAPI.filterChat(player, message);
+        boolean allowCustomColour = player.hasPermission("essentials.chat.color");
+        String playerTitle = "";
+        if (Config.IncludeTitle) {
+            playerTitle = FactionChat.factionsAPI.getPlayerTitle(player);
+        }
+        String playerName;
+        if (FactionChat.useEssentialsNick) {
+            playerName = "~" + EssentialsAPI.getNickname(player);
+        } else {
+            playerName = player.getName();
+        }
+        String playerPrefix = FactionChatAPI.getPrefix(player);
+        String playerSuffix = FactionChatAPI.getSuffix(player);
+        String playerFactionTitle = playerTitle;
+        String playerFactionRank = FactionChat.factionsAPI.getPlayerRank(player).toString();
+        String FacitonName = sSenderFaction;
+        String otherFactionName = null;
+
+        String normalMessage = new FactionChatMessage(Config.TruceChat, message, allowCustomColour, playerPrefix, playerName, playerSuffix, playerFactionTitle, playerFactionRank, FacitonName, otherFactionName).toString();
+        String spyMessage = new FactionChatMessage(Config.SpyChat, normalMessage, allowCustomColour).toString();
 
         for (Player myPlayer : Bukkit.getServer().getOnlinePlayers()) {
 
@@ -241,10 +257,8 @@ public class ChatChannel {
         if (!ChatMode.canChat(player.getName())) {
             return;
         }
-        if (Config.limitWorldsChat)
-        {
-            if (Config.limitWorldsChatDisableSend && !Config.limitWorldsChatWorlds.contains(player.getWorld().getName()))
-            {
+        if (Config.limitWorldsChat) {
+            if (Config.limitWorldsChatDisableSend && !Config.limitWorldsChatWorlds.contains(player.getWorld().getName())) {
                 player.sendMessage(ChatColor.RED + "Sorry, but you can't send a FactionChat message in this world");
             }
         }
@@ -269,10 +283,15 @@ public class ChatChannel {
         } else {
             playerName = player.getName();
         }
-        String[] intput1 = {sSenderFaction, FactionChat.factionsAPI.getPlayerRank(player).toString(), FactionChatAPI.getPrefix(player) + playerName + FactionChatAPI.getSuffix(player) + ChatColor.RESET, message};
-        String[] input2 = {ChatMode.FormatString(Config.EnemyChat, intput1, playerTitle, allowCustomColour)};
-        String normalMessage = ChatMode.FormatString(Config.EnemyChat, intput1, playerTitle, allowCustomColour);
-        String spyMessage = ChatMode.FormatString(Config.SpyChat, input2, playerTitle, allowCustomColour);
+        String playerPrefix = FactionChatAPI.getPrefix(player);
+        String playerSuffix = FactionChatAPI.getSuffix(player);
+        String playerFactionTitle = playerTitle;
+        String playerFactionRank = FactionChat.factionsAPI.getPlayerRank(player).toString();
+        String FacitonName = sSenderFaction;
+        String otherFactionName = null;
+
+        String normalMessage = new FactionChatMessage(Config.EnemyChat, message, allowCustomColour, playerPrefix, playerName, playerSuffix, playerFactionTitle, playerFactionRank, FacitonName, otherFactionName).toString();
+        String spyMessage = new FactionChatMessage(Config.SpyChat, normalMessage, allowCustomColour).toString();
 
         for (Player myPlayer : Bukkit.getServer().getOnlinePlayers()) {
 
@@ -294,10 +313,8 @@ public class ChatChannel {
         if (!ChatMode.canChat(sender.getName())) {
             return;
         }
-        if (Config.limitWorldsChat && sender instanceof Player)
-        {
-            if (Config.limitWorldsChatDisableSend && !Config.limitWorldsChatWorlds.contains(((Player) sender).getWorld().getName()))
-            {
+        if (Config.limitWorldsChat && sender instanceof Player) {
+            if (Config.limitWorldsChatDisableSend && !Config.limitWorldsChatWorlds.contains(((Player) sender).getWorld().getName())) {
                 sender.sendMessage(ChatColor.RED + "Sorry, but you can't send a FactionChat message in this world");
             }
         }
@@ -340,11 +357,17 @@ public class ChatChannel {
                 } else {
                     playerName = player.getName();
                 }
-                String[] intput1 = {senderFaction, FactionChat.factionsAPI.getPlayerRank(player).toString(), FactionChatAPI.getPrefix(player) + playerName + FactionChatAPI.getSuffix(player) + ChatColor.RESET, message};
-                String[] input2 = {ChatMode.FormatString(Config.OtherFactionChatSpy, intput1, playerTitle, allowCustomColour)};
-                String toMessage = ChatMode.FormatString(Config.OtherFactionChatTo, intput1, playerTitle, allowCustomColour);
-                String FromMessage = ChatMode.FormatString(Config.OtherFactionChatFrom, intput1, playerTitle, allowCustomColour);
-                String spyMessage = ChatMode.FormatString(Config.SpyChat, input2, playerTitle, allowCustomColour);
+                String playerPrefix = FactionChatAPI.getPrefix(player);
+                String playerSuffix = FactionChatAPI.getSuffix(player);
+                String playerFactionTitle = playerTitle;
+                String playerFactionRank = FactionChat.factionsAPI.getPlayerRank(player).toString();
+                String FacitonName = senderFaction;
+                String otherFactionName = targetFaction;
+
+                String toMessage = new FactionChatMessage(Config.OtherFactionChatTo, message, allowCustomColour, playerPrefix, playerName, playerSuffix, playerFactionTitle, playerFactionRank, FacitonName, otherFactionName).toString();
+                String FromMessage = new FactionChatMessage(Config.OtherFactionChatFrom, message, allowCustomColour, playerPrefix, playerName, playerSuffix, playerFactionTitle, playerFactionRank, FacitonName, otherFactionName).toString();
+                String spyMessage = new FactionChatMessage(Config.SpyChat, toMessage, allowCustomColour).toString();
+
                 //start of loop
                 for (Player myPlayer : Bukkit.getServer().getOnlinePlayers()) {
 
@@ -374,10 +397,8 @@ public class ChatChannel {
         if (!ChatMode.canChat(player.getName())) {
             return;
         }
-        if (Config.limitWorldsChat)
-        {
-            if (Config.limitWorldsChatDisableSend && !Config.limitWorldsChatWorlds.contains(player.getWorld().getName()))
-            {
+        if (Config.limitWorldsChat) {
+            if (Config.limitWorldsChatDisableSend && !Config.limitWorldsChatWorlds.contains(player.getWorld().getName())) {
                 player.sendMessage(ChatColor.RED + "Sorry, but you can't send a FactionChat message in this world");
             }
         }
@@ -403,10 +424,16 @@ public class ChatChannel {
             playerName = player.getName();
         }
 
-        String[] intput1 = {senderFaction, FactionChatAPI.getPrefix(player) + playerName + FactionChatAPI.getSuffix(player) + ChatColor.RESET, message};
-        String[] input2 = {ChatMode.FormatString(Config.LeaderChat, intput1, playerTitle, allowCustomColour)};
-        String normalMessage = ChatMode.FormatString(Config.LeaderChat, intput1, playerTitle, allowCustomColour);
-        String spyMessage = ChatMode.FormatString(Config.SpyChat, input2, playerTitle, allowCustomColour);
+        String playerPrefix = FactionChatAPI.getPrefix(player);
+        String playerSuffix = FactionChatAPI.getSuffix(player);
+        String playerFactionTitle = playerTitle;
+        String playerFactionRank = FactionChat.factionsAPI.getPlayerRank(player).toString();
+        String FacitonName = senderFaction;
+        String otherFactionName = null;
+
+        String normalMessage = new FactionChatMessage(Config.OtherFactionChatTo, message, allowCustomColour, playerPrefix, playerName, playerSuffix, playerFactionTitle, playerFactionRank, FacitonName, otherFactionName).toString();
+        String spyMessage = new FactionChatMessage(Config.SpyChat, normalMessage, allowCustomColour).toString();
+        
         for (Player myPlayer : Bukkit.getServer().getOnlinePlayers()) {
 
             if (!ChatMode.IsPlayerMutedTarget(myPlayer, player) && FactionChatAPI.getPlayerRank(player).equals(Config.LeaderRank) && ChatMode.getChatMode(myPlayer).equals("LEADER")) {
@@ -423,10 +450,8 @@ public class ChatChannel {
         if (!ChatMode.canChat(player.getName())) {
             return;
         }
-        if (Config.limitWorldsChat)
-        {
-            if (Config.limitWorldsChatDisableSend && !Config.limitWorldsChatWorlds.contains(player.getWorld().getName()))
-            {
+        if (Config.limitWorldsChat) {
+            if (Config.limitWorldsChatDisableSend && !Config.limitWorldsChatWorlds.contains(player.getWorld().getName())) {
                 player.sendMessage(ChatColor.RED + "Sorry, but you can't send a FactionChat message in this world");
             }
         }
@@ -451,10 +476,16 @@ public class ChatChannel {
         } else {
             playerName = player.getName();
         }
-        String[] intput1 = {senderFaction, FactionChatAPI.getPrefix(player) + playerName + FactionChatAPI.getSuffix(player) + ChatColor.RESET, message};
-        String[] input2 = {ChatMode.FormatString(Config.OfficerChat, intput1, playerTitle, allowCustomColour)};
-        String normalMessage = ChatMode.FormatString(Config.OfficerChat, intput1, playerTitle, allowCustomColour);
-        String spyMessage = ChatMode.FormatString(Config.SpyChat, input2, playerTitle, allowCustomColour);
+        String playerPrefix = FactionChatAPI.getPrefix(player);
+        String playerSuffix = FactionChatAPI.getSuffix(player);
+        String playerFactionTitle = playerTitle;
+        String playerFactionRank = FactionChat.factionsAPI.getPlayerRank(player).toString();
+        String FacitonName = senderFaction;
+        String otherFactionName = null;
+
+        String normalMessage = new FactionChatMessage(Config.OtherFactionChatTo, message, allowCustomColour, playerPrefix, playerName, playerSuffix, playerFactionTitle, playerFactionRank, FacitonName, otherFactionName).toString();
+        String spyMessage = new FactionChatMessage(Config.SpyChat, normalMessage, allowCustomColour).toString();
+        
         for (Player myPlayer : Bukkit.getServer().getOnlinePlayers()) {
 
             if (!ChatMode.IsPlayerMutedTarget(myPlayer, player) && (FactionChatAPI.getPlayerRank(player).equals(Config.LeaderRank)

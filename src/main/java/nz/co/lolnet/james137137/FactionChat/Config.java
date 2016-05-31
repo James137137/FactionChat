@@ -25,7 +25,6 @@ public class Config {
     public static String ModChat;
     public static String LeaderChat;
     public static String EnemyChat;
-    public static String OtherFactionChatSpy;
     public static String JrModChat;
     public static String VIPChat;
     public static String OfficerChat;
@@ -109,7 +108,6 @@ public class Config {
             Config.OfficerChat = config.getString("FactionChatMessage.OfficerChat");
             Config.OtherFactionChatTo = config.getString("FactionChatMessage.OtherFactionChatTo");
             Config.OtherFactionChatFrom = config.getString("FactionChatMessage.OtherFactionChatFrom");
-            Config.OtherFactionChatSpy = config.getString("FactionChatMessage.OtherFactionChatSpy");
             Config.SpyChat = config.getString("FactionChatMessage.SpyChat");
             Config.ModChat = config.getString("OtherChatMessage.ModChat");
             Config.AdminChat = config.getString("OtherChatMessage.AdminChat");

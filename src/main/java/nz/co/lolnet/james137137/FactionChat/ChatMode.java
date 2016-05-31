@@ -29,14 +29,15 @@ public class ChatMode {
 
     protected static void initialize(FactionChat plugin) {
         FileConfiguration config = plugin.getConfig();
-        PublicName = FormatString(config.getString("message.ChatModeChange.PublicChat"), null);
-        FactionName = FormatString(config.getString("message.ChatModeChange.FactionChat"), null);
-        AllyName = FormatString(config.getString("message.ChatModeChange.AllyChat"), null);
-        TruceName = FormatString(config.getString("message.ChatModeChange.TruceChat"), null);
-        AllyTruceName = FormatString(config.getString("message.ChatModeChange.AllyTruceChat"), null);
-        EnermyName = FormatString(config.getString("message.ChatModeChange.EnemyChat"), null);
-        LeaderName = FormatString(config.getString("message.ChatModeChange.LeaderChat"), null);
-        OfficerName = FormatString(config.getString("message.ChatModeChange.OfficerChat"), null);
+        
+        PublicName = new FactionChatMessage(null, config.getString("message.ChatModeChange.PublicChat"), true).toString();
+        FactionName = new FactionChatMessage(null, config.getString("message.ChatModeChange.FactionChat"), true).toString();
+        AllyName = new FactionChatMessage(null, config.getString("message.ChatModeChange.AllyChat"), true).toString();
+        TruceName = new FactionChatMessage(null, config.getString("message.ChatModeChange.TruceChat"), true).toString();
+        AllyTruceName = new FactionChatMessage(null, config.getString("message.ChatModeChange.AllyTruceChat"), true, null,null, null, null, null, null, null).toString();
+        EnermyName = new FactionChatMessage(null, config.getString("message.ChatModeChange.EnemyChat"), true).toString();
+        LeaderName = new FactionChatMessage(null, config.getString("message.ChatModeChange.LeaderChat"), true).toString();
+        OfficerName = new FactionChatMessage(null, config.getString("message.ChatModeChange.OfficerChat"), true).toString();
         mutePublicOptionEnabled = config.getBoolean("AllowPublicMuteCommand");
         chatTimeLimit = config.getLong("ChatLimit");
         playerChatMode = new HashMap();
@@ -477,55 +478,6 @@ public class ChatMode {
             player.sendMessage(Config.messageNewChatMode + PublicName);
         }
 
-    }
-
-    protected static String FormatString(String message, String[] args) {
-
-        message = message.replaceAll("/&", "/and");
-        if (args != null) {
-            
-            if (args.length >= 3) {
-                args[2] = args[2].replaceAll("&", "" + (char) 167);
-            }
-            
-            for (int i = 0; i < args.length; i++) {
-                message = message.replace("{" + i + "}", args[i]);
-            }
-            message = message.replace("{M}", args[args.length - 1]);
-        }
-        message = message.replaceAll("&", "" + (char) 167);
-        message = message.replaceAll("/and", "&");
-        return message;
-    }
-
-    protected static String FormatString(String message, String[] args, String playerTitle, boolean allowCostomColour) {
-        message = message.replaceAll("/&", "/and");
-        if (args != null) {
-            
-            if (args.length >= 3) {
-                args[2] = args[2].replaceAll("&", "" + (char) 167);
-            }
-            
-            for (int i = 0; i < args.length; i++) {
-                message = message.replace("{" + i + "}", args[i]);
-            }
-        }
-        message = message.replaceAll("&", "" + (char) 167);
-        if (args != null) {
-            message = message.replace("{M}", args[args.length - 1]);
-
-            if (allowCostomColour) {
-                message = message.replaceAll("&", "" + (char) 167);
-            }
-            if (playerTitle != null) {
-                message = message.replace("{T}", playerTitle);
-            } else {
-                message = message.replace("{T}-", "");
-                message = message.replace("{T}", "");
-            }
-        }
-        message = message.replaceAll("/and", "&");
-        return message;
     }
 
     public static void MutePublicOption(Player player) {

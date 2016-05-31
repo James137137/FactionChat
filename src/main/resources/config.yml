@@ -73,29 +73,28 @@ FactionChatMessage:
   IncludePrefix: true
   IncludeSuffix: true
   IncludeTitle: true
-  FactionChat: '&2[{0}] &f[{1}] {T}{2}: {M}'
-  AllyChat: '&aAlly: [{0}] &f[{1}] {T}{2}: {M}'
-  TruceChat: '&aTruce: [{0}] &f[{1}] {T}{2}: {M}'
-  AllyTruceChat: '&aALLY-TRUCE: [{0}] &f[{1}] {T}{2}: {M}'
-  OfficerChat: '&eOfficerChat: [{0}] {T}&f{1}: {M}'
-  LeaderChat: '&eLeaderChat: [{0}] {T}&f{1}: {M}'
-  EnemyChat: '&cEnemy: [{0}] &f[{1}] {T}{2}: {M}'
+  FactionChat: '&2[%FACTION%] &f[%FACTIONRANK%] %TITLE% %PREFIX% %PLAYER% %SUFFIX%: %MESSAGE%'
+  AllyChat: '&aAlly: [%FACTION%] &f[%FACTIONRANK%] %TITLE% %PREFIX% %PLAYER% %SUFFIX%: %MESSAGE%'
+  TruceChat: '&aTruce: [%FACTION%] &f[%FACTIONRANK%] %TITLE% %PREFIX% %PLAYER% %SUFFIX%: %MESSAGE%'
+  AllyTruceChat: '&aALLY-TRUCE: [%FACTION%] &f[%FACTIONRANK%] %TITLE% %PREFIX% %PLAYER% %SUFFIX%: %MESSAGE%'
+  OfficerChat: '&eOfficerChat: [%FACTION%] &f[%FACTIONRANK%] %TITLE% %PREFIX% %PLAYER% %SUFFIX%: %MESSAGE%'
+  LeaderChat: '&eLeaderChat: [%FACTION%] &f[%FACTIONRANK%] %TITLE% %PREFIX% %PLAYER% %SUFFIX%: %MESSAGE%'
+  EnemyChat: '&cEnemy: [%FACTION%] &f[%FACTIONRANK%] %TITLE% %PREFIX% %PLAYER% %SUFFIX%: %MESSAGE%'
 # {0,1} Other Faction's name (have a guess by reading)
-  OtherFactionChatTo: '&5[@:{0}] &f[{1}] {T}-{2}: {M}'
-  OtherFactionChatFrom: '&5[From:{0}] &f[{1}] {T}-{2}: {M}'
-  OtherFactionChatSpy: '&5[@:{0}]-[From:{1}] &f[{2}] {T}-{3}: {M}'
+  OtherFactionChatTo: '&5[@:%OTHERFACTION%] &f[%FACTION%] %TITLE% %PREFIX% %PLAYER% %SUFFIX%: %MESSAGE%'
+  OtherFactionChatFrom: '&5[From:%FACTION%] &f[{1}] %TITLE% %PREFIX% %PLAYER% %SUFFIX%: %MESSAGE%'
 # {0} everytning else 
-  SpyChat: '&2Spy:&r {0}'
+  SpyChat: '&2Spy:&r %MESSAGE%'
 # {0} Player name
 # {M} Message
 OtherChatMessage:
-  ModChat: '&b[Mod-Chat] &f{0}: &a{M}'
-  AdminChat: '&4[Admin-Chat] &f{0}: &a{M}'
-  UAChat: '&5[UA-Chat] &f{0}: &a{M}'
-  JrModChat: '&b[JrMod-Chat] &f{0}: &a{M}'
-  SrModChat: '&b[SrMod-Chat] &f{0}: &a{M}'
-  JrAdminChat: '&4[JrAdmin-Chat] &f{0}: &a{M}'
-  VIPChat: '&e[VIP-Chat] &f{0}: &a{M}'
+  ModChat: '&b[Mod-Chat] &f%PREFIX% %PLAYER% %SUFFIX%: &a%MESSAGE%'
+  AdminChat: '&4[Admin-Chat] &f%PREFIX% %PLAYER% %SUFFIX%: &a%MESSAGE%'
+  UAChat: '&5[UA-Chat] &f{0}: &f%PREFIX% %PLAYER% %SUFFIX%: &a%MESSAGE%'
+  JrModChat: '&b[JrMod-Chat] &f%PREFIX% %PLAYER% %SUFFIX%: &a%MESSAGE%'
+  SrModChat: '&b[SrMod-Chat] &f%PREFIX% %PLAYER% %SUFFIX%: &a%MESSAGE%'
+  JrAdminChat: '&4[JrAdmin-Chat] &f%PREFIX% %PLAYER% %SUFFIX%: &a%MESSAGE%'
+  VIPChat: '&e[VIP-Chat] &f%PREFIX% %PLAYER% %SUFFIX%: &a%MESSAGE%'
 #Enable/disable any chat (except public)
 FactionChatEnable: true
 AllyChatEnable: true
