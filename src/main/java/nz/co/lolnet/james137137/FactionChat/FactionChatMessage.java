@@ -60,6 +60,9 @@ public class FactionChatMessage {
 
         output = message;
         if (format != null) {
+            format = format.replaceAll("/&", "/and");
+            format = format.replaceAll("&", "" + (char) 167);
+            format = format.replaceAll("/and", "&");
             if (playerName != null) {
                 format = format.replaceAll("%PLAYER%", playerName);
             }
