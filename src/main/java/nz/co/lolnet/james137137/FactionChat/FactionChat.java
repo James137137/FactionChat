@@ -52,7 +52,7 @@ public class FactionChat extends JavaPlugin {
         String version = Bukkit.getServer().getPluginManager().getPlugin(this.getName()).getDescription().getVersion();
         log = Bukkit.getLogger();
         log.info(this.getName() + ": Version: " + version + " Enabling");
-        
+
         oneOffBroadcast = true;
         FileConfiguration config = getConfig();
         this.saveDefaultConfig();
@@ -163,24 +163,14 @@ public class FactionChat extends JavaPlugin {
         if (this.getConfig().getBoolean("FactionInfoServer.enable")) {
             new FactionInfoServer(this.getConfig().getInt("FactionInfoServer.port"));
         }
-        if (Config.FactionChatMessage.contains("{0}"))
-        {
-            log.warning("[FactionChat]: "+ChatColor.RED + "Config has changed as of Version 1.10.0. Please backup the FactionChat config.yml and delete it so it can regenerate");
-            log.warning("[FactionChat]: "+ChatColor.RED + "Expect issues with the chat without changing the formatting.");
-        }
         log.info(this.getName() + ": Version: " + version + " Enabled.");
-        
+
     }
 
     @Override
     public void onDisable() {
         plugin = null;
         log.info(this.getName() + ": disabled");
-    }
-
-    protected void loadMyNewConfig() {
-        this.getConfig().options().copyDefaults();
-        saveConfig();
     }
 
     protected void removeConfigFile() {
@@ -199,6 +189,13 @@ public class FactionChat extends JavaPlugin {
     }
 
     protected void checkConfig() {
+        if (Config.FactionChatMessage.contains("{0}")) {
+            log.warning("[FactionChat]: " + ChatColor.RED + "Config has changed as of Version 1.10.0.");
+            log.warning("[FactionChat]: " + ChatColor.RED + "Please redo your config.yml (I backed it up)");
+            removeConfigFile();
+            this.saveDefaultConfig();
+            Config.reload();
+        }
     }
 
     @Override
