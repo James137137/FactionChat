@@ -50,8 +50,9 @@ public class FactionChat extends JavaPlugin {
     public void onEnable() {
         plugin = this;
         String version = Bukkit.getServer().getPluginManager().getPlugin(this.getName()).getDescription().getVersion();
-        log.info(this.getName() + ": Version: " + version + " Enabling");
         log = Bukkit.getLogger();
+        log.info(this.getName() + ": Version: " + version + " Enabling");
+        
         oneOffBroadcast = true;
         FileConfiguration config = getConfig();
         this.saveDefaultConfig();
