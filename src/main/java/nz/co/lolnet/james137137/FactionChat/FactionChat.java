@@ -163,8 +163,13 @@ public class FactionChat extends JavaPlugin {
         if (this.getConfig().getBoolean("FactionInfoServer.enable")) {
             new FactionInfoServer(this.getConfig().getInt("FactionInfoServer.port"));
         }
+        if (Config.FactionChatMessage.contains("{0}"))
+        {
+            log.warning("[FactionChat]: "+ChatColor.RED + "Config has changed as of Version 1.10.0. Please backup the FactionChat config.yml and delete it so it can regenerate");
+            log.warning("[FactionChat]: "+ChatColor.RED + "Expect issues with the chat without changing the formatting.");
+        }
         log.info(this.getName() + ": Version: " + version + " Enabled.");
-
+        
     }
 
     @Override
