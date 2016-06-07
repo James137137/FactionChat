@@ -201,6 +201,12 @@ public class FactionChat extends JavaPlugin {
     @Override
     public boolean onCommand(CommandSender sender, Command command, String commandLabel, String[] args) {
         String commandName = command.getName().toLowerCase();
+        
+        if(!sender instanceof Player){
+            sender.sendMessage("You must run this command in-game.");
+            return;
+        } 
+        
         if (Config.disabledCommands.contains(commandName)) {
             sender.sendMessage("This command has been disabled in FactionChat config. If you belive this is an error please report this to"
                     + " your server administrators.");
