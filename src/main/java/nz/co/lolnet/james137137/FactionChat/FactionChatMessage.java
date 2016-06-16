@@ -85,6 +85,8 @@ public class FactionChatMessage {
             if (otherFactionName != null) {
                 format = format.replaceAll("%OTHERFACTION%", otherFactionName);
             }
+            
+            format = format.replaceAll("  ", " "); //removing double spaces
             format = format.replaceAll("%MESSAGE%", message);
 
             output = format;
