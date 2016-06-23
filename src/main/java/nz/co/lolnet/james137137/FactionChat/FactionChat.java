@@ -201,12 +201,43 @@ public class FactionChat extends JavaPlugin {
     @Override
     public boolean onCommand(CommandSender sender, Command command, String commandLabel, String[] args) {
         String commandName = command.getName().toLowerCase();
-        
-        if(!(sender instanceof Player)){
+
+        if (!(sender instanceof Player)) {
+            if (commandName.equalsIgnoreCase("fc") || commandName.equalsIgnoreCase("fchat")) {
+                if (args.length == 0 || args[0].equalsIgnoreCase("help")) {
+                    sender.sendMessage(ChatColor.GOLD + "Current commands are:");
+                    sender.sendMessage(ChatColor.GOLD + "/fc a" + ChatColor.GREEN + " Enter ally-only chat mode.");
+                    sender.sendMessage(ChatColor.GOLD + "/fc t" + ChatColor.GREEN + " Enter truce-only chat mode.");
+                    sender.sendMessage(ChatColor.GOLD + "/fc at" + ChatColor.GREEN + " Enter ally and truce chat mode.");
+                    sender.sendMessage(ChatColor.GOLD + "/fc e" + ChatColor.GREEN + " Enter enemy chat mode.");
+                    sender.sendMessage(ChatColor.GOLD + "/fc p" + ChatColor.GREEN + " Enter public chat mode (normal chat).");
+                    sender.sendMessage(ChatColor.GOLD + "/fchatother <faction name> <message>" + ChatColor.GREEN + " Send a message to all members of the specified faction.");
+                    sender.sendMessage(ChatColor.GREEN + "for more commands go to http://dev.bukkit.org/bukkit-plugins/factionchat/pages/commands/");
+                    return true;
+                } else if (args[0].equalsIgnoreCase("update")
+                        && (sender.hasPermission("FactionChat.Update") || FactionChat.isDebugger(sender.getName()))) {
+                    Updater updater = new Updater(this, 50517, this.getFile(), UpdateType.DEFAULT, true);
+                    if (updater.getResult() == UpdateResult.SUCCESS) {
+                        this.getLogger().info("updated to " + updater.getLatestName());
+                        this.getLogger().info("full plugin reload is required");
+                    }
+                    return true;
+                } else if (args[0].equalsIgnoreCase("reload")
+                        && (sender.hasPermission("FactionChat.reload") || FactionChat.isDebugger(sender.getName()))) {
+                    Config.reload();
+                    sender.sendMessage("Reload Complete");
+                    return true;
+                } else if (args[0].equalsIgnoreCase("ver") || args[0].equalsIgnoreCase("version")) {
+                    String version = Bukkit.getServer().getPluginManager().getPlugin(this.getName()).getDescription().getVersion();
+                    sender.sendMessage("[FactionChat] Version is : " + version);
+                    return true;
+                }
+            }
+
             sender.sendMessage("You must run this command in-game.");
             return false;
-        } 
-        
+        }
+
         if (Config.disabledCommands.contains(commandName)) {
             sender.sendMessage("This command has been disabled in FactionChat config. If you belive this is an error please report this to"
                     + " your server administrators.");
