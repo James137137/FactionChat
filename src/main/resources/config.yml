@@ -63,11 +63,6 @@ Features:
     Radius:
       Public: 50
       FactionChatChannel: -1
-# {0} Faction name
-# {1} Faction Rank
-# {2} Player name
-# {T} Player Title
-# {M} message
 # prefix and suffix are for Groupmanager, PermissionsEX & bPermissions only. please PM me to request more.
 FactionChatMessage:
   IncludePrefix: true
@@ -80,13 +75,9 @@ FactionChatMessage:
   OfficerChat: '&eOfficerChat: [%FACTION%] &f[%FACTIONRANK%] %TITLE%%PREFIX% %PLAYER% %SUFFIX%: %MESSAGE%'
   LeaderChat: '&eLeaderChat: [%FACTION%] &f[%FACTIONRANK%] %TITLE%%PREFIX% %PLAYER% %SUFFIX%: %MESSAGE%'
   EnemyChat: '&cEnemy: [%FACTION%] &f[%FACTIONRANK%] %TITLE%%PREFIX% %PLAYER% %SUFFIX%: %MESSAGE%'
-# {0,1} Other Faction's name (have a guess by reading)
   OtherFactionChatTo: '&5[@:%OTHERFACTION%] &f[%FACTION%] %TITLE%%PREFIX% %PLAYER% %SUFFIX%: %MESSAGE%'
   OtherFactionChatFrom: '&5[From:%FACTION%] &f[{%OTHERFACTION%}] %TITLE%%PREFIX% %PLAYER% %SUFFIX%: %MESSAGE%'
-# {0} everything else 
   SpyChat: '&2Spy:&r %MESSAGE%'
-# {0} Player name
-# {M} Message
 OtherChatMessage:
   ModChat: '&b[Mod-Chat] &f%PREFIX% %PLAYER% %SUFFIX%: &a%MESSAGE%'
   AdminChat: '&4[Admin-Chat] &f%PREFIX% %PLAYER% %SUFFIX%: &a%MESSAGE%'
