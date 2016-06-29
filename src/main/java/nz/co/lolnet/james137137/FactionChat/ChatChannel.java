@@ -46,6 +46,9 @@ public class ChatChannel {
         String playerName;
         if (FactionChat.useEssentialsNick) {
             playerName = "~" + EssentialsAPI.getNickname(player);
+            if (playerName.equalsIgnoreCase("~" + player.getName())) {
+                playerName = player.getName();
+            }
         } else {
             playerName = player.getName();
         }
@@ -109,6 +112,9 @@ public class ChatChannel {
         String playerName;
         if (FactionChat.useEssentialsNick) {
             playerName = "~" + EssentialsAPI.getNickname(player);
+            if (playerName.equalsIgnoreCase("~" + player.getName())) {
+                playerName = player.getName();
+            }
         } else {
             playerName = player.getName();
         }
@@ -165,6 +171,9 @@ public class ChatChannel {
         String playerName;
         if (FactionChat.useEssentialsNick) {
             playerName = "~" + EssentialsAPI.getNickname(player);
+            if (playerName.equalsIgnoreCase("~" + player.getName())) {
+                playerName = player.getName();
+            }
         } else {
             playerName = player.getName();
         }
@@ -221,6 +230,9 @@ public class ChatChannel {
         String playerName;
         if (FactionChat.useEssentialsNick) {
             playerName = "~" + EssentialsAPI.getNickname(player);
+            if (playerName.equalsIgnoreCase("~" + player.getName())) {
+                playerName = player.getName();
+            }
         } else {
             playerName = player.getName();
         }
@@ -280,6 +292,9 @@ public class ChatChannel {
         String playerName;
         if (FactionChat.useEssentialsNick) {
             playerName = "~" + EssentialsAPI.getNickname(player);
+            if (playerName.equalsIgnoreCase("~" + player.getName())) {
+                playerName = player.getName();
+            }
         } else {
             playerName = player.getName();
         }
@@ -354,6 +369,9 @@ public class ChatChannel {
                 String playerName;
                 if (FactionChat.useEssentialsNick) {
                     playerName = "~" + EssentialsAPI.getNickname(player);
+                    if (playerName.equalsIgnoreCase("~" + player.getName())) {
+                        playerName = player.getName();
+                    }
                 } else {
                     playerName = player.getName();
                 }
@@ -420,6 +438,9 @@ public class ChatChannel {
         String playerName;
         if (FactionChat.useEssentialsNick) {
             playerName = "~" + EssentialsAPI.getNickname(player);
+            if (playerName.equalsIgnoreCase("~" + player.getName())) {
+                playerName = player.getName();
+            }
         } else {
             playerName = player.getName();
         }
@@ -433,7 +454,7 @@ public class ChatChannel {
 
         String normalMessage = new FactionChatMessage(Config.OtherFactionChatTo, message, allowCustomColour, playerPrefix, playerName, playerSuffix, playerFactionTitle, playerFactionRank, FacitonName, otherFactionName).toString();
         String spyMessage = new FactionChatMessage(Config.SpyChat, normalMessage, allowCustomColour).toString();
-        
+
         for (Player myPlayer : Bukkit.getServer().getOnlinePlayers()) {
 
             if (!ChatMode.IsPlayerMutedTarget(myPlayer, player) && FactionChatAPI.getPlayerRank(player).equals(Config.LeaderRank) && ChatMode.getChatMode(myPlayer).equals("LEADER")) {
@@ -473,6 +494,9 @@ public class ChatChannel {
         String playerName;
         if (FactionChat.useEssentialsNick) {
             playerName = "~" + EssentialsAPI.getNickname(player);
+            if (playerName.equalsIgnoreCase("~" + player.getName())) {
+                playerName = player.getName();
+            }
         } else {
             playerName = player.getName();
         }
@@ -485,7 +509,7 @@ public class ChatChannel {
 
         String normalMessage = new FactionChatMessage(Config.OtherFactionChatTo, message, allowCustomColour, playerPrefix, playerName, playerSuffix, playerFactionTitle, playerFactionRank, FacitonName, otherFactionName).toString();
         String spyMessage = new FactionChatMessage(Config.SpyChat, normalMessage, allowCustomColour).toString();
-        
+
         for (Player myPlayer : Bukkit.getServer().getOnlinePlayers()) {
 
             if (!ChatMode.IsPlayerMutedTarget(myPlayer, player) && (FactionChatAPI.getPlayerRank(player).equals(Config.LeaderRank)

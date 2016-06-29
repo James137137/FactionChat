@@ -29,7 +29,10 @@ public class EssentialsAPI {
 
     public static String getNickname(Player player) {
         if (enable && FactionChat.useEssentialsNick) { // this should always be true whnen called.
-            return essentials.getUser(player).getNickname();
+            String nick = essentials.getUser(player).getNickname();
+            if (nick != null) {
+                return essentials.getUser(player).getNickname();
+            }
         }
         Bukkit.getServer().getLogger().warning("FactionChat's EssentialsAPI getNickname method was called when it shouldn't of been");
         return player.getName();
