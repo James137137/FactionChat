@@ -6,7 +6,7 @@
 
     <groupId>nz.co.lolnet.james137137</groupId>
     <artifactId>factionchat</artifactId>
-    <version>1.10.0-SNAPSHOT</version>
+    <version>1.10.0-RC1</version>
     <packaging>jar</packaging>
     <name>FactionChat</name>
 
@@ -163,6 +163,19 @@
             </exclusions>
         </dependency>
         <dependency>
+            <groupId>net.gravitydevelopment.updater</groupId>
+            <artifactId>updater</artifactId>
+            <version>2.1</version>
+            <scope>compile</scope>
+            <optional>true</optional>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.bukkit</groupId>
+                    <artifactId>bukkit</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        <dependency>
             <groupId>com.gmail.nossr50.mcMMO</groupId>
             <artifactId>mcMMO</artifactId>
             <version>1.5.05-SNAPSHOT</version>
@@ -216,6 +229,11 @@
             <id>lolnet-repo</id>
             <url>http://jenkins.lolnet.co.nz/plugin/repository/everything/</url>
         </repository>
+        <repository>
+            <id>gravity-repo</id>
+            <url>http://repo.gravitydevelopment.net</url>
+        </repository>            
+
     </repositories>
     
     <build>
