@@ -64,31 +64,30 @@ public class FactionChatMessage {
             format = format.replaceAll("&", "" + (char) 167);
             format = format.replaceAll("/and", "&");
             if (playerName != null) {
-                format = format.replaceAll("%PLAYER%", playerName);
+                format = format.replaceAll("PLAYER", playerName);
             }
 
             if (playerPrefix != null) {
-                format = format.replaceAll("%PREFIX%", playerPrefix);
+                format = format.replaceAll("PREFIX", playerPrefix);
             }
             if (playerSuffix != null) {
-                format = format.replaceAll("%SUFFIX%", playerSuffix);
+                format = format.replaceAll("SUFFIX", playerSuffix);
             }
             if (playerFactionTitle != null) {
-                format = format.replaceAll("%TITLE%", playerFactionTitle);
+                format = format.replaceAll("TITLE", playerFactionTitle);
             }
             if (playerFactionRank != null) {
-                format = format.replaceAll("%FACTIONRANK%", playerFactionRank);
+                format = format.replaceAll("FACTIONRANK", playerFactionRank);
             }
             if (FacitonName != null) {
-                format = format.replaceAll("%FACTION%", FacitonName);
+                format = format.replaceAll("FACTION", FacitonName);
             }
             if (otherFactionName != null) {
-                format = format.replaceAll("%OTHERFACTION%", otherFactionName);
+                format = format.replaceAll("OTHERFACTION", otherFactionName);
             }
             
             format = format.replaceAll("  ", " "); //removing double spaces
-            message = message.replaceAll("\\$", "\\\\\\$");
-            format = format.replaceAll("%MESSAGE%", message);
+            format = format.replaceAll("MESSAGE", message);
 
             output = format;
         }

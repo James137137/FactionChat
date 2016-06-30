@@ -189,7 +189,7 @@ public class FactionChat extends JavaPlugin {
     }
 
     protected void checkConfig() {
-        if (Config.FactionChatMessage.contains("{M}")) {
+        if (Config.FactionChatMessage.contains("{M}") || Config.FactionChatMessage.contains("%MESSAGE%")) {
             log.warning("[FactionChat]: " + ChatColor.RED + "Config has changed as of Version 1.10.0.");
             log.warning("[FactionChat]: " + ChatColor.RED + "Please redo your config.yml (I backed it up)");
             removeConfigFile();
