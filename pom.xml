@@ -6,7 +6,7 @@
 
     <groupId>nz.co.lolnet.james137137</groupId>
     <artifactId>factionchat</artifactId>
-    <version>1.10.0-PRE-2</version>
+    <version>1.10.0-PRE-3</version>
     <packaging>jar</packaging>
     <name>FactionChat</name>
 
@@ -165,7 +165,7 @@
         <dependency>
             <groupId>net.gravitydevelopment.updater</groupId>
             <artifactId>updater</artifactId>
-            <version>2.1</version>
+            <version>2.3</version>
             <scope>compile</scope>
             <optional>true</optional>
             <exclusions>
@@ -229,11 +229,6 @@
             <id>lolnet-repo</id>
             <url>http://jenkins.lolnet.co.nz/plugin/repository/everything/</url>
         </repository>
-        <repository>
-            <id>gravity-repo</id>
-            <url>http://repo.gravitydevelopment.net</url>
-        </repository>            
-
     </repositories>
     
     <build>
