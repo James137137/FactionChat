@@ -124,7 +124,7 @@ public class FactionChatAPI {
         if (IncludePrefix) {
             prefix = prefixAndSuffix.getPrefix(player);
             if (prefix != null) {
-                prefix = prefix.replaceAll("&", "" + (char) 167);
+                prefix = prefix.replace("&", "" + (char) 167);
             } else {
                 prefix = "";
             }
@@ -138,7 +138,7 @@ public class FactionChatAPI {
         if (IncludeSuffix) {
             suffix = prefixAndSuffix.getSuffix(player);
             if (suffix != null) {
-                suffix = suffix.replaceAll("&", "" + (char) 167);
+                suffix = suffix.replace("&", "" + (char) 167);
             } else {
                 suffix = "";
             }

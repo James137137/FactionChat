@@ -53,57 +53,50 @@ public class FactionChatMessage {
     public String toString() {
         String output;
         if (allowCostomColour) {
-            message = message.replaceAll("/&", "/and");
-            message = message.replaceAll("&", "" + (char) 167);
-            message = message.replaceAll("/and", "&");
+            message = message.replace("/&", "/and");
+            message = message.replace("&", "" + (char) 167);
+            message = message.replace("/and", "&");
         }
 
         output = message;
         if (format != null) {
-            format = format.replaceAll("/&", "/and");
-            format = format.replaceAll("&", "" + (char) 167);
-            format = format.replaceAll("/and", "&");
+            format = format.replace("/&", "/and");
+            format = format.replace("&", "" + (char) 167);
+            format = format.replace("/and", "&");
             if (playerName != null) {
-                format = format.replaceAll("PLAYER", playerName);
+                format = format.replace("PLAYER", playerName);
             }
 
             if (playerPrefix != null) {
-                format = format.replaceAll("PREFIX", playerPrefix);
+                format = format.replace("PREFIX", playerPrefix);
             }
             if (playerSuffix != null) {
-                format = format.replaceAll("SUFFIX", playerSuffix);
+                format = format.replace("SUFFIX", playerSuffix);
             }
             if (playerFactionTitle != null) {
-                format = format.replaceAll("TITLE", playerFactionTitle);
+                format = format.replace("TITLE", playerFactionTitle);
             }
             if (playerFactionRank != null) {
-                format = format.replaceAll("FACTIONRANK", playerFactionRank);
+                format = format.replace("FACTIONRANK", playerFactionRank);
             }
             if (FacitonName != null) {
-                format = format.replaceAll("FACTION", FacitonName);
+                format = format.replace("FACTION", FacitonName);
             }
             if (otherFactionName != null) {
-                format = format.replaceAll("OTHERFACTION", otherFactionName);
+                format = format.replace("OTHERFACTION", otherFactionName);
             }
-            
-            format = format.replaceAll("  ", " "); //removing double spaces
-            format = format.replaceAll("MESSAGE", message);
+
+            format = format.replace("  ", " "); //removing double spaces
+            format = format.replace("MESSAGE", message);
 
             output = format;
         }
 
         return output;
     }
-    
-    private static String checkFormat(String y)
-    {
-        if (y == null || y.length() == 0)
-        {
-            return y;
-        }
-        String output;
-        output = y.replaceAll("\\$", "\\\\\\$");
-        return output;
+
+    private static String checkFormat(String y) {
+        return y;
     }
 
 }

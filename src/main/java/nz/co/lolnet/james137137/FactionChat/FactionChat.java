@@ -10,7 +10,6 @@ import nz.co.lolnet.james137137.FactionChat.API.BanManagerAPI;
 import nz.co.lolnet.james137137.FactionChat.API.EssentialsAPI;
 import java.io.File;
 import java.io.IOException;
-import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 

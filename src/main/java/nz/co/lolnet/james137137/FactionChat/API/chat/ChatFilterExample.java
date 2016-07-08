@@ -34,7 +34,7 @@ public class ChatFilterExample implements nz.co.lolnet.james137137.FactionChat.A
             return message;
         }
         for (String badword : badwords) {
-            message = message.replaceAll(badword, "****");
+            message = message.replace(badword, "****");
         }
         return message;
     }
