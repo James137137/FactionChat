@@ -16,6 +16,7 @@ import java.util.logging.Logger;
 import net.gravitydevelopment.updater.Updater;
 import net.gravitydevelopment.updater.Updater.UpdateResult;
 import net.gravitydevelopment.updater.Updater.UpdateType;
+import nz.co.lolnet.james137137.FactionChat.API.ChatFormat;
 import nz.co.lolnet.james137137.FactionChat.API.McMMOAPI;
 
 import nz.co.lolnet.james137137.FactionChat.FactionsAPI.FactionsAPI;
@@ -188,7 +189,8 @@ public class FactionChat extends JavaPlugin {
     }
 
     protected void checkConfig() {
-        if (Config.FactionChatMessage.contains("{M}") || Config.FactionChatMessage.contains("%MESSAGE%")) {
+        
+        if (ChatFormat.getFactionChatMessage().contains("{M}") || ChatFormat.getFactionChatMessage().contains("%MESSAGE%")) {
             log.warning("[FactionChat]: " + ChatColor.RED + "Config has changed as of Version 1.10.0.");
             log.warning("[FactionChat]: " + ChatColor.RED + "Please redo your config.yml (I backed it up)");
             removeConfigFile();

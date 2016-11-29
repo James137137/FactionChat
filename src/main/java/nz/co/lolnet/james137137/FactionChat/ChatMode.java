@@ -59,6 +59,10 @@ public class ChatMode {
         if (!player.hasPermission("FactionChat.spy") && !FactionChat.isDebugger(player.getName())) {
             return false;
         }
+        if (spyMode.get(playerName) == null)
+        {
+            spyMode.put(playerName,Config.spyModeOnByDefault);
+        }
 
         return (Boolean) spyMode.get(playerName);
     }

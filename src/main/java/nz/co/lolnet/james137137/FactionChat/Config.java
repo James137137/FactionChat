@@ -6,6 +6,7 @@
 package nz.co.lolnet.james137137.FactionChat;
 
 import java.util.List;
+import nz.co.lolnet.james137137.FactionChat.API.ChatFormat;
 import org.bukkit.Bukkit;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
@@ -16,23 +17,6 @@ import org.bukkit.entity.Player;
  */
 public class Config {
 
-    public static String OtherFactionChatTo;
-    public static String JrAdminChat;
-    public static String AllyChat;
-    public static String SpyChat;
-    public static String OtherFactionChatFrom;
-    public static String UAChat;
-    public static String ModChat;
-    public static String LeaderChat;
-    public static String EnemyChat;
-    public static String JrModChat;
-    public static String VIPChat;
-    public static String OfficerChat;
-    public static String TruceChat;
-    public static String FactionChatMessage;
-    public static String AdminChat;
-    public static String AllyTruceChat;
-    public static String SrModChat;
     public static String OfficerRank;
     public static String messagePublicMuteChatOff;
 
@@ -99,23 +83,27 @@ public class Config {
                 FactionChat.log.warning("[FactionChat]: reloadConfig() failed on reload()");
             }
             FileConfiguration config = FactionChat.plugin.getConfig();
-            Config.FactionChatMessage = config.getString("FactionChatMessage.FactionChat");
-            Config.AllyTruceChat = config.getString("FactionChatMessage.AllyTruceChat");
-            Config.AllyChat = config.getString("FactionChatMessage.AllyChat");
-            Config.TruceChat = config.getString("FactionChatMessage.TruceChat");
-            Config.EnemyChat = config.getString("FactionChatMessage.EnemyChat");
-            Config.LeaderChat = config.getString("FactionChatMessage.LeaderChat");
-            Config.OfficerChat = config.getString("FactionChatMessage.OfficerChat");
-            Config.OtherFactionChatTo = config.getString("FactionChatMessage.OtherFactionChatTo");
-            Config.OtherFactionChatFrom = config.getString("FactionChatMessage.OtherFactionChatFrom");
-            Config.SpyChat = config.getString("FactionChatMessage.SpyChat");
-            Config.ModChat = config.getString("OtherChatMessage.ModChat");
-            Config.AdminChat = config.getString("OtherChatMessage.AdminChat");
-            Config.UAChat = config.getString("OtherChatMessage.UAChat");
-            Config.VIPChat = config.getString("OtherChatMessage.VIPChat");
-            Config.JrModChat = config.getString("OtherChatMessage.JrModChat");
-            Config.SrModChat = config.getString("OtherChatMessage.SrModChat");
-            Config.JrAdminChat = config.getString("OtherChatMessage.JrAdminChat");
+            ChatFormat.setFactionChatMessage(config.getString("FactionChatMessage.FactionChat"));
+            ChatFormat.setAllyTruceChat(config.getString("FactionChatMessage.AllyTruceChat"));
+            ChatFormat.setAllyChat(config.getString("FactionChatMessage.AllyChat"));
+            ChatFormat.setTruceChat(config.getString("FactionChatMessage.TruceChat"));
+            ChatFormat.setEnemyChat(config.getString("FactionChatMessage.EnemyChat"));
+
+            ChatFormat.setLeaderChat(config.getString("FactionChatMessage.LeaderChat"));
+
+            ChatFormat.setOfficerChat(config.getString("FactionChatMessage.OfficerChat"));
+            ChatFormat.setOtherFactionChatTo(config.getString("FactionChatMessage.OtherFactionChatTo"));
+            ChatFormat.setOtherFactionChatFrom(config.getString("FactionChatMessage.OtherFactionChatFrom"));
+            ChatFormat.setSpyChat(config.getString("FactionChatMessage.SpyChat"));
+            ChatFormat.setModChat(config.getString("OtherChatMessage.ModChat"));
+            ChatFormat.setAdminChat(config.getString("OtherChatMessage.AdminChat"));
+            ChatFormat.setUAChat(config.getString("OtherChatMessage.UAChat"));
+            ChatFormat.setVIPChat(config.getString("OtherChatMessage.VIPChat"));
+            ChatFormat.setJrModChat(config.getString("OtherChatMessage.JrModChat"));
+            ChatFormat.setSrModChat(config.getString("OtherChatMessage.SrModChat"));
+            ChatFormat.setJrAdminChat(config.getString("OtherChatMessage.JrAdminChat"));
+            
+            
             Config.LeaderRank = config.getString("FactionRank.Leader");
             Config.OfficerRank = config.getString("FactionRank.Officer");
             Config.MemberRank = config.getString("FactionRank.Member");
@@ -178,7 +166,7 @@ public class Config {
             reload();
         }
         //null checker
-        if (Config.FactionChatMessage == null) {
+        if (ChatFormat.getFactionChatMessage() == null) {
             FactionChat.log.info("[FactionChat]: found a null in the config file....remaking the config");
             if (FactionChat.plugin.reloadCountCheck == 1) {
                 FactionChat.log.warning("[FactionChat] Something is wrong with FactionChat Plugin, I can't fix your null in your config file");

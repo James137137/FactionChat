@@ -1,5 +1,6 @@
 package nz.co.lolnet.james137137.FactionChat;
 
+import nz.co.lolnet.james137137.FactionChat.API.ChatFormat;
 import nz.co.lolnet.james137137.FactionChat.API.FactionChatAPI;
 import nz.co.lolnet.james137137.FactionChat.API.EssentialsAPI;
 import nz.co.lolnet.james137137.FactionChat.FactionsAPI.MyRel;
@@ -65,8 +66,8 @@ public class ChatChannel {
         String FacitonName = senderFaction;
         String otherFactionName = null;
 
-        String normalMessage = new FactionChatMessage(Config.FactionChatMessage, message, allowCustomColour, playerPrefix, playerName, playerSuffix, playerFactionTitle, playerFactionRank, FacitonName, otherFactionName).toString();
-        String spyMessage = new FactionChatMessage(Config.SpyChat, normalMessage, allowCustomColour).toString();
+        String normalMessage = new FactionChatMessage(ChatFormat.getFactionChatMessage(), message, allowCustomColour, playerPrefix, playerName, playerSuffix, playerFactionTitle, playerFactionRank, FacitonName, otherFactionName).toString();
+        String spyMessage = new FactionChatMessage(ChatFormat.getSpyChat(), normalMessage, allowCustomColour).toString();
 
         senderFaction = FactionChat.factionsAPI.getFactionID(player);
         for (Player myPlayer : Bukkit.getServer().getOnlinePlayers()) {
@@ -126,8 +127,8 @@ public class ChatChannel {
         String FacitonName = sSenderFaction;
         String otherFactionName = null;
 
-        String normalMessage = new FactionChatMessage(Config.AllyTruceChat, message, allowCustomColour, playerPrefix, playerName, playerSuffix, playerFactionTitle, playerFactionRank, FacitonName, otherFactionName).toString();
-        String spyMessage = new FactionChatMessage(Config.SpyChat, normalMessage, allowCustomColour).toString();
+        String normalMessage = new FactionChatMessage(ChatFormat.getAllyTruceChat(), message, allowCustomColour, playerPrefix, playerName, playerSuffix, playerFactionTitle, playerFactionRank, FacitonName, otherFactionName).toString();
+        String spyMessage = new FactionChatMessage(ChatFormat.getSpyChat(), normalMessage, allowCustomColour).toString();
 
         for (Player myPlayer : Bukkit.getServer().getOnlinePlayers()) {
 
@@ -185,8 +186,8 @@ public class ChatChannel {
         String FacitonName = sSenderFaction;
         String otherFactionName = null;
 
-        String normalMessage = new FactionChatMessage(Config.AllyChat, message, allowCustomColour, playerPrefix, playerName, playerSuffix, playerFactionTitle, playerFactionRank, FacitonName, otherFactionName).toString();
-        String spyMessage = new FactionChatMessage(Config.SpyChat, normalMessage, allowCustomColour).toString();
+        String normalMessage = new FactionChatMessage(ChatFormat.getAllyChat(), message, allowCustomColour, playerPrefix, playerName, playerSuffix, playerFactionTitle, playerFactionRank, FacitonName, otherFactionName).toString();
+        String spyMessage = new FactionChatMessage(ChatFormat.getSpyChat(), normalMessage, allowCustomColour).toString();
 
         for (Player myPlayer : Bukkit.getServer().getOnlinePlayers()) {
 
@@ -243,8 +244,8 @@ public class ChatChannel {
         String FacitonName = sSenderFaction;
         String otherFactionName = null;
 
-        String normalMessage = new FactionChatMessage(Config.TruceChat, message, allowCustomColour, playerPrefix, playerName, playerSuffix, playerFactionTitle, playerFactionRank, FacitonName, otherFactionName).toString();
-        String spyMessage = new FactionChatMessage(Config.SpyChat, normalMessage, allowCustomColour).toString();
+        String normalMessage = new FactionChatMessage(ChatFormat.getTruceChat(), message, allowCustomColour, playerPrefix, playerName, playerSuffix, playerFactionTitle, playerFactionRank, FacitonName, otherFactionName).toString();
+        String spyMessage = new FactionChatMessage(ChatFormat.getSpyChat(), normalMessage, allowCustomColour).toString();
 
         for (Player myPlayer : Bukkit.getServer().getOnlinePlayers()) {
 
@@ -305,8 +306,8 @@ public class ChatChannel {
         String FacitonName = sSenderFaction;
         String otherFactionName = null;
 
-        String normalMessage = new FactionChatMessage(Config.EnemyChat, message, allowCustomColour, playerPrefix, playerName, playerSuffix, playerFactionTitle, playerFactionRank, FacitonName, otherFactionName).toString();
-        String spyMessage = new FactionChatMessage(Config.SpyChat, normalMessage, allowCustomColour).toString();
+        String normalMessage = new FactionChatMessage(ChatFormat.getEnemyChat(), message, allowCustomColour, playerPrefix, playerName, playerSuffix, playerFactionTitle, playerFactionRank, FacitonName, otherFactionName).toString();
+        String spyMessage = new FactionChatMessage(ChatFormat.getSpyChat(), normalMessage, allowCustomColour).toString();
 
         for (Player myPlayer : Bukkit.getServer().getOnlinePlayers()) {
 
@@ -382,9 +383,9 @@ public class ChatChannel {
                 String FacitonName = senderFaction;
                 String otherFactionName = targetFaction;
 
-                String toMessage = new FactionChatMessage(Config.OtherFactionChatTo, message, allowCustomColour, playerPrefix, playerName, playerSuffix, playerFactionTitle, playerFactionRank, FacitonName, otherFactionName).toString();
-                String FromMessage = new FactionChatMessage(Config.OtherFactionChatFrom, message, allowCustomColour, playerPrefix, playerName, playerSuffix, playerFactionTitle, playerFactionRank, FacitonName, otherFactionName).toString();
-                String spyMessage = new FactionChatMessage(Config.SpyChat, toMessage, allowCustomColour).toString();
+                String toMessage = new FactionChatMessage(ChatFormat.getOtherFactionChatTo(), message, allowCustomColour, playerPrefix, playerName, playerSuffix, playerFactionTitle, playerFactionRank, FacitonName, otherFactionName).toString();
+                String FromMessage = new FactionChatMessage(ChatFormat.getOtherFactionChatFrom(), message, allowCustomColour, playerPrefix, playerName, playerSuffix, playerFactionTitle, playerFactionRank, FacitonName, otherFactionName).toString();
+                String spyMessage = new FactionChatMessage(ChatFormat.getSpyChat(), toMessage, allowCustomColour).toString();
 
                 //start of loop
                 for (Player myPlayer : Bukkit.getServer().getOnlinePlayers()) {
@@ -452,8 +453,8 @@ public class ChatChannel {
         String FacitonName = senderFaction;
         String otherFactionName = null;
 
-        String normalMessage = new FactionChatMessage(Config.OtherFactionChatTo, message, allowCustomColour, playerPrefix, playerName, playerSuffix, playerFactionTitle, playerFactionRank, FacitonName, otherFactionName).toString();
-        String spyMessage = new FactionChatMessage(Config.SpyChat, normalMessage, allowCustomColour).toString();
+        String normalMessage = new FactionChatMessage(ChatFormat.getOtherFactionChatTo(), message, allowCustomColour, playerPrefix, playerName, playerSuffix, playerFactionTitle, playerFactionRank, FacitonName, otherFactionName).toString();
+        String spyMessage = new FactionChatMessage(ChatFormat.getSpyChat(), normalMessage, allowCustomColour).toString();
 
         for (Player myPlayer : Bukkit.getServer().getOnlinePlayers()) {
 
@@ -507,8 +508,8 @@ public class ChatChannel {
         String FacitonName = senderFaction;
         String otherFactionName = null;
 
-        String normalMessage = new FactionChatMessage(Config.OtherFactionChatTo, message, allowCustomColour, playerPrefix, playerName, playerSuffix, playerFactionTitle, playerFactionRank, FacitonName, otherFactionName).toString();
-        String spyMessage = new FactionChatMessage(Config.SpyChat, normalMessage, allowCustomColour).toString();
+        String normalMessage = new FactionChatMessage(ChatFormat.getOtherFactionChatTo(), message, allowCustomColour, playerPrefix, playerName, playerSuffix, playerFactionTitle, playerFactionRank, FacitonName, otherFactionName).toString();
+        String spyMessage = new FactionChatMessage(ChatFormat.getSpyChat(), normalMessage, allowCustomColour).toString();
 
         for (Player myPlayer : Bukkit.getServer().getOnlinePlayers()) {
 

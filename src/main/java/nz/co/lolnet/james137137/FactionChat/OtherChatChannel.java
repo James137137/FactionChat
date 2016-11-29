@@ -5,6 +5,7 @@
 package nz.co.lolnet.james137137.FactionChat;
 
 import nz.co.lolnet.james137137.FactionChat.API.AuthMeAPI;
+import nz.co.lolnet.james137137.FactionChat.API.ChatFormat;
 import nz.co.lolnet.james137137.FactionChat.API.FactionChatAPI;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -33,7 +34,7 @@ public class OtherChatChannel {
         }
         message = FactionChatAPI.filterChat(player, message);
         boolean allowCustomColour = player.hasPermission("essentials.chat.color") || player.hasPermission("FactionChat.Chat.Colour");
-        String normalMessage = new FactionChatMessage(Config.UAChat, message, allowCustomColour,
+        String normalMessage = new FactionChatMessage(ChatFormat.getUAChat(), message, allowCustomColour,
                 FactionChatAPI.getPrefix(player), player.getName(), FactionChatAPI.getSuffix(player), null, null, null, null).toString();
         for (Player myplayer : Bukkit.getServer().getOnlinePlayers()) {
             if ((myplayer.hasPermission("FactionChat.UserAssistantChat") || FactionChat.isDebugger(myplayer.getName())) && AuthMeAPI.isAllowToChat(myplayer)) {
@@ -55,7 +56,7 @@ public class OtherChatChannel {
         }
         message = FactionChatAPI.filterChat(player, message);
         boolean allowCustomColour = player.hasPermission("essentials.chat.color") || player.hasPermission("FactionChat.Chat.Colour");
-        String normalMessage = new FactionChatMessage(Config.JrModChat, message, allowCustomColour,
+        String normalMessage = new FactionChatMessage(ChatFormat.getJrModChat(), message, allowCustomColour,
                 FactionChatAPI.getPrefix(player), player.getName(), FactionChatAPI.getSuffix(player), null, null, null, null).toString();
         for (Player myplayer : Bukkit.getServer().getOnlinePlayers()) {
             if ((myplayer.hasPermission("FactionChat.JrModChat") || FactionChat.isDebugger(myplayer.getName())) && AuthMeAPI.isAllowToChat(myplayer)) {
@@ -77,7 +78,7 @@ public class OtherChatChannel {
         }
         message = FactionChatAPI.filterChat(player, message);
         boolean allowCustomColour = player.hasPermission("essentials.chat.color") || player.hasPermission("FactionChat.Chat.Colour");
-        String normalMessage = new FactionChatMessage(Config.ModChat, message, allowCustomColour,
+        String normalMessage = new FactionChatMessage(ChatFormat.getModChat(), message, allowCustomColour,
                 FactionChatAPI.getPrefix(player), player.getName(), FactionChatAPI.getSuffix(player), null, null, null, null).toString();
         for (Player myplayer : Bukkit.getServer().getOnlinePlayers()) {
             if ((myplayer.hasPermission("FactionChat.ModChat") || FactionChat.isDebugger(myplayer.getName())) && AuthMeAPI.isAllowToChat(myplayer)) {
@@ -99,7 +100,7 @@ public class OtherChatChannel {
         }
         message = FactionChatAPI.filterChat(player, message);
         boolean allowCustomColour = player.hasPermission("essentials.chat.color") || player.hasPermission("FactionChat.Chat.Colour");
-        String normalMessage = new FactionChatMessage(Config.SrModChat, message, allowCustomColour,
+        String normalMessage = new FactionChatMessage(ChatFormat.getSrModChat(), message, allowCustomColour,
                 FactionChatAPI.getPrefix(player), player.getName(), FactionChatAPI.getSuffix(player), null, null, null, null).toString();
         for (Player myplayer : Bukkit.getServer().getOnlinePlayers()) {
             if ((myplayer.hasPermission("FactionChat.SrModChat") || FactionChat.isDebugger(myplayer.getName())) && AuthMeAPI.isAllowToChat(myplayer)) {
@@ -121,7 +122,7 @@ public class OtherChatChannel {
         }
         message = FactionChatAPI.filterChat(player, message);
         boolean allowCustomColour = player.hasPermission("essentials.chat.color") || player.hasPermission("FactionChat.Chat.Colour");
-        String normalMessage = new FactionChatMessage(Config.JrModChat, message, allowCustomColour,
+        String normalMessage = new FactionChatMessage(ChatFormat.getJrModChat(), message, allowCustomColour,
                 FactionChatAPI.getPrefix(player), player.getName(), FactionChatAPI.getSuffix(player), null, null, null, null).toString();
         for (Player myplayer : Bukkit.getServer().getOnlinePlayers()) {
             if ((myplayer.hasPermission("FactionChat.JrAdminChat") || FactionChat.isDebugger(myplayer.getName())) && AuthMeAPI.isAllowToChat(myplayer)) {
@@ -143,7 +144,7 @@ public class OtherChatChannel {
         }
         message = FactionChatAPI.filterChat(player, message);
         boolean allowCustomColour = player.hasPermission("essentials.chat.color") || player.hasPermission("FactionChat.Chat.Colour");
-        String normalMessage = new FactionChatMessage(Config.AdminChat, message, allowCustomColour,
+        String normalMessage = new FactionChatMessage(ChatFormat.getAdminChat(), message, allowCustomColour,
                 FactionChatAPI.getPrefix(player), player.getName(), FactionChatAPI.getSuffix(player), null, null, null, null).toString();
         for (Player myplayer : Bukkit.getServer().getOnlinePlayers()) {
             if ((myplayer.hasPermission("FactionChat.AdminChat") || FactionChat.isDebugger(myplayer.getName())) && AuthMeAPI.isAllowToChat(myplayer)) {
@@ -165,7 +166,7 @@ public class OtherChatChannel {
         }
         message = FactionChatAPI.filterChat(player, message);
         boolean allowCustomColour = player.hasPermission("essentials.chat.color") || player.hasPermission("FactionChat.Chat.Colour");
-        String normalMessage = new FactionChatMessage(Config.VIPChat, message, allowCustomColour,
+        String normalMessage = new FactionChatMessage(ChatFormat.getVIPChat(), message, allowCustomColour,
                 FactionChatAPI.getPrefix(player), player.getName(), FactionChatAPI.getSuffix(player), null, null, null, null).toString();
         for (Player myplayer : Bukkit.getServer().getOnlinePlayers()) {
             if ((myplayer.hasPermission("FactionChat.VIPChat") || FactionChat.isDebugger(myplayer.getName())) && AuthMeAPI.isAllowToChat(myplayer)) {
