@@ -6,7 +6,7 @@
 
     <groupId>nz.co.lolnet.james137137</groupId>
     <artifactId>factionchat</artifactId>
-    <version>1.10.2</version>
+    <version>1.10.3-SNAPSHOT</version>
     <packaging>jar</packaging>
     <name>FactionChat</name>
 
@@ -21,7 +21,7 @@
         <javaVersion>1.7</javaVersion>
 
         <!-- Change Bukkit Version HERE! -->
-        <bukkitVersion>1.9.2-R0.1-SNAPSHOT</bukkitVersion>
+        <bukkitVersion>1.11-R0.1-SNAPSHOT</bukkitVersion>
     </properties>
 
     <dependencies>
@@ -178,7 +178,7 @@
         <dependency>
             <groupId>com.gmail.nossr50.mcMMO</groupId>
             <artifactId>mcMMO</artifactId>
-            <version>1.5.06-SNAPSHOT</version>
+            <version>1.5.07-SNAPSHOT</version>
             <scope>provided</scope>
             <optional>true</optional>
             <exclusions>
@@ -196,6 +196,10 @@
     
     <repositories>
         <!-- TODO: host the api on a proper maven repo! -->
+        <repository>
+            <id>lolnet-repo</id>
+            <url>http://jenkins.lolnet.co.nz/plugin/repository/everything/</url>
+        </repository>
         <repository>
             <id>file.repo</id>
             <url>file://${project.basedir}/repo</url>
@@ -224,10 +228,6 @@
         <repository>
             <id>ess-repo</id>
             <url>http://ci.drtshock.net/plugin/repository/everything</url>
-        </repository>
-        <repository>
-            <id>lolnet-repo</id>
-            <url>http://jenkins.lolnet.co.nz/plugin/repository/everything/</url>
         </repository>
     </repositories>
     
