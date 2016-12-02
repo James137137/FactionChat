@@ -508,7 +508,7 @@ public class ChatChannel {
         String FacitonName = senderFaction;
         String otherFactionName = null;
 
-        String normalMessage = new FactionChatMessage(ChatFormat.getOtherFactionChatTo(), message, allowCustomColour, playerPrefix, playerName, playerSuffix, playerFactionTitle, playerFactionRank, FacitonName, otherFactionName).toString();
+        String normalMessage = new FactionChatMessage(ChatFormat.getOfficerChat(), message, allowCustomColour, playerPrefix, playerName, playerSuffix, playerFactionTitle, playerFactionRank, FacitonName, otherFactionName).toString();
         String spyMessage = new FactionChatMessage(ChatFormat.getSpyChat(), normalMessage, allowCustomColour).toString();
 
         for (Player myPlayer : Bukkit.getServer().getOnlinePlayers()) {
