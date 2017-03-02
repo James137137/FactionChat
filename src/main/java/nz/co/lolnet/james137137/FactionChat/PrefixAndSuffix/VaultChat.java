@@ -24,12 +24,12 @@ public class VaultChat implements PrefixAndSuffix{
 
     @Override
     public String getPrefix(Player player) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return chat.getPlayerPrefix(player);
     }
 
     @Override
     public String getSuffix(Player player) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return chat.getPlayerSuffix(player);
     }
     
     private boolean setupChat() {
