@@ -19,12 +19,12 @@ import org.bukkit.plugin.Plugin;
  * @author James
  */
 public class FactionChatAPI {
-    
+
     public static ChatFilter chatFilter = null;
     private static FactionChat factionChat;
     private static boolean IncludePrefix;
     private static boolean IncludeSuffix;
-    public static PrefixAndSuffix prefixAndSuffix;
+    public static PrefixAndSuffix prefixAndSuffix = null;
 
     public void setupAPI(FactionChat plugin) {
         factionChat = plugin;
@@ -69,6 +69,21 @@ public class FactionChatAPI {
                 Logger.getLogger(FactionChatAPI.class.getName()).log(Level.SEVERE, null, ex);
             }
             return;
+        }
+        if (prefixAndSuffix == null) {
+            myPlugin = plugin.getServer().getPluginManager().getPlugin("Vault");
+            if (myPlugin != null && myPlugin.isEnabled()) {
+                try {
+                    prefixAndSuffix = (PrefixAndSuffix) Class.forName("nz.co.lolnet.james137137.FactionChat.PrefixAndSuffix.VaultChat").getConstructor().newInstance();
+                    prefixAndSuffix.init();
+                } catch (Exception ex) {
+                    IncludePrefix = false;
+                    IncludeSuffix = false;
+                    Logger.getLogger(FactionChatAPI.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                return;
+            }
+
         }
         if (prefixAndSuffix == null) {
             IncludePrefix = false;
@@ -146,10 +161,10 @@ public class FactionChatAPI {
 
         return suffix;
     }
-    
+
     public static String filterChat(Player player, String message) {
         if (chatFilter != null) {
-            return chatFilter.filterMessage(player,message);
+            return chatFilter.filterMessage(player, message);
         } else {
             return message;
         }
