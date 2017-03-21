@@ -14,7 +14,7 @@ import org.bukkit.entity.Player;
  */
 public interface PrefixAndSuffix {
     
-    public void init();
+    public void init() throws Exception;
     
     public String getPrefix(Player player);
     

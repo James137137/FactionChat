@@ -18,7 +18,7 @@ public class VaultChat implements PrefixAndSuffix{
 
      public static Chat chat = null;
     @Override
-    public void init() {
+    public void init() throws Exception{
         setupChat();
     }
 
@@ -32,7 +32,7 @@ public class VaultChat implements PrefixAndSuffix{
         return chat.getPlayerSuffix(player);
     }
     
-    private boolean setupChat() {
+    private boolean setupChat() throws Exception{
         RegisteredServiceProvider<Chat> rsp = getServer().getServicesManager().getRegistration(Chat.class);
         chat = rsp.getProvider();
         return chat != null;
