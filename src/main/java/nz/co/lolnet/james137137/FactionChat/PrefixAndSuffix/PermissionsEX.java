@@ -15,7 +15,8 @@ import ru.tehkode.permissions.bukkit.PermissionsEx;
 public class PermissionsEX implements PrefixAndSuffix {
 
     @Override
-    public void init() {
+    public boolean init() {
+        return true;
     }
 
     @Override

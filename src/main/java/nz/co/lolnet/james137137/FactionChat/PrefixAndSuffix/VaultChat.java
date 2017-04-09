@@ -18,7 +18,7 @@ public class VaultChat implements PrefixAndSuffix{
 
      public static Chat chat = null;
     @Override
-    public void init() throws Exception{
+    public boolean init() {
         setupChat();
     }
 

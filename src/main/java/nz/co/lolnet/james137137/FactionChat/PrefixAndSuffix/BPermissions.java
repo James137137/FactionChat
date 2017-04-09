@@ -17,7 +17,8 @@ import org.bukkit.entity.Player;
 public class BPermissions implements PrefixAndSuffix{
     
     @Override
-    public void init() {
+    public boolean init() {
+        return true;
     }
     @Override
     public String getPrefix(Player player) {

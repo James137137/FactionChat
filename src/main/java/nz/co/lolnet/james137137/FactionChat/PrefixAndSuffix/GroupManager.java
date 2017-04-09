@@ -19,10 +19,14 @@ public class GroupManager implements PrefixAndSuffix{
     public static org.anjocaido.groupmanager.GroupManager groupManager;
 
     @Override
-    public void init() {
+    public boolean init() {
         final Plugin GMplugin = Bukkit.getServer().getPluginManager().getPlugin("GroupManager");
         if (GMplugin != null && GMplugin.isEnabled()) {
             groupManager = (org.anjocaido.groupmanager.GroupManager) GMplugin;
+            return true;
+        } else
+        {
+            return false;
         }
     }
     
