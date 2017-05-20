@@ -16,9 +16,14 @@ public class AuthMeAPI {
 
     public static boolean enable;
 
-    public AuthMeAPI(boolean aThis) {
-        enable = aThis;
-        new AuthMeFilter();
+    public AuthMeAPI(boolean pluginLoaded) {
+        enable = pluginLoaded;
+        System.out.println("Found AuthMeAPI" + pluginLoaded);
+        if (pluginLoaded) {
+            AuthMeFilter authMeFilter = new AuthMeFilter();
+            FactionChatAPI.chatFilter.add(authMeFilter);
+            System.out.println("AuthMeAPI for FactionChat is loaded");
+        }
     }
 
     private static boolean isLoggedIn(Player player) {
