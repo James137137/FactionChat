@@ -15,4 +15,6 @@ public interface ChatFilter {
     
     
     public String filterMessage(Player player, String message);
+    
+    public boolean canReceiveFactionChatMessage(Player player);
 }

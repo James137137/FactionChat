@@ -4,6 +4,7 @@
  */
 package nz.co.lolnet.james137137.FactionChat.API;
 
+import java.util.HashSet;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import nz.co.lolnet.james137137.FactionChat.API.chat.ChatFilter;
@@ -20,7 +21,7 @@ import org.bukkit.plugin.Plugin;
  */
 public class FactionChatAPI {
 
-    public static ChatFilter chatFilter = null;
+    public static HashSet<ChatFilter> chatFilter = new HashSet<>();
     private static FactionChat factionChat;
     private static boolean IncludePrefix;
     private static boolean IncludeSuffix;
@@ -164,9 +165,26 @@ public class FactionChatAPI {
 
     public static String filterChat(Player player, String message) {
         if (chatFilter != null) {
-            return chatFilter.filterMessage(player, message);
-        } else {
-            return message;
+            for (ChatFilter filter : chatFilter) {
+                message = filter.filterMessage(player, message);
+            }
+
         }
+        return message;
+
+    }
+    
+    public static boolean canReceiveChat(Player player)
+    {
+        if (chatFilter != null) {
+            for (ChatFilter filter : chatFilter) {
+                if (!filter.canReceiveFactionChatMessage(player))
+                {
+                    return false;
+                }
+            }
+
+        }
+        return true;
     }
 }

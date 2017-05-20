@@ -6,7 +6,7 @@
 
     <groupId>nz.co.lolnet.james137137</groupId>
     <artifactId>factionchat</artifactId>
-    <version>1.10.4</version>
+    <version>1.10.5-SNAPSHOT</version>
     <packaging>jar</packaging>
     <name>FactionChat</name>
 

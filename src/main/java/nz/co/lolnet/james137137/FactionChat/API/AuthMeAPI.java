@@ -5,6 +5,7 @@
  */
 package nz.co.lolnet.james137137.FactionChat.API;
 
+import nz.co.lolnet.james137137.FactionChat.API.chat.AuthMeFilter;
 import org.bukkit.entity.Player;
 
 /**
@@ -17,6 +18,7 @@ public class AuthMeAPI {
 
     public AuthMeAPI(boolean aThis) {
         enable = aThis;
+        new AuthMeFilter();
     }
 
     private static boolean isLoggedIn(Player player) {

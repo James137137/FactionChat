@@ -16,13 +16,11 @@ import org.bukkit.entity.Player;
  */
 public class ChatFilterExample implements nz.co.lolnet.james137137.FactionChat.API.chat.ChatFilter{
 
-    public static ChatFilterExample myExample;
     
     public ChatFilterExample() {
-        myExample = this;
         if (Bukkit.getServer().getPluginManager().getPlugin("FactionChat") != null)
         {
-            FactionChatAPI.chatFilter = ChatFilterExample.myExample;
+            FactionChatAPI.chatFilter.add(this);
         }
     }
 
@@ -37,6 +35,11 @@ public class ChatFilterExample implements nz.co.lolnet.james137137.FactionChat.A
             message = message.replace(badword, "****");
         }
         return message;
+    }
+
+    @Override
+    public boolean canReceiveFactionChatMessage(Player player) {
+        return true;
     }
     
 }
