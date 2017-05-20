@@ -80,7 +80,6 @@ public class FactionChatAPI {
                 } catch (Exception ex) {
                     IncludePrefix = false;
                     IncludeSuffix = false;
-                    Logger.getLogger(FactionChatAPI.class.getName()).log(Level.SEVERE, null, ex);
                 }
                 return;
             }
