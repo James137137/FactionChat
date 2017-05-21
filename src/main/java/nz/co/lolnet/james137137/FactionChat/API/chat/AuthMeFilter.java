@@ -21,8 +21,6 @@ public class AuthMeFilter implements ChatFilter{
 
     @Override
     public boolean canReceiveFactionChatMessage(Player player) {
-        System.out.println("AuthMeAPI.isAllowToChat(player)");
-        System.out.println(AuthMeAPI.isAllowToChat(player));
         if (AuthMeAPI.isAllowToChat(player))
         {
             return true;

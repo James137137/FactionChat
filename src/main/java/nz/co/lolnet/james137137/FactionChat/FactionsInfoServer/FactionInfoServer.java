@@ -22,7 +22,7 @@ public class FactionInfoServer {
         this.PORT = PORT;
          try {
             serverSocket = new ServerSocket(PORT);
-            System.out.println("listening on port: " + PORT+ " for server messages.");
+            FactionChat.plugin.getLogger().info("listening on port: " + PORT+ " for server messages.");
             new ThreadListenForClients();
         } catch (IOException e) {
             System.err.println("Could not listen on port: " + PORT);

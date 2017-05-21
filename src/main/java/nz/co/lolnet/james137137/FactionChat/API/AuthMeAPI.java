@@ -18,7 +18,6 @@ public class AuthMeAPI {
 
     public AuthMeAPI(boolean pluginLoaded) {
         enable = pluginLoaded;
-        System.out.println("Found AuthMeAPI" + pluginLoaded);
         if (pluginLoaded) {
             AuthMeFilter authMeFilter = new AuthMeFilter();
             FactionChatAPI.chatFilter.add(authMeFilter);
