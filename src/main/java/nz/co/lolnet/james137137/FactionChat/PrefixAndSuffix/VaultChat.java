@@ -8,7 +8,7 @@ package nz.co.lolnet.james137137.FactionChat.PrefixAndSuffix;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import net.milkbowl.vault.chat.Chat;
-import static org.bukkit.Bukkit.getServer;
+import nz.co.lolnet.james137137.FactionChat.FactionChat;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.RegisteredServiceProvider;
 
@@ -40,9 +40,13 @@ public class VaultChat implements PrefixAndSuffix {
         return chat.getPlayerSuffix(player);
     }
 
-    private boolean setupChat() throws Exception{
-        RegisteredServiceProvider<Chat> rsp = getServer().getServicesManager().getRegistration(Chat.class);
-        chat = rsp.getProvider();
+    private boolean setupChat() {
+        try {
+            RegisteredServiceProvider<Chat> rsp = FactionChat.plugin.getServer().getServicesManager().getRegistration(Chat.class);
+            chat = rsp.getProvider();
+        } catch (Exception e) {
+        }
+
         return chat != null;
     }
 
