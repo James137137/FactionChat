@@ -134,7 +134,7 @@ public class FactionChat extends JavaPlugin {
     }
 
     protected void checkConfig() {
-        
+
         if (ChatFormat.getFactionChatMessage().contains("{M}") || ChatFormat.getFactionChatMessage().contains("%MESSAGE%")) {
             log.warning("[FactionChat]: " + ChatColor.RED + "Config has changed as of Version 1.10.0.");
             log.warning("[FactionChat]: " + ChatColor.RED + "Please redo your config.yml (I backed it up)");
@@ -148,7 +148,7 @@ public class FactionChat extends JavaPlugin {
     public boolean onCommand(CommandSender sender, Command command, String commandLabel, String[] args) {
         String commandName = command.getName().toLowerCase();
 
-        if (!(sender instanceof Player)) {
+        if (!(sender instanceof Player)) { // this is for console only
             if (commandName.equalsIgnoreCase("fc") || commandName.equalsIgnoreCase("fchat")) {
                 if (args.length == 0 || args[0].equalsIgnoreCase("help")) {
                     sender.sendMessage(ChatColor.GOLD + "Current commands are:");
@@ -177,27 +177,6 @@ public class FactionChat extends JavaPlugin {
                     String version = Bukkit.getServer().getPluginManager().getPlugin(this.getName()).getDescription().getVersion();
                     sender.sendMessage("[FactionChat] Version is : " + version);
                     return true;
-                } else if (args[0].equalsIgnoreCase("join"))
-                {
-                    if (sender.hasPermission("factionchat.spy") && (sender instanceof Player))
-                    {
-                        if (args.length >= 2)
-                        {
-                            String playerName = args[1];
-                            if (playerName.equalsIgnoreCase("clear") || playerName.equalsIgnoreCase("none") || playerName.equalsIgnoreCase("c") || playerName.equalsIgnoreCase("off"))
-                            {
-                                StaffJoinFeature.clearPlayer(sender);
-                                sender.sendMessage("cleared");
-                            }
-                            else
-                            {
-                                StaffJoinFeature.setTarget(sender,playerName);
-                                sender.sendMessage("You have entered the same faction as " + playerName + " for chat");
-                            }
-                        }
-                        return true;
-                    }
-                    
                 }
             }
 
@@ -555,6 +534,24 @@ public class FactionChat extends JavaPlugin {
                 player.sendMessage("You don't have permission to run that command.");
             }
 
+        } else if (args[0].equalsIgnoreCase("join")) {
+            if (sender.hasPermission("factionchat.spy")) {
+                if (args.length >= 2) {
+                    String playerName = args[1];
+                    if (playerName.equalsIgnoreCase("clear") || playerName.equalsIgnoreCase("none") || playerName.equalsIgnoreCase("c") || playerName.equalsIgnoreCase("off")) {
+                        StaffJoinFeature.clearPlayer(sender);
+                        sender.sendMessage("cleared");
+                    } else {
+                        StaffJoinFeature.setTarget(sender, playerName);
+                        sender.sendMessage("You have entered the same faction as " + playerName + " for chat");
+                    }
+                } else {
+                    sender.sendMessage("Missing playerName");
+                }
+            } else {
+                player.sendMessage("You don't have permission to run that command.");
+            }
+
         } else if (player != null) {
             ChatMode.setChatMode(player, args[0]);
         } else {
@@ -593,82 +590,82 @@ public class FactionChat extends JavaPlugin {
     }
 
     private FactionsAPI loadFactionsAPI() {
-        
+
         ComparableVersion facitonVersion = new ComparableVersion(getServer().getPluginManager().getPlugin("Factions").getDescription().getVersion());
         log.info("[FactionChat] loading Factions API for factions version " + facitonVersion);
-            if (FactionChat.plugin.getDescription().getAuthors().contains("externo6")) {
-                try {
-                    return (FactionsAPI) Class.forName("nz.co.lolnet.james137137.FactionChat.FactionsAPI.FactionsAPI_1_8_3_FactionsOne_1").getConstructor().newInstance();
-                } catch (Exception ex) {
-                    Logger.getLogger(FactionChat.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            } else if (facitonVersion.compareTo(new ComparableVersion("1.6.999")) < 0) {
-                try {
-                    return (FactionsAPI) Class.forName("nz.co.lolnet.james137137.FactionChat.FactionsAPI.FactionsAPI_1_6").getConstructor().newInstance();
-                } catch (Exception ex) {
-                    Logger.getLogger(FactionChat.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            } else if (facitonVersion.compareTo(new ComparableVersion("1.9.999")) < 0) {
-                try {
-                    return (FactionsAPI) Class.forName("nz.co.lolnet.james137137.FactionChat.FactionsAPI.FactionsAPI_1_8").getConstructor().newInstance();
-                } catch (Exception ex) {
-                    Logger.getLogger(FactionChat.class.getName()).log(Level.SEVERE, null, ex);
-                }
-
-            } else if (facitonVersion.compareTo(new ComparableVersion("2.3.999")) < 0) {
-                try {
-                    return (FactionsAPI) Class.forName("nz.co.lolnet.james137137.FactionChat.FactionsAPI.FactionsAPI_2_0_0").getConstructor().newInstance();
-                } catch (Exception ex) {
-                    Logger.getLogger(FactionChat.class.getName()).log(Level.SEVERE, null, ex);
-                }
-
-            } else if (facitonVersion.compareTo(new ComparableVersion("2.6.999")) < 0) {
-                try {
-                    return (FactionsAPI) Class.forName("nz.co.lolnet.james137137.FactionChat.FactionsAPI.FactionsAPI_2_6_0").getConstructor().newInstance();
-                } catch (Exception ex) {
-                    Logger.getLogger(FactionChat.class.getName()).log(Level.SEVERE, null, ex);
-                }
-
-            } else if (facitonVersion.compareTo(new ComparableVersion("2.7.999")) < 0) {
-                try {
-                    return (FactionsAPI) Class.forName("nz.co.lolnet.james137137.FactionChat.FactionsAPI.FactionsAPI_2_7_0").getConstructor().newInstance();
-                } catch (Exception ex) {
-                    Logger.getLogger(FactionChat.class.getName()).log(Level.SEVERE, null, ex);
-                }
-
-            } else if (facitonVersion.compareTo(new ComparableVersion("2.8.999")) < 0) {
-                try {
-                    return (FactionsAPI) Class.forName("nz.co.lolnet.james137137.FactionChat.FactionsAPI.FactionsAPI_2_8_0").getConstructor().newInstance();
-                } catch (Exception ex) {
-                    Logger.getLogger(FactionChat.class.getName()).log(Level.SEVERE, null, ex);
-                }
-
-            } else if (facitonVersion.compareTo(new ComparableVersion("2.9.999")) < 0) {
-                try {
-                    return (FactionsAPI) Class.forName("nz.co.lolnet.james137137.FactionChat.FactionsAPI.FactionsAPI_2_9_0").getConstructor().newInstance();
-                } catch (Exception ex) {
-                    Logger.getLogger(FactionChat.class.getName()).log(Level.SEVERE, null, ex);
-                }
-
-            } else if (facitonVersion.compareTo(new ComparableVersion("2.12.999")) < 0) {
-                try {
-                    return (FactionsAPI) Class.forName("nz.co.lolnet.james137137.FactionChat.FactionsAPI.FactionsAPI_2_12_0").getConstructor().newInstance();
-                } catch (Exception ex) {
-                    Logger.getLogger(FactionChat.class.getName()).log(Level.SEVERE, null, ex);
-                }
-
-            } else {
-                log.warning("[FactionChat]: This version of FactionChat might "
-                        + "not support the latest factions, please update FactionChat;"
-                        + " if there isn't one advailble nag james137137. Your version is: " + facitonVersion);
-                try {
-                    return (FactionsAPI) Class.forName("nz.co.lolnet.james137137.FactionChat.FactionsAPI.FactionsAPI_2_12_0").getConstructor().newInstance();
-                } catch (Exception ex) {
-                    Logger.getLogger(FactionChat.class.getName()).log(Level.SEVERE, null, ex);
-                }
+        if (FactionChat.plugin.getDescription().getAuthors().contains("externo6")) {
+            try {
+                return (FactionsAPI) Class.forName("nz.co.lolnet.james137137.FactionChat.FactionsAPI.FactionsAPI_1_8_3_FactionsOne_1").getConstructor().newInstance();
+            } catch (Exception ex) {
+                Logger.getLogger(FactionChat.class.getName()).log(Level.SEVERE, null, ex);
             }
-            
-            return null;
+        } else if (facitonVersion.compareTo(new ComparableVersion("1.6.999")) < 0) {
+            try {
+                return (FactionsAPI) Class.forName("nz.co.lolnet.james137137.FactionChat.FactionsAPI.FactionsAPI_1_6").getConstructor().newInstance();
+            } catch (Exception ex) {
+                Logger.getLogger(FactionChat.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        } else if (facitonVersion.compareTo(new ComparableVersion("1.9.999")) < 0) {
+            try {
+                return (FactionsAPI) Class.forName("nz.co.lolnet.james137137.FactionChat.FactionsAPI.FactionsAPI_1_8").getConstructor().newInstance();
+            } catch (Exception ex) {
+                Logger.getLogger(FactionChat.class.getName()).log(Level.SEVERE, null, ex);
+            }
+
+        } else if (facitonVersion.compareTo(new ComparableVersion("2.3.999")) < 0) {
+            try {
+                return (FactionsAPI) Class.forName("nz.co.lolnet.james137137.FactionChat.FactionsAPI.FactionsAPI_2_0_0").getConstructor().newInstance();
+            } catch (Exception ex) {
+                Logger.getLogger(FactionChat.class.getName()).log(Level.SEVERE, null, ex);
+            }
+
+        } else if (facitonVersion.compareTo(new ComparableVersion("2.6.999")) < 0) {
+            try {
+                return (FactionsAPI) Class.forName("nz.co.lolnet.james137137.FactionChat.FactionsAPI.FactionsAPI_2_6_0").getConstructor().newInstance();
+            } catch (Exception ex) {
+                Logger.getLogger(FactionChat.class.getName()).log(Level.SEVERE, null, ex);
+            }
+
+        } else if (facitonVersion.compareTo(new ComparableVersion("2.7.999")) < 0) {
+            try {
+                return (FactionsAPI) Class.forName("nz.co.lolnet.james137137.FactionChat.FactionsAPI.FactionsAPI_2_7_0").getConstructor().newInstance();
+            } catch (Exception ex) {
+                Logger.getLogger(FactionChat.class.getName()).log(Level.SEVERE, null, ex);
+            }
+
+        } else if (facitonVersion.compareTo(new ComparableVersion("2.8.999")) < 0) {
+            try {
+                return (FactionsAPI) Class.forName("nz.co.lolnet.james137137.FactionChat.FactionsAPI.FactionsAPI_2_8_0").getConstructor().newInstance();
+            } catch (Exception ex) {
+                Logger.getLogger(FactionChat.class.getName()).log(Level.SEVERE, null, ex);
+            }
+
+        } else if (facitonVersion.compareTo(new ComparableVersion("2.9.999")) < 0) {
+            try {
+                return (FactionsAPI) Class.forName("nz.co.lolnet.james137137.FactionChat.FactionsAPI.FactionsAPI_2_9_0").getConstructor().newInstance();
+            } catch (Exception ex) {
+                Logger.getLogger(FactionChat.class.getName()).log(Level.SEVERE, null, ex);
+            }
+
+        } else if (facitonVersion.compareTo(new ComparableVersion("2.12.999")) < 0) {
+            try {
+                return (FactionsAPI) Class.forName("nz.co.lolnet.james137137.FactionChat.FactionsAPI.FactionsAPI_2_12_0").getConstructor().newInstance();
+            } catch (Exception ex) {
+                Logger.getLogger(FactionChat.class.getName()).log(Level.SEVERE, null, ex);
+            }
+
+        } else {
+            log.warning("[FactionChat]: This version of FactionChat might "
+                    + "not support the latest factions, please update FactionChat;"
+                    + " if there isn't one advailble nag james137137. Your version is: " + facitonVersion);
+            try {
+                return (FactionsAPI) Class.forName("nz.co.lolnet.james137137.FactionChat.FactionsAPI.FactionsAPI_2_12_0").getConstructor().newInstance();
+            } catch (Exception ex) {
+                Logger.getLogger(FactionChat.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+
+        return null;
     }
 
 }
