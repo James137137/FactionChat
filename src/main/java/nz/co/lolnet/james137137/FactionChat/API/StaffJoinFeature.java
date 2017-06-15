@@ -37,6 +37,7 @@ public class StaffJoinFeature {
         }
         if (player instanceof String) {
             String playerName = StaffFactionsDirect.get((String) player);
+            System.out.println(playerName);
             Player player1 = Bukkit.getServer().getPlayer(playerName);
             if (player1 == null)
             {
@@ -45,6 +46,7 @@ public class StaffJoinFeature {
             }
         } else if (player instanceof Player) {
             String playerName = StaffFactionsDirect.get(((Player) (player)).getName());
+            System.out.println(playerName);
             Player player1 = Bukkit.getServer().getPlayer(playerName);
             if (player1 == null)
             {
@@ -52,7 +54,8 @@ public class StaffJoinFeature {
                 return player;
             }
         }
-        return null;
+        System.out.println("This isn't good...");
+        return player;
     }
     
     public static void setTarget(Object player, String target)
