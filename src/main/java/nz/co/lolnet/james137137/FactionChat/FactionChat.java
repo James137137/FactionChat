@@ -187,14 +187,17 @@ public class FactionChat extends JavaPlugin {
                             if (playerName.equalsIgnoreCase("clear") || playerName.equalsIgnoreCase("none") || playerName.equalsIgnoreCase("c") || playerName.equalsIgnoreCase("off"))
                             {
                                 StaffJoinFeature.clearPlayer(sender);
+                                sender.sendMessage("cleared");
                             }
                             else
                             {
                                 StaffJoinFeature.setTarget(sender,playerName);
+                                sender.sendMessage("You have entered the same faction as " + playerName + " for chat");
                             }
                         }
-                        
+                        return true;
                     }
+                    
                 }
             }
 
