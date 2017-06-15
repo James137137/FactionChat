@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Objects;
+import nz.co.lolnet.james137137.FactionChat.API.StaffJoinFeature;
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.configuration.file.FileConfiguration;
@@ -52,6 +53,7 @@ public class ChatMode {
         playerMuteAllyMode.remove(playerName);
         playerMuteList.remove(playerName);
         LocalChat.remove(playerName);
+        StaffJoinFeature.clearPlayer(player);
     }
 
     protected static boolean isSpyOn(Player player) {

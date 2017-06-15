@@ -12,7 +12,8 @@ package nz.co.lolnet.james137137.FactionChat.FactionsAPI;
  */
 public enum MyRel {
     
-    LEADER (70, true, "your faction leader", "your faction leader", "", ""),
+        STAFF(80, true, "A Staff member of the server", "Staff member of the server", "", ""),
+        LEADER (70, true, "your faction leader", "your faction leader", "", ""),
 	OFFICER (60, true, "an officer in your faction", "officers in your faction", "", ""),
 	MEMBER (50, true, "a member in your faction", "members in your faction", "your faction", "your factions"),
 	RECRUIT (45, true, "a recruit in your faction", "recruits in your faction", "", ""),
