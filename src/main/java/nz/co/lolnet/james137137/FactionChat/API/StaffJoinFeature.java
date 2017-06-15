@@ -39,12 +39,13 @@ public class StaffJoinFeature {
         if (player instanceof String) {
             String playerName = StaffFactionsDirect.get((String) player);
             System.out.println(playerName);
-            Player player1 = getPlayer(playerName);
+            Player player1 = Bukkit.getServer().getPlayer(playerName);
             if (player1 == null)
             {
                 clearPlayer(player);
                 return player;
             }
+            return player1;
         } else if (player instanceof Player) {
             String playerName = StaffFactionsDirect.get(((Player) (player)).getName());
             System.out.println(playerName);
@@ -54,9 +55,8 @@ public class StaffJoinFeature {
                 clearPlayer(player);
                 return player;
             }
+            return player1;
         }
-        System.out.println("This isn't good...");
-        System.out.println(player.getClass().getName());
         return player;
     }
     
