@@ -6,6 +6,7 @@
 package nz.co.lolnet.james137137.FactionChat.FactionsAPI;
 
 import nz.co.lolnet.james137137.FactionChat.Config;
+import org.bukkit.ChatColor;
 
 /**
  *
@@ -99,7 +100,9 @@ public enum MyRel {
             return Config.MemberRank;
         } else if (this.equals(MyRel.RECRUIT)) {
             return Config.RecruitRank;
-        } else {
+        } else if (this.equals(MyRel.STAFF)) {
+            return ChatColor.GOLD + "STAFF";
+        }else {
             return "";
         }
     }
