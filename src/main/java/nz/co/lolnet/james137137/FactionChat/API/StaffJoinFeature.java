@@ -33,7 +33,7 @@ public class StaffJoinFeature {
     {
         if (!isRedirected(player))
         {
-            return null;
+            return player;
         }
         if (player instanceof String) {
             String playerName = StaffFactionsDirect.get((String) player);
@@ -55,6 +55,7 @@ public class StaffJoinFeature {
             }
         }
         System.out.println("This isn't good...");
+        System.out.println(player.getClass().getName());
         return player;
     }
     
