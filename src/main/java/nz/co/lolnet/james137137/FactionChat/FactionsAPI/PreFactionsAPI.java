@@ -16,6 +16,11 @@ public class PreFactionsAPI implements FactionsAPI{
         this.factionAPI = factionAPI;
     }
     
+    public FactionsAPI getFactionsAPI()
+    {
+        return factionAPI;
+    }
+    
     @Override
     public String getFactionName(Object player) {
         if (StaffJoinFeature.isRedirected(player))
