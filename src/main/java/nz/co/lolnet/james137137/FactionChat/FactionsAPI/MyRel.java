@@ -102,7 +102,7 @@ public enum MyRel {
             return Config.RecruitRank;
         } else if (this.equals(MyRel.STAFF)) {
             return ChatColor.GOLD + "STAFF";
-        }else {
+        } else {
             return "";
         }
     }
