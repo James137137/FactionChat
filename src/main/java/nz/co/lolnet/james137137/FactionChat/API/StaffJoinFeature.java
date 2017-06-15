@@ -1,6 +1,7 @@
 package nz.co.lolnet.james137137.FactionChat.API;
 
 import java.util.HashMap;
+import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
 /**
@@ -28,16 +29,28 @@ public class StaffJoinFeature {
         }
     }
     
-    public static String getTarget(Object player)
+    public static Object getTarget(Object player)
     {
         if (!isRedirected(player))
         {
             return null;
         }
         if (player instanceof String) {
-            return StaffFactionsDirect.get((String) player);
+            String playerName = StaffFactionsDirect.get((String) player);
+            Player player1 = Bukkit.getServer().getPlayer(playerName);
+            if (player1 == null)
+            {
+                clearPlayer(player);
+                return player;
+            }
         } else if (player instanceof Player) {
-            return StaffFactionsDirect.get(((Player) (player)).getName());
+            String playerName = StaffFactionsDirect.get(((Player) (player)).getName());
+            Player player1 = Bukkit.getServer().getPlayer(playerName);
+            if (player1 == null)
+            {
+                clearPlayer(player);
+                return player;
+            }
         }
         return null;
     }

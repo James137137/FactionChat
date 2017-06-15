@@ -74,7 +74,7 @@ public class PreFactionsAPI implements FactionsAPI{
     public MyRel getPlayerRank(Object player) {
         if (StaffJoinFeature.isRedirected(player))
         {
-            player = StaffJoinFeature.getTarget(player);
+            return MyRel.STAFF;
         }
         return factionAPI.getPlayerRank(player);
     }
