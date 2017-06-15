@@ -1,6 +1,8 @@
 package nz.co.lolnet.james137137.FactionChat.API;
 
 import java.util.HashMap;
+import nz.co.lolnet.james137137.FactionChat.FactionChat;
+import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
 /**
@@ -28,20 +30,34 @@ public class StaffJoinFeature {
         }
     }
     
-    public static String getTarget(Object player)
+    public static Object getTarget(Object player)
     {
         if (!isRedirected(player))
         {
-            return (String) player;
+            return player;
         }
         if (player instanceof String) {
             String playerName = StaffFactionsDirect.get((String) player);
-            return playerName;
+            System.out.println(playerName);
+            Player player1 = Bukkit.getServer().getPlayer(playerName);
+            if (player1 == null)
+            {
+                clearPlayer(player);
+                return player;
+            }
+            return player1;
         } else if (player instanceof Player) {
             String playerName = StaffFactionsDirect.get(((Player) (player)).getName());
-            return playerName;
+            System.out.println(playerName);
+            Player player1 = Bukkit.getServer().getPlayer(playerName);
+            if (player1 == null)
+            {
+                clearPlayer(player);
+                return player;
+            }
+            return player1;
         }
-        return null;
+        return player;
     }
     
     public static void setTarget(Object player, String target)
@@ -51,5 +67,16 @@ public class StaffJoinFeature {
         } else if (player instanceof Player) {
             StaffFactionsDirect.put(((Player) (player)).getName(),target);
         }
+    }
+
+    private static Player getPlayer(String playerName) {
+        for (Player player : FactionChat.plugin.getServer().getOnlinePlayers())
+        {
+            if (player.getName().equalsIgnoreCase(playerName))
+            {
+                return player;
+            }
+        }
+        return null;
     }
 }
