@@ -591,7 +591,7 @@ public class FactionChat extends JavaPlugin {
 
     private FactionsAPI loadFactionsAPI() {
         
-        ComparableVersion facitonVersion = new ComparableVersion(FactionChat.plugin.getDescription().getVersion());
+        ComparableVersion facitonVersion = new ComparableVersion(getServer().getPluginManager().getPlugin("Factions").getDescription().getVersion());
         log.info("[FactionChat] loading Factions API for factions version " + facitonVersion);
             if (FactionChat.plugin.getDescription().getAuthors().contains("externo6")) {
                 try {
