@@ -94,7 +94,7 @@
         <dependency>
             <groupId>nz.co.lolnet.james137137</groupId>
             <artifactId>FactionsAPI</artifactId>
-            <version>1.0.12.1</version>
+            <version>1.0.13</version>
             <scope>compile</scope>
             <optional>true</optional>
             <exclusions>

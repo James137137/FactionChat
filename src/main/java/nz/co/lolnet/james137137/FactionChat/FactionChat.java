@@ -654,6 +654,13 @@ public class FactionChat extends JavaPlugin {
                 Logger.getLogger(FactionChat.class.getName()).log(Level.SEVERE, null, ex);
             }
 
+        } else if (facitonVersion.compareTo(new ComparableVersion("2.13.999")) < 0) {
+            try {
+                return (FactionsAPI) Class.forName("nz.co.lolnet.james137137.FactionChat.FactionsAPI.FactionsAPI_2_13_1").getConstructor().newInstance();
+            } catch (Exception ex) {
+                Logger.getLogger(FactionChat.class.getName()).log(Level.SEVERE, null, ex);
+            }
+
         } else {
             log.warning("[FactionChat]: This version of FactionChat might "
                     + "not support the latest factions, please update FactionChat;"
