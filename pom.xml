@@ -6,7 +6,7 @@
 
     <groupId>nz.co.lolnet.james137137</groupId>
     <artifactId>factionchat</artifactId>
-    <version>1.10.6-SNAPSHOT-2</version>
+    <version>1.10.7</version>
     <packaging>jar</packaging>
     <name>FactionChat</name>
 
@@ -178,7 +178,7 @@
         <dependency>
             <groupId>com.gmail.nossr50.mcMMO</groupId>
             <artifactId>mcMMO</artifactId>
-            <version>1.5.07-SNAPSHOT</version>
+            <version>1.5.08-SNAPSHOT</version>
             <scope>provided</scope>
             <optional>true</optional>
             <exclusions>

@@ -5,12 +5,9 @@
  */
 package nz.co.lolnet.james137137.FactionChat.API;
 
-
 import com.gmail.nossr50.datatypes.chat.ChatMode;
 import nz.co.lolnet.james137137.FactionChat.API.Event.FactionChatPlayerChatEvent;
 import nz.co.lolnet.james137137.FactionChat.FactionChat;
-import com.gmail.nossr50.datatypes.player.McMMOPlayer;
-import com.gmail.nossr50.util.player.UserManager;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 
@@ -18,21 +15,31 @@ import org.bukkit.event.Listener;
  *
  * @author James
  */
-public class McMMOAPI implements Listener{
+public class McMMOAPI implements Listener {
+
+    boolean disableBecauseOfError = false;
 
     public McMMOAPI(FactionChat plugin) {
-        
+
     }
-    
-    
+
     @EventHandler
     public void onPlayerFactionChat(FactionChatPlayerChatEvent event) {
-        McMMOPlayer mcMMOPlayer = UserManager.getOfflinePlayer(event.getPlayer());
-        if (mcMMOPlayer == null) {
+        if (disableBecauseOfError) {
             return;
         }
-        if (mcMMOPlayer.isChatEnabled(ChatMode.PARTY) || mcMMOPlayer.isChatEnabled(ChatMode.ADMIN)) {
-            event.setCancelled(true);
+        
+        try {
+            com.gmail.nossr50.datatypes.player.McMMOPlayer mcMMOPlayer = com.gmail.nossr50.util.player.UserManager.getOfflinePlayer(event.getPlayer());
+            if (mcMMOPlayer == null) {
+                return;
+            }
+            if (mcMMOPlayer.isChatEnabled(ChatMode.PARTY) || mcMMOPlayer.isChatEnabled(ChatMode.ADMIN)) {
+                event.setCancelled(true);
+            }
+        } catch (Exception e) {
+            disableBecauseOfError = true;
         }
+
     }
 }
