@@ -128,7 +128,7 @@ public class OtherChatChannel {
         }
         message = FactionChatAPI.filterChat(player, message);
         boolean allowCustomColour = player.hasPermission("essentials.chat.color") || player.hasPermission("FactionChat.Chat.Colour");
-        String normalMessage = new FactionChatMessage(ChatFormat.getJrModChat(), message, allowCustomColour,
+        String normalMessage = new FactionChatMessage(ChatFormat.getJrAdminChat(), message, allowCustomColour,
                 FactionChatAPI.getPrefix(player), player.getName(), FactionChatAPI.getSuffix(player), null, null, null, null).toString();
         for (Player myplayer : Bukkit.getServer().getOnlinePlayers()) {
             if ((myplayer.hasPermission("FactionChat.JrAdminChat") || FactionChat.isDebugger(myplayer.getName())) && AuthMeAPI.isAllowToChat(myplayer)) {
