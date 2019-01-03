@@ -6,7 +6,7 @@
 
     <groupId>nz.co.lolnet.james137137</groupId>
     <artifactId>factionchat</artifactId>
-    <version>1.10.7</version>
+    <version>1.10.8</version>
     <packaging>jar</packaging>
     <name>FactionChat</name>
 
@@ -27,8 +27,8 @@
     <dependencies>
         <dependency>
             <groupId>net.ess3</groupId>
-            <artifactId>EssentialsX</artifactId>
-            <version>2.0.1-SNAPSHOT</version>
+            <artifactId>Essentials</artifactId>
+            <version>Pre2.13.1.7</version>
             <scope>provided</scope>
             <exclusions>
                 <exclusion>
@@ -227,7 +227,7 @@
         </repository>
         <repository>
             <id>ess-repo</id>
-            <url>http://ci.drtshock.net/plugin/repository/everything</url>
+            <url>http://repo.ess3.net/content/groups/essentials</url>
         </repository>
     </repositories>
     
