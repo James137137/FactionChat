@@ -17,21 +17,23 @@
         <dependency>
             <groupId>org.bukkit</groupId>
             <artifactId>bukkit</artifactId>
-            <version>1.7.9-R0.1-SNAPSHOT</version>
+            <version>bukkit-1.12.2-R0.1</version>
+            <scope>system</scope>
+            <systemPath>${basedir}/../lib/bukkit-1.13-R0.1-20180821.082728-139.jar</systemPath>
         </dependency>
         <dependency>
             <groupId>com.massivecraft</groupId>
             <artifactId>factions2</artifactId>
             <version> 2.0.0</version>
             <scope>system</scope>
-            <systemPath>${basedir}/lib/Factions-2.13.1/Factions.jar</systemPath>
+            <systemPath>${basedir}/lib/Factions-2.14.0/Factions.jar</systemPath>
         </dependency>
         <dependency>
             <groupId>com.massivecraft</groupId>
             <artifactId>MassiveCore</artifactId>
             <version>6.4</version>
             <scope>system</scope>
-            <systemPath>${basedir}/lib/Factions-2.13.1/MassiveCore.jar</systemPath>
+            <systemPath>${basedir}/lib/Factions-2.14.0/MassiveCore.jar</systemPath>
         </dependency>
     </dependencies>
     

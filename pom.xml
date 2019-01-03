@@ -21,7 +21,7 @@
         <javaVersion>1.7</javaVersion>
 
         <!-- Change Bukkit Version HERE! -->
-        <bukkitVersion>1.13.2-R0.1-SNAPSHOT</bukkitVersion>
+        <bukkitVersion>1.13.2</bukkitVersion>
     </properties>
 
     <dependencies>
@@ -30,7 +30,7 @@
             <artifactId>bukkit</artifactId>
             <version>${bukkitVersion}</version>
             <scope>system</scope>
-            <systemPath>${basedir}/lib/bukkit-1.12.2-R0.1-20180620.032109-148.jar</systemPath>
+            <systemPath>${basedir}/lib/bukkit-1.13-R0.1-20180821.082728-139.jar</systemPath>
             <optional>true</optional>
         </dependency>
         <dependency>
