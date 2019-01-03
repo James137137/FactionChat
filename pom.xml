@@ -21,75 +21,17 @@
         <javaVersion>1.7</javaVersion>
 
         <!-- Change Bukkit Version HERE! -->
-        <bukkitVersion>1.11-R0.1-SNAPSHOT</bukkitVersion>
+        <bukkitVersion>1.13.2-R0.1-SNAPSHOT</bukkitVersion>
     </properties>
 
     <dependencies>
         <dependency>
-            <groupId>net.ess3</groupId>
-            <artifactId>Essentials</artifactId>
-            <version>Pre2.13.1.7</version>
-            <scope>provided</scope>
-            <exclusions>
-                <exclusion>
-                    <groupId>org.spigotmc</groupId>
-                    <artifactId>spigot-api</artifactId>
-                </exclusion>
-            </exclusions>
+            <groupId>org.bukkit</groupId>
+            <artifactId>bukkit</artifactId>
+            <version>${bukkitVersion}</version>
+            <scope>system</scope>
+            <systemPath>${basedir}/lib/bukkit-1.12.2-R0.1-20180620.032109-148.jar</systemPath>
             <optional>true</optional>
-        </dependency>
-        <!-- TODO: use VaultAPI instead of the implementation (or better still remove vaultAPI)-->
-        <dependency>
-            <groupId>net.milkbowl.vault</groupId>
-            <artifactId>Vault</artifactId>
-            <version>1.5.6</version>
-            <scope>provided</scope>
-            <optional>true</optional>
-            <exclusions>
-                <exclusion>
-                    <groupId>org.bukkit</groupId>
-                    <artifactId>bukkit</artifactId>
-                </exclusion>
-            </exclusions>
-        </dependency>
-        <dependency>
-            <groupId>me.confuser</groupId>
-            <artifactId>BanManager</artifactId>
-            <version>5.8.0</version>
-            <scope>provided</scope>
-            <optional>true</optional>
-            <exclusions>
-                <exclusion>
-                    <groupId>org.bukkit</groupId>
-                    <artifactId>bukkit</artifactId>
-                </exclusion>
-            </exclusions>
-        </dependency>
-        <dependency>
-            <groupId>de.bananaco</groupId>
-            <artifactId>bPermissions</artifactId>
-            <version>2.12-DEV</version>
-            <scope>provided</scope>
-            <optional>true</optional>
-            <exclusions>
-                <exclusion>
-                    <groupId>org.bukkit</groupId>
-                    <artifactId>bukkit</artifactId>
-                </exclusion>
-            </exclusions>
-        </dependency>
-        <dependency>
-            <groupId>fr.xephi</groupId>
-            <artifactId>authme</artifactId>
-            <version>5.2-SNAPSHOT</version>
-            <scope>provided</scope>
-            <optional>true</optional>
-            <exclusions>
-                <exclusion>
-                    <groupId>org.bukkit</groupId>
-                    <artifactId>bukkit</artifactId>
-                </exclusion>
-            </exclusions>
         </dependency>
         <dependency>
             <groupId>nz.co.lolnet.james137137</groupId>
@@ -105,17 +47,25 @@
             </exclusions>
         </dependency>
         <dependency>
-            <groupId>org.bukkit</groupId>
-            <artifactId>bukkit</artifactId>
-            <version>1.9.2-R0.1-SNAPSHOT</version>
-            <scope>provided</scope>
+            <groupId>net.ess3</groupId>
+            <artifactId>Essentials</artifactId>
+            <version>2.13.1</version>
+            <scope>system</scope>
+            <systemPath>${basedir}/lib/Essentials-2.13.1.jar</systemPath>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.spigotmc</groupId>
+                    <artifactId>spigot-api</artifactId>
+                </exclusion>
+            </exclusions>
             <optional>true</optional>
         </dependency>
         <dependency>
             <groupId>org.anjocaido</groupId>
             <artifactId>groupmanagerx</artifactId>
-            <version>2.2-SNAPSHOT</version>
-            <scope>provided</scope>
+            <version>1.13</version>
+            <scope>system</scope>
+            <systemPath>${basedir}/lib/GroupManager.jar</systemPath>
             <optional>true</optional>
             <exclusions>
                 <exclusion>
@@ -127,8 +77,9 @@
         <dependency>
             <groupId>ru.tehkode</groupId>
             <artifactId>PermissionsEx</artifactId>
-            <version>1.23.2-SNAPSHOT</version>
-            <scope>provided</scope>
+            <version>1.23.4</version>
+            <scope>system</scope>
+            <systemPath>${basedir}/lib/PermissionsEx-1.23.4.jar</systemPath>
             <optional>true</optional>
             <exclusions>
                 <exclusion>
@@ -150,36 +101,11 @@
             </exclusions>
         </dependency>
         <dependency>
-            <groupId>org.mcstats.bukkit</groupId>
-            <artifactId>metrics</artifactId>
-            <version>R8-SNAPSHOT</version>
-            <scope>compile</scope>
-            <optional>true</optional>
-            <exclusions>
-                <exclusion>
-                    <groupId>org.bukkit</groupId>
-                    <artifactId>bukkit</artifactId>
-                </exclusion>
-            </exclusions>
-        </dependency>
-        <dependency>
-            <groupId>net.gravitydevelopment.updater</groupId>
-            <artifactId>updater</artifactId>
-            <version>2.3</version>
-            <scope>compile</scope>
-            <optional>true</optional>
-            <exclusions>
-                <exclusion>
-                    <groupId>org.bukkit</groupId>
-                    <artifactId>bukkit</artifactId>
-                </exclusion>
-            </exclusions>
-        </dependency>
-        <dependency>
             <groupId>com.gmail.nossr50.mcMMO</groupId>
             <artifactId>mcMMO</artifactId>
-            <version>1.5.08-SNAPSHOT</version>
-            <scope>provided</scope>
+            <version>1.5.00</version>
+            <scope>system</scope>
+            <systemPath>${basedir}/lib/mcMMO.jar</systemPath>
             <optional>true</optional>
             <exclusions>
                 <exclusion>
@@ -189,6 +115,61 @@
                 <exclusion>
                     <groupId>org.apache.tomcat</groupId>
                     <artifactId>tomcat-jdbc</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        <dependency>
+            <groupId>fr.xephi</groupId>
+            <artifactId>authme</artifactId>
+            <version>5.2-SNAPSHOT</version>
+            <scope>system</scope>
+            <systemPath>${basedir}/lib/AuthMe-5.4.0.jar</systemPath>
+            <optional>true</optional>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.bukkit</groupId>
+                    <artifactId>bukkit</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        <dependency>
+            <groupId>net.milkbowl.vault</groupId>
+            <artifactId>Vault</artifactId>
+            <version>1.5.6</version>
+            <scope>provided</scope>
+            <optional>true</optional>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.bukkit</groupId>
+                    <artifactId>bukkit</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        <dependency>
+            <groupId>de.bananaco</groupId>
+            <artifactId>bPermissions</artifactId>
+            <version>2.12</version>
+            <scope>system</scope>
+            <systemPath>${basedir}/lib/bPermissions-2.12.jar</systemPath>
+            <optional>true</optional>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.bukkit</groupId>
+                    <artifactId>bukkit</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        <dependency>
+            <groupId>me.confuser</groupId>
+            <artifactId>BanManager</artifactId>
+            <version>5.8.0</version>
+            <scope>system</scope>
+            <systemPath>${basedir}/lib/BanManager.jar</systemPath>
+            <optional>true</optional>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.bukkit</groupId>
+                    <artifactId>bukkit</artifactId>
                 </exclusion>
             </exclusions>
         </dependency>
@@ -206,28 +187,24 @@
         </repository>
         <!-- Includes also MCStats -->
         <repository>
-            <id>xephi-repo</id>
-            <url>http://ci.xephi.fr/plugin/repository/everything</url>
-        </repository>
-        <repository>
             <id>spigot-repo</id>
             <url>https://hub.spigotmc.org/nexus/content/groups/public/</url>
         </repository>
         <repository>
+            <id>spigot-repoSnapshot</id>
+            <url>https://hub.spigotmc.org/nexus/content/repositories/snapshots/</url>
+        </repository>
+        <repository>
             <id>vault-repo</id>
-            <url>http://nexus.theyeticave.net/content/repositories/pub_releases</url>
+            <url>http://nexus.hc.to/content/repositories/pub_releases</url>
         </repository>
         <repository>
             <id>confuser-repo</id>
             <url>http://ci.frostcast.net/plugin/repository/everything/</url>
         </repository>
         <repository>
-            <id>pex-repo</id>
-            <url>http://pex-repo.aoeu.xyz</url>
-        </repository>
-        <repository>
-            <id>ess-repo</id>
-            <url>http://repo.ess3.net/content/groups/essentials</url>
+            <id>gravity-repo</id>
+            <url>http://repo.gravitydevelopment.net</url>
         </repository>
     </repositories>
     

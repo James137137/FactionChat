@@ -1,0 +1,135 @@
+# -----------------------------
+# | BanManager by PaulTDD     |
+# | config file, please read  |
+# | carefully                 |
+# | report any bugs at my     |
+# | spigot account or PM me on|
+# | discord: @PaulTDD#0933    |
+# -----------------------------
+
+config_version: '1.0.2'
+
+settings:
+  # Punish hierachy
+  # format: <banreason>,<duration>
+  #
+  # banreasons: kick,mute,tempmute,ban,tempban
+  # duration: Y:years, M:month, D:days, h:hours, m:minutes
+  punish:
+    1: 
+    - kick
+    2: 
+    - tempmute,1h
+    3: 
+    - mute
+    4:
+    - tempban,1D
+    5:
+    - ban
+    
+  # Set the interval between file/database loading
+  sync-interval: 300
+  
+  # Set the interval between the gui updating
+  gui-inteval: 300
+  
+  # Set the default language
+  default_language: english
+  
+  # Set all allowed languages
+  languages:
+    english: en
+
+# Settings for the database
+database:
+  # Set to true if you want to use a MySQL database
+  # as data storage instead of a file
+  enabled: false
+  
+  # Enable log table, used for website
+  logtable: false
+  
+  # Upgrade table to newer version, according to the plugin
+  upgrade_table: false
+  
+  # connection settings
+  host: localhost
+  port: 3306
+  user: root
+  password: password
+  database: database  
+  
+gui:
+  # Settings for the main gui
+  main:
+    title: "&8Main page"
+    items:
+      bans:
+        name: "&7Banned players"
+        lore:
+        - "&7Click to open the &cbanned"
+        - "&7players gui"
+        material: BOOK_AND_QUILL
+        damage: 0
+        amount: 1
+        slot: 24
+      mutes:
+        name: "&7Muted players"
+        lore:
+        - "&7Click to open the &cmuted"
+        - "&7players gui"
+        material: BOOK_AND_QUILL
+        damage: 0
+        amount: 1
+        slot: 20
+      users:
+        name: "&7List all users"
+        lore:
+        - "&7Click to open the"
+        - "&7users gui"
+        material: SKULL_ITEM
+        damage: 3
+        amount: 1
+        slot: 22
+        
+  # Settings for the users gui
+  users:
+    title: "&8Users"
+        
+  # Settings for the bans gui
+  bans:
+    title: "&8Banned players"
+        
+  # Settings for the mutes gui
+  mutes:
+    title: "&8Muted players"
+  
+  # Language selector settings
+  # make sure the section string is the same 
+  # as the configured language name
+  lang:
+    title: "&8Select language"
+    items:
+      english:
+        material: PAPER
+        amount: 1
+        damage: 0
+        name: "&7English"
+        lore:
+        - "&7Click to set &7&lEnglish"
+        - "&7as your language"
+        slot: 21
+        
+  # Settings for optional gui items
+  items:
+    previous:
+      name: "&8Prev"
+      lore:
+      - "&7Click to go to the"
+      - "&7previous page"
+    next:
+      name: "&8Next"
+      lore:
+      - "&7Click to go to the"
+      - "&7next page"
+  

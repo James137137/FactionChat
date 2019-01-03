@@ -1,0 +1,59 @@
+translate_version: 1.0.2
+
+no-permission: "&cNo permission"
+insufficient-arguments: "&cInsufficient arguments"
+command-not-found: "&cThis command cannot be found"
+player-not-found: "&cPlayer %target% not found"
+default-ban: "&cYou have been banned from this server"
+default-tempban: "&cYou have been tempbanned"
+default-kick: "&cYou have been kicked for bad behaviour"
+default-mute: "&cYou have been muted for bad behaviour"
+default-tempmute: "&cYou have been tempmuted"
+not-allowed-to-chat: "&cYou are not allowed to chat"
+banlist-empty: "&cThere are not banned players"
+mutelist-empty: "&cThere are no muted players"
+language-invalid: "&cThat language is not supported"
+language-set: "&aSet %target%'s language to %language%"
+language-changed: "&aYour new language is %language%"
+
+ban-message:
+- "&4&l[Ban Manager]"
+- ""
+- "&cYou have been banned from this server"
+- ""
+- "&cReason: &7%reason%"
+- "&cExpires: &7%till%"
+- "&cBanned by: &7%bannedby%"
+- ""
+- "&cWant to get unbanned? Contact us here &nhttp://yourlink.com/"
+kick-message:
+- "&4&l[Ban Manager]"
+- " "
+- "&cYou have been kicked from this server"
+- "&cReason: &7%reason%"
+
+help:
+   1:
+   - " "
+   - "&7&m--------&7[&b&lBanManager &4(1/3)&7]&7&m--------"
+   - "&b/bm help <page> &8- &7Help menu"
+   - "&b/bm userinfo <player> &8- &7Show info about the user"    
+   - "&b/bm reset <player> &8- &7Reset all player's data"   
+   - "&b/bm banlist &8- &7Show all banned players"   
+   - "&b/bm mutelist &8- &7Show all muted players"   
+   2:
+   - " "
+   - "&7&m--------&7[&b&lBanManager &4(2/3)&7]&7&m--------"
+   - "&b/bm gui &8- &7Open the banmanager gui"   
+   - "&b/bm setlang <language> [player] &8- &7Set player's language"
+   - "&b/ban <player> [reason] &8- &7Ban a player with a optional reason"
+   - "&b/tempban <player> <duration> [reason] &8- &7Tempban a player with a optional reason"
+   - "&b/unban <player> &8- &7Unban a player"
+   3: 
+   - "&7&m--------&7[&b&lBanManager &4(3/3)&7]&7&m--------"
+   - "&b/kick <player> [reason] &8- &7Kick a player with a optional reason"
+   - "&b/mute <player> [reason] &8- &7Mute a player with a optional reason"
+   - "&b/tempmute <player> <duration> [reason] &8- &7Tempmute a player with a optional reason"
+   - "&b/unmute <player> &8- &7Unmute a player"
+   - "&b/punish <player> [reason] &8- &7Punish a player with a optional reason"
+   

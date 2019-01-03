@@ -6,7 +6,6 @@ package nz.co.lolnet.james137137.FactionChat;
 
 import nz.co.lolnet.james137137.FactionChat.API.AuthMeAPI;
 import nz.co.lolnet.james137137.FactionChat.API.FactionChatAPI;
-import nz.co.lolnet.james137137.FactionChat.API.BanManagerAPI;
 import nz.co.lolnet.james137137.FactionChat.API.EssentialsAPI;
 import java.io.File;
 import java.io.IOException;
@@ -46,7 +45,6 @@ public class FactionChat extends JavaPlugin {
     public static boolean FactionsEnable;
     boolean oneOffBroadcast;
     public static FactionsAPI factionsAPI;
-    public static BanManagerAPI banManagerAPI;
 
     @Override
     public void onEnable() {
@@ -81,16 +79,6 @@ public class FactionChat extends JavaPlugin {
         new AuthMeAPI(this.getServer().getPluginManager().getPlugin("AuthMe") != null);
         if (this.getServer().getPluginManager().getPlugin("mcMMO") != null) {
             getServer().getPluginManager().registerEvents(new McMMOAPI(this), this);
-        }
-        Plugin BanManager = this.getServer().getPluginManager().getPlugin("BanManager");
-        if (BanManager != null && BanManager.isEnabled()) {
-            if (Double.parseDouble(BanManager.getDescription().getVersion().substring(0, 2)) >= 4.0) {
-                Config.banManagerEnabled = true;
-                banManagerAPI = new BanManagerAPI(plugin);
-            } else {
-                log.info("[FactionChat] BanManager Version is not 4.0 or above. Unable to support. (please update)");
-            }
-
         }
 
         if (FactionsEnable) {

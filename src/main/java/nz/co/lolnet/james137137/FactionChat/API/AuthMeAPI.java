@@ -28,11 +28,7 @@ public class AuthMeAPI {
     private static boolean isLoggedIn(Player player) {
         if (enable) {
             boolean result = false;
-            try {
-                result = fr.xephi.authme.api.NewAPI.getInstance().isAuthenticated(player);
-            } catch (Exception e) {
-                result = fr.xephi.authme.api.API.isAuthenticated(player);
-            }
+            result = fr.xephi.authme.api.v3.AuthMeApi.getInstance().isAuthenticated(player);
             return result;
         }
         return true;

@@ -1,0 +1,27 @@
+name: BanManager
+main: org.cryptical.banmanager.Core
+version: 1.0.2
+author: CrypticalDevs
+authors: [PaulTDD]
+description: BanManager - CrypticalDevs
+commands:
+    banmanager:
+      description: Banmanager command
+      usage: /test
+      aliases: [bmanager, bm]
+    ban:
+      description: Ban a player
+    tempban:
+      description: Tempban a player
+    unban:
+      description: Unban a player
+    mute:
+      description: Mute a player
+    tempmute:
+      description: Tempmute a player
+    unmute:
+      description: Unmute a player
+    kick:
+      description: Kick a player
+    punish:
+      description: Punish a player
