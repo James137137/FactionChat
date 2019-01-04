@@ -32,6 +32,7 @@ public class VaultChat implements PrefixAndSuffix {
 
     @Override
     public String getPrefix(Player player) {
+        if (chat == null || player == null) return "";
         return chat.getPlayerPrefix(player);
     }
 
