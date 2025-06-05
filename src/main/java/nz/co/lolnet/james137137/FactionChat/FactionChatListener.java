@@ -146,10 +146,11 @@ public class FactionChatListener implements Listener {
         if (!chatmode.equalsIgnoreCase("PUBLIC")) {
             if (Config.limitWorldsChat) {
                 if (Config.limitWorldsChatDisableOther && Config.limitWorldsChatDisableReceive) {
-                    for (Player recipient : recipients) {
-                        if (!Config.limitWorldsChatWorlds.contains(recipient.getWorld().getName()))
-                        {
-                            recipients.remove(recipient);
+                    Iterator<Player> itr = recipients.iterator();
+                    while (itr.hasNext()) {
+                        Player recipient = itr.next();
+                        if (!Config.limitWorldsChatWorlds.contains(recipient.getWorld().getName())) {
+                            itr.remove();
                         }
                     }
                 }
