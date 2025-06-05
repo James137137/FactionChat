@@ -8,6 +8,7 @@ package nz.co.lolnet.james137137.FactionChat.API.Event;
 import java.util.Set;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
+import nz.co.lolnet.james137137.FactionChat.ChatModeType;
 import org.bukkit.event.Cancellable;
 import org.bukkit.event.HandlerList;
 import org.bukkit.event.player.PlayerEvent;
@@ -21,7 +22,7 @@ public class FactionChatPlayerChatEvent extends PlayerEvent implements Cancellab
     private static final HandlerList handlers = new HandlerList();
     private boolean cancel = false;
     Player player;
-    private String chatMode;
+    private ChatModeType chatMode;
     private String message;
     Set<Player> recipients;
 
@@ -31,7 +32,7 @@ public class FactionChatPlayerChatEvent extends PlayerEvent implements Cancellab
     }
     
 
-    public FactionChatPlayerChatEvent(Player talkingPlayer, String chatmode, String msg, Set<Player> recipients) {
+    public FactionChatPlayerChatEvent(Player talkingPlayer, ChatModeType chatmode, String msg, Set<Player> recipients) {
         super(talkingPlayer);
         this.player = talkingPlayer;
         this.chatMode = chatmode;
@@ -58,7 +59,7 @@ public class FactionChatPlayerChatEvent extends PlayerEvent implements Cancellab
         cancel = bln;
     }
 
-    public String getChatMode() {
+    public ChatModeType getChatMode() {
         return chatMode;
     }
 
@@ -74,7 +75,7 @@ public class FactionChatPlayerChatEvent extends PlayerEvent implements Cancellab
         return recipients;
     }
 
-    public void setChatMode(String chatMode) {
+    public void setChatMode(ChatModeType chatMode) {
         this.chatMode = chatMode;
     }
 

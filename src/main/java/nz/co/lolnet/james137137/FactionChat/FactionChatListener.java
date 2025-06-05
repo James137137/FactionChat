@@ -6,6 +6,7 @@ import java.util.Objects;
 import java.util.Set;
 import java.util.logging.Logger;
 import nz.co.lolnet.james137137.FactionChat.API.Event.FactionChatPlayerChatEvent;
+import nz.co.lolnet.james137137.FactionChat.ChatModeType;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.configuration.file.FileConfiguration;
@@ -134,16 +135,16 @@ public class FactionChatListener implements Listener {
     private boolean onChat(Player talkingPlayer, String msg, Set<Player> recipients) {
         boolean success = false;
         
-        String chatmode = ChatMode.getChatMode(talkingPlayer);
+        ChatModeType chatmode = ChatMode.getChatMode(talkingPlayer);
         
-        FactionChatPlayerChatEvent event = new FactionChatPlayerChatEvent(talkingPlayer,chatmode,msg,recipients);
+        FactionChatPlayerChatEvent event = new FactionChatPlayerChatEvent(talkingPlayer, chatmode, msg, recipients);
         plugin.getServer().getPluginManager().callEvent(event);
         if (event.isCancelled())
         {
             return false; //let other plugins decide to cancel or not
         }
         
-        if (!chatmode.equalsIgnoreCase("PUBLIC")) {
+        if (chatmode != ChatModeType.PUBLIC) {
             if (Config.limitWorldsChat) {
                 if (Config.limitWorldsChatDisableOther && Config.limitWorldsChatDisableReceive) {
                     Iterator<Player> itr = recipients.iterator();
@@ -157,32 +158,32 @@ public class FactionChatListener implements Listener {
             }
             boolean isFactionChat = false;
             if (plugin.FactionsEnable) {
-                if (chatmode.equalsIgnoreCase("ALLY&TRUCE")) {
+                if (chatmode == ChatModeType.ALLY_TRUCE) {
                     channel.fChatAT(talkingPlayer, msg);
                     success = true;
                     isFactionChat = true;
 
-                } else if (chatmode.equalsIgnoreCase("ENEMY")) {
+                } else if (chatmode == ChatModeType.ENEMY) {
                     channel.fChatE(talkingPlayer, msg);
                     success = true;
                     isFactionChat = true;
-                } else if (chatmode.equalsIgnoreCase("FACTION")) {
+                } else if (chatmode == ChatModeType.FACTION) {
                     channel.fChatF(talkingPlayer, msg);
                     success = true;
                     isFactionChat = true;
-                } else if (chatmode.equalsIgnoreCase("ALLY")) {
+                } else if (chatmode == ChatModeType.ALLY) {
                     channel.fChatA(talkingPlayer, msg);
                     success = true;
                     isFactionChat = true;
-                } else if (chatmode.equalsIgnoreCase("TRUCE")) {
+                } else if (chatmode == ChatModeType.TRUCE) {
                     channel.fChatTruce(talkingPlayer, msg);
                     success = true;
                     isFactionChat = true;
-                } else if (chatmode.equalsIgnoreCase("LEADER")) {
+                } else if (chatmode == ChatModeType.LEADER) {
                     channel.fChatLeader(talkingPlayer, msg);
                     success = true;
                     isFactionChat = true;
-                } else if (chatmode.equalsIgnoreCase("OFFICER")) {
+                } else if (chatmode == ChatModeType.OFFICER) {
                     channel.fChatOfficer(talkingPlayer, msg);
                     success = true;
                     isFactionChat = true;
@@ -195,25 +196,25 @@ public class FactionChatListener implements Listener {
 
             }
 
-            if (chatmode.equalsIgnoreCase("VIP")) {
+            if (chatmode == ChatModeType.VIP) {
                 otherChannel.VIPChat(talkingPlayer, msg);
                 success = true;
-            } else if (chatmode.equalsIgnoreCase("UserAssistant")) {
+            } else if (chatmode == ChatModeType.USERASSISTANT) {
                 otherChannel.userAssistantChat(talkingPlayer, msg);
                 success = true;
-            } else if (chatmode.equalsIgnoreCase("JrMOD")) {
+            } else if (chatmode == ChatModeType.JRMOD) {
                 otherChannel.jrModChat(talkingPlayer, msg);
                 success = true;
-            } else if (chatmode.equalsIgnoreCase("MOD")) {
+            } else if (chatmode == ChatModeType.MOD) {
                 otherChannel.modChat(talkingPlayer, msg);
                 success = true;
-            } else if (chatmode.equalsIgnoreCase("SrMOD")) {
+            } else if (chatmode == ChatModeType.SRMOD) {
                 otherChannel.SrModChat(talkingPlayer, msg);
                 success = true;
-            } else if (chatmode.equalsIgnoreCase("JrAdmin")) {
+            } else if (chatmode == ChatModeType.JRADMIN) {
                 otherChannel.JrAdminChat(talkingPlayer, msg);
                 success = true;
-            } else if (chatmode.equalsIgnoreCase("ADMIN")) {
+            } else if (chatmode == ChatModeType.ADMIN) {
                 otherChannel.adminChat(talkingPlayer, msg);
                 success = true;
             }
