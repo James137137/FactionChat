@@ -7,6 +7,7 @@ package nz.co.lolnet.james137137.FactionChat.API;
 
 import nz.co.lolnet.james137137.FactionChat.API.Event.FactionChatPlayerChatEvent;
 import nz.co.lolnet.james137137.FactionChat.FactionChat;
+import nz.co.lolnet.james137137.FactionChat.ChatModeType;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -26,7 +27,7 @@ public class BanManagerAPI implements Listener {
 
     @EventHandler
     public void onPlayerChat(FactionChatPlayerChatEvent event) {
-        if (!event.getChatMode().equalsIgnoreCase("public") && isMuted(event.getPlayer())) {
+        if (event.getChatMode() != ChatModeType.PUBLIC && isMuted(event.getPlayer())) {
             event.setCancelled(true);
         }
     }

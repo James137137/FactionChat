@@ -9,6 +9,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import nz.co.lolnet.james137137.FactionChat.API.chat.ChatFilter;
 import nz.co.lolnet.james137137.FactionChat.ChatMode;
+import nz.co.lolnet.james137137.FactionChat.ChatModeType;
 import nz.co.lolnet.james137137.FactionChat.FactionChat;
 import nz.co.lolnet.james137137.FactionChat.PrefixAndSuffix.PrefixAndSuffix;
 import org.bukkit.Location;
@@ -99,7 +100,7 @@ public class FactionChatAPI {
         return factionChat.factionsAPI.getFactionName(player);
     }
 
-    public static String getChatMode(Player player) {
+    public static ChatModeType getChatMode(Player player) {
         return ChatMode.getChatMode(player);
     }
 
@@ -109,15 +110,15 @@ public class FactionChatAPI {
 
     public static boolean isFactionChatMessage(org.bukkit.event.player.AsyncPlayerChatEvent event) {
 
-        String chatmode = ChatMode.getChatMode(event.getPlayer());
-        return !chatmode.equalsIgnoreCase("PUBLIC");
+        ChatModeType chatmode = ChatMode.getChatMode(event.getPlayer());
+        return chatmode != ChatModeType.PUBLIC;
     }
 
     @Deprecated
     public static boolean isFactionChatMessage(org.bukkit.event.player.PlayerChatEvent event) {
 
-        String chatmode = ChatMode.getChatMode(event.getPlayer());
-        return !chatmode.equalsIgnoreCase("PUBLIC");
+        ChatModeType chatmode = ChatMode.getChatMode(event.getPlayer());
+        return chatmode != ChatModeType.PUBLIC;
     }
 
     public static double getDistance(Player playerA, Player playerB) {

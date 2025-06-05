@@ -4,6 +4,7 @@ import nz.co.lolnet.james137137.FactionChat.API.ChatFormat;
 import nz.co.lolnet.james137137.FactionChat.API.FactionChatAPI;
 import nz.co.lolnet.james137137.FactionChat.API.EssentialsAPI;
 import nz.co.lolnet.james137137.FactionChat.FactionsAPI.MyRel;
+import nz.co.lolnet.james137137.FactionChat.ChatModeType;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
@@ -331,7 +332,7 @@ public class ChatChannel {
 
             if (!ChatMode.IsPlayerMutedTarget(myPlayer, player) && (relationship == MyRel.ENEMY
                     || sSenderFaction.equalsIgnoreCase(FactionChat.factionsAPI.getFactionName(player)) || FactionChat.factionsAPI.getFactionName(myPlayer).equalsIgnoreCase(sSenderFaction))
-                    && myPlayer.hasPermission("FactionChat.EnemyChat") && !FactionChat.factionsAPI.isFactionless(myPlayer) && ChatMode.getChatMode(myPlayer).equals("ENEMY")) {
+                    && myPlayer.hasPermission("FactionChat.EnemyChat") && !FactionChat.factionsAPI.isFactionless(myPlayer) && ChatMode.getChatMode(myPlayer) == ChatModeType.ENEMY) {
                 if (FactionChatAPI.canReceiveChat(myPlayer)) {
                     myPlayer.sendMessage(normalMessage);
                 }
@@ -484,7 +485,7 @@ public class ChatChannel {
 
         for (Player myPlayer : Bukkit.getServer().getOnlinePlayers()) {
 
-            if (!ChatMode.IsPlayerMutedTarget(myPlayer, player) && FactionChatAPI.getPlayerRank(player).equals(Config.LeaderRank) && ChatMode.getChatMode(myPlayer).equals("LEADER")) {
+            if (!ChatMode.IsPlayerMutedTarget(myPlayer, player) && FactionChatAPI.getPlayerRank(player).equals(Config.LeaderRank) && ChatMode.getChatMode(myPlayer) == ChatModeType.LEADER) {
                 if (FactionChatAPI.canReceiveChat(myPlayer)) {
                     myPlayer.sendMessage(normalMessage);
                 }
@@ -544,7 +545,7 @@ public class ChatChannel {
         for (Player myPlayer : Bukkit.getServer().getOnlinePlayers()) {
 
             if (!ChatMode.IsPlayerMutedTarget(myPlayer, player) && (FactionChatAPI.getPlayerRank(player).equals(Config.LeaderRank)
-                    || FactionChatAPI.getPlayerRank(player).equals(Config.OfficerRank)) && ChatMode.getChatMode(myPlayer).equals("OFFICER")) {
+                    || FactionChatAPI.getPlayerRank(player).equals(Config.OfficerRank)) && ChatMode.getChatMode(myPlayer) == ChatModeType.OFFICER) {
                 if (FactionChatAPI.canReceiveChat(myPlayer)) {
                     myPlayer.sendMessage(normalMessage);
                 }
